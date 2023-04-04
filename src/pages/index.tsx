@@ -5,7 +5,7 @@ import RegistrationPage from "./registration/registration.page";
 const Routing = () => {
   return (
     <Routes>
-      <Route path="/" element={<RegistrationPage />}></Route>
+      <Route path="/" element={<RegistrationPage />} />
     </Routes>
   );
 };
