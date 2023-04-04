@@ -1,0 +1,21 @@
+1. React
+2. Typescript
+3. Styled com.
+4. Redux toolkit / RTK query
+5. React-router-dom
+
+Misha: 
+1. Read: 
+    - Github
+    - Styled-components
+    - React-router-dom
+    - Typescript
+    - Redux toolkit -> RTK with typescript;
+
+2. 1st page - registration;
+    - Forms - sign in / sing up;
+    - 
+
+Andrey: 
+1. Set lybraries - and typescript settings;
+2. Server- registration
