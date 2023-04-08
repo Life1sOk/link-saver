@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
-import LogInPage from "./log-in/log-in.component";
-import RegistrationPage from "./registration/registration.component";
+import LogInPage from "./log-in/log-in";
+import RegistrationPage from "./registration/registration";
 
 const Routing = () => {
   return (
