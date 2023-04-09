@@ -8,4 +8,8 @@ export const ButtonStyle = styled.button`
   border-radius: 5px;
   background-color: green;
   cursor: pointer;
+
+  &:active {
+    opacity: 0.9;
+  }
 `;
