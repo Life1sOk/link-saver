@@ -4,9 +4,15 @@ import { ITopic } from "../../interfaces/topic";
 
 import { TopicStyle } from "./topic.style";
 
-const Topic = ({ data }: { data: ITopic }) => {
+interface ITopicActive {
+  data: ITopic;
+  activeHandler: (arg: ITopic) => void;
+  isActive: boolean;
+}
+
+const Topic = ({ data, activeHandler, isActive }: ITopicActive) => {
   return (
-    <TopicStyle>
+    <TopicStyle onClick={() => activeHandler(data)} isActive={isActive}>
       <AiFillFolderOpen />
       <p>{data.topic_title}</p>
     </TopicStyle>

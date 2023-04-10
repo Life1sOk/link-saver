@@ -17,8 +17,8 @@ Misha:
     - 
 
 Andrey: 
-1(a). Chceck rtk query cashing;
-1(b).onClick topic - send current topic to redux slice;
-2. Groups & Generics block/section will listen redux slice (1.);
+1(a). Chceck rtk query cashing; -?
+1(b).onClick topic - send current topic to redux slice; -done
+2. Groups & Generics block/section will listen redux slice (1.); -done
     -- After we get groups -> groups block should fetch links;
 3. onChange (1.) fetch data from the server (GET);

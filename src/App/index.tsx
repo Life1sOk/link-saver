@@ -4,7 +4,7 @@ import Routing from "../pages";
 
 // Redux toolkit
 import { Provider } from "react-redux";
-import { store } from "./store";
+import { store } from "./store/store";
 
 import "./index.css";
 

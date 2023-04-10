@@ -1,5 +1,9 @@
+import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
+import { activeTopic } from "../../App/store/slices/active-topic.slice";
+
 import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 
+import { ITopic } from "../../interfaces/topic";
 import Topic from "../../components/topic/topic.component";
 
 import { TopicsStyle } from "./topics.style";
@@ -14,13 +18,24 @@ import { TopicsStyle } from "./topics.style";
 */
 
 const TopicsBlock = () => {
+  const dispatch = useAppDispatch();
+  const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
+
   // RTK query hook for fetching data from the server;
   const { data, error, isLoading } = useGetTopicsByUserIdQuery(2);
+
+  // Add active topic to Redux toolkit
+  const activeTopicHandler = (topic: ITopic) => dispatch(activeTopic(topic));
 
   return (
     <TopicsStyle>
       {data?.map((topic) => (
-        <Topic data={topic} key={topic.id} />
+        <Topic
+          data={topic}
+          key={topic.id}
+          activeHandler={activeTopicHandler}
+          isActive={activeTopicId === topic.id}
+        />
       ))}
     </TopicsStyle>
   );

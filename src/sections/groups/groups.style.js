@@ -5,9 +5,9 @@ export const GroupsStyle = styled.main`
   height: 100%;
 
   border: 1px solid rebeccapurple;
+  padding: 22px;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
 `;
