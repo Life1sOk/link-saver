@@ -1,4 +1,4 @@
-import { AiFillFolderOpen } from "react-icons/ai";
+import { icons } from "../../utils/react-icons";
 
 import { ITopic } from "../../interfaces/topic";
 
@@ -13,7 +13,7 @@ interface ITopicActive {
 const Topic = ({ data, activeHandler, isActive }: ITopicActive) => {
   return (
     <TopicStyle onClick={() => activeHandler(data)} isActive={isActive}>
-      <AiFillFolderOpen />
+      {icons.topicOpen}
       <p>{data.topic_title}</p>
     </TopicStyle>
   );

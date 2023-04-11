@@ -1,11 +1,16 @@
-import { GroupStyle } from "./group.style";
+import { icons } from "../../utils/react-icons";
 
-const GroupBlock = () => {
-  /* 
-    Group for links -> 
-    1) Create RTK query fetch to the server 
-*/
-  return <GroupStyle></GroupStyle>;
+import { GroupStyle, GroupHeader, Title } from "./group.style";
+
+const GroupBlock = ({ title }: { title: string }) => {
+  return (
+    <GroupStyle>
+      <GroupHeader>
+        <Title>{title}</Title>
+        {icons.dots}
+      </GroupHeader>
+    </GroupStyle>
+  );
 };
 
 export default GroupBlock;

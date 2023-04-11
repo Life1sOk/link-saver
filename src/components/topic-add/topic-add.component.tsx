@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-import { AiFillFolderAdd } from "react-icons/ai";
+import { icons } from "../../utils/react-icons";
 
 import { ITopicAdd } from "../../interfaces/topic";
 
@@ -10,7 +10,7 @@ const TopicAdd = forwardRef<HTMLInputElement, ITopicAdd>(
   ({ acceptHandler, closeHandler }, ref) => {
     return (
       <TopicAddStyle>
-        <AiFillFolderAdd />
+        {icons.topicAdd}
         <input type="text" ref={ref} />
         <button onClick={acceptHandler}>Y</button>
         <button onClick={closeHandler}>X</button>

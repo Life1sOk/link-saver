@@ -6,6 +6,7 @@ import actionWindowReducer from "./slices/action-window.slice";
 
 import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
+import { groupsApi } from "./api/groups";
 
 export const store = configureStore({
   reducer: {
@@ -14,11 +15,16 @@ export const store = configureStore({
     actionWindow: actionWindowReducer,
     [topicsApi.reducerPath]: topicsApi.reducer,
     [linksApi.reducerPath]: linksApi.reducer,
+    [groupsApi.reducerPath]: groupsApi.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(topicsApi.middleware, linksApi.middleware),
+    getDefaultMiddleware().concat(
+      topicsApi.middleware,
+      linksApi.middleware,
+      groupsApi.middleware
+    ),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

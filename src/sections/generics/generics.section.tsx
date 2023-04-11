@@ -3,6 +3,7 @@ import { useAppSelector } from "../../App/store/hooks";
 import { useGetGenericLinksByTopicIdQuery } from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
+import Link from "../../components/link/link.component";
 
 import { GenericsStyle } from "./generics.style";
 
@@ -12,7 +13,7 @@ const GenericsSection = () => {
     (state) => state.activeTopic.current
   );
 
-  const { data, error, isLoading } = useGetGenericLinksByTopicIdQuery(id);
+  const { data, error, isLoading } = useGetGenericLinksByTopicIdQuery(2);
 
   // console.log(activeTopic, "generics");
   console.log(data, "check");
@@ -22,6 +23,9 @@ const GenericsSection = () => {
       <LinkAddBlock />
       <GenericsStyle>
         <h1>Link's {topic_title}</h1>
+        {data?.map((current) => (
+          <Link data={current} key={current.id} />
+        ))}
       </GenericsStyle>
     </>
   );
