@@ -1,8 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
+import type { PayloadAction } from "@reduxjs/toolkit";
 
 const initialState = {
-  group: false,
-  link: false,
+  isAddGroup: false,
+  isAddLink: false,
+  activeGroup: {
+    isActive: false,
+    title: "",
+  },
+  activeLink: {
+    id: -1,
+    link_title: "",
+    link_url: "",
+  },
 };
 
 // dont use this slice;
@@ -11,15 +21,43 @@ export const actionWindowSlice = createSlice({
   initialState,
   reducers: {
     toggleGroupWindowHandler: (state) => {
-      state.group = !state.group;
+      state.isAddGroup = !state.isAddGroup;
     },
     toggleLinkWindowHandler: (state) => {
-      state.link = !state.link;
+      if (!state.isAddLink) {
+        state.isAddLink = !state.isAddLink;
+        state.activeLink = { id: -1, link_title: "", link_url: "" };
+      } else {
+        state.isAddLink = !state.isAddLink;
+      }
+    },
+    activateGroup: (state, { payload }: PayloadAction<{ title: string }>) => {
+      state.activeGroup = {
+        isActive: true,
+        title: payload.title,
+      };
+    },
+    deactivateGroup: (state) => {
+      state.activeGroup = { isActive: false, title: "" };
+    },
+    activateLink: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{ id: number; link_title: string; link_url: string }>
+    ) => {
+      state.activeLink = payload;
+      state.isAddLink = true;
     },
   },
 });
 
-export const { toggleGroupWindowHandler, toggleLinkWindowHandler } =
-  actionWindowSlice.actions;
+export const {
+  toggleGroupWindowHandler,
+  toggleLinkWindowHandler,
+  activateGroup,
+  deactivateGroup,
+  activateLink,
+} = actionWindowSlice.actions;
 
 export default actionWindowSlice.reducer;

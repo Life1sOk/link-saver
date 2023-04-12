@@ -9,11 +9,11 @@ import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
 import BlackWindowModal from "../../modals/black-window/black-window.modal";
-import { GroupAddStyle, GroupWindow, GroupButtons } from "./group-add.style";
+import { GroupAddStyle, GroupButtons } from "./group-add.style";
 
 const GroupAddBlock = () => {
   const dispatch = useAppDispatch();
-  const isOpen = useAppSelector((state) => state.actionWindow.group);
+  const isOpen = useAppSelector((state) => state.actionWindow.isAddGroup);
   const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
 
   const [addGroupApi, result] = useAddGroupMutation();
@@ -40,15 +40,15 @@ const GroupAddBlock = () => {
   };
 
   return (
-    <BlackWindowModal isOpen={isOpen} actionHandler={closeGroupWindow}>
+    <BlackWindowModal isOpen={isOpen}>
       <GroupAddStyle
         onSubmit={addGroupHandler}
         onClick={(e) => e.stopPropagation()}
       >
         <h1>Add new group</h1>
         <Input label="Group Title:" type="text" required ref={groupTitleRef} />
-        <GroupWindow>Drop box</GroupWindow>
         <GroupButtons>
+          <Button name="Cancel" type="button" actionHandle={closeGroupWindow} />
           <Button name="Add/send group" type="submit" />
         </GroupButtons>
       </GroupAddStyle>

@@ -1,7 +1,5 @@
-import { useEffect } from "react";
-
 import { useAppDispatch } from "../../App/store/hooks";
-import { activateGroup } from "../../App/store/slices/active-group.slice";
+import { activateGroup } from "../../App/store/slices/action-window.slice";
 
 import { useGetGroupsLinksByTitleQuery } from "../../App/store/api/links";
 
@@ -9,6 +7,7 @@ import { icons } from "../../utils/react-icons";
 
 import Link from "../../components/link/link.component";
 
+import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import {
   GroupStyle,
   GroupHeader,
@@ -36,12 +35,14 @@ const GroupBlock = ({ title }: { title: string }) => {
       <GroupHeader>
         <Title>{title}</Title>
         <IconWrapper onClick={activateGroupWindowHandler}>
-          {icons.dots}
+          {icons.open}
         </IconWrapper>
       </GroupHeader>
       <LinksPlace>
         {data?.map((link) => (
-          <Link key={link.id} data={link} />
+          <DotsLinkModal data={link} key={link.id} isActive>
+            <Link data={link} />
+          </DotsLinkModal>
         ))}
       </LinksPlace>
     </GroupStyle>

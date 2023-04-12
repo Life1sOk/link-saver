@@ -38,6 +38,25 @@ export const linksApi = createApi({
       }),
       invalidatesTags: ["Links", "Groups"],
     }),
+    changeLinkTitleOrUrl: builder.mutation<
+      void,
+      { id: number; link_title?: string; link_url?: string }
+    >({
+      query: (body) => ({
+        url: "/change",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Links", "Groups"],
+    }),
+    deleteLinkSnapshot: builder.mutation<void, { id: number }>({
+      query: (body) => ({
+        url: "/delete",
+        method: "DELETE",
+        body,
+      }),
+      invalidatesTags: ["Links", "Groups"],
+    }),
   }),
 });
 
@@ -47,5 +66,7 @@ export const {
   useGetGenericLinksByUserIdQuery,
   useAddGenericLinkMutation,
   useGetGroupsLinksByTitleQuery,
+  useChangeLinkTitleOrUrlMutation,
   useChangeGenericLinkGroupMutation,
+  useDeleteLinkSnapshotMutation,
 } = linksApi;

@@ -1,5 +1,5 @@
 import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
-import { deactivateGroup } from "../../App/store/slices/active-group.slice";
+import { deactivateGroup } from "../../App/store/slices/action-window.slice";
 
 import {
   useGetGroupsLinksByTitleQuery,
@@ -14,7 +14,7 @@ import { GroupUpStyle, LinkWindow, ButtonsWrapper } from "./group-up.style";
 
 const GroupUpBlock = () => {
   const dispatch = useAppDispatch();
-  const activeGroup = useAppSelector((state) => state.activeGroup.current);
+  const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
 
   const [changeGroupLink, result] = useChangeGenericLinkGroupMutation();
   const { data, error, isLoading } = useGetGroupsLinksByTitleQuery({
@@ -28,10 +28,7 @@ const GroupUpBlock = () => {
     changeGroupLink({ id: link_id, group_title: null });
 
   return (
-    <BlackWindowModal
-      isOpen={activeGroup.isActive}
-      actionHandler={deactivateGroupHandler}
-    >
+    <BlackWindowModal isOpen={activeGroup.isActive}>
       <GroupUpStyle onClick={(e) => e.stopPropagation()}>
         <h3>{activeGroup.title}</h3>
         <LinkWindow>
@@ -45,6 +42,7 @@ const GroupUpBlock = () => {
           ))}
         </LinkWindow>
         <ButtonsWrapper>
+          <Button name="Cancel" actionHandle={deactivateGroupHandler} />
           <Button name="Delete" />
           <Button name="Done" />
         </ButtonsWrapper>
