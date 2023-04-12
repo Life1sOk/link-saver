@@ -16,7 +16,7 @@ import {
   LinksPlace,
 } from "./group.style";
 
-const GroupBlock = ({ title }: { title: string }) => {
+const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
   const dispatch = useAppDispatch();
 
   const { data, error, isLoading } = useGetGroupsLinksByTitleQuery({
@@ -26,7 +26,7 @@ const GroupBlock = ({ title }: { title: string }) => {
 
   const activateGroupWindowHandler = () => {
     if (data) {
-      dispatch(activateGroup({ title }));
+      dispatch(activateGroup({ title, id: groupId }));
     }
   };
 

@@ -8,7 +8,7 @@ export const GenericsStyle = styled.aside`
   z-index: 11;
 
   width: 100%;
-  max-width: 312px;
+  max-width: 255px;
   height: 100%;
 
   background-color: rgba(245, 129, 39, 0.8);

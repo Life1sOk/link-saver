@@ -6,6 +6,7 @@ const initialState = {
   isAddLink: false,
   activeGroup: {
     isActive: false,
+    id: -1,
     title: "",
   },
   activeLink: {
@@ -31,14 +32,18 @@ export const actionWindowSlice = createSlice({
         state.isAddLink = !state.isAddLink;
       }
     },
-    activateGroup: (state, { payload }: PayloadAction<{ title: string }>) => {
+    activateGroup: (
+      state,
+      { payload }: PayloadAction<{ title: string; id: number }>
+    ) => {
       state.activeGroup = {
         isActive: true,
+        id: payload.id,
         title: payload.title,
       };
     },
     deactivateGroup: (state) => {
-      state.activeGroup = { isActive: false, title: "" };
+      state.activeGroup = { isActive: false, id: -1, title: "" };
     },
     activateLink: (
       state,

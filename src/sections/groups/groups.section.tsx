@@ -26,7 +26,11 @@ const GroupsSection = () => {
         <ActionBlock />
         <GroupsWrapper>
           {data?.map((group) => (
-            <GroupBlock key={group.id} title={group.group_title} />
+            <GroupBlock
+              key={group.id}
+              groupId={group.id!}
+              title={group.group_title}
+            />
           ))}
         </GroupsWrapper>
       </GroupsStyle>

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const GroupUpStyle = styled.div`
+  position: relative;
+
   width: 50%;
   height: 50%;
 
