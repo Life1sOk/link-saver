@@ -8,8 +8,8 @@ export const linksApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/links" }),
   tagTypes: ["Links"],
   endpoints: (builder) => ({
-    getGenericLinksByTopicId: builder.query<IShortLink[], number>({
-      query: (topic_id) => ({ url: `generic/${topic_id}` }),
+    getGenericLinksByUserId: builder.query<IShortLink[], number>({
+      query: (user_id) => ({ url: `generic/${user_id}` }),
       providesTags: ["Links"],
     }),
     addGenericLink: builder.mutation<void, ILink>({
@@ -25,5 +25,5 @@ export const linksApi = createApi({
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetGenericLinksByTopicIdQuery, useAddGenericLinkMutation } =
+export const { useGetGenericLinksByUserIdQuery, useAddGenericLinkMutation } =
   linksApi;

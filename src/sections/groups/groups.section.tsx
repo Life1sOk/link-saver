@@ -14,7 +14,7 @@ const GroupsSection = () => {
     (state) => state.activeTopic.current
   );
 
-  const { data, error, isLoading } = useGetGroupsByTopicIdQuery(2);
+  const { data, error, isLoading } = useGetGroupsByTopicIdQuery(id);
 
   console.log(data, "groups");
 

@@ -1,6 +1,6 @@
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGetGenericLinksByTopicIdQuery } from "../../App/store/api/links";
+import { useGetGenericLinksByUserIdQuery } from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import Link from "../../components/link/link.component";
@@ -13,7 +13,7 @@ const GenericsSection = () => {
     (state) => state.activeTopic.current
   );
 
-  const { data, error, isLoading } = useGetGenericLinksByTopicIdQuery(2);
+  const { data, error, isLoading } = useGetGenericLinksByUserIdQuery(17);
 
   // console.log(activeTopic, "generics");
   console.log(data, "check");

@@ -1,5 +1,5 @@
 export interface ILink {
-  topic_id: number;
+  user_id: number;
   group_title?: string | null;
   link_title: string;
   link_url: string;

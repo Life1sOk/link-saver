@@ -14,7 +14,6 @@ import { LinkAddStyle, LinkButtons } from "./link-add.style";
 const LinkAddBlock = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.actionWindow.link);
-  const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
 
   const [addGenericLinkApi, result] = useAddGenericLinkMutation();
 
@@ -35,7 +34,7 @@ const LinkAddBlock = () => {
 
     //Prepare object
     const link = {
-      topic_id: activeTopicId,
+      user_id: 17,
       link_title: title,
       link_url: url,
     };
