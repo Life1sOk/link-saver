@@ -1,6 +1,9 @@
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGetGenericLinksByUserIdQuery } from "../../App/store/api/links";
+import {
+  useGetGenericLinksByUserIdQuery,
+  useChangeGenericLinkGroupMutation,
+} from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import Link from "../../components/link/link.component";
@@ -8,23 +11,26 @@ import Link from "../../components/link/link.component";
 import { GenericsStyle } from "./generics.style";
 
 const GenericsSection = () => {
-  // Listening 'active topic' on change it re-render;
-  const { id, topic_title } = useAppSelector(
-    (state) => state.activeTopic.current
-  );
+  const activeGroup = useAppSelector((state) => state.activeGroup.current);
 
   const { data, error, isLoading } = useGetGenericLinksByUserIdQuery(17);
+  const [changeGroupLink, result] = useChangeGenericLinkGroupMutation();
 
-  // console.log(activeTopic, "generics");
-  console.log(data, "check");
+  const changeGroupLinkHandler = (link_id: number) =>
+    changeGroupLink({ id: link_id, group_title: activeGroup.title });
 
   return (
     <>
       <LinkAddBlock />
       <GenericsStyle>
-        <h1>Link's {topic_title}</h1>
+        <h1>Generic Links</h1>
         {data?.map((current) => (
-          <Link data={current} key={current.id} />
+          <Link
+            data={current}
+            key={current.id}
+            type={activeGroup.isActive ? "transferGroup" : null}
+            arrowActionHandler={changeGroupLinkHandler}
+          />
         ))}
       </GenericsStyle>
     </>

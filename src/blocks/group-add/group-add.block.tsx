@@ -8,7 +8,7 @@ import { useAddGroupMutation } from "../../App/store/api/groups";
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
-import { BlackWindow } from "../block.style";
+import BlackWindowModal from "../../modals/black-window/black-window.modal";
 import { GroupAddStyle, GroupWindow, GroupButtons } from "./group-add.style";
 
 const GroupAddBlock = () => {
@@ -40,26 +40,19 @@ const GroupAddBlock = () => {
   };
 
   return (
-    <>
-      {isOpen && (
-        <>
-          <BlackWindow onClick={closeGroupWindow} />
-          <GroupAddStyle onSubmit={addGroupHandler}>
-            <h1>Add new group</h1>
-            <Input
-              label="Group Title:"
-              type="text"
-              required
-              ref={groupTitleRef}
-            />
-            <GroupWindow>Drop box</GroupWindow>
-            <GroupButtons>
-              <Button name="Add/send group" type="submit" />
-            </GroupButtons>
-          </GroupAddStyle>
-        </>
-      )}
-    </>
+    <BlackWindowModal isOpen={isOpen} actionHandler={closeGroupWindow}>
+      <GroupAddStyle
+        onSubmit={addGroupHandler}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h1>Add new group</h1>
+        <Input label="Group Title:" type="text" required ref={groupTitleRef} />
+        <GroupWindow>Drop box</GroupWindow>
+        <GroupButtons>
+          <Button name="Add/send group" type="submit" />
+        </GroupButtons>
+      </GroupAddStyle>
+    </BlackWindowModal>
   );
 };
 

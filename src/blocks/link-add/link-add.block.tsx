@@ -8,7 +8,7 @@ import { useAddGenericLinkMutation } from "../../App/store/api/links";
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
-import { BlackWindow } from "../block.style";
+import BlackWindowModal from "../../modals/black-window/black-window.modal";
 import { LinkAddStyle, LinkButtons } from "./link-add.style";
 
 const LinkAddBlock = () => {
@@ -45,21 +45,19 @@ const LinkAddBlock = () => {
   };
 
   return (
-    <>
-      {isOpen && (
-        <>
-          <BlackWindow onClick={closeLinkWindow} />
-          <LinkAddStyle onSubmit={addLinkHandler}>
-            <h1>Add new link:</h1>
-            <Input label="Title:" type="text" ref={titleRef} required />
-            <Input label="URL:" type="text" ref={urlRef} required />
-            <LinkButtons>
-              <Button name="Add/Send link" type="submit" />
-            </LinkButtons>
-          </LinkAddStyle>
-        </>
-      )}
-    </>
+    <BlackWindowModal isOpen={isOpen} actionHandler={closeLinkWindow}>
+      <LinkAddStyle
+        onSubmit={addLinkHandler}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <h1>Add new link:</h1>
+        <Input label="Title:" type="text" ref={titleRef} required />
+        <Input label="URL:" type="text" ref={urlRef} required />
+        <LinkButtons>
+          <Button name="Add/Send link" type="submit" />
+        </LinkButtons>
+      </LinkAddStyle>
+    </BlackWindowModal>
   );
 };
 
