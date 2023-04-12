@@ -5,6 +5,8 @@ import Button from "../../components/button/button.component";
 import { ButtonLine } from "../block.style";
 import { RegistartionForm } from "./registration.style";
 import Input from "../../components/input/input.component";
+import { useRegisterMutation } from "../../App/store/api/registaration";
+
 
 interface ILogin {
   changeBlock: (block: string) => void;
@@ -20,7 +22,34 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   const changeHandler = () => changeBlock("login");
 
   // Запрос на сервер
-  const submitHandler = async (event: React.SyntheticEvent) => {};
+
+  const [registerUser, { data, error, isLoading }] = useRegisterMutation();
+
+  const submitHandler = async (event: React.SyntheticEvent) => {
+  event.preventDefault();
+
+  const firstName = firstNameRef.current?.value;
+  const lastName = lastNameRef.current?.value;
+  const email = emailRef.current?.value;
+  const password = passwordRef.current?.value;
+  const verifyPassword = verifyPasswordRef.current?.value;
+  
+  if (password && verifyPassword) {
+    try {
+      const response = await registerUser({
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        password: password,
+      });
+      alert ("Sucsess!")
+    } catch (error) {
+      alert("Error! The password is different from the verify one.")
+    }
+  }
+};
+
+//короче, тут должно был быть еще код, но я его удалил, закончу завтра
 
   return (
     <RegistartionForm onSubmit={submitHandler}>
