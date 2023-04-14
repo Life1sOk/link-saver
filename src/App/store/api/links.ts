@@ -14,8 +14,8 @@ export const linksApi = createApi({
       providesTags: ["Links"],
     }),
     getGroupsLinksByTitle: builder.query<IShortLink[], IGroupLink>({
-      query: ({ user_id, group_title }) => ({
-        url: `groups/${user_id}&${group_title}`,
+      query: ({ user_id, group_id }) => ({
+        url: `groups/${user_id}&${group_id}`,
       }),
       providesTags: ["Groups"],
     }),
@@ -27,9 +27,9 @@ export const linksApi = createApi({
       }),
       invalidatesTags: ["Links"],
     }),
-    changeGenericLinkGroup: builder.mutation<
+    changeLinkGroupTitle: builder.mutation<
       void,
-      { id: number; group_title: string | null }
+      { id: number; group_id: number | null }
     >({
       query: (body) => ({
         url: "/change/group",
@@ -67,6 +67,6 @@ export const {
   useAddGenericLinkMutation,
   useGetGroupsLinksByTitleQuery,
   useChangeLinkTitleOrUrlMutation,
-  useChangeGenericLinkGroupMutation,
+  useChangeLinkGroupTitleMutation,
   useDeleteLinkSnapshotMutation,
 } = linksApi;

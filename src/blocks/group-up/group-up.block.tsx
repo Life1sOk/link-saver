@@ -5,7 +5,7 @@ import { deactivateGroup } from "../../App/store/slices/action-window.slice";
 
 import {
   useGetGroupsLinksByTitleQuery,
-  useChangeGenericLinkGroupMutation,
+  useChangeLinkGroupTitleMutation,
 } from "../../App/store/api/links";
 import {
   useChangeGroupMutation,
@@ -27,10 +27,10 @@ const GroupUpBlock = () => {
 
   const titleGroupRef = useRef<HTMLInputElement>(null);
 
-  const [changeGroupLinkApi, result] = useChangeGenericLinkGroupMutation();
+  const [changeGroupLinkApi, result] = useChangeLinkGroupTitleMutation();
   const { data, error, isLoading } = useGetGroupsLinksByTitleQuery({
     user_id: 17,
-    group_title: activeGroup.title,
+    group_id: activeGroup.id,
   });
   const [changeGroupTitleApi] = useChangeGroupMutation();
   const [deleteGroupApi] = useDeleteGroupMutation();
@@ -38,7 +38,7 @@ const GroupUpBlock = () => {
   const deactivateGroupHandler = () => dispatch(deactivateGroup());
 
   const changeGroupLinkHandler = async (link_id: number) =>
-    await changeGroupLinkApi({ id: link_id, group_title: null });
+    await changeGroupLinkApi({ id: link_id, group_id: null });
 
   const doneChangeHandler = async () => {
     let currentTitle = titleGroupRef.current?.value!;
@@ -49,9 +49,7 @@ const GroupUpBlock = () => {
     // Send changes
     await changeGroupTitleApi({
       id: activeGroup.id,
-      user_id: 17,
       new_title: currentTitle,
-      old_title: activeGroup.title,
     });
 
     return deactivateGroupHandler();
@@ -62,7 +60,7 @@ const GroupUpBlock = () => {
     await deleteGroupApi({
       id: activeGroup.id,
       user_id: 17,
-      group_title: activeGroup.title,
+      group_id: activeGroup.id,
     });
 
     setIsSureModal(!isSureModal);

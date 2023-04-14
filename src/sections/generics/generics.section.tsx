@@ -2,7 +2,7 @@ import { useAppSelector } from "../../App/store/hooks";
 
 import {
   useGetGenericLinksByUserIdQuery,
-  useChangeGenericLinkGroupMutation,
+  useChangeLinkGroupTitleMutation,
 } from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
@@ -15,10 +15,10 @@ const GenericsSection = () => {
   const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
 
   const { data, error, isLoading } = useGetGenericLinksByUserIdQuery(17);
-  const [changeGroupLink, result] = useChangeGenericLinkGroupMutation();
+  const [changeGroupLink, result] = useChangeLinkGroupTitleMutation();
 
   const changeGroupLinkHandler = (link_id: number) =>
-    changeGroupLink({ id: link_id, group_title: activeGroup.title });
+    changeGroupLink({ id: link_id, group_id: activeGroup.id });
 
   return (
     <>

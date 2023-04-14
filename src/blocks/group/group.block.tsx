@@ -21,7 +21,7 @@ const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
 
   const { data, error, isLoading } = useGetGroupsLinksByTitleQuery({
     user_id: 17,
-    group_title: title,
+    group_id: groupId,
   });
 
   const activateGroupWindowHandler = () => {

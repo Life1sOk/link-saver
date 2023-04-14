@@ -1,6 +1,6 @@
 export interface ILink {
   user_id: number;
-  group_title?: string | null;
+  group_id?: number | null;
   link_title: string;
   link_url: string;
 }
