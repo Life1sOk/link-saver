@@ -19,15 +19,15 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
   // Отправка запроса на сервер
   const [loginMutation, { isLoading, isError }] = useLoginMutation();
 
-  const onSubmit = (event: React.SyntheticEvent) => {
+  const onSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     const loginObj = {
       email: emailRef.current?.value,
       password: passwordRef.current?.value,
     };
-
-    loginMutation(loginObj);
+    // User
+    await loginMutation(loginObj);
   };
 
   return (
@@ -37,7 +37,12 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
         <Input type="email" label="Email" ref={emailRef} required />
         <Input type="password" label="Password:" ref={passwordRef} required />
         <ButtonLine>
-          <Button name="Log in" type="submit" form="login" disabled={isLoading} />
+          <Button
+            name="Log in"
+            type="submit"
+            form="login"
+            disabled={isLoading}
+          />
           <Button
             name="Registration"
             actionHandle={changeHandler}

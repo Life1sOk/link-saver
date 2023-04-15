@@ -8,6 +8,7 @@ import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
 import { groupsApi } from "./api/groups";
 import { registrationAPI } from "./api/registaration";
+import { loginAPI } from "./api/login";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     [linksApi.reducerPath]: linksApi.reducer,
     [groupsApi.reducerPath]: groupsApi.reducer,
     [registrationAPI.reducerPath]: registrationAPI.reducer,
+    [loginAPI.reducerPath]: loginAPI.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -27,6 +29,7 @@ export const store = configureStore({
       linksApi.middleware,
       groupsApi.middleware,
       registrationAPI.middleware,
+      loginAPI.middleware
     ),
 });
 

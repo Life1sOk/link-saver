@@ -1,5 +1,8 @@
 import { useRef } from "react";
 
+import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
+import { usersDataStore } from "../../App/store/slices/user.slice";
+
 import Button from "../../components/button/button.component";
 
 import { ButtonLine } from "../block.style";
@@ -7,12 +10,14 @@ import { RegistartionForm } from "./registration.style";
 import Input from "../../components/input/input.component";
 import { useRegisterMutation } from "../../App/store/api/registaration";
 
-
 interface ILogin {
   changeBlock: (block: string) => void;
 }
 
 const RegistrationBlock = ({ changeBlock }: ILogin) => {
+  const dispatch = useAppDispatch();
+  const checkUser = useAppSelector((state) => state.user);
+
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
@@ -21,46 +26,44 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
 
   const changeHandler = () => changeBlock("login");
 
-  // Проверка пароля 
+  // Проверка пароля
   function checkPassword(password: string): boolean {
     const specialChars = /[*@!#%&()^~{}]+/;
     const lengthCheck = password.length >= 6;
     const specialCharCheck = specialChars.test(password);
-  
+
     return lengthCheck && specialCharCheck;
   }
-  
+
   // Запрос на сервер
-  const [registerUser, { data, error, isLoading }] = useRegisterMutation();
+  const [registerUserApi, result] = useRegisterMutation();
 
   const submitHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
-  
+
     const firstName = firstNameRef.current?.value;
     const lastName = lastNameRef.current?.value;
-    const email = emailRef.current?.value;
-    const password = passwordRef.current?.value;
+    const email = emailRef.current?.value!;
+    const password = passwordRef.current?.value!;
     const verifyPassword = verifyPasswordRef.current?.value;
-  
+
     if (password !== verifyPassword) {
       alert("Error! The password is different from the verify one.");
       return;
     } else if (password && !checkPassword(password)) {
-      alert("Error! The password should be at least 6 characters long and contain special characters.");
+      alert(
+        "Error! The password should be at least 6 characters long and contain special characters."
+      );
       return;
     }
-  
-    try {
-      const response = await registerUser({
-        first_name: firstName,
-        last_name: lastName,
-        email: email,
-        password: password,
-      });
-      alert("Success!");
-    } catch (error) {
-      alert("Whooops something goes wrong!");
-    }
+    // User
+    const response = await registerUserApi({
+      username: `${firstName} ${lastName}`,
+      email: email,
+      password: password,
+    });
+
+    dispatch(usersDataStore(response));
   };
 
   return (
