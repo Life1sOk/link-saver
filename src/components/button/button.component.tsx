@@ -5,6 +5,8 @@ interface IButton {
   type?: "submit" | "reset" | "button" | undefined;
   form?: string;
   actionHandle?: () => void;
+  className?: string;
+  disabled?: boolean;
 }
 
 const Button = ({ name, actionHandle, type, form }: IButton) => {

@@ -2,13 +2,14 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 import { IUser } from "../../../interfaces/user";
 
 
-export const userAPI = createApi({
-    reducerPath: 'api/user',
-    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/user' }),
+export const registrationAPI = createApi({
+    reducerPath: 'api/registraion',
+    baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/registraion' }),
+    tagTypes: ["Registration"],
     endpoints:(builder) => ({
         register: builder.mutation<IUser, Partial<IUser>>({
           query: (credentials) => ({
-            url: '/user',
+            url: '/registraion',
             method: 'POST',
             body: credentials,
           }),
@@ -16,4 +17,4 @@ export const userAPI = createApi({
       }),
     });
 
-export const { useRegisterMutation } = userAPI
+export const { useRegisterMutation } = registrationAPI

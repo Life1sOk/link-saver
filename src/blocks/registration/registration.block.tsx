@@ -21,20 +21,35 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
 
   const changeHandler = () => changeBlock("login");
 
+  // Проверка пароля 
+  function checkPassword(password: string): boolean {
+    const specialChars = /[*@!#%&()^~{}]+/;
+    const lengthCheck = password.length >= 6;
+    const specialCharCheck = specialChars.test(password);
+  
+    return lengthCheck && specialCharCheck;
+  }
+  
   // Запрос на сервер
-
   const [registerUser, { data, error, isLoading }] = useRegisterMutation();
 
   const submitHandler = async (event: React.SyntheticEvent) => {
-  event.preventDefault();
-
-  const firstName = firstNameRef.current?.value;
-  const lastName = lastNameRef.current?.value;
-  const email = emailRef.current?.value;
-  const password = passwordRef.current?.value;
-  const verifyPassword = verifyPasswordRef.current?.value;
+    event.preventDefault();
   
-  if (password && verifyPassword) {
+    const firstName = firstNameRef.current?.value;
+    const lastName = lastNameRef.current?.value;
+    const email = emailRef.current?.value;
+    const password = passwordRef.current?.value;
+    const verifyPassword = verifyPasswordRef.current?.value;
+  
+    if (password !== verifyPassword) {
+      alert("Error! The password is different from the verify one.");
+      return;
+    } else if (password && !checkPassword(password)) {
+      alert("Error! The password should be at least 6 characters long and contain special characters.");
+      return;
+    }
+  
     try {
       const response = await registerUser({
         first_name: firstName,
@@ -42,14 +57,11 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
         email: email,
         password: password,
       });
-      alert ("Sucsess!")
+      alert("Success!");
     } catch (error) {
-      alert("Error! The password is different from the verify one.")
+      alert("Whooops something goes wrong!");
     }
-  }
-};
-
-//короче, тут должно был быть еще код, но я его удалил, закончу завтра
+  };
 
   return (
     <RegistartionForm onSubmit={submitHandler}>
@@ -73,14 +85,3 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
 };
 
 export default RegistrationBlock;
-
-/*
-  1) Подготовить обьект для отправки запроса на сервер 
-    Обьект: {
-      username: string, // Full name
-      email: string,
-      password: number,
-    }
-  2) Закончить submitHandler функцию:
-    В функции нужно проверить сходство паролей - если нет, указать пользователю об этом;
-  */
