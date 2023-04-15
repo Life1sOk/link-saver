@@ -1,7 +1,12 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IGroupGet, IGroupPost } from "../../../interfaces/group";
+import {
+  IGroupGet,
+  IGroupPost,
+  IGroupChange,
+  IGroupDelete,
+} from "../../../interfaces/group";
 
 export const groupsApi = createApi({
   reducerPath: "groupsApi",
@@ -20,9 +25,30 @@ export const groupsApi = createApi({
       }),
       invalidatesTags: ["Groups"],
     }),
+    changeGroup: builder.mutation<void, IGroupChange>({
+      query: (body) => ({
+        url: "/change",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Groups"],
+    }),
+    deleteGroup: builder.mutation<void, IGroupDelete>({
+      query: (body) => ({
+        url: "/delete",
+        method: "DELETE",
+        body,
+      }),
+      invalidatesTags: ["Groups"],
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetGroupsByTopicIdQuery, useAddGroupMutation } = groupsApi;
+export const {
+  useGetGroupsByTopicIdQuery,
+  useAddGroupMutation,
+  useChangeGroupMutation,
+  useDeleteGroupMutation,
+} = groupsApi;

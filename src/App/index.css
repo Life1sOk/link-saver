@@ -4,7 +4,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  user-select: none;
 }
 
 :root {
@@ -26,3 +25,10 @@ body {
   color: white;
   background-color: rgb(29, 29, 29);
 }
+
+/*
+  z-index:
+  - Dots-link modal => Dialog = 2 | 12, OpenWindow(small) = 15;
+  - BlackWindow modal = 8;
+  - Generic section = 11; 
+*/

@@ -18,13 +18,28 @@ export const GroupHeader = styled.div`
 
   display: flex;
   align-items: center;
+`;
 
+export const IconWrapper = styled.div`
   & svg {
     width: 22px;
+  }
+
+  &:hover {
+    cursor: pointer;
+    color: red;
   }
 `;
 
 export const Title = styled.h3`
   width: 100%;
   background-color: rgba(255, 255, 255, 0.3);
+`;
+
+export const LinksPlace = styled.div`
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
 `;

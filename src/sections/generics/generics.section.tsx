@@ -1,30 +1,42 @@
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGetGenericLinksByTopicIdQuery } from "../../App/store/api/links";
+import {
+  useGetGenericLinksByUserIdQuery,
+  useChangeLinkGroupTitleMutation,
+} from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import Link from "../../components/link/link.component";
 
+import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import { GenericsStyle } from "./generics.style";
 
 const GenericsSection = () => {
-  // Listening 'active topic' on change it re-render;
-  const { id, topic_title } = useAppSelector(
-    (state) => state.activeTopic.current
-  );
+  const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
 
-  const { data, error, isLoading } = useGetGenericLinksByTopicIdQuery(2);
+  const { data, error, isLoading } = useGetGenericLinksByUserIdQuery(17);
+  const [changeGroupLink, result] = useChangeLinkGroupTitleMutation();
 
-  // console.log(activeTopic, "generics");
-  console.log(data, "check");
+  const changeGroupLinkHandler = (link_id: number) =>
+    changeGroupLink({ id: link_id, group_id: activeGroup.id });
 
   return (
     <>
       <LinkAddBlock />
       <GenericsStyle>
-        <h1>Link's {topic_title}</h1>
+        <h1>Generic Links</h1>
         {data?.map((current) => (
-          <Link data={current} key={current.id} />
+          <DotsLinkModal
+            data={current}
+            key={current.id}
+            isActive={!activeGroup.isActive}
+          >
+            <Link
+              data={current}
+              type={activeGroup.isActive ? "transferGroup" : null}
+              arrowActionHandler={changeGroupLinkHandler}
+            />
+          </DotsLinkModal>
         ))}
       </GenericsStyle>
     </>

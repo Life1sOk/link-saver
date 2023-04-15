@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../../App/store/hooks";
+import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import {
   toggleGroupWindowHandler,
   toggleLinkWindowHandler,
@@ -10,8 +10,14 @@ import { ActionStyle } from "./action.style";
 
 const ActionBlock = () => {
   const dispatch = useAppDispatch();
+  const activeTopic = useAppSelector(
+    (state) => state.activeTopic.current.topic_title
+  );
 
-  const openGroupWindow = () => dispatch(toggleGroupWindowHandler());
+  const openGroupWindow = () => {
+    if (activeTopic === "") return alert("pls add some topic 1st");
+    dispatch(toggleGroupWindowHandler());
+  };
   const openLinkWindow = () => dispatch(toggleLinkWindowHandler());
 
   return (

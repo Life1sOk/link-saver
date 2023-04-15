@@ -5,6 +5,7 @@ import { useGetGroupsByTopicIdQuery } from "../../App/store/api/groups";
 import GroupBlock from "../../blocks/group/group.block";
 import ActionBlock from "../../blocks/action/action.block";
 import GroupAddBlock from "../../blocks/group-add/group-add.block";
+import GroupUpBlock from "../../blocks/group-up/group-up.block";
 
 import { GroupsStyle, GroupsWrapper } from "./groups.style";
 
@@ -14,19 +15,22 @@ const GroupsSection = () => {
     (state) => state.activeTopic.current
   );
 
-  const { data, error, isLoading } = useGetGroupsByTopicIdQuery(2);
-
-  console.log(data, "groups");
+  const { data, error, isLoading } = useGetGroupsByTopicIdQuery(id);
 
   return (
     <>
       <GroupAddBlock />
+      <GroupUpBlock />
       <GroupsStyle>
         <h1>{topic_title}</h1>
         <ActionBlock />
         <GroupsWrapper>
           {data?.map((group) => (
-            <GroupBlock key={group.id} title={group.group_title} />
+            <GroupBlock
+              key={group.id}
+              groupId={group.id!}
+              title={group.group_title}
+            />
           ))}
         </GroupsWrapper>
       </GroupsStyle>

@@ -30,7 +30,7 @@ const TopicsAddBlock = () => {
     closeTopic();
 
     // Send request
-    addTopic({ user_id: 2, topic_title: checkField });
+    addTopic({ user_id: 17, topic_title: checkField });
   };
 
   return (

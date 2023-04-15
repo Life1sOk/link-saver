@@ -18,18 +18,6 @@ export const GroupAddStyle = styled.form`
   gap: 22px;
 `;
 
-export const GroupWindow = styled.div`
-  width: 100%;
-  height: 100%;
-
-  background-color: white;
-  color: black;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
 export const GroupButtons = styled.div`
   width: 100%;
 
