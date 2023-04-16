@@ -20,10 +20,33 @@ export const topicsApi = createApi({
       }),
       invalidatesTags: ["Topics"],
     }),
+    changeTopicTitle: builder.mutation<
+      void,
+      { id: number; topic_title: string }
+    >({
+      query: (body) => ({
+        url: "/change",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Topics"],
+    }),
+    deleteTopic: builder.mutation<void, { id: number; user_id: number }>({
+      query: (body) => ({
+        url: "/delete",
+        method: "DELETE",
+        body,
+      }),
+      invalidatesTags: ["Topics"],
+    }),
   }),
 });
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const { useGetTopicsByUserIdQuery, useAddTopicByUserIdMutation } =
-  topicsApi;
+export const {
+  useGetTopicsByUserIdQuery,
+  useAddTopicByUserIdMutation,
+  useChangeTopicTitleMutation,
+  useDeleteTopicMutation,
+} = topicsApi;

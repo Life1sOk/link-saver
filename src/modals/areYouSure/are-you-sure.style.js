@@ -1,9 +1,10 @@
 import styled from "styled-components";
 
 export const AreYouSureWrapper = styled.div`
-  position: absolute;
+  position: fixed;
   top: 50%;
   left: 50%;
+  z-index: 22;
 
   transform: translate(-50%, -50%);
 

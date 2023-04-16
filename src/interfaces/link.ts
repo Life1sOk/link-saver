@@ -9,11 +9,16 @@ export interface IShortLink {
   id: number;
   link_title: string;
   link_url: string;
+  status: number | string;
 }
 
 export interface ILinkGeneric {
   data: IShortLink;
-  type?: string | null;
   arrowActionHandler?: (arg: number) => void;
   isActive?: boolean;
+}
+
+export interface ILinkStatus {
+  id: number;
+  status: number;
 }

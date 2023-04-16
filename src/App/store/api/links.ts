@@ -1,7 +1,7 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IShortLink, ILink } from "../../../interfaces/link";
+import { IShortLink, ILink, ILinkStatus } from "../../../interfaces/link";
 import { IGroupLink } from "../../../interfaces/group";
 
 export const linksApi = createApi({
@@ -49,6 +49,14 @@ export const linksApi = createApi({
       }),
       invalidatesTags: ["Links", "Groups"],
     }),
+    changeLinkStatus: builder.mutation<void, ILinkStatus>({
+      query: (body) => ({
+        url: "/change/status",
+        method: "PUT",
+        body,
+      }),
+      invalidatesTags: ["Links", "Groups"],
+    }),
     deleteLinkSnapshot: builder.mutation<void, { id: number }>({
       query: (body) => ({
         url: "/delete",
@@ -68,5 +76,6 @@ export const {
   useGetGroupsLinksByTitleQuery,
   useChangeLinkTitleOrUrlMutation,
   useChangeLinkGroupTitleMutation,
+  useChangeLinkStatusMutation,
   useDeleteLinkSnapshotMutation,
 } = linksApi;

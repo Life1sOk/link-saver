@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
@@ -30,7 +30,7 @@ const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
     (state) => state.actionWindow.activeGroup
   );
 
-  const { data } = useGetGroupsLinksByTitleQuery({
+  const { data, refetch } = useGetGroupsLinksByTitleQuery({
     user_id: 17,
     group_id: groupId,
   });
@@ -57,7 +57,7 @@ const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
     <GroupStyle isActive={isActive}>
       <GroupHeader>
         <GroupActive title={title} group_id={groupId} isActive={isActive} />
-        <GroupTitle title={title} group_id={groupId} />
+        <GroupTitle title={title} group_id={groupId} isActive={isActive} />
         <IconWrapper onClick={modalActionHandler}>{icons.delete}</IconWrapper>
       </GroupHeader>
       <LinksPlace>

@@ -13,13 +13,32 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
   align-items: center;
   gap: 12px;
 
+  & .title {
+    width: 100%;
+  }
+
   &:hover {
     cursor: pointer;
 
     color: orange;
+  }
+`;
 
-    & svg {
-      color: orange;
-    }
+export const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+`;
+
+export const Icon = styled.div`
+  width: fit-content;
+  height: fit-content;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & svg {
+    color: white;
   }
 `;

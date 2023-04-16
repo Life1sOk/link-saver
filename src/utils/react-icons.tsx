@@ -6,7 +6,7 @@ import {
   AiFillFileAdd,
 } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
-import { BsArrowBarLeft } from "react-icons/bs";
+import { BsArrowBarLeft, BsPen } from "react-icons/bs";
 
 export const icons = {
   link: <HiOutlinePencilAlt />,
@@ -16,4 +16,5 @@ export const icons = {
   arrowLeft: <BsArrowBarLeft />,
   delete: <AiFillDelete />,
   activateForAdd: <AiFillFileAdd />,
+  pen: <BsPen />,
 };

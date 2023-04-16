@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useRef } from "react";
 
 import { useChangeGroupMutation } from "../../App/store/api/groups";
 
@@ -7,36 +7,32 @@ import { GroupTitleStyle, Title, TitleInput } from "./group-title.style";
 interface IGroupTitle {
   group_id: number;
   title: string;
+  isActive: boolean;
 }
 
-const GroupTitle = ({ title, group_id }: IGroupTitle) => {
-  const [isFix, setIsFix] = useState(false);
+const GroupTitle = ({ title, group_id, isActive }: IGroupTitle) => {
   const [changeGroupTitleApi] = useChangeGroupMutation();
 
   const titleGroupRef = useRef<HTMLInputElement>(null);
-
-  const changeTitleHandler = () => setIsFix(true);
 
   const focusLeftHandler = async () => {
     let changedTitle = titleGroupRef.current?.value!;
 
     // Check title changes
-    if (changedTitle === title) {
-      return setIsFix(false);
-    }
+    if (changedTitle === title) return;
     // Send changes
     await changeGroupTitleApi({
       id: group_id,
       new_title: changedTitle,
     });
 
-    return setIsFix(false);
+    return;
   };
 
   return (
     <GroupTitleStyle>
-      {!isFix ? (
-        <Title onDoubleClick={changeTitleHandler}>{title}</Title>
+      {!isActive ? (
+        <Title>{title}</Title>
       ) : (
         <TitleInput
           type="text"
