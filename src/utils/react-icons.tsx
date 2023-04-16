@@ -1,8 +1,12 @@
 import { HiOutlinePencilAlt } from "react-icons/hi";
-import { AiFillFolderAdd, AiFillFolderOpen } from "react-icons/ai";
+import {
+  AiFillFolderAdd,
+  AiFillFolderOpen,
+  AiFillDelete,
+  AiFillFileAdd,
+} from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
-import { BsArrowBarLeft, BsArrowBarRight } from "react-icons/bs";
-import { TfiNewWindow } from "react-icons/tfi";
+import { BsArrowBarLeft } from "react-icons/bs";
 
 export const icons = {
   link: <HiOutlinePencilAlt />,
@@ -10,6 +14,6 @@ export const icons = {
   topicOpen: <AiFillFolderOpen />,
   dots: <BiDotsVertical />,
   arrowLeft: <BsArrowBarLeft />,
-  arrowRight: <BsArrowBarRight />,
-  open: <TfiNewWindow />,
+  delete: <AiFillDelete />,
+  activateForAdd: <AiFillFileAdd />,
 };

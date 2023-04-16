@@ -18,11 +18,10 @@ import {
 
 interface IDotsModal {
   data: IShortLink;
-  isActive?: boolean;
   children: string | JSX.Element | JSX.Element[];
 }
 
-const DotsLinkModal = ({ data, isActive, children }: IDotsModal) => {
+const DotsLinkModal = ({ data, children }: IDotsModal) => {
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -44,23 +43,19 @@ const DotsLinkModal = ({ data, isActive, children }: IDotsModal) => {
   };
 
   return (
-    <>
-      <DotsLinkStyle>
-        {children}
-        {isActive && (
-          <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
-        )}
-        {isOpen && (
-          <>
-            <DialogBack onClick={closeHandler} isOpen={isOpen} />
-            <OpenWindow>
-              <ActionP onClick={editHandler}>Edit Some</ActionP>
-              <ActionP onClick={removeHandler}>Remove</ActionP>
-            </OpenWindow>
-          </>
-        )}
-      </DotsLinkStyle>
-    </>
+    <DotsLinkStyle>
+      {children}
+      <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
+      {isOpen && (
+        <>
+          <DialogBack onClick={closeHandler} isOpen={isOpen} />
+          <OpenWindow>
+            <ActionP onClick={editHandler}>Edit Some</ActionP>
+            <ActionP onClick={removeHandler}>Remove</ActionP>
+          </OpenWindow>
+        </>
+      )}
+    </DotsLinkStyle>
   );
 };
 

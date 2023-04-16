@@ -16,20 +16,18 @@ const Topic = ({ data, activeHandler, isActive }: ITopicActive) => {
   const [isActiveType, setIsActiveType] = useState(false);
 
   return (
-    <>
-      {isActiveType ? (
+    <TopicStyle
+      onClick={() => activeHandler(data)}
+      isActive={isActive}
+      onDoubleClick={() => setIsActiveType(true)}
+    >
+      {icons.topicOpen}
+      {/* {isActiveType ? (
         <input type="text" defaultValue={data.topic_title} />
-      ) : (
-        <TopicStyle
-          onClick={() => activeHandler(data)}
-          isActive={isActive}
-          onDoubleClick={() => setIsActiveType(true)}
-        >
-          {icons.topicOpen}
-          <p>{data.topic_title}</p>
-        </TopicStyle>
-      )}
-    </>
+      ) : ( */}
+      <p>{data.topic_title}</p>
+      {/* )} */}
+    </TopicStyle>
   );
 };
 

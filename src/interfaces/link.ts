@@ -15,4 +15,5 @@ export interface ILinkGeneric {
   data: IShortLink;
   type?: string | null;
   arrowActionHandler?: (arg: number) => void;
+  isActive?: boolean;
 }

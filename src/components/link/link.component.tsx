@@ -9,14 +9,14 @@ Example how to get icon from url;
 2) https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.stackoverflow.com
 */
 
-const Link = ({ data, type, arrowActionHandler }: ILinkGeneric) => {
+const Link = ({ data, type, arrowActionHandler, isActive }: ILinkGeneric) => {
   const arrowAction = () => {
     if (arrowActionHandler) arrowActionHandler(data.id);
   };
 
   return (
     <LinkStyle>
-      {type === "transferGroup" ? (
+      {isActive ? (
         <IconWrapper onClick={arrowAction}>{icons.arrowLeft}</IconWrapper>
       ) : (
         <IconWrapper>{icons.link}</IconWrapper>
@@ -24,9 +24,6 @@ const Link = ({ data, type, arrowActionHandler }: ILinkGeneric) => {
       <LinkTitle href={data.link_url} target="_blank">
         {data.link_title}
       </LinkTitle>
-      {type === "transferGeneric" ? (
-        <IconWrapper onClick={arrowAction}>{icons.arrowRight}</IconWrapper>
-      ) : null}
     </LinkStyle>
   );
 };

@@ -5,7 +5,6 @@ import { useGetGroupsByTopicIdQuery } from "../../App/store/api/groups";
 import GroupBlock from "../../blocks/group/group.block";
 import ActionBlock from "../../blocks/action/action.block";
 import GroupAddBlock from "../../blocks/group-add/group-add.block";
-import GroupUpBlock from "../../blocks/group-up/group-up.block";
 
 import { GroupsStyle, GroupsWrapper } from "./groups.style";
 
@@ -20,7 +19,6 @@ const GroupsSection = () => {
   return (
     <>
       <GroupAddBlock />
-      <GroupUpBlock />
       <GroupsStyle>
         <h1>{topic_title}</h1>
         <ActionBlock />

@@ -43,7 +43,11 @@ export const actionWindowSlice = createSlice({
       };
     },
     deactivateGroup: (state) => {
-      state.activeGroup = { isActive: false, id: -1, title: "" };
+      state.activeGroup = {
+        isActive: false,
+        id: -1,
+        title: "",
+      };
     },
     activateLink: (
       state,

@@ -26,14 +26,10 @@ const GenericsSection = () => {
       <GenericsStyle>
         <h1>Generic Links</h1>
         {data?.map((current) => (
-          <DotsLinkModal
-            data={current}
-            key={current.id}
-            isActive={!activeGroup.isActive}
-          >
+          <DotsLinkModal data={current} key={current.id}>
             <Link
               data={current}
-              type={activeGroup.isActive ? "transferGroup" : null}
+              isActive={activeGroup.isActive}
               arrowActionHandler={changeGroupLinkHandler}
             />
           </DotsLinkModal>
