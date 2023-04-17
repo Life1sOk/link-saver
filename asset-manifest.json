@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/link-saver/static/css/main.a8082d74.css",
+    "main.js": "/link-saver/static/js/main.e6990919.js",
+    "index.html": "/link-saver/index.html",
+    "main.a8082d74.css.map": "/link-saver/static/css/main.a8082d74.css.map",
+    "main.e6990919.js.map": "/link-saver/static/js/main.e6990919.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a8082d74.css",
+    "static/js/main.e6990919.js"
+  ]
+}
