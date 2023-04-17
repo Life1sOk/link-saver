@@ -1,9 +1,11 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
+import { useAppDispatch } from "../../App/store/hooks";
 import { usersDataStore } from "../../App/store/slices/user.slice";
 
 import Button from "../../components/button/button.component";
+import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
 import { ButtonLine } from "../block.style";
 import { RegistartionForm } from "./registration.style";
@@ -16,7 +18,7 @@ interface ILogin {
 
 const RegistrationBlock = ({ changeBlock }: ILogin) => {
   const dispatch = useAppDispatch();
-  const checkUser = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
 
   const firstNameRef = useRef<HTMLInputElement>(null);
   const lastNameRef = useRef<HTMLInputElement>(null);
@@ -36,7 +38,7 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   }
 
   // Запрос на сервер
-  const [registerUserApi, result] = useRegisterMutation();
+  const [registerUserApi, { isSuccess, isLoading }] = useRegisterMutation();
 
   const submitHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -65,6 +67,12 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
 
     dispatch(usersDataStore(response));
   };
+
+  useEffect(() => {
+    if (isSuccess) navigate("/main");
+  }, [isSuccess, navigate]);
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <RegistartionForm onSubmit={submitHandler}>

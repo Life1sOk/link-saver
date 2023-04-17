@@ -3,7 +3,7 @@ import { IUser } from "../../../interfaces/user";
 
 export const loginAPI = createApi({
   reducerPath: "api/login",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://link-saver.herokuapp.com" }),
   tagTypes: ["Login"],
   endpoints: (builder) => ({
     login: builder.mutation<IUser[], any>({

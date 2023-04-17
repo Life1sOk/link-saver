@@ -6,7 +6,9 @@ import { IGroupLink } from "../../../interfaces/group";
 
 export const linksApi = createApi({
   reducerPath: "linksApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/links" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://link-saver.herokuapp.com/links",
+  }),
   tagTypes: ["Links", "Groups"],
   endpoints: (builder) => ({
     getGenericLinksByUserId: builder.query<IShortLink[], number>({

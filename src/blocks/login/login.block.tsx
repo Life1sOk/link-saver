@@ -1,15 +1,25 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { useAppDispatch } from "../../App/store/hooks";
+import { usersDataStore } from "../../App/store/slices/user.slice";
+import { useLoginMutation } from "../../App/store/api/login";
+
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
+import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
+
 import { LogInPageStyle } from "./login.style";
 import { ButtonLine } from "../block.style";
-import { useLoginMutation } from "../../App/store/api/login";
 
 interface ILogin {
   changeBlock: (block: string) => void;
 }
 
 const LoginBlock = ({ changeBlock }: ILogin) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
@@ -17,7 +27,7 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
   const changeHandler = () => changeBlock("registration");
 
   // Отправка запроса на сервер
-  const [loginMutation, { isLoading, isError }] = useLoginMutation();
+  const [loginMutation, { isLoading, isError, isSuccess }] = useLoginMutation();
 
   const onSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -27,8 +37,16 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
       password: passwordRef.current?.value,
     };
     // User
-    await loginMutation(loginObj);
+    const response = await loginMutation(loginObj);
+
+    dispatch(usersDataStore(response));
   };
+
+  useEffect(() => {
+    if (isSuccess) navigate("/main");
+  }, [isSuccess, navigate]);
+
+  if (isLoading) return <LoadingSpinner />;
 
   return (
     <>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
@@ -26,12 +26,14 @@ import {
 const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
   const [isSureModal, setIsSureModal] = useState(false);
 
+  const userId = useAppSelector((state) => state.user.data.id);
+
   const currentActiveGroup = useAppSelector(
     (state) => state.actionWindow.activeGroup
   );
 
-  const { data, refetch } = useGetGroupsLinksByTitleQuery({
-    user_id: 17,
+  const { data } = useGetGroupsLinksByTitleQuery({
+    user_id: userId,
     group_id: groupId,
   });
   const [changeGroupLinkApi] = useChangeLinkGroupTitleMutation();
@@ -42,7 +44,7 @@ const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
   const sureDeleteHandler = async () => {
     await deleteGroupApi({
       id: groupId,
-      user_id: 17,
+      user_id: userId,
     });
 
     return setIsSureModal(!isSureModal);

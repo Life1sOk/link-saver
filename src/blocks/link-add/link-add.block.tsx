@@ -18,6 +18,7 @@ const LinkAddBlock = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.actionWindow.isAddLink);
   const activeLink = useAppSelector((state) => state.actionWindow.activeLink);
+  const userId = useAppSelector((state) => state.user.data.id);
 
   const [addGenericLinkApi, result] = useAddGenericLinkMutation();
   const [updateLinkApi] = useChangeLinkTitleOrUrlMutation();
@@ -50,7 +51,7 @@ const LinkAddBlock = () => {
     if (activeLink.id < 0) {
       //Prepare object
       const link = {
-        user_id: 17,
+        user_id: userId,
         link_title: title,
         link_url: url,
       };

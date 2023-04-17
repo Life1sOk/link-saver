@@ -5,7 +5,7 @@ import { ITopic } from "../../../interfaces/topic";
 const initialState: { current: ITopic } = {
   current: {
     id: 0,
-    user_id: 17,
+    user_id: 0,
     topic_title: "Main",
   },
 };
@@ -26,7 +26,7 @@ export const activeTopicSlice = createSlice({
     defaultState: (state) => {
       state.current = {
         id: 0,
-        user_id: 17,
+        user_id: 0,
         topic_title: "Main",
       };
     },

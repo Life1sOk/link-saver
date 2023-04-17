@@ -5,7 +5,9 @@ import { ITopic, IPostTopic } from "../../../interfaces/topic";
 
 export const topicsApi = createApi({
   reducerPath: "topicsApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/topics" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://link-saver.herokuapp.com/topics",
+  }),
   tagTypes: ["Topics"],
   endpoints: (builder) => ({
     getTopicsByUserId: builder.query<ITopic[], number>({

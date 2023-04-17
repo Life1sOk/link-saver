@@ -1,5 +1,6 @@
 import { useState, useRef } from "react";
 
+import { useAppSelector } from "../../App/store/hooks";
 import { useAddTopicByUserIdMutation } from "../../App/store/api/topics";
 
 import Button from "../../components/button/button.component";
@@ -8,8 +9,10 @@ import TopicAdd from "../../components/topic-add/topic-add.component";
 import { TopicsAddStyle } from "./topics-add.style";
 
 const TopicsAddBlock = () => {
-  const [addTopic, result] = useAddTopicByUserIdMutation();
   const [isAddTopic, setIsAddTopic] = useState(false);
+  const userId = useAppSelector((state) => state.user.data.id);
+
+  const [addTopic, result] = useAddTopicByUserIdMutation();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -30,7 +33,7 @@ const TopicsAddBlock = () => {
     closeTopic();
 
     // Send request
-    addTopic({ user_id: 17, topic_title: checkField });
+    addTopic({ user_id: userId, topic_title: checkField });
   };
 
   return (
