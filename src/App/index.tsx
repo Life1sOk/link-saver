@@ -1,5 +1,5 @@
 // React router Provider
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import Routing from "../pages";
 
 // Redux toolkit
@@ -11,9 +11,9 @@ import "./index.css";
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter>
+      <HashRouter>
         <Routing />
-      </BrowserRouter>
+      </HashRouter>
     </Provider>
   );
 }
