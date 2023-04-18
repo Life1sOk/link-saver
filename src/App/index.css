@@ -28,7 +28,7 @@ body {
 
 /*
   z-index:
-  - Dots-link modal => Dialog = 2 | 12, OpenWindow(small) = 15;
+  - Dots-link modal => Dialog = 2 | 12, OpenWindow(small) = 15, link-> 10
   - BlackWindow modal = 8;
   - Generic section = 11; 
   - AreUSure = 22

@@ -27,12 +27,13 @@ const GenericsSection = () => {
       <GenericsStyle>
         <h1>Generic Links</h1>
         {data?.map((current) => (
-          <DotsLinkModal data={current} key={current.id}>
-            <Link
-              data={current}
-              isActive={activeGroup.isActive}
-              arrowActionHandler={changeGroupLinkHandler}
-            />
+          <DotsLinkModal
+            data={current}
+            key={current.id}
+            isActive={activeGroup.isActive}
+            arrowActionHandler={changeGroupLinkHandler}
+          >
+            <Link data={current} />
           </DotsLinkModal>
         ))}
       </GenericsStyle>

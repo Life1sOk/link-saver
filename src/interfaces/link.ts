@@ -12,12 +12,6 @@ export interface IShortLink {
   status: number | string;
 }
 
-export interface ILinkGeneric {
-  data: IShortLink;
-  arrowActionHandler?: (arg: number) => void;
-  isActive?: boolean;
-}
-
 export interface ILinkStatus {
   id: number;
   status: number;

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
+import { useAppDispatch } from "../../App/store/hooks";
 import {
   activateGroup,
   deactivateGroup,

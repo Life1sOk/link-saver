@@ -2,7 +2,7 @@ import { icons } from "../../utils/react-icons";
 
 import { useChangeLinkStatusMutation } from "../../App/store/api/links";
 
-import { ILinkGeneric } from "../../interfaces/link";
+import { IShortLink } from "../../interfaces/link";
 import { LinkStyle, LinkTitle, IconWrapper } from "./link.style";
 
 /*
@@ -11,7 +11,7 @@ Example how to get icon from url;
 2) https://s2.googleusercontent.com/s2/favicons?domain_url=https://www.stackoverflow.com
 */
 
-const Link = ({ data, arrowActionHandler, isActive }: ILinkGeneric) => {
+const Link = ({ data }: { data: IShortLink }) => {
   const [changeLinkStatus] = useChangeLinkStatusMutation();
 
   const changeStatusHandler = () => {
@@ -19,19 +19,11 @@ const Link = ({ data, arrowActionHandler, isActive }: ILinkGeneric) => {
     if (data.status === "0") changeLinkStatus({ id: data.id, status: 1 });
   };
 
-  const arrowAction = () => {
-    if (arrowActionHandler) arrowActionHandler(data.id);
-  };
-
   return (
     <LinkStyle>
-      {isActive ? (
-        <IconWrapper onClick={arrowAction}>{icons.arrowLeft}</IconWrapper>
-      ) : (
-        <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
-          {icons.link}
-        </IconWrapper>
-      )}
+      <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
+        {icons.link}
+      </IconWrapper>
       <LinkTitle href={data.link_url} target="_blank">
         {data.link_title}
       </LinkTitle>

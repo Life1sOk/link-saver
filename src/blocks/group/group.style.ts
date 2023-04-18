@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const GroupStyle = styled.div<{ isActive: boolean }>`
+  position: relative;
+  z-index: ${({ isActive }) => (isActive ? "9" : "0")};
+
   width: 100%;
   height: fit-content;
   min-height: 100px;

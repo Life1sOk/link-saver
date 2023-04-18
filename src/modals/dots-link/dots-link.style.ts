@@ -1,20 +1,37 @@
 import styled from "styled-components";
 
-export const DialogBack = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: ${({ isOpen }) => (isOpen ? "12" : "2")};
+export const ModalWrapper = styled.div`
+  position: relative;
 
-  width: 100vw;
-  height: 100vh;
-`;
-
-export const DotsLinkStyle = styled.div`
   width: 100%;
   height: fit-content;
 
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
+  display: ${({ isGroupActive }) => (isGroupActive ? "initial" : "none")};
+
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: aliceblue;
+  opacity: 0.2;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+`;
+
+export const DotsLinkStyle = styled.div<{ isGroupActive: boolean }>`
   position: relative;
+  z-index: ${({ isGroupActive }) => (isGroupActive ? "10" : "0")};
+
+  width: 100%;
+  height: fit-content;
 
   display: flex;
   align-items: center;
@@ -26,6 +43,16 @@ export const IconWrapper = styled.div`
     width: 25px;
     height: 25px;
   }
+`;
+
+export const DialogBack = styled.div<{ isOpen: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: ${({ isOpen }) => (isOpen ? "12" : "2")};
+
+  width: 100vw;
+  height: 100vh;
 `;
 
 export const OpenWindow = styled.div`
