@@ -9,8 +9,9 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
   min-height: 100px;
 
   padding: 5px;
-  border: 1px solid ${({ isActive }) => (isActive ? "rgb(0,222,0)" : "red")};
-  background-color: coral;
+  border: 1px solid ${({ isActive }) => (isActive ? "rgb(0,222,0)" : "white")};
+  border-radius: 5px;
+  background-color: rgba(153, 51, 255, 0.7);
 
   display: flex;
   flex-direction: column;
@@ -36,8 +37,10 @@ export const IconWrapper = styled.div`
 
 export const LinksPlace = styled.div`
   width: 100%;
+  margin: 11px 0;
 
   display: flex;
   flex-direction: column;
-  gap: 11px;
+  align-items: center;
+  gap: 10px;
 `;

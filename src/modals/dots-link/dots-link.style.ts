@@ -4,7 +4,11 @@ export const ModalWrapper = styled.div`
   position: relative;
 
   width: 100%;
+  max-width: 222px;
   height: fit-content;
+  padding: 7px;
+
+  border: 1px solid white;
 
   &:hover {
     cursor: pointer;
@@ -12,18 +16,18 @@ export const ModalWrapper = styled.div`
 `;
 
 export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
-  display: ${({ isGroupActive }) => (isGroupActive ? "initial" : "none")};
-
-  content: "";
-  width: 100%;
-  height: 100%;
-  background-color: aliceblue;
-  opacity: 0.2;
-
   position: absolute;
   top: 0;
   left: 0;
   z-index: 11;
+
+  display: ${({ isGroupActive }) => (isGroupActive ? "initial" : "none")};
+  width: 100%;
+  height: 100%;
+
+  box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
+  -webkit-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
+  -moz-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
 `;
 
 export const DotsLinkStyle = styled.div<{ isGroupActive: boolean }>`
@@ -38,10 +42,21 @@ export const DotsLinkStyle = styled.div<{ isGroupActive: boolean }>`
   gap: 8px;
 `;
 
-export const IconWrapper = styled.div`
+export const IconWrapper = styled.div<{ status?: number }>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   & svg {
     width: 25px;
     height: 25px;
+    padding: 3px;
+
+    color: ${({ status }) => (status ? "rgb(0, 222, 0)" : null)};
+  }
+
+  &:hover {
+    cursor: pointer;
   }
 `;
 

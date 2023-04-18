@@ -3,8 +3,6 @@ import styled from "styled-components";
 export const GroupsStyle = styled.main`
   width: 100%;
   height: 100%;
-
-  border: 1px solid rebeccapurple;
   padding: 22px;
 
   display: flex;
@@ -16,6 +14,6 @@ export const GroupsWrapper = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(277px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   gap: 18px;
 `;

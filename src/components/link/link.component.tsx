@@ -1,9 +1,5 @@
-import { icons } from "../../utils/react-icons";
-
-import { useChangeLinkStatusMutation } from "../../App/store/api/links";
-
 import { IShortLink } from "../../interfaces/link";
-import { LinkStyle, LinkTitle, IconWrapper } from "./link.style";
+import { LinkStyle, LinkTitle } from "./link.style";
 
 /*
 Example how to get icon from url;
@@ -12,18 +8,8 @@ Example how to get icon from url;
 */
 
 const Link = ({ data }: { data: IShortLink }) => {
-  const [changeLinkStatus] = useChangeLinkStatusMutation();
-
-  const changeStatusHandler = () => {
-    if (data.status === "1") changeLinkStatus({ id: data.id, status: 0 });
-    if (data.status === "0") changeLinkStatus({ id: data.id, status: 1 });
-  };
-
   return (
     <LinkStyle>
-      <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
-        {icons.link}
-      </IconWrapper>
       <LinkTitle href={data.link_url} target="_blank">
         {data.link_title}
       </LinkTitle>

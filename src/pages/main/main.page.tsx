@@ -8,10 +8,8 @@ const MainPage = () => {
   return (
     <MainLayout>
       <NavigationSection />
-      <Wrapper>
-        <GenericsSection />
-        <GroupsSection />
-      </Wrapper>
+      <GroupsSection />
+      <GenericsSection />
     </MainLayout>
   );
 };

@@ -6,7 +6,10 @@ import { activateLink } from "../../App/store/slices/action-window.slice";
 
 import { IShortLink } from "../../interfaces/link";
 
-import { useDeleteLinkSnapshotMutation } from "../../App/store/api/links";
+import {
+  useDeleteLinkSnapshotMutation,
+  useChangeLinkStatusMutation,
+} from "../../App/store/api/links";
 
 import {
   ModalWrapper,
@@ -35,6 +38,12 @@ const DotsLinkModal = ({
 
   const [isOpen, setIsOpen] = useState(false);
   const [deleteSnapshotApi, result] = useDeleteLinkSnapshotMutation();
+  const [changeLinkStatus] = useChangeLinkStatusMutation();
+
+  const changeStatusHandler = () => {
+    if (data.status === "1") changeLinkStatus({ id: data.id, status: 0 });
+    if (data.status === "0") changeLinkStatus({ id: data.id, status: 1 });
+  };
 
   const openHandler = () => setIsOpen(true);
   const closeHandler = () => setIsOpen(false);
@@ -59,6 +68,9 @@ const DotsLinkModal = ({
     <ModalWrapper>
       <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
       <DotsLinkStyle isGroupActive={isActive}>
+        <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
+          {icons.link}
+        </IconWrapper>
         {children}
         <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
         {isOpen && (
