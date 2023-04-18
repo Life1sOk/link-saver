@@ -11,4 +11,7 @@ export const NavigationStyle = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
+  &.whitetheme{
+    background-color: white;
+  }
 `;

@@ -1,6 +1,7 @@
 // Blocks
 import TopicsBlock from "../../blocks/topics/topics.block";
 import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
+import SettingsBlock from "../../blocks/settings/settings.block";
 
 // Style
 import { NavigationStyle } from "./navigation.style";
@@ -10,7 +11,7 @@ const NavigationSection = () => {
     <NavigationStyle>
       <TopicsAddBlock />
       <TopicsBlock />
-      <p>topic's section (navigation)</p>
+      <SettingsBlock/>
     </NavigationStyle>
   );
 };

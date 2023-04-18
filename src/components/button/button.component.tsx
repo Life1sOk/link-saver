@@ -7,6 +7,8 @@ interface IButton {
   actionHandle?: () => void;
   className?: string;
   disabled?: boolean;
+  children?: React.ReactNode;
+  onClick?: () => void;
 }
 
 const Button = ({ name, actionHandle, type, form }: IButton) => {
