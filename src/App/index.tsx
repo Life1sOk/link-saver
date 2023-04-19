@@ -6,13 +6,19 @@ import Routing from "../pages";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 
+// Theme styled components;
+import { ThemeProvider } from "styled-components";
+import { theme } from "./themes";
+
 import "./index.css";
 
 function App() {
   return (
     <Provider store={store}>
       <HashRouter>
-        <Routing />
+        <ThemeProvider theme={theme}>
+          <Routing />
+        </ThemeProvider>
       </HashRouter>
     </Provider>
   );

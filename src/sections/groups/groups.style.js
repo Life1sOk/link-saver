@@ -14,6 +14,7 @@ export const GroupsWrapper = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(299px, 313px));
+  justify-content: center;
   gap: 18px;
 `;

@@ -1,20 +1,29 @@
 import styled from "styled-components";
 
-export const GenericsStyle = styled.aside`
-  width: 45%;
-  min-width: 255px;
+export const GenericsWrapper = styled.aside`
+  width: 326px;
+  height: 100%;
+  padding: 20px;
+
+  flex-shrink: 0;
+`;
+
+export const GenericsStyle = styled.div`
+  width: 100%;
   height: 100%;
 
-  padding: 12px 8px 8px 8px;
-  border-left: 1px solid blanchedalmond;
+  padding: 12px;
+  background-color: ${({ theme }) => theme.background.generics};
 
-  background-color: rgba(0, 0, 153, 0.3);
+  box-shadow: 0px 0px 10px 4px rgba(224, 224, 224, 0.75);
+  -webkit-box-shadow: 0px 0px 22px 2px rgba(224, 224, 224, 0.75);
+  -moz-box-shadow: 0px 0px 10px 4px rgba(224, 224, 224, 0.75);
 `;
 
 export const LinksWrapper = styled.div`
   width: 100%;
-  height: fit-content;
-  margin-top: 22px;
+  height: calc(100% - 27px);
+  padding-top: 22px;
 
   overflow-y: scroll;
 
@@ -22,5 +31,6 @@ export const LinksWrapper = styled.div`
   flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
+  flex-basis: content;
   gap: 15px;
 `;

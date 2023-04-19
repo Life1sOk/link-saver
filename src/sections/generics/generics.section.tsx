@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
 import {
@@ -10,7 +9,7 @@ import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import Link from "../../components/link/link.component";
 
 import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
-import { GenericsStyle, LinksWrapper } from "./generics.style";
+import { GenericsStyle, LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
   const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
@@ -23,7 +22,7 @@ const GenericsSection = () => {
     changeGroupLink({ id: link_id, group_id: activeGroup.id });
 
   return (
-    <>
+    <GenericsWrapper>
       <LinkAddBlock />
       <GenericsStyle>
         <h1>Generic Links</h1>
@@ -40,7 +39,7 @@ const GenericsSection = () => {
           ))}
         </LinksWrapper>
       </GenericsStyle>
-    </>
+    </GenericsWrapper>
   );
 };
 

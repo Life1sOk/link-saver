@@ -11,11 +11,7 @@ export const LinkStyle = styled.div`
 export const LinkTitle = styled.a`
   width: 100%;
   color: inherit;
-  font-size: 19px;
+  font-size: 18px;
 
   text-decoration: none;
-
-  &:visited {
-    color: rgb(170, 170, 170);
-  }
 `;
