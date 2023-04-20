@@ -11,7 +11,10 @@ export const NavigationStyle = styled.nav`
   display: flex;
   flex-direction: column;
   align-items: center;
-  &.whitetheme{
+  &.whitetheme {
     background-color: white;
+  }
+  &.darktheme {
+    background-color: black;
   }
 `;

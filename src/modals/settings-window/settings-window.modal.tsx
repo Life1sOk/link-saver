@@ -1,4 +1,5 @@
-import Button from "../../components/button/button.component";
+import { title } from "process";
+import Input from "../../components/input/input.component";
 import { ButtonsWrapper, Message, SettingsWindowStyle, SettingsWindowWrapper } from "./settings-window.style";
 
 
@@ -25,12 +26,8 @@ interface ISettings {
             <SettingsWindowStyle>
               <Message>{message}</Message>
               <ButtonsWrapper>
-                <Button
-                  name="Dark mode"
-                  actionHandle={actionDarkModeHandler}
-                />
-                <Button name="Constructor mode" actionHandle={actionConstructorModeHandler} />
-                <Button name="Close" actionHandle={actionCloseHandler} />
+                <Input type="text" label="Discribe your problem"/>
+                <textarea>{}</textarea>
               </ButtonsWrapper>
             </SettingsWindowStyle>
           </SettingsWindowWrapper>
@@ -40,4 +37,3 @@ interface ISettings {
   };
   
   export default SettingsModal;
-  
