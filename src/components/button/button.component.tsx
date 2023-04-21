@@ -1,7 +1,7 @@
 import { ButtonStyle } from "./button.style";
 
 interface IButton {
-  name: string;
+  name?: string;
   type?: "submit" | "reset" | "button" | undefined;
   form?: string;
   actionHandle?: () => void;
@@ -11,9 +11,9 @@ interface IButton {
   onClick?: () => void;
 }
 
-const Button = ({ name, actionHandle, type, form }: IButton) => {
+const Button = ({ name, actionHandle, type, form, onClick }: IButton) => {
   return (
-    <ButtonStyle form={form} onClick={actionHandle} type={type}>
+    <ButtonStyle form={form} onClick={onClick || actionHandle} type={type}>
       {name}
     </ButtonStyle>
   );

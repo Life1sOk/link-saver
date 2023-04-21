@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 import { TextAreaStyle, TextAreaWrapper } from "./textarea.style";
 
 interface ITextArea {
-    label: string;
+    label?: string;
     required?: boolean;
     defaultValue?: string;
 }
