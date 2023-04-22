@@ -4,10 +4,17 @@ import { icons } from "../../utils/react-icons";
 import Button from "../../components/button/button.component";
 import ReportModal from "../../modals/report-window/report.modal";
 
+interface SettingsBlockProps {
+  onThemeChange: () => void;
+}
 
-const SettingsBlock = () => {
-  const [isModal, setModal] = useState(false)
-  const onClose = () => setModal(false)
+const SettingsBlock = ({ onThemeChange }: SettingsBlockProps) => {
+  const [isModal, setModal] = useState(false);
+  const onClose = () => setModal(false);
+
+  const handleThemeClick = () => {
+    onThemeChange();
+  };
 
 
   return (
@@ -15,7 +22,7 @@ const SettingsBlock = () => {
       <Button name="FAQ" className="textbutton">
         {icons.faq}
       </Button>
-      <Button name="Dark Mode" className="textbutton">
+      <Button name="Dark Mode" className="textbutton" onClick={handleThemeClick}>
         {icons.settings}{" "}
       </Button>
       <Button name="User" className="textbutton">
