@@ -8,7 +8,7 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
   height: fit-content;
   min-height: 100px;
   color: ${({ theme }) => theme.white};
-  background-color: ${({ theme }) => theme.color.main};
+  background-color: ${({ theme }) => theme.background.group};
 
   padding: 5px;
   border: 1px solid

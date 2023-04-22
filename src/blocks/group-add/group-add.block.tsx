@@ -15,6 +15,7 @@ const GroupAddBlock = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.actionWindow.isAddGroup);
   const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
+  const user_id = useAppSelector((state) => state.user.session.user_id);
 
   const [addGroupApi, result] = useAddGroupMutation();
 
@@ -31,6 +32,7 @@ const GroupAddBlock = () => {
     //Prepare object
     const group = {
       topic_id: activeTopicId,
+      user_id,
       group_title: title,
     };
     // Send data

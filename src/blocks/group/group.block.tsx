@@ -30,7 +30,7 @@ const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
 
   const [isSureModal, setIsSureModal] = useState(false);
 
-  const userId = useAppSelector((state) => state.user.data.id);
+  const userId = useAppSelector((state) => state.user.session.user_id);
 
   const currentActiveGroup = useAppSelector(
     (state) => state.actionWindow.activeGroup

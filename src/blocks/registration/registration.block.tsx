@@ -2,7 +2,7 @@ import { useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../../App/store/hooks";
-import { usersDataStore } from "../../App/store/slices/user.slice";
+import { usersSessionStore } from "../../App/store/slices/user.slice";
 
 import Button from "../../components/button/button.component";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
@@ -58,6 +58,7 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
       );
       return;
     }
+
     // User
     const response = await registerUserApi({
       username: `${firstName} ${lastName}`,
@@ -65,7 +66,7 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
       password: password,
     });
 
-    dispatch(usersDataStore(response));
+    dispatch(usersSessionStore(response));
   };
 
   useEffect(() => {

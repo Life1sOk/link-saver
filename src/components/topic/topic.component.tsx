@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import {
-  activeTopic,
+  activeTopicStore,
   defaultState,
 } from "../../App/store/slices/active-topic.slice";
 
@@ -54,7 +54,7 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
       topic_title: changedTitle,
     });
 
-    if (updatedTopic) dispatch(activeTopic(updatedTopic));
+    if (updatedTopic) dispatch(activeTopicStore(updatedTopic));
     return setIsChange(false);
   };
   // ------------------------------------------------ //

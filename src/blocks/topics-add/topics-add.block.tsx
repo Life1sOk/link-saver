@@ -10,7 +10,7 @@ import { TopicsAddStyle } from "./topics-add.style";
 
 const TopicsAddBlock = () => {
   const [isAddTopic, setIsAddTopic] = useState(false);
-  const userId = useAppSelector((state) => state.user.data.id);
+  const userId = useAppSelector((state) => state.user.session.user_id);
 
   const [addTopic, result] = useAddTopicByUserIdMutation();
 

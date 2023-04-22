@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
-import { activeTopic } from "../../App/store/slices/active-topic.slice";
+import { activeTopicStore } from "../../App/store/slices/active-topic.slice";
 
 import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 
@@ -20,13 +20,14 @@ import { TopicsStyle } from "./topics.style";
 
 const TopicsBlock = () => {
   const dispatch = useAppDispatch();
-  const userId = useAppSelector((state) => state.user.data.id);
+  const userId = useAppSelector((state) => state.user.session.user_id);
 
   // RTK query hook for fetching data from the server;
   const { data } = useGetTopicsByUserIdQuery(userId);
 
   // Add active topic to Redux toolkit
-  const activeTopicHandler = (topic: ITopic) => dispatch(activeTopic(topic));
+  const activeTopicHandler = (topic: ITopic) =>
+    dispatch(activeTopicStore(topic));
 
   return (
     <TopicsStyle>

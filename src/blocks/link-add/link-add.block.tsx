@@ -18,9 +18,9 @@ const LinkAddBlock = () => {
   const dispatch = useAppDispatch();
   const isOpen = useAppSelector((state) => state.actionWindow.isAddLink);
   const activeLink = useAppSelector((state) => state.actionWindow.activeLink);
-  const userId = useAppSelector((state) => state.user.data.id);
+  const userId = useAppSelector((state) => state.user.session.user_id);
 
-  const [addGenericLinkApi, result] = useAddGenericLinkMutation();
+  const [addGenericLinkApi] = useAddGenericLinkMutation();
   const [updateLinkApi] = useChangeLinkTitleOrUrlMutation();
 
   const titleRef = useRef<HTMLInputElement>(null);

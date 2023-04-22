@@ -14,7 +14,12 @@ const GroupsSection = () => {
     (state) => state.activeTopic.current
   );
 
-  const { data, error, isLoading } = useGetGroupsByTopicIdQuery(id);
+  const user_id = useAppSelector((state) => state.user.session.user_id);
+
+  const { data, error, isLoading } = useGetGroupsByTopicIdQuery({
+    topic_id: id,
+    user_id,
+  });
 
   return (
     <>

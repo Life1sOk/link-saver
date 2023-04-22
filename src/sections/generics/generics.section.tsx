@@ -13,7 +13,7 @@ import { GenericsStyle, LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
   const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
-  const userId = useAppSelector((state) => state.user.data.id);
+  const userId = useAppSelector((state) => state.user.session.user_id);
 
   const { data } = useGetGenericLinksByUserIdQuery(userId);
   const [changeGroupLink] = useChangeLinkGroupTitleMutation();
