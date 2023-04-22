@@ -10,7 +10,7 @@ export const loginAPI = createApi({
   reducerPath: "api/login",
   // baseQuery: fetchBaseQuery({ baseUrl: "https://link-saver.herokuapp.com" }),
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/",
+    baseUrl: "https://link-saver.herokuapp.com",
   }),
   tagTypes: ["Login"],
   endpoints: (builder) => ({

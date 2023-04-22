@@ -34,7 +34,7 @@ const Routing = () => {
             usersSessionStoreByToken({ token: activeToken, response: userId })
           );
       };
-      console.log(activeToken);
+
       loginUserByToken();
     }
 
