@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { icons } from "../../utils/react-icons";
 
 import { useAppDispatch } from "../../App/store/hooks";
 import { activateLink } from "../../App/store/slices/action-window.slice";
+import {
+  deleteOneGeneric,
+  updateOneStatusGeneric,
+} from "../../App/store/slices/generics.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import { IShortLink } from "../../interfaces/link";
 
@@ -37,32 +42,81 @@ const DotsLinkModal = ({
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [deleteSnapshotApi, result] = useDeleteLinkSnapshotMutation();
-  const [changeLinkStatus] = useChangeLinkStatusMutation();
+  const [deleteSnapshotApi, { isError, isLoading, isSuccess }] =
+    useDeleteLinkSnapshotMutation();
+  const [
+    changeLinkStatus,
+    { isError: isUpError, isLoading: isUpLoading, isSuccess: isUpSuccess },
+  ] = useChangeLinkStatusMutation();
 
-  const changeStatusHandler = () => {
-    if (data.status === "1") changeLinkStatus({ id: data.id, status: 0 });
-    if (data.status === "0") changeLinkStatus({ id: data.id, status: 1 });
+  const changeStatusHandler = async () => {
+    if (data.status.toString() === "1") {
+      const newStatus = {
+        id: data.id,
+        status: 0,
+      };
+      // Local changes
+      dispatch(updateOneStatusGeneric(newStatus));
+      // Server changes
+      await changeLinkStatus(newStatus);
+    }
+
+    if (data.status.toString() === "0") {
+      const newStatus = {
+        id: data.id,
+        status: 1,
+      };
+      // Local changes
+      dispatch(updateOneStatusGeneric(newStatus));
+      // Server changes
+      await changeLinkStatus(newStatus);
+    }
   };
 
   const openHandler = () => setIsOpen(true);
   const closeHandler = () => setIsOpen(false);
 
   const editHandler = () => {
+    console.log(data);
     dispatch(activateLink(data));
     closeHandler();
   };
 
   const removeHandler = async () => {
     if (data.id) {
-      await deleteSnapshotApi({ id: data.id });
+      // Close window
       closeHandler();
+      // Local changes
+      dispatch(deleteOneGeneric(data.id));
+      // Server changes
+      await deleteSnapshotApi({ id: data.id });
     }
   };
 
   const arrowAction = () => {
     if (arrowActionHandler) arrowActionHandler(data.id);
   };
+
+  useEffect(() => {
+    const processStatusHandler = (status: string) =>
+      dispatch(processStatusHandlerStore(status));
+
+    if (isLoading) processStatusHandler("isLoading");
+    if (isSuccess) processStatusHandler("isSuccess");
+    if (isError) processStatusHandler("isError");
+
+    if (isUpLoading) processStatusHandler("isLoading");
+    if (isUpSuccess) processStatusHandler("isSuccess");
+    if (isUpError) processStatusHandler("isError");
+  }, [
+    isError,
+    isLoading,
+    isSuccess,
+    isUpError,
+    isUpLoading,
+    isUpSuccess,
+    dispatch,
+  ]);
 
   return (
     <ModalWrapper>

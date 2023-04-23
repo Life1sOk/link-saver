@@ -11,16 +11,10 @@ const BlackWindowModal = ({
   children,
   activeHandler,
 }: IWindowModal) => {
+  if (!isOpen) return <></>;
+
   return (
-    <>
-      {isOpen && (
-        <>
-          <BlackWindowStyle onClick={activeHandler}>
-            {children}
-          </BlackWindowStyle>
-        </>
-      )}
-    </>
+    <BlackWindowStyle onClick={activeHandler}>{children}</BlackWindowStyle>
   );
 };
 

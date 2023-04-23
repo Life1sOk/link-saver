@@ -1,4 +1,6 @@
-import { useAppSelector } from "../../App/store/hooks";
+import { useEffect } from "react";
+import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
+import { localGenericsStore } from "../../App/store/slices/generics.slice";
 
 import {
   useGetGenericLinksByUserIdQuery,
@@ -12,14 +14,21 @@ import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import { GenericsStyle, LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
+  const dispatch = useAppDispatch();
+
   const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
   const userId = useAppSelector((state) => state.user.session.user_id);
+  const localGenericLinks = useAppSelector((state) => state.genericsLinks.data);
 
-  const { data } = useGetGenericLinksByUserIdQuery(userId);
+  const { data, isSuccess } = useGetGenericLinksByUserIdQuery(userId);
   const [changeGroupLink] = useChangeLinkGroupTitleMutation();
 
   const changeGroupLinkHandler = (link_id: number) =>
     changeGroupLink({ id: link_id, group_id: activeGroup.id });
+
+  useEffect(() => {
+    if (data) dispatch(localGenericsStore(data));
+  }, [data]);
 
   return (
     <GenericsWrapper>
@@ -27,10 +36,10 @@ const GenericsSection = () => {
       <GenericsStyle>
         <h1>Generic Links</h1>
         <LinksWrapper>
-          {data?.map((current) => (
+          {localGenericLinks.map((current, index) => (
             <DotsLinkModal
               data={current}
-              key={current.id}
+              key={index}
               isActive={activeGroup.isActive}
               arrowActionHandler={changeGroupLinkHandler}
             >

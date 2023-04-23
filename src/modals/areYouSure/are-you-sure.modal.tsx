@@ -20,23 +20,21 @@ const AreYouSureModal = ({
   actionSureHandler,
   actionToggleHandler,
 }: ISure) => {
+  if (!isActive) return <></>;
+
   return (
-    <>
-      {isActive && (
-        <AreYouSureWrapper>
-          <AreYouSureStyle>
-            <Message>{message}</Message>
-            <ButtonsWrapper>
-              <Button
-                name="Yes, I'm mat' ego sure"
-                actionHandle={actionSureHandler}
-              />
-              <Button name="No, I'm girl" actionHandle={actionToggleHandler} />
-            </ButtonsWrapper>
-          </AreYouSureStyle>
-        </AreYouSureWrapper>
-      )}
-    </>
+    <AreYouSureWrapper>
+      <AreYouSureStyle>
+        <Message>{message}</Message>
+        <ButtonsWrapper>
+          <Button
+            name="Yes, I'm mat' ego sure"
+            actionHandle={actionSureHandler}
+          />
+          <Button name="No, I'm girl" actionHandle={actionToggleHandler} />
+        </ButtonsWrapper>
+      </AreYouSureStyle>
+    </AreYouSureWrapper>
   );
 };
 

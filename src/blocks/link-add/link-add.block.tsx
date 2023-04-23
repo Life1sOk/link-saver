@@ -1,7 +1,12 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import { toggleLinkWindowHandler } from "../../App/store/slices/action-window.slice";
+import {
+  addOneGeneric,
+  updateOneGeneric,
+} from "../../App/store/slices/generics.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import {
   useAddGenericLinkMutation,
@@ -20,8 +25,12 @@ const LinkAddBlock = () => {
   const activeLink = useAppSelector((state) => state.actionWindow.activeLink);
   const userId = useAppSelector((state) => state.user.session.user_id);
 
-  const [addGenericLinkApi] = useAddGenericLinkMutation();
-  const [updateLinkApi] = useChangeLinkTitleOrUrlMutation();
+  const [addGenericLinkApi, { isError, isLoading, isSuccess }] =
+    useAddGenericLinkMutation();
+  const [
+    updateLinkApi,
+    { isError: isUpError, isLoading: isUpLoading, isSuccess: isUpSuccess },
+  ] = useChangeLinkTitleOrUrlMutation();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const urlRef = useRef<HTMLInputElement>(null);
@@ -47,6 +56,7 @@ const LinkAddBlock = () => {
       // Close window
       return closeLinkWindow();
     }
+
     // Normal generic add
     if (activeLink.id < 0) {
       //Prepare object
@@ -55,21 +65,51 @@ const LinkAddBlock = () => {
         link_title: title,
         link_url: url,
       };
+      // Close window
+      closeLinkWindow();
+      // Add locally
+      dispatch(addOneGeneric({ ...link, status: "0", id: activeLink.id + 1 }));
       // Send data
       await addGenericLinkApi(link);
-      // Close window
-      return closeLinkWindow();
+      return;
     }
 
-    // If all not much so we should update link
-    await updateLinkApi({
+    const updatedLink = {
       id: activeLink.id,
       link_title: title,
       link_url: url,
-    });
+      status: activeLink.status,
+    };
 
-    return closeLinkWindow();
+    // Close window
+    closeLinkWindow();
+    // Update locally
+    dispatch(updateOneGeneric(updatedLink));
+    // If all not much so we should update link
+    await updateLinkApi(updatedLink);
+    return;
   };
+
+  useEffect(() => {
+    const processStatusHandler = (status: string) =>
+      dispatch(processStatusHandlerStore(status));
+
+    if (isLoading) processStatusHandler("isLoading");
+    if (isSuccess) processStatusHandler("isSuccess");
+    if (isError) processStatusHandler("isError");
+
+    if (isUpLoading) processStatusHandler("isLoading");
+    if (isUpSuccess) processStatusHandler("isSuccess");
+    if (isUpError) processStatusHandler("isError");
+  }, [
+    isError,
+    isLoading,
+    isSuccess,
+    isUpError,
+    isUpLoading,
+    isUpSuccess,
+    dispatch,
+  ]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>

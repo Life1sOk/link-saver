@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+import { IShortLink } from "../../../interfaces/link";
+
 const initialState = {
   isAddGroup: false,
   isAddLink: false,
@@ -13,6 +15,7 @@ const initialState = {
     id: -1,
     link_title: "",
     link_url: "",
+    status: "0",
   },
 };
 
@@ -27,7 +30,12 @@ export const actionWindowSlice = createSlice({
     toggleLinkWindowHandler: (state) => {
       if (!state.isAddLink) {
         state.isAddLink = !state.isAddLink;
-        state.activeLink = { id: -1, link_title: "", link_url: "" };
+        state.activeLink = {
+          id: -1,
+          link_title: "",
+          link_url: "",
+          status: "0",
+        };
       } else {
         state.isAddLink = !state.isAddLink;
       }
@@ -49,12 +57,7 @@ export const actionWindowSlice = createSlice({
         title: "",
       };
     },
-    activateLink: (
-      state,
-      {
-        payload,
-      }: PayloadAction<{ id: number; link_title: string; link_url: string }>
-    ) => {
+    activateLink: (state, { payload }: PayloadAction<IShortLink>) => {
       state.activeLink = payload;
       state.isAddLink = true;
     },
