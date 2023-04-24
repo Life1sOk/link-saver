@@ -3,9 +3,11 @@ import styled from "styled-components";
 export const GenericsWrapper = styled.aside`
   width: 326px;
   height: 100%;
-  padding: 20px;
 
   flex-shrink: 0;
+
+  background-color: ${({ theme }) => theme.background.main};
+  border: 1px solid ${({ theme }) => theme.border};
 `;
 
 export const GenericsStyle = styled.div`
@@ -13,11 +15,6 @@ export const GenericsStyle = styled.div`
   height: 100%;
 
   padding: 12px;
-  background-color: ${({ theme }) => theme.background.generics};
-
-  box-shadow: 0px 0px 10px 4px rgba(224, 224, 224, 0.75);
-  -webkit-box-shadow: 0px 0px 22px 2px rgba(224, 224, 224, 0.75);
-  -moz-box-shadow: 0px 0px 10px 4px rgba(224, 224, 224, 0.75);
 `;
 
 export const LinksWrapper = styled.div`

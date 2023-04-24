@@ -1,20 +1,25 @@
 import { HiOutlinePencilAlt } from "react-icons/hi";
-import {
-  AiFillFolderAdd,
-  AiFillFolderOpen,
-  AiFillDelete,
-  AiFillFileAdd,
-} from "react-icons/ai";
+import { AiFillFolderAdd, AiFillFileAdd } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
-import { BsArrowBarLeft, BsPen } from "react-icons/bs";
+import { BsArrowBarLeft } from "react-icons/bs";
+import {
+  TbFileImport,
+  TbPencil,
+  TbTrash,
+  TbCheck,
+  TbHome2,
+} from "react-icons/tb";
 
 export const icons = {
   link: <HiOutlinePencilAlt />,
   topicAdd: <AiFillFolderAdd />,
-  topicOpen: <AiFillFolderOpen />,
   dots: <BiDotsVertical />,
   arrowLeft: <BsArrowBarLeft />,
-  delete: <AiFillDelete />,
   activateForAdd: <AiFillFileAdd />,
-  pen: <BsPen />,
+
+  home: <TbHome2 />,
+  topicOpen: <TbFileImport />,
+  delete: <TbTrash />,
+  pen: <TbPencil />,
+  check: <TbCheck />,
 };

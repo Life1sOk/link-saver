@@ -6,9 +6,12 @@ import {
 
 import Button from "../../components/button/button.component";
 
+import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
+
 import { ActionStyle } from "./action.style";
 
-const ActionBlock = () => {
+// Топи логику переместить сюда
+const ActionSection = () => {
   const dispatch = useAppDispatch();
   const activeTopic = useAppSelector(
     (state) => state.activeTopic.current.topic_title
@@ -22,10 +25,12 @@ const ActionBlock = () => {
 
   return (
     <ActionStyle>
+      <TopicsAddBlock />
+      <Button name="Add topic" actionHandle={() => {}} />
       <Button name="Add new group" actionHandle={openGroupWindow} />
       <Button name="Add new link" actionHandle={openLinkWindow} />
     </ActionStyle>
   );
 };
 
-export default ActionBlock;
+export default ActionSection;

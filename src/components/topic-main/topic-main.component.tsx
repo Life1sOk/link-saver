@@ -1,7 +1,9 @@
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import { defaultState } from "../../App/store/slices/active-topic.slice";
 
-import { TopicMainStyle } from "./topic-main.style";
+import { icons } from "../../utils/react-icons";
+
+import { TopicMainStyle, Title, HomeIcon } from "./topic-main.style";
 
 const TopicMain = () => {
   const dispatch = useAppDispatch();
@@ -13,10 +15,11 @@ const TopicMain = () => {
 
   return (
     <TopicMainStyle
-      isActive={currentTopic.topic_title === "Main"}
       onClick={defaultMain}
+      isActive={currentTopic.topic_title === "Main"}
     >
-      Main
+      <HomeIcon>{icons.home}</HomeIcon>
+      <Title>Main desk</Title>
     </TopicMainStyle>
   );
 };

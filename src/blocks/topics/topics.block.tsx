@@ -4,10 +4,9 @@ import { activeTopicStore } from "../../App/store/slices/active-topic.slice";
 import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 
 import { ITopic } from "../../interfaces/topic";
-import TopicMain from "../../components/topic-main/topic-main.component";
 import Topic from "../../components/topic/topic.component";
 
-import { TopicsStyle } from "./topics.style";
+import { TopicsStyle, TopicsWrapper, TopicLine } from "./topics.style";
 
 /* Expected Array of objects from back-end - 
     topics = {
@@ -31,14 +30,17 @@ const TopicsBlock = () => {
 
   return (
     <TopicsStyle>
-      <TopicMain />
-      {data?.map((topic) => (
-        <Topic
-          topic={topic}
-          key={topic.id}
-          activeHandler={activeTopicHandler}
-        />
-      ))}
+      <TopicLine />
+      <TopicsWrapper>
+        {data?.map((topic) => (
+          <Topic
+            topic={topic}
+            key={topic.id}
+            activeHandler={activeTopicHandler}
+          />
+        ))}
+      </TopicsWrapper>
+      <TopicLine />
     </TopicsStyle>
   );
 };

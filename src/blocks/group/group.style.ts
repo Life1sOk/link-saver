@@ -7,12 +7,9 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
   width: 100%;
   height: fit-content;
   min-height: 100px;
-  color: ${({ theme }) => theme.white};
-  background-color: ${({ theme }) => theme.background.group};
 
   padding: 5px;
-  border: 1px solid
-    ${({ isActive, theme }) => (isActive ? theme.color.active : "white")};
+  border: 1px solid white;
   border-radius: 5px;
 
   display: flex;
@@ -22,7 +19,7 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
 export const GroupHeader = styled.div`
   width: 100%;
   padding: 7px;
-  border-bottom: 1px solid ${({ theme }) => theme.color.secondary};
+  border-bottom: 1px solid white;
 
   display: flex;
   align-items: center;
