@@ -8,8 +8,9 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
   height: fit-content;
   min-height: 100px;
 
+  background-color: #e6f0ff;
   padding: 5px;
-  border: 1px solid white;
+  border: 1px solid #0f2350;
   border-radius: 5px;
 
   display: flex;
@@ -19,7 +20,7 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
 export const GroupHeader = styled.div`
   width: 100%;
   padding: 7px;
-  border-bottom: 1px solid white;
+  border-bottom: 1px solid #0f2350;
 
   display: flex;
   align-items: center;

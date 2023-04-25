@@ -6,7 +6,8 @@ export const GroupActiveStyle = styled.div<{ isActive: boolean }>`
   height: 25px;
 
   & svg {
-    color: ${({ isActive }) => (isActive ? "rgb(0,222,0)" : "white")};
+    /* color: ${({ isActive }) => (isActive ? "rgb(0,222,0)" : "white")}; */
+    color: #0f2350;
 
     width: 100%;
     height: 100%;

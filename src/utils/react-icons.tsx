@@ -8,15 +8,16 @@ import {
   TbTrash,
   TbCheck,
   TbHome2,
+  TbLink,
 } from "react-icons/tb";
 
 export const icons = {
-  link: <HiOutlinePencilAlt />,
   topicAdd: <AiFillFolderAdd />,
   dots: <BiDotsVertical />,
   arrowLeft: <BsArrowBarLeft />,
   activateForAdd: <AiFillFileAdd />,
 
+  link: <TbLink />,
   home: <TbHome2 />,
   topicOpen: <TbFileImport />,
   delete: <TbTrash />,

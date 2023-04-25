@@ -4,12 +4,13 @@ export const ModalWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  max-width: 272px;
+  max-width: 255px;
   height: fit-content;
-  padding: 7px 22px;
+  padding: 8px;
 
-  border: 2px solid;
-  border-radius: 0 50px 0 50px;
+  color: white;
+  background-color: #0070c9;
+  border-radius: 5px;
 
   &:hover {
     cursor: pointer;
@@ -26,8 +27,6 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   width: 100%;
   height: 100%;
 
-  border-radius: 0 50px 0 50px;
-
   box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
   -webkit-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
   -moz-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
@@ -42,14 +41,15 @@ export const DotsLinkStyle = styled.div<{ isGroupActive: boolean }>`
 `;
 
 export const IconWrapper = styled.div<{ status?: number }>`
+  padding: 4px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   & svg {
-    width: 25px;
-    height: 25px;
-    padding: 3px;
+    width: 20px;
+    height: 20px;
 
     color: ${({ status }) => (status ? "rgb(0, 222, 0)" : null)};
   }

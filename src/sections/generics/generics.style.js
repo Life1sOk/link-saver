@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const GenericsWrapper = styled.aside`
-  width: 326px;
+  width: 277px;
   height: 100%;
 
   flex-shrink: 0;
@@ -20,7 +20,6 @@ export const GenericsStyle = styled.div`
 export const LinksWrapper = styled.div`
   width: 100%;
   height: calc(100% - 27px);
-  padding-top: 22px;
 
   overflow-y: scroll;
 
@@ -29,5 +28,5 @@ export const LinksWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   flex-basis: content;
-  gap: 15px;
+  gap: 7px;
 `;

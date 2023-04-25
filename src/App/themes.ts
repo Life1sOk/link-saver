@@ -3,6 +3,7 @@ export const theme = {
     back: "#f2f2f2",
     main: "white",
     navigation: "white",
+    group: "#e6f0ff",
   },
   border: "#dedede",
   lines: "#c2c2c2",

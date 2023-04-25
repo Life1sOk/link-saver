@@ -88,7 +88,11 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
   }, [isActive]);
 
   return (
-    <TopicStyle onClick={() => activeHandler(topic)} isActive={isActive}>
+    <TopicStyle
+      onClick={() => activeHandler(topic)}
+      isActive={isActive}
+      title={topic.topic_title}
+    >
       <Icon>{icons.topicOpen}</Icon>
       {!isChange ? (
         <Title>{topic.topic_title}</Title>

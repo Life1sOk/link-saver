@@ -62,6 +62,8 @@ export const Icon = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  color: #f7b84f;
 `;
 
 export const XMark = styled.div`

@@ -35,6 +35,7 @@ export const Title = styled.h4`
 export const HomeIcon = styled.div`
   width: 25px;
   height: 25px;
+  color: #f7b84f;
 
   & svg {
     width: 100%;
