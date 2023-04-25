@@ -13,7 +13,6 @@ export const ModalWrapper = styled.div`
 
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.color.active};
   }
 `;
 
