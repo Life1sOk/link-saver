@@ -23,8 +23,7 @@ const TopicsBlock = () => {
   const userId = useAppSelector((state) => state.user.data.id);
 
   // RTK query hook for fetching data from the server;
-  const { data, error, isLoading, isSuccess } =
-    useGetTopicsByUserIdQuery(userId);
+  const { data } = useGetTopicsByUserIdQuery(userId);
 
   // Add active topic to Redux toolkit
   const activeTopicHandler = (topic: ITopic) => dispatch(activeTopic(topic));

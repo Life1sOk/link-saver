@@ -4,22 +4,22 @@ import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
 import SettingsBlock from "../../blocks/settings/settings.block";
 import { NavigationStyle } from "./navigation.style";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../App/store/slices/dark-mode.slice";
+import { toggleTheme } from "../../App/store/slices/theme.slice";
 import { RootState } from "../../App/store/store";
 
 
 const NavigationSection = () => {
 
-  const darkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-
-  const dispatch = useDispatch();
+  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
   const handleThemeChange = () => {
     dispatch(toggleTheme());
   };
 
+  const dispatch = useDispatch();
+
   return (
-    <NavigationStyle className={darkMode ? "darktheme" : "whitetheme"} >
+    <NavigationStyle theme={isDarkMode} >
       <TopicsAddBlock />
       <TopicsBlock/>
       <SettingsBlock onThemeChange={handleThemeChange}/>

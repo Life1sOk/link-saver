@@ -8,12 +8,11 @@ interface IButton {
   className?: string;
   disabled?: boolean;
   children?: React.ReactNode;
-  onClick?: () => void;
 }
 
-const Button = ({ name, actionHandle, type, form, onClick }: IButton) => {
+const Button = ({ name, actionHandle, type, form }: IButton) => {
   return (
-    <ButtonStyle form={form} onClick={onClick || actionHandle} type={type}>
+    <ButtonStyle form={form} onClick={actionHandle} type={type}>
       {name}
     </ButtonStyle>
   );

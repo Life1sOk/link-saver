@@ -6,14 +6,9 @@ export const NavigationStyle = styled.nav`
   height: 100%;
 
   padding: 8px;
+  background-color: ${({ theme }) => theme.background.navigation};
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  &.whitetheme {
-    background-color: white;
-  }
-  &.darktheme {
-    background-color: black;
-  }
 `;

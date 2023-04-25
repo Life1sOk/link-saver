@@ -4,14 +4,16 @@ export const ModalWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  max-width: 222px;
+  max-width: 272px;
   height: fit-content;
-  padding: 7px;
+  padding: 7px 22px;
 
-  border: 1px solid white;
+  border: 2px solid;
+  border-radius: 0 50px 0 50px;
 
   &:hover {
     cursor: pointer;
+    color: ${({ theme }) => theme.color.active};
   }
 `;
 
@@ -25,6 +27,8 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   width: 100%;
   height: 100%;
 
+  border-radius: 0 50px 0 50px;
+
   box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
   -webkit-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
   -moz-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
@@ -32,10 +36,6 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
 
 export const DotsLinkStyle = styled.div<{ isGroupActive: boolean }>`
   position: relative;
-  z-index: ${({ isGroupActive }) => (isGroupActive ? "10" : "0")};
-
-  width: 100%;
-  height: fit-content;
 
   display: flex;
   align-items: center;
@@ -72,6 +72,8 @@ export const DialogBack = styled.div<{ isOpen: boolean }>`
 
 export const OpenWindow = styled.div`
   position: absolute;
+  /* top: 64px;
+  right: 22px; */
   top: 0;
   right: 0;
   z-index: 15;

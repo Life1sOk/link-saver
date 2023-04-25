@@ -15,9 +15,6 @@ interface IReport {
 
   const ReportModal = ({
     visible = false,
-    title = '',
-    content = '',
-    footer = '',
     onClose,
   }: IReport) =>{
     const onKeydown = ({ key }: KeyboardEvent) => {
@@ -44,7 +41,7 @@ interface IReport {
                 <TextArea defaultValue ="Type your problem here"/>
               <ButtonsWrapper>
                 <Button name="Submit" type="submit"/>
-                <Button name="Back" type="button" onClick={onClose}/>
+                <Button name="Back" type="button" actionHandle={onClose}/>
               </ButtonsWrapper>
             </ReportWindowStyle>
           </ReportWindowWrapper>

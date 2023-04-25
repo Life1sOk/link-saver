@@ -3,7 +3,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/user.slice";
 import activeTopicReducer from "./slices/active-topic.slice";
 import actionWindowReducer from "./slices/action-window.slice";
-import themeReducer from './slices/dark-mode.slice';
+import themeReducer from './slices/theme.slice';
 
 import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
