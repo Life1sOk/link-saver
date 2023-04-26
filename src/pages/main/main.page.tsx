@@ -11,8 +11,8 @@ import { MainLayout, MainWrapper, BorderResize } from "./main.style";
 
 const MainPage = () => {
   const [startPoint, setStartPoint] = useState({ mouseX: 0, sectionWidth: 0 });
-  const [defaultGroup, setDefaultGroup] = useState(313);
-  const [groupRepoc, setGroupRepoc] = useState(313);
+  const [defaultGroup, setDefaultGroup] = useState(299);
+  const [groupRepoc, setGroupRepoc] = useState(299);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +35,7 @@ const MainPage = () => {
       let resize = defaultGroup + (event.clientX - startPoint.mouseX) * -1;
       let maxResize = startPoint.sectionWidth - 366;
 
-      if (resize >= 313 && resize < maxResize) {
+      if (resize >= 299 && resize < maxResize) {
         setGroupRepoc(resize);
       }
     }

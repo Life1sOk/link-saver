@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { icons } from "../../utils/react-icons";
 
 import { useAppDispatch } from "../../App/store/hooks";
@@ -7,7 +7,6 @@ import {
   deleteOneGeneric,
   updateOneStatusGeneric,
 } from "../../App/store/slices/generics.slice";
-import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import { IShortLink } from "../../interfaces/link";
 
@@ -42,12 +41,8 @@ const DotsLinkModal = ({
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [deleteSnapshotApi, { isError, isLoading, isSuccess }] =
-    useDeleteLinkSnapshotMutation();
-  const [
-    changeLinkStatus,
-    { isError: isUpError, isLoading: isUpLoading, isSuccess: isUpSuccess },
-  ] = useChangeLinkStatusMutation();
+  const [deleteSnapshotApi] = useDeleteLinkSnapshotMutation();
+  const [changeLinkStatus] = useChangeLinkStatusMutation();
 
   const changeStatusHandler = async () => {
     if (data.status.toString() === "1") {
@@ -96,27 +91,6 @@ const DotsLinkModal = ({
   const arrowAction = () => {
     if (arrowActionHandler) arrowActionHandler(data.id);
   };
-
-  useEffect(() => {
-    const processStatusHandler = (status: string) =>
-      dispatch(processStatusHandlerStore(status));
-
-    if (isLoading) processStatusHandler("isLoading");
-    if (isSuccess) processStatusHandler("isSuccess");
-    if (isError) processStatusHandler("isError");
-
-    if (isUpLoading) processStatusHandler("isLoading");
-    if (isUpSuccess) processStatusHandler("isSuccess");
-    if (isUpError) processStatusHandler("isError");
-  }, [
-    isError,
-    isLoading,
-    isSuccess,
-    isUpError,
-    isUpLoading,
-    isUpSuccess,
-    dispatch,
-  ]);
 
   return (
     <ModalWrapper>

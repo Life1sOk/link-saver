@@ -71,28 +71,34 @@ export const DialogBack = styled.div<{ isOpen: boolean }>`
 
 export const OpenWindow = styled.div`
   position: absolute;
-  /* top: 64px;
-  right: 22px; */
   top: 0;
   right: 0;
   z-index: 15;
 
   width: 128px;
-  height: 80px;
-  padding: 8px 0;
-  background-color: grey;
+  height: fit-content;
+  background-color: white;
+  padding: 5px 0;
+
+  border-radius: 5px;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 3px;
 `;
 
 export const ActionP = styled.button`
   width: 100%;
   height: 32px;
   padding: 0 24px;
+
+  border-top: 1px solid ${({ theme }) => theme.border};
+  border-bottom: 1px solid ${({ theme }) => theme.border};
+
   text-align: center;
+  border: none;
 
   &:hover {
     cursor: pointer;
