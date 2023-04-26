@@ -7,25 +7,22 @@ export const GenericsWrapper = styled.aside`
 
   background-color: ${({ theme }) => theme.background.main};
   border: 1px solid ${({ theme }) => theme.border};
-`;
+  padding: 0 5px 5px 5px;
 
-export const GenericsStyle = styled.div`
-  width: 100%;
-  height: 100%;
+  display: flex;
+  flex-direction: column;
 
-  padding: 12px;
+  overflow: scroll;
 `;
 
 export const LinksWrapper = styled.div`
   width: 100%;
-  height: calc(100% - 27px);
+  margin-top: 17px;
 
-  overflow-y: scroll;
-
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 266px);
+  justify-content: center;
+  justify-items: center;
   align-items: center;
-  flex-basis: content;
-  gap: 7px;
+  gap: 9px;
 `;

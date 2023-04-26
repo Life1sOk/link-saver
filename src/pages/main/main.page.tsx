@@ -33,7 +33,7 @@ const MainPage = () => {
   const mouseMoveHandler = (event: any) => {
     if (startPoint.mouseX > 0 && startPoint.sectionWidth > 0) {
       let resize = defaultGroup + (event.clientX - startPoint.mouseX) * -1;
-      let maxResize = startPoint.sectionWidth - 366;
+      let maxResize = startPoint.sectionWidth - 343;
 
       if (resize >= 299 && resize < maxResize) {
         setGroupRepoc(resize);

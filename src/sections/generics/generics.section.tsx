@@ -11,9 +11,10 @@ import { useChangeLinkStatusMutation } from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import Link from "../../components/link/link.component";
+import TitleSection from "../../components/title-section/title-section.component";
 
 import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
-import { GenericsStyle, LinksWrapper, GenericsWrapper } from "./generics.style";
+import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
   const dispatch = useAppDispatch();
@@ -49,20 +50,19 @@ const GenericsSection = () => {
   return (
     <GenericsWrapper>
       <LinkAddBlock />
-      <GenericsStyle>
-        <LinksWrapper>
-          {localGenericLinks.map((current, index) => (
-            <DotsLinkModal
-              data={current}
-              key={index}
-              isActive={activeGroup.isActive}
-              arrowActionHandler={changeGroupLinkHandler}
-            >
-              <Link data={current} />
-            </DotsLinkModal>
-          ))}
-        </LinksWrapper>
-      </GenericsStyle>
+      <TitleSection title="Generic links:" />
+      <LinksWrapper>
+        {localGenericLinks.map((current, index) => (
+          <DotsLinkModal
+            data={current}
+            key={index}
+            isActive={activeGroup.isActive}
+            arrowActionHandler={changeGroupLinkHandler}
+          >
+            <Link data={current} />
+          </DotsLinkModal>
+        ))}
+      </LinksWrapper>
     </GenericsWrapper>
   );
 };
