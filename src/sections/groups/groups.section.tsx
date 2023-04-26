@@ -24,7 +24,6 @@ const GroupsSection = () => {
     <>
       <GroupAddBlock />
       <GroupsStyle>
-        {/* <h1>{topic_title}</h1> */}
         <GroupsWrapper>
           {data?.map((group) => (
             <GroupBlock

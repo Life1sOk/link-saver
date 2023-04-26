@@ -34,7 +34,6 @@ const GenericsSection = () => {
     <GenericsWrapper>
       <LinkAddBlock />
       <GenericsStyle>
-        {/* <h1>Generic Links</h1> */}
         <LinksWrapper>
           {localGenericLinks.map((current, index) => (
             <DotsLinkModal

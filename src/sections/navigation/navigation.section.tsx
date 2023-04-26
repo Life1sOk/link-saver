@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 // Blocks
 import TopicsBlock from "../../blocks/topics/topics.block";
 
@@ -7,7 +9,7 @@ import TopicMain from "../../components/topic-main/topic-main.component";
 // Style
 import { NavigationStyle, LogoCheck } from "./navigation.style";
 
-const NavigationSection = () => {
+const NavigationSection = memo(() => {
   return (
     <NavigationStyle>
       <LogoCheck>Logo</LogoCheck>
@@ -16,6 +18,6 @@ const NavigationSection = () => {
       <p>topic's section (navigation)</p>
     </NavigationStyle>
   );
-};
+});
 
 export default NavigationSection;

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import {
   toggleGroupWindowHandler,
@@ -11,7 +13,7 @@ import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
 import { ActionStyle } from "./action.style";
 
 // Топи логику переместить сюда
-const ActionSection = () => {
+const ActionSection = memo(() => {
   const dispatch = useAppDispatch();
   const activeTopic = useAppSelector(
     (state) => state.activeTopic.current.topic_title
@@ -31,6 +33,6 @@ const ActionSection = () => {
       <Button name="Add new link" actionHandle={openLinkWindow} />
     </ActionStyle>
   );
-};
+});
 
 export default ActionSection;

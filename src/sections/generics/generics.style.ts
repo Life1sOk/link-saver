@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const GenericsWrapper = styled.aside`
-  width: 277px;
+  width: 100%;
   height: 100%;
-
-  flex-shrink: 0;
+  min-width: 277px;
 
   background-color: ${({ theme }) => theme.background.main};
   border: 1px solid ${({ theme }) => theme.border};

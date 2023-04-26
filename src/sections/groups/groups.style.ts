@@ -1,8 +1,9 @@
 import styled from "styled-components";
 
-export const GroupsStyle = styled.main`
+export const GroupsStyle = styled.div`
   width: 100%;
   height: 100%;
+  min-width: 333px;
 
   padding: 20px;
 
@@ -20,7 +21,7 @@ export const GroupsWrapper = styled.div`
   width: 100%;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(277px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(277px, 317px));
   justify-content: center;
   gap: 18px;
 `;

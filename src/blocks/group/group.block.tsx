@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
 import { deactivateGroup } from "../../App/store/slices/action-window.slice";
@@ -25,73 +25,77 @@ import {
   LinksPlace,
 } from "./group.style";
 
-const GroupBlock = ({ title, groupId }: { title: string; groupId: number }) => {
-  const dispatch = useAppDispatch();
+const GroupBlock = memo(
+  ({ title, groupId }: { title: string; groupId: number }) => {
+    const dispatch = useAppDispatch();
 
-  const [isSureModal, setIsSureModal] = useState(false);
+    const [isSureModal, setIsSureModal] = useState(false);
 
-  const userId = useAppSelector((state) => state.user.session.user_id);
+    const userId = useAppSelector((state) => state.user.session.user_id);
 
-  const currentActiveGroup = useAppSelector(
-    (state) => state.actionWindow.activeGroup
-  );
+    const currentActiveGroup = useAppSelector(
+      (state) => state.actionWindow.activeGroup
+    );
 
-  const { data } = useGetGroupsLinksByTitleQuery({
-    user_id: userId,
-    group_id: groupId,
-  });
-  const [changeGroupLinkApi] = useChangeLinkGroupTitleMutation();
-  const [deleteGroupApi] = useDeleteGroupMutation();
-
-  const modalActionHandler = () => setIsSureModal(!isSureModal);
-
-  const sureDeleteHandler = async () => {
-    await deleteGroupApi({
-      id: groupId,
+    const { data } = useGetGroupsLinksByTitleQuery({
       user_id: userId,
+      group_id: groupId,
     });
+    const [changeGroupLinkApi] = useChangeLinkGroupTitleMutation();
+    const [deleteGroupApi] = useDeleteGroupMutation();
 
-    return setIsSureModal(!isSureModal);
-  };
+    const modalActionHandler = () => setIsSureModal(!isSureModal);
 
-  const changeGroupLinkHandler = async (link_id: number) =>
-    await changeGroupLinkApi({ id: link_id, group_id: null });
+    const sureDeleteHandler = async () => {
+      await deleteGroupApi({
+        id: groupId,
+        user_id: userId,
+      });
 
-  let isActive = groupId === currentActiveGroup.id;
+      return setIsSureModal(!isSureModal);
+    };
 
-  return (
-    <>
-      <BlackWindowModal
-        isOpen={currentActiveGroup.isActive}
-        activeHandler={() => dispatch(deactivateGroup())}
-      />
-      <GroupStyle isActive={isActive}>
-        <GroupHeader>
-          <GroupActive title={title} group_id={groupId} isActive={isActive} />
-          <GroupTitle title={title} group_id={groupId} isActive={isActive} />
-          <IconWrapper onClick={modalActionHandler}>{icons.delete}</IconWrapper>
-        </GroupHeader>
-        <LinksPlace>
-          {data?.map((link) => (
-            <DotsLinkModal
-              data={link}
-              key={link.id}
-              isActive={isActive}
-              arrowActionHandler={changeGroupLinkHandler}
-            >
-              <Link data={link} key={link.id} />
-            </DotsLinkModal>
-          ))}
-        </LinksPlace>
-        <AreYouSureModal
-          isActive={isSureModal}
-          actionSureHandler={sureDeleteHandler}
-          actionToggleHandler={modalActionHandler}
-          message="All your links in this group will be also deleted! Are you sure?"
+    const changeGroupLinkHandler = async (link_id: number) =>
+      await changeGroupLinkApi({ id: link_id, group_id: null });
+
+    let isActive = groupId === currentActiveGroup.id;
+
+    return (
+      <>
+        <BlackWindowModal
+          isOpen={currentActiveGroup.isActive}
+          activeHandler={() => dispatch(deactivateGroup())}
         />
-      </GroupStyle>
-    </>
-  );
-};
+        <GroupStyle isActive={isActive}>
+          <GroupHeader>
+            <GroupActive title={title} group_id={groupId} isActive={isActive} />
+            <GroupTitle title={title} group_id={groupId} isActive={isActive} />
+            <IconWrapper onClick={modalActionHandler}>
+              {icons.delete}
+            </IconWrapper>
+          </GroupHeader>
+          <LinksPlace>
+            {data?.map((link) => (
+              <DotsLinkModal
+                data={link}
+                key={link.id}
+                isActive={isActive}
+                arrowActionHandler={changeGroupLinkHandler}
+              >
+                <Link data={link} key={link.id} />
+              </DotsLinkModal>
+            ))}
+          </LinksPlace>
+          <AreYouSureModal
+            isActive={isSureModal}
+            actionSureHandler={sureDeleteHandler}
+            actionToggleHandler={modalActionHandler}
+            message="All your links in this group will be also deleted! Are you sure?"
+          />
+        </GroupStyle>
+      </>
+    );
+  }
+);
 
 export default GroupBlock;
