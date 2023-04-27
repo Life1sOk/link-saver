@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import {
-  activeTopic,
+  activeTopicStore,
   defaultState,
 } from "../../App/store/slices/active-topic.slice";
 
@@ -16,12 +16,18 @@ import {
 } from "../../App/store/api/topics";
 
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
-import { TopicStyle, IconWrapper, Icon } from "./topic.style";
+import {
+  TopicStyle,
+  Title,
+  TitleEditor,
+  IconWrapper,
+  Icon,
+  XMark,
+} from "./topic.style";
 
 interface ITopicActive {
   topic: ITopic;
   activeHandler: (arg: ITopic) => void;
-  // isActive: boolean;
 }
 
 const Topic = ({ topic, activeHandler }: ITopicActive) => {
@@ -54,7 +60,7 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
       topic_title: changedTitle,
     });
 
-    if (updatedTopic) dispatch(activeTopic(updatedTopic));
+    if (updatedTopic) dispatch(activeTopicStore(updatedTopic));
     return setIsChange(false);
   };
   // ------------------------------------------------ //
@@ -77,13 +83,21 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
     return setIsDelete(false);
   };
 
+  useEffect(() => {
+    if (!isActive) notReadyHandler();
+  }, [isActive]);
+
   return (
-    <TopicStyle onClick={() => activeHandler(topic)} isActive={isActive}>
+    <TopicStyle
+      onClick={() => activeHandler(topic)}
+      isActive={isActive}
+      title={topic.topic_title}
+    >
       <Icon>{icons.topicOpen}</Icon>
       {!isChange ? (
-        <p className="title">{topic.topic_title}</p>
+        <Title>{topic.topic_title}</Title>
       ) : (
-        <input
+        <TitleEditor
           type="text"
           defaultValue={topic.topic_title}
           ref={titleTopicRef}
@@ -94,8 +108,10 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
         <IconWrapper>
           {isChange ? (
             <>
-              <span onClick={acceptChangesHandler}>Y</span>
-              <span onClick={notReadyHandler}>N</span>
+              <Icon onClick={acceptChangesHandler}>{icons.check}</Icon>
+              <Icon onClick={notReadyHandler}>
+                <XMark />
+              </Icon>
             </>
           ) : (
             <>

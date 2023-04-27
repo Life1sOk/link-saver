@@ -4,16 +4,20 @@ export const ModalWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  max-width: 272px;
+  max-width: 266px;
   height: fit-content;
-  padding: 7px 22px;
+  padding: 8px;
 
-  border: 2px solid;
-  border-radius: 0 50px 0 50px;
+  color: white;
+  background-color: #0070c9;
+  border-radius: 5px;
+
+  box-shadow: 0px 0px 3px 0px rgba(0, 112, 201, 0.75);
+  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 112, 201, 0.75);
+  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 112, 201, 0.75);
 
   &:hover {
     cursor: pointer;
-    color: ${({ theme }) => theme.color.active};
   }
 `;
 
@@ -27,14 +31,16 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   width: 100%;
   height: 100%;
 
-  border-radius: 0 50px 0 50px;
+  border: 1px solid white;
+  border-radius: 5px;
+  border: 1px solid rgba(247, 184, 79, 0.75);
 
-  box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
-  -webkit-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
-  -moz-box-shadow: 0px 0px 15px 6px rgba(255, 255, 255, 0.75) inset;
+  box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
+  -webkit-box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
+  -moz-box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
 `;
 
-export const DotsLinkStyle = styled.div<{ isGroupActive: boolean }>`
+export const DotsLinkStyle = styled.div`
   position: relative;
 
   display: flex;
@@ -43,14 +49,15 @@ export const DotsLinkStyle = styled.div<{ isGroupActive: boolean }>`
 `;
 
 export const IconWrapper = styled.div<{ status?: number }>`
+  padding: 4px;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
   & svg {
-    width: 25px;
-    height: 25px;
-    padding: 3px;
+    width: 20px;
+    height: 20px;
 
     color: ${({ status }) => (status ? "rgb(0, 222, 0)" : null)};
   }
@@ -72,28 +79,34 @@ export const DialogBack = styled.div<{ isOpen: boolean }>`
 
 export const OpenWindow = styled.div`
   position: absolute;
-  /* top: 64px;
-  right: 22px; */
   top: 0;
   right: 0;
   z-index: 15;
 
   width: 128px;
-  height: 80px;
-  padding: 8px 0;
-  background-color: grey;
+  height: fit-content;
+  background-color: white;
+  padding: 5px 0;
+
+  border-radius: 5px;
+  overflow: hidden;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  gap: 3px;
 `;
 
 export const ActionP = styled.button`
   width: 100%;
   height: 32px;
   padding: 0 24px;
+
+  border-top: 1px solid ${({ theme }) => theme.border};
+  border-bottom: 1px solid ${({ theme }) => theme.border};
+
   text-align: center;
+  border: none;
 
   &:hover {
     cursor: pointer;

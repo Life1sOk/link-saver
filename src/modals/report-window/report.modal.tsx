@@ -1,14 +1,14 @@
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
 import TextArea from "../../components/textarea/textarea.component";
-import { ButtonsWrapper, Message, ReportWindowStyle, ReportWindowWrapper } from "./report.style";
+import { ButtonsWrapper, ReportWindowStyle, ReportWindowWrapper } from "./report.style";
 import React from "react";
 
 interface IReport {
   visible?: boolean;
   title?: string;
-  content: any | string;
-  footer: any | string;
+  content?: any | string;
+  footer?: any | string;
   onClose: () => void;
   }
 

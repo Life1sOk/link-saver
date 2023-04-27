@@ -14,7 +14,7 @@ export const activeTopicSlice = createSlice({
   name: "active-topic",
   initialState,
   reducers: {
-    activeTopic: (state, { payload }) => {
+    activeTopicStore: (state, { payload }) => {
       const { data } = payload;
 
       if (data) {
@@ -33,6 +33,6 @@ export const activeTopicSlice = createSlice({
   },
 });
 
-export const { activeTopic, defaultState } = activeTopicSlice.actions;
+export const { activeTopicStore, defaultState } = activeTopicSlice.actions;
 
 export default activeTopicSlice.reducer;

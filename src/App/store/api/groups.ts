@@ -15,8 +15,11 @@ export const groupsApi = createApi({
   }),
   tagTypes: ["Groups"],
   endpoints: (builder) => ({
-    getGroupsByTopicId: builder.query<IGroupGet[], number>({
-      query: (topic_id) => ({ url: `/${topic_id}` }),
+    getGroupsByTopicId: builder.query<
+      IGroupGet[],
+      { user_id: number; topic_id: number }
+    >({
+      query: ({ user_id, topic_id }) => ({ url: `/${user_id}&${topic_id}` }),
       providesTags: ["Groups"],
     }),
     addGroup: builder.mutation<void, IGroupPost>({

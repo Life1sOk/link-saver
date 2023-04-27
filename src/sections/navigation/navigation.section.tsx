@@ -1,30 +1,23 @@
+import { memo } from "react";
+
 // Blocks
 import TopicsBlock from "../../blocks/topics/topics.block";
-import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
-import SettingsBlock from "../../blocks/settings/settings.block";
-import { NavigationStyle } from "./navigation.style";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../../App/store/slices/theme.slice";
-import { RootState } from "../../App/store/store";
 
+// Components
+import TopicMain from "../../components/topic-main/topic-main.component";
 
-const NavigationSection = () => {
+// Style
+import { NavigationStyle, LogoCheck } from "./navigation.style";
 
-  const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
-
-  const handleThemeChange = () => {
-    dispatch(toggleTheme());
-  };
-
-  const dispatch = useDispatch();
-
+const NavigationSection = memo(() => {
   return (
-    <NavigationStyle theme={isDarkMode} >
-      <TopicsAddBlock />
-      <TopicsBlock/>
-      <SettingsBlock onThemeChange={handleThemeChange}/>
+    <NavigationStyle>
+      <LogoCheck>Logo</LogoCheck>
+      <TopicMain />
+      <TopicsBlock />
+      <p>topic's section (navigation)</p>
     </NavigationStyle>
   );
-};
+});
 
 export default NavigationSection;

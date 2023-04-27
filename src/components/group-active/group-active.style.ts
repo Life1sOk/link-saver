@@ -1,22 +1,18 @@
 import styled from "styled-components";
 
 export const GroupActiveStyle = styled.div<{ isActive: boolean }>`
-  margin-right: 5px;
-  width: 25px;
-  height: 25px;
+  width: 23px;
+  height: 23px;
+  margin-right: 10px;
+  flex-shrink: 0;
 
-  & svg {
-    color: ${({ isActive }) => (isActive ? "rgb(0,222,0)" : "white")};
+  border: 1px solid grey;
+  border-radius: 50%;
+  background-color: ${({ isActive }) => (isActive ? "green" : "white")};
 
-    width: 100%;
-    height: 100%;
-  }
+  transition: background-color 0.3s;
 
   &:hover {
     cursor: pointer;
-
-    & svg {
-      color: rgb(0, 222, 0);
-    }
   }
 `;

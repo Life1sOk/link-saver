@@ -1,8 +1,7 @@
-import { useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 import { useAppDispatch } from "../../App/store/hooks";
-import { usersDataStore } from "../../App/store/slices/user.slice";
+import { usersSessionStore } from "../../App/store/slices/user.slice";
 import { useLoginMutation } from "../../App/store/api/login";
 
 import Button from "../../components/button/button.component";
@@ -18,7 +17,6 @@ interface ILogin {
 
 const LoginBlock = ({ changeBlock }: ILogin) => {
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -27,24 +25,21 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
   const changeHandler = () => changeBlock("registration");
 
   // Отправка запроса на сервер
-  const [loginMutation, { isLoading, isError, isSuccess }] = useLoginMutation();
+  const [loginMutation, { isLoading, isError }] = useLoginMutation();
 
   const onSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     const loginObj = {
-      email: emailRef.current?.value,
-      password: passwordRef.current?.value,
+      email: emailRef.current?.value!,
+      password: passwordRef.current?.value!,
     };
+
     // User
     const response = await loginMutation(loginObj);
 
-    dispatch(usersDataStore(response));
+    dispatch(usersSessionStore(response));
   };
-
-  useEffect(() => {
-    if (isSuccess) navigate("/main");
-  }, [isSuccess, navigate]);
 
   if (isLoading) return <LoadingSpinner />;
 

@@ -18,6 +18,17 @@ export interface IUserLogin {
   password: string;
 }
 
-interface AuthResponse {
+export interface IUserToken {
   token: string;
+}
+
+export interface IUserTokenResponse {
+  success: boolean;
+  user_id: number;
+}
+
+export interface IAuthResponse {
+  success: boolean;
+  token: string;
+  user_id: number;
 }

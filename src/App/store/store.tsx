@@ -3,7 +3,10 @@ import { configureStore } from "@reduxjs/toolkit";
 import userReducer from "./slices/user.slice";
 import activeTopicReducer from "./slices/active-topic.slice";
 import actionWindowReducer from "./slices/action-window.slice";
-import themeReducer from './slices/theme.slice';
+import genericsReducer from "./slices/generics.slice";
+import processReducer from "./slices/process.slice";
+import groupsReducer from "./slices/groups.slice";
+import themeReducer from './slices/user.slice'
 
 import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
@@ -16,6 +19,9 @@ export const store = configureStore({
     user: userReducer,
     activeTopic: activeTopicReducer,
     actionWindow: actionWindowReducer,
+    genericsLocal: genericsReducer,
+    groupsLocal: groupsReducer,
+    process: processReducer,
     theme: themeReducer,
     [topicsApi.reducerPath]: topicsApi.reducer,
     [linksApi.reducerPath]: linksApi.reducer,

@@ -1,20 +1,34 @@
-const lightBrown = "#a79581";
-const darkBrown = "#6b221c";
-const vanileBrown = "#c8a779";
-const white = "#ffffff";
-const grey = "#e3e3e0";
-const green = "rgb(0,222,0)";
-
-export const theme = {
+export const themes = {
+  light: {
   background: {
-    main: lightBrown,
-    generics: vanileBrown,
-    navigation: vanileBrown,
+    back: "#f2f2f2",
+    main: "white",
+    navigation: "white",
+    group: "#e6f0ff",
   },
-  color: {
-    main: darkBrown,
-    secondary: grey,
-    active: green,
+  border: "#dedede",
+  lines: "#c2c2c2",
+  active: {
+    topic: "white",
   },
-  white: white,
+  hover: {
+    topic: "#fafafa",
+  },
+},
+dark: {
+  background: {
+    back: "#1a1a1a",
+    main: "#282828",
+    navigation: "#212121",
+    group: "#3a3a3a",
+  },
+  border: "#666666",
+  lines: "#999999",
+  active: {
+    topic: "#333333",
+  },
+  hover: {
+    topic: "#444444",
+  },
+},
 };
