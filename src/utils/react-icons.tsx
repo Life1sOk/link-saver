@@ -1,5 +1,4 @@
-import { HiOutlinePencilAlt } from "react-icons/hi";
-import { AiFillFolderAdd, AiFillFileAdd } from "react-icons/ai";
+import { AiFillFolderAdd } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import {
@@ -15,7 +14,6 @@ export const icons = {
   topicAdd: <AiFillFolderAdd />,
   dots: <BiDotsVertical />,
   arrowLeft: <BsArrowBarLeft />,
-  activateForAdd: <AiFillFileAdd />,
 
   link: <TbLink />,
   home: <TbHome2 />,

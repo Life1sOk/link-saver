@@ -68,7 +68,7 @@ const LinkAddBlock = () => {
       // Close window
       closeLinkWindow();
       // Add locally
-      dispatch(addOneGeneric({ ...link, status: "0", id: activeLink.id + 1 }));
+      dispatch(addOneGeneric({ ...link, status: "0", id: Date.now() }));
       // Send data
       await addGenericLinkApi(link);
       return;

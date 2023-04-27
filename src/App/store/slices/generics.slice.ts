@@ -8,7 +8,7 @@ const initialState: { data: IShortLink[] } = {
 };
 
 export const genericsSlice = createSlice({
-  name: "active-topic",
+  name: "local-generics",
   initialState,
   reducers: {
     localGenericsStore: (state, { payload }: PayloadAction<IShortLink[]>) => {

@@ -9,6 +9,7 @@ export const ActionStyle = styled.div`
 
   background-color: ${({ theme }) => theme.background.main};
   border: 1px solid ${({ theme }) => theme.border};
+  border-radius: 5px;
 
   display: flex;
   align-items: center;

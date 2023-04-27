@@ -95,7 +95,7 @@ const DotsLinkModal = ({
   return (
     <ModalWrapper>
       <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
-      <DotsLinkStyle isGroupActive={isActive}>
+      <DotsLinkStyle>
         <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
           {icons.link}
         </IconWrapper>

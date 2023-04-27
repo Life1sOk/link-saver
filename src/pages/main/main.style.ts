@@ -25,6 +25,7 @@ export const MainWrapper = styled.div`
 
     display: grid;
     grid-template-columns: 1fr 8px 277px;
+    align-items: center;
     gap: 2px;
   }
 `;

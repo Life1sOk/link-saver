@@ -35,10 +35,10 @@ const GroupAddBlock = () => {
       user_id,
       group_title: title,
     };
-    // Send data
-    addGroupApi(group);
     // Close window
     closeGroupWindow();
+    // Send data
+    await addGroupApi(group);
   };
 
   return (

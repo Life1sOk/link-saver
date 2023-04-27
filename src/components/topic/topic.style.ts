@@ -39,14 +39,12 @@ export const Title = styled.p`
 export const TitleEditor = styled.input`
   width: 100%;
   max-width: 128px;
-  padding-bottom: 2px;
 
   font-size: 17px;
   font-weight: 500;
   font-family: inherit;
 
   border: none;
-  border-bottom: 1px solid black;
 `;
 
 export const IconWrapper = styled.div`
@@ -81,7 +79,7 @@ export const XMark = styled.div`
 
     width: 15px;
     height: 1.5px;
-    background-color: black;
+    background-color: #f7b84f;
     transform: translateX(-50%) rotate(45deg);
 
     border-radius: 5px;
@@ -96,7 +94,7 @@ export const XMark = styled.div`
 
     width: 15px;
     height: 1.5px;
-    background-color: black;
+    background-color: #f7b84f;
     transform: translateX(-50%) rotate(-45deg);
 
     border-radius: 5px;

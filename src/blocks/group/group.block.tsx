@@ -4,7 +4,7 @@ import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
 import { deactivateGroup } from "../../App/store/slices/action-window.slice";
 
 import {
-  useGetGroupsLinksByTitleQuery,
+  useGetGroupsLinksByIdQuery,
   useChangeLinkGroupTitleMutation,
 } from "../../App/store/api/links";
 import { useDeleteGroupMutation } from "../../App/store/api/groups";
@@ -37,7 +37,7 @@ const GroupBlock = memo(
       (state) => state.actionWindow.activeGroup
     );
 
-    const { data } = useGetGroupsLinksByTitleQuery({
+    const { data } = useGetGroupsLinksByIdQuery({
       user_id: userId,
       group_id: groupId,
     });
@@ -47,12 +47,12 @@ const GroupBlock = memo(
     const modalActionHandler = () => setIsSureModal(!isSureModal);
 
     const sureDeleteHandler = async () => {
-      await deleteGroupApi({
+      setIsSureModal(!isSureModal);
+
+      return await deleteGroupApi({
         id: groupId,
         user_id: userId,
       });
-
-      return setIsSureModal(!isSureModal);
     };
 
     const changeGroupLinkHandler = async (link_id: number) =>
@@ -86,13 +86,13 @@ const GroupBlock = memo(
               </DotsLinkModal>
             ))}
           </LinksPlace>
-          <AreYouSureModal
-            isActive={isSureModal}
-            actionSureHandler={sureDeleteHandler}
-            actionToggleHandler={modalActionHandler}
-            message="All your links in this group will be also deleted! Are you sure?"
-          />
         </GroupStyle>
+        <AreYouSureModal
+          isActive={isSureModal}
+          actionSureHandler={sureDeleteHandler}
+          actionToggleHandler={modalActionHandler}
+          message="All your links in this group will be also deleted! Are you sure?"
+        />
       </>
     );
   }

@@ -25,8 +25,10 @@ const MainPage = () => {
   };
   // End
   const endAnimation = () => {
-    setStartPoint({ mouseX: 0, sectionWidth: 0 });
-    setDefaultGroup(groupRepoc);
+    if (startPoint.mouseX > 0) {
+      setStartPoint({ mouseX: 0, sectionWidth: 0 });
+      setDefaultGroup(groupRepoc);
+    }
   };
 
   // Mouse movement in main section

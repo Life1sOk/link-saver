@@ -21,7 +21,7 @@ const GenericsSection = () => {
 
   const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
   const userId = useAppSelector((state) => state.user.session.user_id);
-  const localGenericLinks = useAppSelector((state) => state.genericsLinks.data);
+  const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
 
   const { data } = useGetGenericLinksByUserIdQuery(userId);
   const [changeGroupLink] = useChangeLinkGroupTitleMutation();
@@ -48,7 +48,7 @@ const GenericsSection = () => {
   }, [isUpError, isUpLoading, isUpSuccess, dispatch]);
 
   return (
-    <GenericsWrapper>
+    <GenericsWrapper isTransfer={activeGroup.isActive}>
       <LinkAddBlock />
       <TitleSection title="Generic links:" />
       <LinksWrapper>
