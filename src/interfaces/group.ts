@@ -1,6 +1,9 @@
+import { IShortLink } from "./link";
+
 export interface IGroupGet {
-  id?: number;
+  id: number;
   group_title: string;
+  links: IShortLink[];
 }
 
 export interface IGroupPost {

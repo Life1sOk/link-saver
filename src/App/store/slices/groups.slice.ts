@@ -17,9 +17,17 @@ export const groupsSlice = createSlice({
     addOneGroup: (state, { payload }: PayloadAction<IGroupGet>) => {
       state.data.unshift(payload);
     },
+    updateGroupLinks: (state, { payload }) => {
+      const { group_id, links } = payload;
+
+      state.data = state.data.map((group) =>
+        group.id === group_id ? { ...group, links } : group
+      );
+    },
   },
 });
 
-export const { localGroupsStore, addOneGroup } = groupsSlice.actions;
+export const { localGroupsStore, addOneGroup, updateGroupLinks } =
+  groupsSlice.actions;
 
 export default groupsSlice.reducer;
