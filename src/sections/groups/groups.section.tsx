@@ -49,11 +49,7 @@ const GroupsSection = () => {
         <TitleSection title={topic_title} />
         <GroupsWrapper>
           {localGroups.map((group) => (
-            <GroupBlock
-              key={group.id}
-              groupId={group.id!}
-              title={group.group_title}
-            />
+            <GroupBlock key={group.id} data={group} />
           ))}
         </GroupsWrapper>
       </GroupsStyle>

@@ -76,6 +76,7 @@ export const {
   useGetGenericLinksByUserIdQuery,
   useAddGenericLinkMutation,
   useGetGroupsLinksByIdQuery,
+  useLazyGetGroupsLinksByIdQuery,
   useChangeLinkTitleOrUrlMutation,
   useChangeLinkGroupTitleMutation,
   useChangeLinkStatusMutation,

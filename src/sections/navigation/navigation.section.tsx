@@ -16,6 +16,7 @@ const NavigationSection = memo(() => {
       <TopicMain />
       <TopicsBlock />
       <p>topic's section (navigation)</p>
+      <button>Misha toggle</button>
     </NavigationStyle>
   );
 });
