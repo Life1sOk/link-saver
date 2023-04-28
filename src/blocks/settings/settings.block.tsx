@@ -2,22 +2,23 @@ import { useState } from "react";
 import { SettingsBlockWrapper} from "./settings.style";
 import Button from "../../components/button/button.component";
 import ReportModal from "../../modals/report-window/report.modal";
-import { IThemeChange } from "../../interfaces/theme";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleTheme } from "../../App/store/slices/theme.slice";
+import { RootState } from "../../App/store/store";
 
-const SettingsBlock = ({ onThemeChange }: IThemeChange) => {
+const SettingsBlock = () => {
   const [isModal, setModal] = useState(false);
   const onClose = () => setModal(false);
 
-  const handleThemeClick = () => {
-    onThemeChange();
-  };
+  const currentTheme = useSelector((state:RootState) => state.theme);
+  const dispatch = useDispatch();
 
 
   return (
     <SettingsBlockWrapper >
       <Button name="FAQ" className="textbutton">
       </Button>
-      <Button name="Night Mode" className="textbutton" actionHandle={handleThemeClick}>
+      <Button name="Night Mode" className="textbutton" actionHandle={() => dispatch(toggleTheme())}>
       </Button>
       <Button name="User" className="textbutton">
       </Button>
