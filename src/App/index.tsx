@@ -8,7 +8,7 @@ import { store } from "./store/store";
 
 // Theme styled components;
 import { ThemeProvider } from "styled-components";
-import { theme, theme2 } from "./themes";
+import { theme } from "./theme";
 
 import "./index.css";
 
