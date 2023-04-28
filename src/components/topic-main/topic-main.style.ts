@@ -5,6 +5,8 @@ export const TopicMainStyle = styled.div<{ isActive: boolean }>`
   height: 55px;
   font-size: 19px;
 
+  flex-shrink: 0;
+
   padding-left: 12px;
 
   border-radius: 4px 0 0 4px;

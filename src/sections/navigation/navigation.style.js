@@ -18,5 +18,7 @@ export const LogoCheck = styled.h2`
   height: 57px;
   font-size: 33px;
 
+  flex-shrink: 0;
+
   border-bottom: 1px solid ${({ theme }) => theme.border};
 `;

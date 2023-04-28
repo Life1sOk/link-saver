@@ -2,6 +2,7 @@ import { memo } from "react";
 
 // Blocks
 import TopicsBlock from "../../blocks/topics/topics.block";
+import SettingsBlock from "../../blocks/settings/settings.block";
 
 // Components
 import TopicMain from "../../components/topic-main/topic-main.component";
@@ -15,8 +16,7 @@ const NavigationSection = memo(() => {
       <LogoCheck>Logo</LogoCheck>
       <TopicMain />
       <TopicsBlock />
-      <p>topic's section (navigation)</p>
-      <button>Misha toggle</button>
+      <SettingsBlock />
     </NavigationStyle>
   );
 });

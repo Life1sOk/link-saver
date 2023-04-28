@@ -6,7 +6,7 @@ import actionWindowReducer from "./slices/action-window.slice";
 import genericsReducer from "./slices/generics.slice";
 import processReducer from "./slices/process.slice";
 import groupsReducer from "./slices/groups.slice";
-import themeReducer from './slices/user.slice'
+import themeReducer from "./slices/theme.slice";
 
 import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
