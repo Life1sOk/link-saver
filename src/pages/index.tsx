@@ -43,7 +43,7 @@ const Routing = () => {
     } else {
       navigate("/");
     }
-  }, [loginByTokenAPI, dispatch, usersSession.success, navigate, isSuccess]);
+  }, [loginByTokenAPI, dispatch, usersSession, navigate, isSuccess]);
 
   return (
     <PageWrapper>

@@ -21,7 +21,7 @@ const TopicsAddBlock = () => {
   const closeTopic = () => setIsAddTopic(false);
 
   // Server Request
-  const sendChanges = () => {
+  const sendChanges = async () => {
     // Input ref
     let checkField = inputRef.current?.value!;
 
@@ -33,8 +33,10 @@ const TopicsAddBlock = () => {
     closeTopic();
 
     // Send request
-    addTopic({ user_id: userId, topic_title: checkField });
+    await addTopic({ user_id: userId, topic_title: checkField });
   };
+
+  console.log(userId);
 
   return (
     <TopicsAddStyle>
