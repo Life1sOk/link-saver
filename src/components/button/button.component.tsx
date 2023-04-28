@@ -1,12 +1,13 @@
 import { ButtonStyle } from "./button.style";
 
 interface IButton {
-  name: string;
+  name?: string;
   type?: "submit" | "reset" | "button" | undefined;
   form?: string;
   actionHandle?: () => void;
   className?: string;
   disabled?: boolean;
+  children?: React.ReactNode;
 }
 
 const Button = ({ name, actionHandle, type, form }: IButton) => {

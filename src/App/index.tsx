@@ -8,6 +8,7 @@ import { store } from "./store/store";
 
 // Theme styled components;
 import { ThemeProvider } from "styled-components";
+
 import { theme } from "./theme";
 
 import "./index.css";
@@ -16,7 +17,7 @@ function App() {
   return (
     <Provider store={store}>
       <HashRouter>
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themes}>
           <Routing />
         </ThemeProvider>
       </HashRouter>
