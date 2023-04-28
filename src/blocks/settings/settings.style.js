@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SettingsBlockWrapper = styled.div`
   width: 100%;
   height: 222px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.background.navigation};
 
   margin-top: 7px;
   padding-right: 8px;

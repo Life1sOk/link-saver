@@ -12,12 +12,4 @@ export const ButtonStyle = styled.button`
   &:active {
     opacity: 0.9;
   }
-  &.textbutton{
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-}
 `;
