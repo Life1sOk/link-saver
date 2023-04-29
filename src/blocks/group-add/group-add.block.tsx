@@ -1,9 +1,11 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import { toggleGroupWindowHandler } from "../../App/store/slices/action-window.slice";
 
 import { useAddGroupMutation } from "../../App/store/api/groups";
+import { addOneGroup } from "../../App/store/slices/groups.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -17,7 +19,8 @@ const GroupAddBlock = () => {
   const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
   const user_id = useAppSelector((state) => state.user.session.user_id);
 
-  const [addGroupApi, result] = useAddGroupMutation();
+  const [addGroupApi, { isLoading, isSuccess, isError }] =
+    useAddGroupMutation();
 
   const groupTitleRef = useRef<HTMLInputElement>(null);
 
@@ -31,15 +34,28 @@ const GroupAddBlock = () => {
     if (title.length < 2) return alert("pls field all");
     //Prepare object
     const group = {
+      id: Date.now(),
       topic_id: activeTopicId,
       user_id,
       group_title: title,
+      links: [],
     };
     // Close window
     closeGroupWindow();
+    // Local add
+    dispatch(addOneGroup(group));
     // Send data
     await addGroupApi(group);
   };
+
+  useEffect(() => {
+    const processStatusHandler = (status: string) =>
+      dispatch(processStatusHandlerStore(status));
+
+    if (isLoading) processStatusHandler("isLoading");
+    if (isSuccess) processStatusHandler("isSuccess");
+    if (isError) processStatusHandler("isError");
+  }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>

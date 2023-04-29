@@ -6,6 +6,7 @@ import actionWindowReducer from "./slices/action-window.slice";
 import genericsReducer from "./slices/generics.slice";
 import processReducer from "./slices/process.slice";
 import groupsReducer from "./slices/groups.slice";
+import topicsReducer from "./slices/topics.slice";
 import themeReducer from "./slices/theme.slice";
 
 import { topicsApi } from "./api/topics";
@@ -21,6 +22,7 @@ export const store = configureStore({
     actionWindow: actionWindowReducer,
     genericsLocal: genericsReducer,
     groupsLocal: groupsReducer,
+    topicsLocal: topicsReducer,
     process: processReducer,
     theme: themeReducer,
     [topicsApi.reducerPath]: topicsApi.reducer,

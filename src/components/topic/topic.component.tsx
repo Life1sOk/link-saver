@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
+import { defaultState } from "../../App/store/slices/active-topic.slice";
 import {
-  activeTopicStore,
-  defaultState,
-} from "../../App/store/slices/active-topic.slice";
+  removeOneTopic,
+  updateOneTopic,
+} from "../../App/store/slices/topics.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import { icons } from "../../utils/react-icons";
 
@@ -28,9 +30,10 @@ import {
 interface ITopicActive {
   topic: ITopic;
   activeHandler: (arg: ITopic) => void;
+  index: number;
 }
 
-const Topic = ({ topic, activeHandler }: ITopicActive) => {
+const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const dispatch = useAppDispatch();
   const [isChange, setIsChange] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -39,6 +42,7 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
     (state) => state.activeTopic.current?.id
   );
   const isActive = activeTopicId === topic.id;
+  const activateTopic = () => activeHandler(topic);
 
   // --------------- For change block ----------- //
   // changes State handlers
@@ -46,7 +50,8 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
   const notReadyHandler = () => setIsChange(false);
 
   // Server hook RTK
-  const [changeTopicTitleApi] = useChangeTopicTitleMutation();
+  const [changeTopicTitleApi, { isError, isLoading, isSuccess }] =
+    useChangeTopicTitleMutation();
   // ref input
   const titleTopicRef = useRef<HTMLInputElement>(null);
   // Send request with checks
@@ -55,13 +60,16 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
 
     if (changedTitle === topic.topic_title) return setIsChange(false);
 
-    const updatedTopic = await changeTopicTitleApi({
+    // Local
+    setIsChange(false);
+    dispatch(updateOneTopic({ index, title: changedTitle }));
+    activateTopic();
+
+    // Server
+    return await changeTopicTitleApi({
       id: topic.id,
       topic_title: changedTitle,
     });
-
-    if (updatedTopic) dispatch(activeTopicStore(updatedTopic));
-    return setIsChange(false);
   };
   // ------------------------------------------------ //
 
@@ -74,22 +82,34 @@ const Topic = ({ topic, activeHandler }: ITopicActive) => {
 
   // Send request for delete
   const sureDeleteHandler = async () => {
-    await deleteTopicApi({
+    // Local
+    dispatch(defaultState());
+    dispatch(removeOneTopic(topic.id));
+    setIsDelete(false);
+
+    // Server
+    return await deleteTopicApi({
       id: topic.id,
       user_id: topic.user_id,
     });
-
-    dispatch(defaultState());
-    return setIsDelete(false);
   };
 
   useEffect(() => {
     if (!isActive) notReadyHandler();
   }, [isActive]);
 
+  useEffect(() => {
+    const processStatusHandler = (status: string) =>
+      dispatch(processStatusHandlerStore(status));
+
+    if (isLoading) processStatusHandler("isLoading");
+    if (isSuccess) processStatusHandler("isSuccess");
+    if (isError) processStatusHandler("isError");
+  }, [isError, isLoading, isSuccess, dispatch]);
+
   return (
     <TopicStyle
-      onClick={() => activeHandler(topic)}
+      onClick={activateTopic}
       isActive={isActive}
       title={topic.topic_title}
     >

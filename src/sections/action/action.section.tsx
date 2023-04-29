@@ -6,7 +6,7 @@ import {
   toggleLinkWindowHandler,
 } from "../../App/store/slices/action-window.slice";
 
-import Button from "../../components/button/button.component";
+import ButtonNew from "../../components/button-new/button-new.component";
 
 import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
 
@@ -28,9 +28,16 @@ const ActionSection = memo(() => {
   return (
     <ActionStyle>
       <TopicsAddBlock />
-      <Button name="Add topic" actionHandle={() => {}} />
-      <Button name="Add new group" actionHandle={openGroupWindow} />
-      <Button name="Add new link" actionHandle={openLinkWindow} />
+      <ButtonNew
+        name="Add group"
+        actionHandle={openGroupWindow}
+        color="#ff7565"
+      />
+      <ButtonNew
+        name="Add link"
+        actionHandle={openLinkWindow}
+        color="rgb(0, 112, 201)"
+      />
     </ActionStyle>
   );
 });

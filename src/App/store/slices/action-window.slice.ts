@@ -9,13 +9,17 @@ const initialState = {
   activeGroup: {
     isActive: false,
     id: -1,
+    group_index: -1,
     title: "",
   },
   activeLink: {
-    id: -1,
-    link_title: "",
-    link_url: "",
-    status: "0",
+    link: {
+      id: -1,
+      link_title: "",
+      link_url: "",
+      status: "0",
+    },
+    from: "",
   },
 };
 
@@ -30,23 +34,27 @@ export const actionWindowSlice = createSlice({
     toggleLinkWindowHandler: (state) => {
       if (!state.isAddLink) {
         state.isAddLink = !state.isAddLink;
-        state.activeLink = {
+        state.activeLink.link = {
           id: -1,
           link_title: "",
           link_url: "",
           status: "0",
         };
+        state.activeLink.from = "";
       } else {
         state.isAddLink = !state.isAddLink;
       }
     },
     activateGroup: (
       state,
-      { payload }: PayloadAction<{ title: string; id: number }>
+      {
+        payload,
+      }: PayloadAction<{ title: string; id: number; group_index: number }>
     ) => {
       state.activeGroup = {
         isActive: true,
         id: payload.id,
+        group_index: payload.group_index,
         title: payload.title,
       };
     },
@@ -54,11 +62,16 @@ export const actionWindowSlice = createSlice({
       state.activeGroup = {
         isActive: false,
         id: -1,
+        group_index: -1,
         title: "",
       };
     },
-    activateLink: (state, { payload }: PayloadAction<IShortLink>) => {
-      state.activeLink = payload;
+    activateLink: (
+      state,
+      { payload }: PayloadAction<{ data: IShortLink; from: string }>
+    ) => {
+      state.activeLink.link = payload.data;
+      state.activeLink.from = payload.from;
       state.isAddLink = true;
     },
   },

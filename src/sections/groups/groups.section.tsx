@@ -11,7 +11,7 @@ import TitleSection from "../../components/title-section/title-section.component
 
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
-import { GroupsStyle, SpinnerWrapepr, GroupsWrapper } from "./groups.style";
+import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
 
 const GroupsSection = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +25,7 @@ const GroupsSection = () => {
 
   const user_id = useAppSelector((state) => state.user.session.user_id);
 
-  const { data, isLoading } = useGetGroupsByTopicIdQuery({
+  const { data, isLoading, isFetching } = useGetGroupsByTopicIdQuery({
     topic_id: id,
     user_id,
   });
@@ -34,11 +34,14 @@ const GroupsSection = () => {
     if (data) dispatch(localGroupsStore(data));
   }, [dispatch, data]);
 
-  if (isLoading) {
+  if (isLoading || isFetching) {
     return (
-      <SpinnerWrapepr>
-        <LoadingSpinner />
-      </SpinnerWrapepr>
+      <GroupsStyle>
+        <TitleSection title={topic_title} color="#ff7565" />
+        <SpinnerWrapper>
+          <LoadingSpinner />
+        </SpinnerWrapper>
+      </GroupsStyle>
     );
   }
 
@@ -46,10 +49,10 @@ const GroupsSection = () => {
     <>
       <GroupAddBlock />
       <GroupsStyle>
-        <TitleSection title={topic_title} />
+        <TitleSection title={topic_title} color="#ff7565" />
         <GroupsWrapper>
-          {localGroups.map((group) => (
-            <GroupBlock key={group.id} data={group} />
+          {localGroups.map((group, index) => (
+            <GroupBlock key={group.id} data={group} index={index} />
           ))}
         </GroupsWrapper>
       </GroupsStyle>

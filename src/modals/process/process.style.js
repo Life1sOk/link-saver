@@ -6,7 +6,15 @@ export const ProcessStyle = styled.div`
   right: 10px;
 
   width: fit-content;
-  height: 20px;
+  padding: 3px 10px;
+  border-radius: 3px;
 
-  background-color: grey;
+  font-size: 15px;
+  font-weight: 500;
+
+  border: 1px solid rgb(222, 222, 222);
+
+  -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  -moz-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);
 `;

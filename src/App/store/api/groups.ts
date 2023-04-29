@@ -11,7 +11,7 @@ import {
 export const groupsApi = createApi({
   reducerPath: "groupsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/groups",
+    baseUrl: "https://link-saver.herokuapp.com/groups",
   }),
   tagTypes: ["Groups"],
   endpoints: (builder) => ({
@@ -28,7 +28,6 @@ export const groupsApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Groups"],
     }),
     changeGroup: builder.mutation<void, IGroupChange>({
       query: (body) => ({
@@ -36,7 +35,6 @@ export const groupsApi = createApi({
         method: "PUT",
         body,
       }),
-      invalidatesTags: ["Groups"],
     }),
     deleteGroup: builder.mutation<void, IGroupDelete>({
       query: (body) => ({
@@ -44,7 +42,6 @@ export const groupsApi = createApi({
         method: "DELETE",
         body,
       }),
-      invalidatesTags: ["Groups"],
     }),
   }),
 });

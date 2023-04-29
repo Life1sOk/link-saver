@@ -3,7 +3,7 @@ import { defaultState } from "../../App/store/slices/active-topic.slice";
 
 import { icons } from "../../utils/react-icons";
 
-import { TopicMainStyle, Title, HomeIcon } from "./topic-main.style";
+import { TopicMainStyle, Title, MarkIcon } from "./topic-main.style";
 
 const TopicMain = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ const TopicMain = () => {
       onClick={defaultMain}
       isActive={currentTopic.topic_title === "Main"}
     >
-      <HomeIcon>{icons.home}</HomeIcon>
+      <MarkIcon>{icons.marker}</MarkIcon>
       <Title>Main desk</Title>
     </TopicMainStyle>
   );

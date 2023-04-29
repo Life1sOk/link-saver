@@ -3,7 +3,7 @@ import { IUser, IUserRegistration } from "../../../interfaces/user";
 
 export const registrationAPI = createApi({
   reducerPath: "api/registraion",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://link-saver.herokuapp.com/" }),
   tagTypes: ["Registration"],
   endpoints: (builder) => ({
     register: builder.mutation<IUser, IUserRegistration>({

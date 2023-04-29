@@ -1,18 +1,24 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 
-import { useAppSelector } from "../../App/store/hooks";
+import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
 import { useAddTopicByUserIdMutation } from "../../App/store/api/topics";
+import { addOneTopic } from "../../App/store/slices/topics.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import Button from "../../components/button/button.component";
+import ButtonNew from "../../components/button-new/button-new.component";
 import TopicAdd from "../../components/topic-add/topic-add.component";
 
 import { TopicsAddStyle } from "./topics-add.style";
 
 const TopicsAddBlock = () => {
+  const dispatch = useAppDispatch();
+
   const [isAddTopic, setIsAddTopic] = useState(false);
   const userId = useAppSelector((state) => state.user.session.user_id);
 
-  const [addTopic, result] = useAddTopicByUserIdMutation();
+  const [addTopic, { isError, isLoading, isSuccess }] =
+    useAddTopicByUserIdMutation();
 
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -32,22 +38,38 @@ const TopicsAddBlock = () => {
     // Close window
     closeTopic();
 
+    // Local Add
+    dispatch(
+      addOneTopic({ id: Date.now(), user_id: userId, topic_title: checkField })
+    );
+
     // Send request
     await addTopic({ user_id: userId, topic_title: checkField });
   };
 
-  console.log(userId);
+  useEffect(() => {
+    const processStatusHandler = (status: string) =>
+      dispatch(processStatusHandlerStore(status));
+
+    if (isLoading) processStatusHandler("isLoading");
+    if (isSuccess) processStatusHandler("isSuccess");
+    if (isError) processStatusHandler("isError");
+  }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
     <TopicsAddStyle>
-      <Button name="Add new topic" actionHandle={openTopic} />
-      {isAddTopic ? (
+      <ButtonNew
+        name="Add topic"
+        actionHandle={openTopic}
+        color="rgb(247, 184, 79)"
+      />
+      {/* {isAddTopic ? (
         <TopicAdd
           acceptHandler={sendChanges}
           closeHandler={closeTopic}
           ref={inputRef}
         />
-      ) : null}
+      ) : null} */}
     </TopicsAddStyle>
   );
 };

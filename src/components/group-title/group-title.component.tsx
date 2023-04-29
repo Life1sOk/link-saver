@@ -1,4 +1,8 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
+
+import { useAppDispatch } from "../../App/store/hooks";
+import { updateGroupTitle } from "../../App/store/slices/groups.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import { useChangeGroupMutation } from "../../App/store/api/groups";
 
@@ -11,7 +15,10 @@ interface IGroupTitle {
 }
 
 const GroupTitle = ({ title, group_id, isActive }: IGroupTitle) => {
-  const [changeGroupTitleApi] = useChangeGroupMutation();
+  const dispatch = useAppDispatch();
+
+  const [changeGroupTitleApi, { isLoading, isSuccess, isError }] =
+    useChangeGroupMutation();
 
   const titleGroupRef = useRef<HTMLInputElement>(null);
 
@@ -20,14 +27,29 @@ const GroupTitle = ({ title, group_id, isActive }: IGroupTitle) => {
 
     // Check title changes
     if (changedTitle === title) return;
-    // Send changes
-    await changeGroupTitleApi({
+
+    const upTitle = {
       id: group_id,
       new_title: changedTitle,
-    });
+    };
+
+    // Local
+    dispatch(updateGroupTitle(upTitle));
+
+    // Send changes
+    await changeGroupTitleApi(upTitle);
 
     return;
   };
+
+  useEffect(() => {
+    const processStatusHandler = (status: string) =>
+      dispatch(processStatusHandlerStore(status));
+
+    if (isLoading) processStatusHandler("isLoading");
+    if (isSuccess) processStatusHandler("isSuccess");
+    if (isError) processStatusHandler("isError");
+  }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
     <GroupTitleStyle>

@@ -13,5 +13,5 @@ export const ActionStyle = styled.div`
 
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 15px;
 `;

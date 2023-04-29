@@ -20,7 +20,7 @@ export const GroupsStyle = styled.div`
   align-items: center;
 `;
 
-export const SpinnerWrapepr = styled.div`
+export const SpinnerWrapper = styled.div`
   width: 100%;
   height: 100%;
 
@@ -32,14 +32,11 @@ export const SpinnerWrapepr = styled.div`
 export const GroupsWrapper = styled.div`
   width: 100%;
   margin-top: 17px;
+  padding: 0 12px;
 
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 33px;
-  /* display: grid;
+  display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   justify-content: center;
   justify-items: center;
-  gap: 14px; */
+  gap: 14px;
 `;

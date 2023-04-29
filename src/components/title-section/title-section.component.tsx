@@ -1,8 +1,11 @@
-import { TitleSectionStyle, Title } from "./title-section.style";
+import { icons } from "../../utils/react-icons";
 
-const TitleSection = ({ title }: { title: string }) => {
+import { TitleSectionStyle, MarkIcon, Title } from "./title-section.style";
+
+const TitleSection = ({ title, color }: { title: string; color: string }) => {
   return (
     <TitleSectionStyle>
+      <MarkIcon color={color}>{icons.marker}</MarkIcon>
       <Title>{title}</Title>
     </TitleSectionStyle>
   );

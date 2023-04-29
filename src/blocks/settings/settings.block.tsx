@@ -1,20 +1,24 @@
 import { useState } from "react";
 
-import Button from "../../components/button/button.component";
+import { icons } from "../../utils/react-icons";
+
+import SettingAction from "../../components/setting-action/setting-action.component";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 
 import { toggleTheme } from "../../App/store/slices/theme.slice";
 
 import ReportModal from "../../modals/report-window/report.modal";
-import { SettingsBlockWrapper } from "./settings.style";
+import { SettingsBlockStyle } from "./settings.style";
 
 const SettingsBlock = () => {
   const dispatch = useAppDispatch();
   const activeTheme = useAppSelector((state) => state.theme.currentTheme);
 
   const [isModal, setModal] = useState(false);
-  const onClose = () => setModal(false);
+
+  const closeModalHandler = () => setModal(false);
+  const openModalHandler = () => setModal(true);
 
   const toggleThemeHandler = () => {
     if (activeTheme === "light") dispatch(toggleTheme("dark"));
@@ -22,28 +26,21 @@ const SettingsBlock = () => {
   };
 
   return (
-    <SettingsBlockWrapper>
-      <Button name="FAQ" className="textbutton"></Button>
-      <Button
-        name="Night Mode"
-        className="textbutton"
-        actionHandle={toggleThemeHandler}
-      ></Button>
-      <Button name="User" className="textbutton"></Button>
-      <Button name="Log out" className="textbutton" />
-      <Button
-        name="Report"
-        actionHandle={() => {
-          setModal(true);
-        }}
-        type="button"
+    <SettingsBlockStyle>
+      <SettingAction
+        title="Pick theme"
+        icon={icons.themePick}
+        actionHandler={toggleThemeHandler}
       />
-      <ReportModal
-        visible={isModal}
-        footer={<button onClick={onClose}>Закрыть</button>}
-        onClose={onClose}
+      <SettingAction
+        title="Send report"
+        actionHandler={openModalHandler}
+        icon={icons.exclamation}
       />
-    </SettingsBlockWrapper>
+      <SettingAction title="FAQ" icon={icons.question} />
+      <SettingAction title="Log out" icon={icons.logout} />
+      <ReportModal visible={isModal} onClose={closeModalHandler} />
+    </SettingsBlockStyle>
   );
 };
 

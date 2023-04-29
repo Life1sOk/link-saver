@@ -12,6 +12,7 @@ import {
   useAddGenericLinkMutation,
   useChangeLinkTitleOrUrlMutation,
 } from "../../App/store/api/links";
+import { updateGroupLink } from "../../App/store/slices/groups.slice";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -49,16 +50,16 @@ const LinkAddBlock = () => {
 
     // Check if data was uppdated if old data === current => just close window
     if (
-      activeLink.id > 0 &&
-      title === activeLink.link_title &&
-      url === activeLink.link_url
+      activeLink.link.id > 0 &&
+      title === activeLink.link.link_title &&
+      url === activeLink.link.link_url
     ) {
       // Close window
       return closeLinkWindow();
     }
 
     // Normal generic add
-    if (activeLink.id < 0) {
+    if (activeLink.link.id < 0) {
       //Prepare object
       const link = {
         user_id: userId,
@@ -75,16 +76,26 @@ const LinkAddBlock = () => {
     }
 
     const updatedLink = {
-      id: activeLink.id,
+      id: activeLink.link.id,
       link_title: title,
       link_url: url,
-      status: activeLink.status,
+      status: activeLink.link.status,
     };
 
     // Close window
     closeLinkWindow();
     // Update locally
-    dispatch(updateOneGeneric(updatedLink));
+    if (activeLink.from === "generics") {
+      dispatch(updateOneGeneric(updatedLink));
+    } else {
+      dispatch(
+        updateGroupLink({
+          index: Number(activeLink.from),
+          link_data: updatedLink,
+        })
+      );
+    }
+
     // If all not much so we should update link
     await updateLinkApi(updatedLink);
     return;
@@ -123,14 +134,14 @@ const LinkAddBlock = () => {
           type="text"
           ref={titleRef}
           required
-          defaultValue={activeLink.link_title}
+          defaultValue={activeLink.link.link_title}
         />
         <Input
           label="URL:"
           type="text"
           ref={urlRef}
           required
-          defaultValue={activeLink.link_url}
+          defaultValue={activeLink.link.link_url}
         />
         <LinkButtons>
           <Button name="Cancel" type="button" actionHandle={closeLinkWindow} />

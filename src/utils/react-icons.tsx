@@ -8,6 +8,11 @@ import {
   TbCheck,
   TbHome2,
   TbLink,
+  TbQuestionCircle,
+  TbTimelineEventExclamation,
+  TbLogout,
+  TbColorPicker,
+  TbBookmark,
 } from "react-icons/tb";
 
 export const icons = {
@@ -21,4 +26,9 @@ export const icons = {
   delete: <TbTrash />,
   pen: <TbPencil />,
   check: <TbCheck />,
+  question: <TbQuestionCircle />,
+  exclamation: <TbTimelineEventExclamation />,
+  logout: <TbLogout />,
+  themePick: <TbColorPicker />,
+  marker: <TbBookmark />,
 };

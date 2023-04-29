@@ -7,7 +7,7 @@ import { IGroupLink } from "../../../interfaces/group";
 export const linksApi = createApi({
   reducerPath: "linksApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/links",
+    baseUrl: "https://link-saver.herokuapp.com/links",
   }),
   tagTypes: ["Links", "Groups"],
   endpoints: (builder) => ({
@@ -27,7 +27,6 @@ export const linksApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Links"],
     }),
     changeLinkGroupTitle: builder.mutation<
       void,
@@ -38,7 +37,6 @@ export const linksApi = createApi({
         method: "PUT",
         body,
       }),
-      invalidatesTags: ["Links", "Groups"],
     }),
     changeLinkTitleOrUrl: builder.mutation<
       void,
@@ -49,7 +47,6 @@ export const linksApi = createApi({
         method: "PUT",
         body,
       }),
-      invalidatesTags: ["Links", "Groups"],
     }),
     changeLinkStatus: builder.mutation<void, ILinkStatus>({
       query: (body) => ({
@@ -57,7 +54,6 @@ export const linksApi = createApi({
         method: "PUT",
         body,
       }),
-      invalidatesTags: ["Links", "Groups"],
     }),
     deleteLinkSnapshot: builder.mutation<void, { id: number }>({
       query: (body) => ({
@@ -65,7 +61,6 @@ export const linksApi = createApi({
         method: "DELETE",
         body,
       }),
-      invalidatesTags: ["Links", "Groups"],
     }),
   }),
 });
@@ -75,7 +70,6 @@ export const linksApi = createApi({
 export const {
   useGetGenericLinksByUserIdQuery,
   useAddGenericLinkMutation,
-  useGetGroupsLinksByIdQuery,
   useLazyGetGroupsLinksByIdQuery,
   useChangeLinkTitleOrUrlMutation,
   useChangeLinkGroupTitleMutation,

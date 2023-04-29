@@ -18,16 +18,58 @@ export const groupsSlice = createSlice({
       state.data.unshift(payload);
     },
     updateGroupLinks: (state, { payload }) => {
-      const { group_id, links } = payload;
+      const { index, links } = payload;
 
+      state.data[index].links = links;
+    },
+    updateGroupTitle: (state, { payload }) => {
+      const { id, new_title } = payload;
       state.data = state.data.map((group) =>
-        group.id === group_id ? { ...group, links } : group
+        group.id === id ? { ...group, group_title: new_title } : group
+      );
+    },
+    deleteGroup: (state, { payload }) => {
+      state.data = state.data.filter((group) => group.id !== payload);
+    },
+    removeCurrentLink: (state, { payload }) => {
+      const { link_id, index } = payload;
+
+      state.data[index].links = state.data[index].links.filter(
+        (link) => link.id !== link_id
+      );
+    },
+    addCurrentLink: (state, { payload }) => {
+      const { link_data, index } = payload;
+
+      state.data[index].links.push(link_data);
+    },
+    updateGroupLink: (state, { payload }) => {
+      const { link_data, index } = payload;
+
+      state.data[index].links = state.data[index].links.map((link) =>
+        link.id === link_data.id ? link_data : link
+      );
+    },
+    updateGroupLinkStatus: (state, { payload }) => {
+      const { link_data, index } = payload;
+
+      state.data[index].links = state.data[index].links.map((link) =>
+        link.id === link_data.id ? { ...link, status: link_data.status } : link
       );
     },
   },
 });
 
-export const { localGroupsStore, addOneGroup, updateGroupLinks } =
-  groupsSlice.actions;
+export const {
+  localGroupsStore,
+  addOneGroup,
+  updateGroupLinks,
+  updateGroupTitle,
+  addCurrentLink,
+  deleteGroup,
+  updateGroupLink,
+  updateGroupLinkStatus,
+  removeCurrentLink,
+} = groupsSlice.actions;
 
 export default groupsSlice.reducer;

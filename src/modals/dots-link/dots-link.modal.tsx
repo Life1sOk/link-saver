@@ -1,12 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { icons } from "../../utils/react-icons";
 
 import { useAppDispatch } from "../../App/store/hooks";
 import { activateLink } from "../../App/store/slices/action-window.slice";
-import {
-  deleteOneGeneric,
-  updateOneStatusGeneric,
-} from "../../App/store/slices/generics.slice";
+import { updateOneStatusGeneric } from "../../App/store/slices/generics.slice";
+import { updateGroupLinkStatus } from "../../App/store/slices/groups.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 import { IShortLink } from "../../interfaces/link";
 
@@ -28,21 +27,27 @@ import {
 interface IDotsModal {
   data: IShortLink;
   children: string | JSX.Element | JSX.Element[];
+  position: string;
   isActive: boolean;
-  arrowActionHandler: (arg: number) => void;
+  arrowActionHandler: (arg: IShortLink) => void;
+  deleteLinkLocal: (link_id: number) => void;
 }
 
 const DotsLinkModal = ({
   data,
   children,
   isActive,
+  position,
   arrowActionHandler,
+  deleteLinkLocal,
 }: IDotsModal) => {
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
+
   const [deleteSnapshotApi] = useDeleteLinkSnapshotMutation();
-  const [changeLinkStatus] = useChangeLinkStatusMutation();
+  const [changeLinkStatus, { isError, isLoading, isSuccess }] =
+    useChangeLinkStatusMutation();
 
   const changeStatusHandler = async () => {
     if (data.status.toString() === "1") {
@@ -51,7 +56,16 @@ const DotsLinkModal = ({
         status: 0,
       };
       // Local changes
-      dispatch(updateOneStatusGeneric(newStatus));
+      if (position === "generics") {
+        dispatch(updateOneStatusGeneric(newStatus));
+      } else {
+        dispatch(
+          updateGroupLinkStatus({
+            link_data: newStatus,
+            index: Number(position),
+          })
+        );
+      }
       // Server changes
       await changeLinkStatus(newStatus);
     }
@@ -62,7 +76,16 @@ const DotsLinkModal = ({
         status: 1,
       };
       // Local changes
-      dispatch(updateOneStatusGeneric(newStatus));
+      if (position === "generics") {
+        dispatch(updateOneStatusGeneric(newStatus));
+      } else {
+        dispatch(
+          updateGroupLinkStatus({
+            link_data: newStatus,
+            index: Number(position),
+          })
+        );
+      }
       // Server changes
       await changeLinkStatus(newStatus);
     }
@@ -72,8 +95,7 @@ const DotsLinkModal = ({
   const closeHandler = () => setIsOpen(false);
 
   const editHandler = () => {
-    console.log(data);
-    dispatch(activateLink(data));
+    dispatch(activateLink({ data, from: position }));
     closeHandler();
   };
 
@@ -82,15 +104,24 @@ const DotsLinkModal = ({
       // Close window
       closeHandler();
       // Local changes
-      dispatch(deleteOneGeneric(data.id));
+      deleteLinkLocal(data.id);
       // Server changes
       await deleteSnapshotApi({ id: data.id });
     }
   };
 
   const arrowAction = () => {
-    if (arrowActionHandler) arrowActionHandler(data.id);
+    if (arrowActionHandler) arrowActionHandler(data);
   };
+
+  useEffect(() => {
+    const processStatusHandler = (status: string) =>
+      dispatch(processStatusHandlerStore(status));
+
+    if (isLoading) processStatusHandler("isLoading");
+    if (isSuccess) processStatusHandler("isSuccess");
+    if (isError) processStatusHandler("isError");
+  }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
     <ModalWrapper>

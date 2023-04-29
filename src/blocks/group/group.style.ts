@@ -10,7 +10,7 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
 
   background-color: #e6f0ff;
   padding: 5px;
-  border: 1px solid #0f2350;
+  border: 2px solid rgba(255, 117, 101, 0.8);
   border-radius: 5px;
 
   display: flex;
@@ -20,7 +20,7 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
 export const GroupHeader = styled.div`
   width: 100%;
   padding: 7px;
-  border-bottom: 1px solid #0f2350;
+  border-bottom: 2px solid rgba(255, 117, 101, 0.8);
 
   display: flex;
   align-items: center;
