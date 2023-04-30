@@ -8,7 +8,7 @@ import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
-import { LogInPageStyle } from "./login.style";
+import { LogInPageStyle, LoginWrapper, LoginTitle } from "./login.style";
 import { ButtonLine } from "../block.style";
 
 interface ILogin {
@@ -44,8 +44,8 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <>
-      <h1>Weclome to Linky!</h1>
+    <LoginWrapper>
+      <LoginTitle>Weclome to Linky!</LoginTitle>
       <LogInPageStyle onSubmit={onSubmit} id="login">
         <Input type="email" label="Email" ref={emailRef} required />
         <Input type="password" label="Password:" ref={passwordRef} required />
@@ -64,7 +64,7 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
         </ButtonLine>
         {isError && <p>An error occurred while logging in.</p>}
       </LogInPageStyle>
-    </>
+    </LoginWrapper>
   );
 };
 

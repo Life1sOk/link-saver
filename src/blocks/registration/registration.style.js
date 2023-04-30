@@ -1,9 +1,20 @@
 import styled from "styled-components";
 
+export const RegistartionWrapper = styled.div`
+  padding: 22px 66px;
+  background-color: rgba(255, 255, 255, 0.3);
+  border: 1px solid #dedede;
+  border-radius: 3px;
+`;
+
 export const RegistartionForm = styled.form`
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: black;
+  justify-content: center;
+  gap: 15px;
+`;
+
+export const RegTitle = styled.h2`
+  margin-bottom: 22px;
 `;

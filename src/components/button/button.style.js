@@ -6,9 +6,8 @@ export const ButtonStyle = styled.button`
   border: none;
   border-radius: 5px;
 
-  background-color: lightgray;
-
-  color: white;
+  background-color: rgba(255, 255, 255);
+  border: 1px solid grey;
 
   &:active {
     opacity: 0.9;
@@ -16,6 +15,6 @@ export const ButtonStyle = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: #c2c2c2;
+    background-color: rgba(255, 255, 255, 0.7);
   }
 `;

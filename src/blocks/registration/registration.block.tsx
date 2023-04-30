@@ -3,14 +3,18 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../../App/store/hooks";
 import { usersSessionStore } from "../../App/store/slices/user.slice";
+import { useRegisterMutation } from "../../App/store/api/registaration";
 
 import Button from "../../components/button/button.component";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
+import Input from "../../components/input/input.component";
 
 import { ButtonLine } from "../block.style";
-import { RegistartionForm } from "./registration.style";
-import Input from "../../components/input/input.component";
-import { useRegisterMutation } from "../../App/store/api/registaration";
+import {
+  RegistartionForm,
+  RegistartionWrapper,
+  RegTitle,
+} from "./registration.style";
 
 interface ILogin {
   changeBlock: (block: string) => void;
@@ -76,23 +80,30 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   if (isLoading) return <LoadingSpinner />;
 
   return (
-    <RegistartionForm onSubmit={submitHandler}>
-      <h2>Registration page!</h2>
-      <Input type="text" label="Your First name" required ref={firstNameRef} />
-      <Input type="text" label="Your Last name" ref={lastNameRef} />
-      <Input type="email" label="email" required ref={emailRef} />
-      <Input type="password" label="Password" required ref={passwordRef} />
-      <Input
-        type="password"
-        label="Verify Password"
-        required
-        ref={verifyPasswordRef}
-      />
-      <ButtonLine>
-        <Button name="Finish registration!" type="submit" />
-        <Button name="Back" actionHandle={changeHandler} type="button" />
-      </ButtonLine>
-    </RegistartionForm>
+    <RegistartionWrapper>
+      <RegTitle>Registration</RegTitle>
+      <RegistartionForm onSubmit={submitHandler}>
+        <Input
+          type="text"
+          label="Your First name"
+          required
+          ref={firstNameRef}
+        />
+        <Input type="text" label="Your Last name" ref={lastNameRef} />
+        <Input type="email" label="email" required ref={emailRef} />
+        <Input type="password" label="Password" required ref={passwordRef} />
+        <Input
+          type="password"
+          label="Verify Password"
+          required
+          ref={verifyPasswordRef}
+        />
+        <ButtonLine>
+          <Button name="Register" type="submit" />
+          <Button name="Back" actionHandle={changeHandler} type="button" />
+        </ButtonLine>
+      </RegistartionForm>
+    </RegistartionWrapper>
   );
 };
 
