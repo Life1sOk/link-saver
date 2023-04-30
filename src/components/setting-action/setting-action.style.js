@@ -8,7 +8,7 @@ export const SettingActionStyle = styled.a`
 
   display: flex;
   align-items: center;
-  gap: 17px;
+  gap: 13px;
   flex-shrink: 0;
 
   &:hover {
@@ -22,11 +22,14 @@ export const ActionTitle = styled.span`
 `;
 
 export const IconWrapper = styled.div`
-  width: 23px;
-  height: 23px;
+  padding-left: 5px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   & svg {
-    width: 100%;
-    height: 100%;
+    width: 23px;
+    height: 23px;
   }
 `;

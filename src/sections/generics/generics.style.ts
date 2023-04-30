@@ -6,6 +6,7 @@ export const GenericsWrapper = styled.aside<{ isTransfer: boolean }>`
 
   width: 100%;
   height: 100%;
+  max-height: calc(100vh - 66px);
   min-width: 277px;
 
   background-color: ${({ theme }) => theme.background.main};
@@ -15,18 +16,22 @@ export const GenericsWrapper = styled.aside<{ isTransfer: boolean }>`
 
   display: flex;
   flex-direction: column;
-
-  overflow: scroll;
 `;
 
 export const LinksWrapper = styled.div`
+  position: relative;
+
   width: 100%;
-  margin-top: 17px;
+  height: 100%;
+  padding-top: 15px;
+
+  overflow: scroll;
 
   display: grid;
   grid-template-columns: repeat(auto-fill, 266px);
+  grid-template-rows: repeat(auto-fill, 44px);
   justify-content: center;
   justify-items: center;
-  align-items: center;
+  align-items: start;
   gap: 9px;
 `;

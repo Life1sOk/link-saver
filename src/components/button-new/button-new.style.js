@@ -8,6 +8,7 @@ export const ButtonWrapper = styled.div`
   align-items: center;
 
   border: 2px solid ${({ color }) => (color ? color : "black")};
+  border-left: none;
   border-radius: 3px 5px 5px 3px;
 
   color: ${({ color }) => (color ? color : "black")};

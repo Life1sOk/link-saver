@@ -5,11 +5,17 @@ export const ButtonStyle = styled.button`
   padding: 10px 20px;
   border: none;
   border-radius: 5px;
-  background-color: green;
+
+  background-color: lightgray;
+
   color: white;
-  cursor: pointer;
 
   &:active {
     opacity: 0.9;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: #c2c2c2;
   }
 `;

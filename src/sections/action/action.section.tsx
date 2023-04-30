@@ -4,11 +4,10 @@ import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import {
   toggleGroupWindowHandler,
   toggleLinkWindowHandler,
+  toggleTopicWindowHandler,
 } from "../../App/store/slices/action-window.slice";
 
 import ButtonNew from "../../components/button-new/button-new.component";
-
-import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
 
 import { ActionStyle } from "./action.style";
 
@@ -24,10 +23,15 @@ const ActionSection = memo(() => {
     dispatch(toggleGroupWindowHandler());
   };
   const openLinkWindow = () => dispatch(toggleLinkWindowHandler());
+  const openTopicWindow = () => dispatch(toggleTopicWindowHandler());
 
   return (
     <ActionStyle>
-      <TopicsAddBlock />
+      <ButtonNew
+        name="Add topic"
+        actionHandle={openTopicWindow}
+        color="rgb(247, 184, 79)"
+      />
       <ButtonNew
         name="Add group"
         actionHandle={openGroupWindow}

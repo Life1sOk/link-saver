@@ -27,11 +27,8 @@ const AreYouSureModal = ({
       <AreYouSureStyle>
         <Message>{message}</Message>
         <ButtonsWrapper>
-          <Button
-            name="Yes, I'm mat' ego sure"
-            actionHandle={actionSureHandler}
-          />
-          <Button name="No, I'm girl" actionHandle={actionToggleHandler} />
+          <Button name="Yes, I'm sure" actionHandle={actionSureHandler} />
+          <Button name="No, I'm not" actionHandle={actionToggleHandler} />
         </ButtonsWrapper>
       </AreYouSureStyle>
     </AreYouSureWrapper>

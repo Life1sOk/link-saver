@@ -9,6 +9,8 @@ import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 import { ITopic } from "../../interfaces/topic";
 import Topic from "../../components/topic/topic.component";
 
+import BlankModal from "../../modals/blank/blank-section.modal";
+
 import { TopicsStyle } from "./topics.style";
 
 const TopicsBlock = () => {
@@ -30,14 +32,18 @@ const TopicsBlock = () => {
 
   return (
     <TopicsStyle>
-      {localTopics.map((topic, index) => (
-        <Topic
-          topic={topic}
-          key={topic.id}
-          activeHandler={activeTopicHandler}
-          index={index}
-        />
-      ))}
+      {localTopics.length > 0 ? (
+        localTopics.map((topic, index) => (
+          <Topic
+            topic={topic}
+            key={topic.id}
+            activeHandler={activeTopicHandler}
+            index={index}
+          />
+        ))
+      ) : (
+        <BlankModal title="Add topic" color="rgb(247, 184, 79)" />
+      )}
     </TopicsStyle>
   );
 };

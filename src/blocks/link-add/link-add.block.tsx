@@ -18,7 +18,14 @@ import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
 import BlackWindowModal from "../../modals/black-window/black-window.modal";
-import { LinkAddStyle, LinkButtons } from "./link-add.style";
+import {
+  LinkAddStyle,
+  FormWrapper,
+  GifBlock,
+  LinkButtons,
+  LeftSide,
+  TitleBlock,
+} from "./link-add.style";
 
 const LinkAddBlock = () => {
   const dispatch = useAppDispatch();
@@ -124,29 +131,37 @@ const LinkAddBlock = () => {
 
   return (
     <BlackWindowModal isOpen={isOpen}>
-      <LinkAddStyle
-        onSubmit={addLinkHandler}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h1>Add new link:</h1>
-        <Input
-          label="Title:"
-          type="text"
-          ref={titleRef}
-          required
-          defaultValue={activeLink.link.link_title}
-        />
-        <Input
-          label="URL:"
-          type="text"
-          ref={urlRef}
-          required
-          defaultValue={activeLink.link.link_url}
-        />
-        <LinkButtons>
-          <Button name="Cancel" type="button" actionHandle={closeLinkWindow} />
-          <Button name="Add/Send link" type="submit" />
-        </LinkButtons>
+      <LinkAddStyle>
+        <LeftSide>
+          <TitleBlock>Add new link:</TitleBlock>
+          <FormWrapper onSubmit={addLinkHandler}>
+            <Input
+              label="Title"
+              type="text"
+              ref={titleRef}
+              required
+              defaultValue={activeLink.link.link_title}
+            />
+            <Input
+              label="Url"
+              type="text"
+              ref={urlRef}
+              required
+              defaultValue={activeLink.link.link_url}
+            />
+            <LinkButtons>
+              <Button
+                name="Cancel"
+                type="button"
+                actionHandle={closeLinkWindow}
+              />
+              <Button name="Add/Send link" type="submit" />
+            </LinkButtons>
+          </FormWrapper>
+        </LeftSide>
+        <GifBlock>
+          <h3>Gif</h3>
+        </GifBlock>
       </LinkAddStyle>
     </BlackWindowModal>
   );

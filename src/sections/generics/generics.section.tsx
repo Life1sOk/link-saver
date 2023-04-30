@@ -18,6 +18,7 @@ import TitleSection from "../../components/title-section/title-section.component
 
 import { IShortLink } from "../../interfaces/link";
 
+import BlankModal from "../../modals/blank/blank-section.modal";
 import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
@@ -83,18 +84,22 @@ const GenericsSection = () => {
       <LinkAddBlock />
       <TitleSection title="Generic links:" color="rgb(0, 112, 201)" />
       <LinksWrapper>
-        {localGenericLinks.map((current, index) => (
-          <DotsLinkModal
-            data={current}
-            key={index}
-            position="generics"
-            isActive={activeGroup.isActive}
-            deleteLinkLocal={deleteLinkLocalHandler}
-            arrowActionHandler={changeGroupLinkHandler}
-          >
-            <Link data={current} />
-          </DotsLinkModal>
-        ))}
+        {localGenericLinks.length > 0 ? (
+          localGenericLinks.map((current, index) => (
+            <DotsLinkModal
+              data={current}
+              key={index}
+              position="generics"
+              isActive={activeGroup.isActive}
+              deleteLinkLocal={deleteLinkLocalHandler}
+              arrowActionHandler={changeGroupLinkHandler}
+            >
+              <Link data={current} />
+            </DotsLinkModal>
+          ))
+        ) : (
+          <BlankModal title="Add link" color="rgb(0, 112, 201)" />
+        )}
       </LinksWrapper>
     </GenericsWrapper>
   );

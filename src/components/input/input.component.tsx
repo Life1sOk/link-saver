@@ -1,5 +1,5 @@
 import { forwardRef } from "react";
-import { InputWrapper, InputStyle } from "./input.style";
+import { InputWrapper, InputStyle, InputLabel } from "./input.style";
 
 interface IInput {
   label: string;
@@ -12,7 +12,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
   ({ type, label, required, defaultValue }, ref) => {
     return (
       <InputWrapper>
-        <label htmlFor={label}>{label}</label>
+        <InputLabel htmlFor={label}>{label}</InputLabel>
         <InputStyle
           type={type}
           id={label}

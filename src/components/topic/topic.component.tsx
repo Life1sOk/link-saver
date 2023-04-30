@@ -41,7 +41,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const activeTopicId = useAppSelector(
     (state) => state.activeTopic.current?.id
   );
-  const isActive = activeTopicId === topic.id;
+  // const isActive = activeTopicId === topic.id;
   const activateTopic = () => activeHandler(topic);
 
   // --------------- For change block ----------- //
@@ -87,16 +87,16 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
     dispatch(removeOneTopic(topic.id));
     setIsDelete(false);
 
-    // Server
-    return await deleteTopicApi({
+    // // Server
+    await deleteTopicApi({
       id: topic.id,
       user_id: topic.user_id,
     });
   };
 
   useEffect(() => {
-    if (!isActive) notReadyHandler();
-  }, [isActive]);
+    if (activeTopicId !== topic.id) notReadyHandler();
+  }, [activeTopicId, topic.id]);
 
   useEffect(() => {
     const processStatusHandler = (status: string) =>
@@ -108,46 +108,48 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
-    <TopicStyle
-      onClick={activateTopic}
-      isActive={isActive}
-      title={topic.topic_title}
-    >
-      <Icon>{icons.topicOpen}</Icon>
-      {!isChange ? (
-        <Title>{topic.topic_title}</Title>
-      ) : (
-        <TitleEditor
-          type="text"
-          defaultValue={topic.topic_title}
-          ref={titleTopicRef}
-          autoFocus
-        />
-      )}
-      {isActive && (
-        <IconWrapper>
-          {isChange ? (
-            <>
-              <Icon onClick={acceptChangesHandler}>{icons.check}</Icon>
-              <Icon onClick={notReadyHandler}>
-                <XMark />
-              </Icon>
-            </>
-          ) : (
-            <>
-              <Icon onClick={changeTitleHandler}>{icons.pen}</Icon>
-              <Icon onClick={deleteHandler}>{icons.delete}</Icon>
-            </>
-          )}
-        </IconWrapper>
-      )}
+    <>
+      <TopicStyle
+        onClick={activateTopic}
+        isActive={activeTopicId === topic.id}
+        title={topic.topic_title}
+      >
+        <Icon>{icons.topicOpen}</Icon>
+        {!isChange ? (
+          <Title>{topic.topic_title}</Title>
+        ) : (
+          <TitleEditor
+            type="text"
+            defaultValue={topic.topic_title}
+            ref={titleTopicRef}
+            autoFocus
+          />
+        )}
+        {activeTopicId === topic.id && (
+          <IconWrapper>
+            {isChange ? (
+              <>
+                <Icon onClick={acceptChangesHandler}>{icons.check}</Icon>
+                <Icon onClick={notReadyHandler}>
+                  <XMark />
+                </Icon>
+              </>
+            ) : (
+              <>
+                <Icon onClick={changeTitleHandler}>{icons.pen}</Icon>
+                <Icon onClick={deleteHandler}>{icons.delete}</Icon>
+              </>
+            )}
+          </IconWrapper>
+        )}
+      </TopicStyle>
       <AreYouSureModal
         isActive={isDelete}
         actionSureHandler={sureDeleteHandler}
         actionToggleHandler={notDeleteHandler}
         message="All your groups and links in this topic will be destroyed! Are you sure?"
       />
-    </TopicStyle>
+    </>
   );
 };
 

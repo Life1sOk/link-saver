@@ -43,7 +43,6 @@ const GroupBlock = memo(
     const [isSureModal, setIsSureModal] = useState(false);
 
     const userId = useAppSelector((state) => state.user.session.user_id);
-    const topicId = useAppSelector((state) => state.activeTopic.current.id);
 
     const { isActive: isActiveWindow, id: activeId } = useAppSelector(
       (state) => state.actionWindow.activeGroup
@@ -87,7 +86,7 @@ const GroupBlock = memo(
       dispatch(deactivateGroup());
 
       // Refetch control generics
-      await refetchGenericLinks();
+      // await refetchGenericLinks();
 
       // Refetch control groups
       await fetchUpGroupLinks({

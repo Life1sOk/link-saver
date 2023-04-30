@@ -11,12 +11,19 @@ import TitleSection from "../../components/title-section/title-section.component
 
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
-import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
+import BlankModal from "../../modals/blank/blank-section.modal";
+import {
+  GroupsStyle,
+  SpinnerWrapper,
+  GroupsWrapper,
+  SrollWrapper,
+} from "./groups.style";
 
 const GroupsSection = () => {
   const dispatch = useAppDispatch();
 
   const localGroups = useAppSelector((state) => state.groupsLocal.data);
+  const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
 
   // Listening 'active topic' on change it re-render;
   const { id, topic_title } = useAppSelector(
@@ -25,7 +32,7 @@ const GroupsSection = () => {
 
   const user_id = useAppSelector((state) => state.user.session.user_id);
 
-  const { data, isLoading, isFetching } = useGetGroupsByTopicIdQuery({
+  const { data, isLoading, isFetching, refetch } = useGetGroupsByTopicIdQuery({
     topic_id: id,
     user_id,
   });
@@ -33,6 +40,10 @@ const GroupsSection = () => {
   useEffect(() => {
     if (data) dispatch(localGroupsStore(data));
   }, [dispatch, data]);
+
+  useEffect(() => {
+    refetch();
+  }, [activeTopicId, refetch]);
 
   if (isLoading || isFetching) {
     return (
@@ -51,9 +62,13 @@ const GroupsSection = () => {
       <GroupsStyle>
         <TitleSection title={topic_title} color="#ff7565" />
         <GroupsWrapper>
-          {localGroups.map((group, index) => (
-            <GroupBlock key={group.id} data={group} index={index} />
-          ))}
+          {localGroups.length > 0 ? (
+            localGroups.map((group, index) => (
+              <GroupBlock key={group.id} data={group} index={index} />
+            ))
+          ) : (
+            <BlankModal title="Add group" color="#ff7565" />
+          )}
         </GroupsWrapper>
       </GroupsStyle>
     </>

@@ -6,6 +6,7 @@ import { IShortLink } from "../../../interfaces/link";
 const initialState = {
   isAddGroup: false,
   isAddLink: false,
+  isAddTopic: false,
   activeGroup: {
     isActive: false,
     id: -1,
@@ -28,6 +29,9 @@ export const actionWindowSlice = createSlice({
   name: "action-window",
   initialState,
   reducers: {
+    toggleTopicWindowHandler: (state) => {
+      state.isAddTopic = !state.isAddTopic;
+    },
     toggleGroupWindowHandler: (state) => {
       state.isAddGroup = !state.isAddGroup;
     },
@@ -78,6 +82,7 @@ export const actionWindowSlice = createSlice({
 });
 
 export const {
+  toggleTopicWindowHandler,
   toggleGroupWindowHandler,
   toggleLinkWindowHandler,
   activateGroup,

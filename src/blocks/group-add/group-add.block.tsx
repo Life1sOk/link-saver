@@ -11,7 +11,14 @@ import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
 import BlackWindowModal from "../../modals/black-window/black-window.modal";
-import { GroupAddStyle, GroupButtons } from "./group-add.style";
+import {
+  GroupAddStyle,
+  LeftSide,
+  GifBlock,
+  GroupButtons,
+  FormWrapper,
+  TitleBlock,
+} from "./group-add.style";
 
 const GroupAddBlock = () => {
   const dispatch = useAppDispatch();
@@ -59,16 +66,29 @@ const GroupAddBlock = () => {
 
   return (
     <BlackWindowModal isOpen={isOpen}>
-      <GroupAddStyle
-        onSubmit={addGroupHandler}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <h1>Add new group</h1>
-        <Input label="Group Title:" type="text" required ref={groupTitleRef} />
-        <GroupButtons>
-          <Button name="Cancel" type="button" actionHandle={closeGroupWindow} />
-          <Button name="Add/send group" type="submit" />
-        </GroupButtons>
+      <GroupAddStyle>
+        <LeftSide>
+          <TitleBlock>Add new group</TitleBlock>
+          <FormWrapper onSubmit={addGroupHandler}>
+            <Input
+              label="Group Title:"
+              type="text"
+              required
+              ref={groupTitleRef}
+            />
+            <GroupButtons>
+              <Button
+                name="Cancel"
+                type="button"
+                actionHandle={closeGroupWindow}
+              />
+              <Button name="Add group" type="submit" />
+            </GroupButtons>
+          </FormWrapper>
+        </LeftSide>
+        <GifBlock>
+          <h3>Gif</h3>
+        </GifBlock>
       </GroupAddStyle>
     </BlackWindowModal>
   );
