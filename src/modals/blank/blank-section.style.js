@@ -18,8 +18,4 @@ export const BlankModalStyle = styled.div`
 
   font-size: 19px;
   font-weight: 600;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
