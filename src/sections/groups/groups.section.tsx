@@ -12,12 +12,7 @@ import TitleSection from "../../components/title-section/title-section.component
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
 import BlankModal from "../../modals/blank/blank-section.modal";
-import {
-  GroupsStyle,
-  SpinnerWrapper,
-  GroupsWrapper,
-  SrollWrapper,
-} from "./groups.style";
+import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
 
 const GroupsSection = () => {
   const dispatch = useAppDispatch();

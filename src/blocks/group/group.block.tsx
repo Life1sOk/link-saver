@@ -89,12 +89,12 @@ const GroupBlock = memo(
       // await refetchGenericLinks();
 
       // Refetch control groups
-      await fetchUpGroupLinks({
-        user_id: userId,
-        group_id: id,
-      }).then((response) =>
-        dispatch(updateGroupLinks({ index, links: response.data }))
-      );
+      // await fetchUpGroupLinks({
+      //   user_id: userId,
+      //   group_id: id,
+      // }).then((response) =>
+      //   dispatch(updateGroupLinks({ index, links: response.data }))
+      // );
     };
 
     // Local delete link handler

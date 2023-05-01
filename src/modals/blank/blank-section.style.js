@@ -9,7 +9,7 @@ export const BlankModalStyle = styled.div`
   height: calc(100% - 10px);
   background-color: grey;
   color: white;
-  opacity: 0.2;
+  opacity: 0.1;
   border-radius: 3px;
 
   display: flex;

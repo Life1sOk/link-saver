@@ -16,7 +16,7 @@ const NavigationSection = memo(() => {
     <>
       <TopicsAddBlock />
       <NavigationStyle>
-        <LogoCheck>Logo</LogoCheck>
+        <LogoCheck>Linker</LogoCheck>
         <TopicMain />
         <TopicsBlock />
         <SettingsBlock />

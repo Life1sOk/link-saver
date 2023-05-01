@@ -29,11 +29,6 @@ export const SpinnerWrapper = styled.div`
   justify-content: center;
 `;
 
-export const SrollWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-`;
-
 export const GroupsWrapper = styled.div`
   position: relative;
 
