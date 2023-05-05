@@ -9,10 +9,10 @@ export interface IShortLink {
   id: number;
   link_title: string;
   link_url: string;
-  status: string;
+  status: boolean;
 }
 
 export interface ILinkStatus {
   id: number;
-  status: number | string;
+  status: boolean;
 }

@@ -1,19 +1,15 @@
-import { useState, memo, useEffect } from "react";
+import { useState, memo } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
-import {
-  removeCurrentLink,
-  updateGroupLinks,
-  deleteGroup,
-} from "../../App/store/slices/groups.slice";
-import { addOneGeneric } from "../../App/store/slices/generics.slice";
 import { deactivateGroup } from "../../App/store/slices/action-window.slice";
-import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
+
+import { useGenericLocal } from "../../controllers/useGenericLocal";
+import { useGroupLocal } from "../../controllers/useGroupLocal";
+import { useRequestProcess } from "../../controllers/useRequestProcess";
 
 import {
   useChangeLinkGroupTitleMutation,
-  useGetGenericLinksByUserIdQuery,
-  useLazyGetGroupsLinksByIdQuery,
+  useDeleteLinkSnapshotMutation,
 } from "../../App/store/api/links";
 import { useDeleteGroupMutation } from "../../App/store/api/groups";
 
@@ -28,131 +24,127 @@ import GroupActive from "../../components/group-active/group-active.component";
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
 import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import BlackWindowModal from "../../modals/black-window/black-window.modal";
-import {
-  GroupStyle,
-  GroupHeader,
-  IconWrapper,
-  LinksPlace,
-} from "./group.style";
+import { GroupStyle, GroupHeader, IconWrapper, LinksPlace } from "./group.style";
 
-const GroupBlock = memo(
-  ({ data, index }: { data: IGroupGet; index: number }) => {
-    const { id, group_title, links } = data;
-    const dispatch = useAppDispatch();
+const GroupBlock = memo(({ data, index }: { data: IGroupGet; index: number }) => {
+  const { id, group_title, links } = data;
+  const dispatch = useAppDispatch();
 
-    const [isSureModal, setIsSureModal] = useState(false);
+  const [isSureModal, setIsSureModal] = useState(false);
 
-    const userId = useAppSelector((state) => state.user.session.user_id);
+  const userId = useAppSelector((state) => state.user.session.user_id);
 
-    const { isActive: isActiveWindow, id: activeId } = useAppSelector(
-      (state) => state.actionWindow.activeGroup
-    );
+  const { isActive: isActiveWindow, id: activeId } = useAppSelector(
+    (state) => state.actionWindow.activeGroup
+  );
 
-    let isActive = id === activeId;
+  let isActive = id === activeId;
 
-    const { refetch: refetchGenericLinks } =
-      useGetGenericLinksByUserIdQuery(userId);
-    const [fetchUpGroupLinks] = useLazyGetGroupsLinksByIdQuery();
+  const { addOneGenericLocal, deleteOneGenericLocal } = useGenericLocal();
+  const { deleteGroupLocal, addGroupLinkLocal, deleteGroupLinkLocal } = useGroupLocal();
 
-    const [changeGroupLinkApi, { isError, isLoading, isSuccess }] =
-      useChangeLinkGroupTitleMutation();
-    const [deleteGroupApi] = useDeleteGroupMutation();
+  const [changeGroupLinkApi, changeGroupLinkApiResult] =
+    useChangeLinkGroupTitleMutation();
+  // Handler status
+  useRequestProcess(changeGroupLinkApiResult);
 
-    const modalActionHandler = () => setIsSureModal(!isSureModal);
+  const [deleteSnapshotApi] = useDeleteLinkSnapshotMutation();
+  const [deleteGroupApi] = useDeleteGroupMutation();
 
-    const sureDeleteHandler = async () => {
-      setIsSureModal(!isSureModal);
-      // local
-      dispatch(deleteGroup(id));
+  const modalActionHandler = () => setIsSureModal(!isSureModal);
 
-      return await deleteGroupApi({
-        id,
-        user_id: userId,
+  const sureDeleteHandler = async () => {
+    setIsSureModal(!isSureModal);
+    // local
+    deleteGroupLocal(id);
+
+    await deleteGroupApi({
+      id,
+      user_id: userId,
+    });
+  };
+
+  // Need local changes
+  const transitionToGenerics = async (data: IShortLink) => {
+    // Local change - removee from group
+    deleteGroupLinkLocal({ link_id: data.id, index });
+    // Local change - add to generics
+    addOneGenericLocal(data);
+    // // Server change
+    await changeGroupLinkApi({ id: data.id, group_id: null })
+      .unwrap()
+      .catch((err) => {
+        if (err) {
+          deleteOneGenericLocal(data.id);
+          addGroupLinkLocal({ link_data: data, index });
+        }
       });
-    };
+  };
 
-    // Need local changes
-    const changeGroupLinkHandler = async (data: IShortLink) => {
-      // Local change - removee from group
-      dispatch(removeCurrentLink({ link_id: data.id, index }));
-      // Local change - add to generics
-      dispatch(addOneGeneric(data));
-      // // Server change
-      await changeGroupLinkApi({ id: data.id, group_id: null });
-    };
+  // Close window
+  const closeActiveWindowHandler = () => dispatch(deactivateGroup());
 
-    const closeActiveWindowHandler = async () => {
-      // Close window
-      dispatch(deactivateGroup());
+  // Local delete link handler
+  const deleteLinkLocalHandler = async ({
+    link_id,
+    data,
+  }: {
+    link_id: number;
+    data: IShortLink;
+  }) => {
+    // Local
+    deleteGroupLinkLocal({ link_id, index });
+    // Server
+    await deleteSnapshotApi({ id: link_id })
+      .unwrap()
+      .catch((err) => {
+        // Back changes
+        if (err) {
+          addGroupLinkLocal({ link_data: data, index });
+        }
+      });
+  };
 
-      // Refetch control generics
-      // await refetchGenericLinks();
-
-      // Refetch control groups
-      // await fetchUpGroupLinks({
-      //   user_id: userId,
-      //   group_id: id,
-      // }).then((response) =>
-      //   dispatch(updateGroupLinks({ index, links: response.data }))
-      // );
-    };
-
-    // Local delete link handler
-    const deleteLinkLocalHandler = (link_id: number) =>
-      dispatch(removeCurrentLink({ link_id, index }));
-
-    useEffect(() => {
-      const processStatusHandler = (status: string) =>
-        dispatch(processStatusHandlerStore(status));
-
-      if (isLoading) processStatusHandler("isLoading");
-      if (isSuccess) processStatusHandler("isSuccess");
-      if (isError) processStatusHandler("isError");
-    }, [isError, isLoading, isSuccess, dispatch]);
-
-    return (
-      <>
-        <BlackWindowModal
-          isOpen={isActiveWindow}
-          activeHandler={closeActiveWindowHandler}
-        />
-        <GroupStyle isActive={isActive}>
-          <GroupHeader>
-            <GroupActive
-              title={group_title}
-              group_id={id}
+  return (
+    <>
+      <BlackWindowModal
+        isOpen={isActiveWindow}
+        activeHandler={closeActiveWindowHandler}
+      />
+      <GroupStyle isActive={isActive}>
+        <GroupHeader>
+          <GroupActive
+            title={group_title}
+            group_id={id}
+            isActive={isActive}
+            group_index={index}
+          />
+          <GroupTitle title={group_title} group_id={id} isActive={isActive} />
+          <IconWrapper onClick={modalActionHandler}>{icons.delete}</IconWrapper>
+        </GroupHeader>
+        <LinksPlace>
+          {links?.map((link) => (
+            <DotsLinkModal
+              data={link}
+              key={link.id}
               isActive={isActive}
-              group_index={index}
-            />
-            <GroupTitle title={group_title} group_id={id} isActive={isActive} />
-            <IconWrapper onClick={modalActionHandler}>
-              {icons.delete}
-            </IconWrapper>
-          </GroupHeader>
-          <LinksPlace>
-            {links?.map((link) => (
-              <DotsLinkModal
-                data={link}
-                key={link.id}
-                isActive={isActive}
-                position={`${index}`}
-                deleteLinkLocal={deleteLinkLocalHandler}
-                arrowActionHandler={changeGroupLinkHandler}
-              >
-                <Link data={link} key={link.id} />
-              </DotsLinkModal>
-            ))}
-          </LinksPlace>
-        </GroupStyle>
-        <AreYouSureModal
-          isActive={isSureModal}
-          actionSureHandler={sureDeleteHandler}
-          actionToggleHandler={modalActionHandler}
-          message="All your links in this group will be also deleted! Are you sure?"
-        />
-      </>
-    );
-  }
-);
+              position={`${index}`}
+              deleteLink={deleteLinkLocalHandler}
+              linkTransitionHandler={transitionToGenerics}
+            >
+              <Link data={link} key={link.id} />
+            </DotsLinkModal>
+          ))}
+        </LinksPlace>
+      </GroupStyle>
+      <AreYouSureModal
+        isActive={isSureModal}
+        actionSureHandler={sureDeleteHandler}
+        actionToggleHandler={modalActionHandler}
+        message="All your links in this group will be also deleted! Are you sure?"
+      />
+    </>
+  );
+});
 
 export default GroupBlock;

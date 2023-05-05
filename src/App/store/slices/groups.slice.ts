@@ -17,11 +17,6 @@ export const groupsSlice = createSlice({
     addOneGroup: (state, { payload }: PayloadAction<IGroupGet>) => {
       state.data.unshift(payload);
     },
-    updateGroupLinks: (state, { payload }) => {
-      const { index, links } = payload;
-
-      state.data[index].links = links;
-    },
     updateGroupTitle: (state, { payload }) => {
       const { id, new_title } = payload;
       state.data = state.data.map((group) =>
@@ -63,7 +58,6 @@ export const groupsSlice = createSlice({
 export const {
   localGroupsStore,
   addOneGroup,
-  updateGroupLinks,
   updateGroupTitle,
   addCurrentLink,
   deleteGroup,

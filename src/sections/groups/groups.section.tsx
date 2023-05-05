@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 
-import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
-import { localGroupsStore } from "../../App/store/slices/groups.slice";
+import { useAppSelector } from "../../App/store/hooks";
+
+import { useGroupLocal } from "../../controllers/useGroupLocal";
 
 import { useGetGroupsByTopicIdQuery } from "../../App/store/api/groups";
 
@@ -15,17 +16,15 @@ import BlankModal from "../../modals/blank/blank-section.modal";
 import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
 
 const GroupsSection = () => {
-  const dispatch = useAppDispatch();
-
   const localGroups = useAppSelector((state) => state.groupsLocal.data);
   const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
 
   // Listening 'active topic' on change it re-render;
-  const { id, topic_title } = useAppSelector(
-    (state) => state.activeTopic.current
-  );
+  const { id, topic_title } = useAppSelector((state) => state.activeTopic.current);
 
   const user_id = useAppSelector((state) => state.user.session.user_id);
+
+  const { addAllGroupsLocal } = useGroupLocal();
 
   const { data, isLoading, isFetching, refetch } = useGetGroupsByTopicIdQuery({
     topic_id: id,
@@ -33,8 +32,8 @@ const GroupsSection = () => {
   });
 
   useEffect(() => {
-    if (data) dispatch(localGroupsStore(data));
-  }, [dispatch, data]);
+    if (data && localGroups.length < 1) addAllGroupsLocal(data);
+  }, [data, addAllGroupsLocal, localGroups]);
 
   useEffect(() => {
     refetch();

@@ -1,11 +1,12 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import { toggleGroupWindowHandler } from "../../App/store/slices/action-window.slice";
 
 import { useAddGroupMutation } from "../../App/store/api/groups";
-import { addOneGroup } from "../../App/store/slices/groups.slice";
-import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
+
+import { useGroupLocal } from "../../controllers/useGroupLocal";
+import { useRequestProcess } from "../../controllers/useRequestProcess";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -26,8 +27,10 @@ const GroupAddBlock = () => {
   const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
   const user_id = useAppSelector((state) => state.user.session.user_id);
 
-  const [addGroupApi, { isLoading, isSuccess, isError }] =
-    useAddGroupMutation();
+  const { addOneGroupLocal, deleteGroupLocal } = useGroupLocal();
+
+  const [addGroupApi, addGroupApiResult] = useAddGroupMutation();
+  useRequestProcess(addGroupApiResult);
 
   const groupTitleRef = useRef<HTMLInputElement>(null);
 
@@ -50,19 +53,17 @@ const GroupAddBlock = () => {
     // Close window
     closeGroupWindow();
     // Local add
-    dispatch(addOneGroup(group));
+    addOneGroupLocal(group);
     // Send data
-    await addGroupApi(group);
+    await addGroupApi(group)
+      .unwrap()
+      .catch((err) => {
+        // Back changes
+        if (err) {
+          deleteGroupLocal(group.id);
+        }
+      });
   };
-
-  useEffect(() => {
-    const processStatusHandler = (status: string) =>
-      dispatch(processStatusHandlerStore(status));
-
-    if (isLoading) processStatusHandler("isLoading");
-    if (isSuccess) processStatusHandler("isSuccess");
-    if (isError) processStatusHandler("isError");
-  }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>
@@ -70,18 +71,9 @@ const GroupAddBlock = () => {
         <LeftSide>
           <TitleBlock>Add new group</TitleBlock>
           <FormWrapper onSubmit={addGroupHandler}>
-            <Input
-              label="Group Title:"
-              type="text"
-              required
-              ref={groupTitleRef}
-            />
+            <Input label="Group Title:" type="text" required ref={groupTitleRef} />
             <GroupButtons>
-              <Button
-                name="Cancel"
-                type="button"
-                actionHandle={closeGroupWindow}
-              />
+              <Button name="Cancel" type="button" actionHandle={closeGroupWindow} />
               <Button name="Add group" type="submit" />
             </GroupButtons>
           </FormWrapper>

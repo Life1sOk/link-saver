@@ -18,7 +18,7 @@ const initialState = {
       id: -1,
       link_title: "",
       link_url: "",
-      status: "0",
+      status: false,
     },
     from: "",
   },
@@ -42,7 +42,7 @@ export const actionWindowSlice = createSlice({
           id: -1,
           link_title: "",
           link_url: "",
-          status: "0",
+          status: false,
         };
         state.activeLink.from = "";
       } else {
@@ -51,9 +51,7 @@ export const actionWindowSlice = createSlice({
     },
     activateGroup: (
       state,
-      {
-        payload,
-      }: PayloadAction<{ title: string; id: number; group_index: number }>
+      { payload }: PayloadAction<{ title: string; id: number; group_index: number }>
     ) => {
       state.activeGroup = {
         isActive: true,

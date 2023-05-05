@@ -1,16 +1,16 @@
 import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
-import { localGenericsStore } from "../../App/store/slices/generics.slice";
-import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
+import { useAppSelector } from "../../App/store/hooks";
+
+import { useGenericLocal } from "../../controllers/useGenericLocal";
+import { useGroupLocal } from "../../controllers/useGroupLocal";
+import { useRequestProcess } from "../../controllers/useRequestProcess";
 
 import {
   useGetGenericLinksByUserIdQuery,
   useChangeLinkGroupTitleMutation,
+  useDeleteLinkSnapshotMutation,
 } from "../../App/store/api/links";
 import { useChangeLinkStatusMutation } from "../../App/store/api/links";
-
-import { addCurrentLink } from "../../App/store/slices/groups.slice";
-import { deleteOneGeneric } from "../../App/store/slices/generics.slice";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import Link from "../../components/link/link.component";
@@ -23,61 +23,65 @@ import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
-  const dispatch = useAppDispatch();
-
   const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
 
-  const { data } = useGetGenericLinksByUserIdQuery(userId);
-  const [changeGroupLink, { isError, isLoading, isSuccess }] =
-    useChangeLinkGroupTitleMutation();
+  const { addAllGenericsLocal, addOneGenericLocal, deleteOneGenericLocal } =
+    useGenericLocal();
+  const { addGroupLinkLocal, deleteGroupLinkLocal } = useGroupLocal();
 
-  const [
-    ,
-    { isError: isUpError, isLoading: isUpLoading, isSuccess: isUpSuccess },
-  ] = useChangeLinkStatusMutation();
+  const { data: generics } = useGetGenericLinksByUserIdQuery(userId);
+  const [deleteSnapshotApi] = useDeleteLinkSnapshotMutation();
+  const [changeGroupLinkApi, changeGroupLinkApiResult] =
+    useChangeLinkGroupTitleMutation();
+  useRequestProcess(changeGroupLinkApiResult);
+
+  const [, result] = useChangeLinkStatusMutation();
+  useRequestProcess(result);
 
   // Need local change
-  const changeGroupLinkHandler = async (data: IShortLink) => {
+  const linkTransitionToGroup = async (data: IShortLink) => {
     // Local change - generic remove
-    dispatch(deleteOneGeneric(data.id));
+    deleteOneGenericLocal(data.id);
     // Local change - group add link
-    dispatch(
-      addCurrentLink({ link_data: data, index: activeGroup.group_index })
-    );
+    addGroupLinkLocal({ link_data: data, index: activeGroup.group_index });
     // Server changes
-    await changeGroupLink({ id: data?.id, group_id: activeGroup.id });
+    await changeGroupLinkApi({ id: data?.id, group_id: activeGroup.id })
+      .unwrap()
+      .catch((err) => {
+        // Back changes
+        if (err) {
+          deleteGroupLinkLocal({ link_id: data.id, index: activeGroup.group_index });
+          addOneGenericLocal(data);
+        }
+      });
   };
 
-  // Local delete link handler
-  const deleteLinkLocalHandler = (link_id: number) =>
-    dispatch(deleteOneGeneric(link_id));
+  // Delete link
+  const deleteLinkHandler = async ({
+    link_id,
+    data,
+  }: {
+    link_id: number;
+    data: IShortLink;
+  }) => {
+    // Local
+    deleteOneGenericLocal(link_id);
+    // Server
+    await deleteSnapshotApi({ id: link_id })
+      .unwrap()
+      .catch((err) => {
+        // Back changes
+        if (err) {
+          addOneGenericLocal(data);
+        }
+      });
+  };
 
   useEffect(() => {
-    if (data) dispatch(localGenericsStore(data));
-  }, [data, dispatch]);
-
-  useEffect(() => {
-    const processStatusHandler = (status: string) =>
-      dispatch(processStatusHandlerStore(status));
-
-    if (isLoading) processStatusHandler("isLoading");
-    if (isSuccess) processStatusHandler("isSuccess");
-    if (isError) processStatusHandler("isError");
-
-    if (isUpLoading) processStatusHandler("isLoading");
-    if (isUpSuccess) processStatusHandler("isSuccess");
-    if (isUpError) processStatusHandler("isError");
-  }, [
-    isError,
-    isLoading,
-    isSuccess,
-    isUpError,
-    isUpLoading,
-    isUpSuccess,
-    dispatch,
-  ]);
+    if (generics && localGenericLinks.length < 1) addAllGenericsLocal(generics);
+  }, [generics, addAllGenericsLocal, localGenericLinks]);
 
   return (
     <GenericsWrapper isTransfer={activeGroup.isActive}>
@@ -91,8 +95,8 @@ const GenericsSection = () => {
               key={index}
               position="generics"
               isActive={activeGroup.isActive}
-              deleteLinkLocal={deleteLinkLocalHandler}
-              arrowActionHandler={changeGroupLinkHandler}
+              deleteLink={deleteLinkHandler}
+              linkTransitionHandler={linkTransitionToGroup}
             >
               <Link data={current} />
             </DotsLinkModal>

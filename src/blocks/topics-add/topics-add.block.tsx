@@ -1,10 +1,11 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
 import { useAddTopicByUserIdMutation } from "../../App/store/api/topics";
-import { addOneTopic } from "../../App/store/slices/topics.slice";
-import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 import { toggleTopicWindowHandler } from "../../App/store/slices/action-window.slice";
+
+import { useTopicLocal } from "../../controllers/useTopicLocal";
+import { useRequestProcess } from "../../controllers/useRequestProcess";
 
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
@@ -25,8 +26,10 @@ const TopicsAddBlock = () => {
   const userId = useAppSelector((state) => state.user.session.user_id);
   const isOpen = useAppSelector((state) => state.actionWindow.isAddTopic);
 
-  const [addTopic, { isError, isLoading, isSuccess }] =
-    useAddTopicByUserIdMutation();
+  const { addOneTopicLocal } = useTopicLocal();
+
+  const [addTopicApi, addTopicApiResult] = useAddTopicByUserIdMutation();
+  useRequestProcess(addTopicApiResult);
 
   const titleRef = useRef<HTMLInputElement>(null);
 
@@ -48,22 +51,11 @@ const TopicsAddBlock = () => {
     closeTopicWindow();
 
     // Local Add
-    dispatch(
-      addOneTopic({ id: Date.now(), user_id: userId, topic_title: checkField })
-    );
+    addOneTopicLocal({ id: Date.now(), user_id: userId, topic_title: checkField });
 
     // Send request
-    await addTopic({ user_id: userId, topic_title: checkField });
+    await addTopicApi({ user_id: userId, topic_title: checkField });
   };
-
-  useEffect(() => {
-    const processStatusHandler = (status: string) =>
-      dispatch(processStatusHandlerStore(status));
-
-    if (isLoading) processStatusHandler("isLoading");
-    if (isSuccess) processStatusHandler("isSuccess");
-    if (isError) processStatusHandler("isError");
-  }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>
@@ -73,11 +65,7 @@ const TopicsAddBlock = () => {
           <FormWrapper onSubmit={addTopicHandler}>
             <Input label="Title" type="text" required ref={titleRef} />
             <TopicButtons>
-              <Button
-                name="Cancel"
-                type="button"
-                actionHandle={closeTopicWindow}
-              />
+              <Button name="Cancel" type="button" actionHandle={closeTopicWindow} />
               <Button name="Add topic" type="submit" />
             </TopicButtons>
           </FormWrapper>

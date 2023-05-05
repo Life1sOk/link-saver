@@ -2,7 +2,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 import { IShortLink, ILink, ILinkStatus } from "../../../interfaces/link";
-import { IGroupLink } from "../../../interfaces/group";
 
 export const linksApi = createApi({
   reducerPath: "linksApi",
@@ -14,12 +13,6 @@ export const linksApi = createApi({
     getGenericLinksByUserId: builder.query<IShortLink[], number>({
       query: (user_id) => ({ url: `generic/${user_id}` }),
       providesTags: ["Links"],
-    }),
-    getGroupsLinksById: builder.query<IShortLink[], IGroupLink>({
-      query: ({ user_id, group_id }) => ({
-        url: `groups/${user_id}&${group_id}`,
-      }),
-      providesTags: ["Groups"],
     }),
     addGenericLink: builder.mutation<void, ILink>({
       query: (body) => ({
@@ -70,7 +63,6 @@ export const linksApi = createApi({
 export const {
   useGetGenericLinksByUserIdQuery,
   useAddGenericLinkMutation,
-  useLazyGetGroupsLinksByIdQuery,
   useChangeLinkTitleOrUrlMutation,
   useChangeLinkGroupTitleMutation,
   useChangeLinkStatusMutation,

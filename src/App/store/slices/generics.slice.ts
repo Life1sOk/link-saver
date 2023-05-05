@@ -17,7 +17,7 @@ export const genericsSlice = createSlice({
     addOneGeneric: (state, { payload }: PayloadAction<IShortLink>) => {
       state.data.push(payload);
     },
-    updateOneGeneric: (state, { payload }) => {
+    updateOneGeneric: (state, { payload }: PayloadAction<IShortLink>) => {
       state.data = state.data.map((link) =>
         link.id === payload.id ? payload : link
       );
@@ -36,9 +36,9 @@ export const genericsSlice = createSlice({
 export const {
   addOneGeneric,
   localGenericsStore,
-  deleteOneGeneric,
   updateOneStatusGeneric,
   updateOneGeneric,
+  deleteOneGeneric,
 } = genericsSlice.actions;
 
 export default genericsSlice.reducer;

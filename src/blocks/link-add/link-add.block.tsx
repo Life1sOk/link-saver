@@ -1,18 +1,16 @@
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 
 import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
 import { toggleLinkWindowHandler } from "../../App/store/slices/action-window.slice";
-import {
-  addOneGeneric,
-  updateOneGeneric,
-} from "../../App/store/slices/generics.slice";
-import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
+
+import { useGenericLocal } from "../../controllers/useGenericLocal";
+import { useGroupLocal } from "../../controllers/useGroupLocal";
+import { useRequestProcess } from "../../controllers/useRequestProcess";
 
 import {
   useAddGenericLinkMutation,
   useChangeLinkTitleOrUrlMutation,
 } from "../../App/store/api/links";
-import { updateGroupLink } from "../../App/store/slices/groups.slice";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -33,19 +31,86 @@ const LinkAddBlock = () => {
   const activeLink = useAppSelector((state) => state.actionWindow.activeLink);
   const userId = useAppSelector((state) => state.user.session.user_id);
 
-  const [addGenericLinkApi, { isError, isLoading, isSuccess }] =
-    useAddGenericLinkMutation();
-  const [
-    updateLinkApi,
-    { isError: isUpError, isLoading: isUpLoading, isSuccess: isUpSuccess },
-  ] = useChangeLinkTitleOrUrlMutation();
+  const { addOneGenericLocal, updateOneGenericLocal, deleteOneGenericLocal } =
+    useGenericLocal();
+  const { updateGroupLinkLocal } = useGroupLocal();
+
+  const [addGenericLinkApi, addGenericLinkApiResult] = useAddGenericLinkMutation();
+  useRequestProcess(addGenericLinkApiResult);
+
+  const [updateLinkApi, updateLinkApiResult] = useChangeLinkTitleOrUrlMutation();
+  useRequestProcess(updateLinkApiResult);
 
   const titleRef = useRef<HTMLInputElement>(null);
   const urlRef = useRef<HTMLInputElement>(null);
-
   const closeLinkWindow = () => dispatch(toggleLinkWindowHandler());
 
-  const addLinkHandler = async (event: React.SyntheticEvent) => {
+  const addLinkGenericHandler = async (title: string, url: string) => {
+    //Prepare object
+    const link = {
+      id: Date.now(),
+      user_id: userId,
+      link_title: title,
+      link_url: url,
+      status: false,
+    };
+    // Close window
+    closeLinkWindow();
+    // Add locally
+    addOneGenericLocal(link);
+    // Send data
+    await addGenericLinkApi(link)
+      .unwrap()
+      .catch((error) => {
+        if (error) {
+          // revers changes
+          deleteOneGenericLocal(link.id);
+        }
+      });
+  };
+
+  const updateLinkGenericHandler = async (title: string, url: string) => {
+    //Prepare object
+    const updatedLink = {
+      id: activeLink.link.id,
+      link_title: title,
+      link_url: url,
+      status: activeLink.link.status,
+    };
+
+    const oldLink = activeLink.link;
+
+    // Close window
+    closeLinkWindow();
+    // Update locally
+    if (activeLink.from === "generics") {
+      updateOneGenericLocal(updatedLink);
+    } else {
+      updateGroupLinkLocal({
+        index: Number(activeLink.from),
+        link_data: updatedLink,
+      });
+    }
+
+    // If all not much so we should update link
+    await updateLinkApi(updatedLink)
+      .unwrap()
+      .catch((err) => {
+        // Back changes
+        if (err) {
+          if (activeLink.from === "generics") {
+            updateOneGenericLocal(oldLink);
+          } else {
+            updateGroupLinkLocal({
+              index: Number(activeLink.from),
+              link_data: oldLink,
+            });
+          }
+        }
+      });
+  };
+
+  const upLinkHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
     // Take values from inputs
@@ -65,76 +130,22 @@ const LinkAddBlock = () => {
       return closeLinkWindow();
     }
 
-    // Normal generic add
+    // Add / update Generics
     if (activeLink.link.id < 0) {
-      //Prepare object
-      const link = {
-        user_id: userId,
-        link_title: title,
-        link_url: url,
-      };
-      // Close window
-      closeLinkWindow();
-      // Add locally
-      dispatch(addOneGeneric({ ...link, status: "0", id: Date.now() }));
-      // Send data
-      await addGenericLinkApi(link);
+      await addLinkGenericHandler(title, url);
+      return;
+    } else {
+      await updateLinkGenericHandler(title, url);
       return;
     }
-
-    const updatedLink = {
-      id: activeLink.link.id,
-      link_title: title,
-      link_url: url,
-      status: activeLink.link.status,
-    };
-
-    // Close window
-    closeLinkWindow();
-    // Update locally
-    if (activeLink.from === "generics") {
-      dispatch(updateOneGeneric(updatedLink));
-    } else {
-      dispatch(
-        updateGroupLink({
-          index: Number(activeLink.from),
-          link_data: updatedLink,
-        })
-      );
-    }
-
-    // If all not much so we should update link
-    await updateLinkApi(updatedLink);
-    return;
   };
-
-  useEffect(() => {
-    const processStatusHandler = (status: string) =>
-      dispatch(processStatusHandlerStore(status));
-
-    if (isLoading) processStatusHandler("isLoading");
-    if (isSuccess) processStatusHandler("isSuccess");
-    if (isError) processStatusHandler("isError");
-
-    if (isUpLoading) processStatusHandler("isLoading");
-    if (isUpSuccess) processStatusHandler("isSuccess");
-    if (isUpError) processStatusHandler("isError");
-  }, [
-    isError,
-    isLoading,
-    isSuccess,
-    isUpError,
-    isUpLoading,
-    isUpSuccess,
-    dispatch,
-  ]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>
       <LinkAddStyle>
         <LeftSide>
           <TitleBlock>Add new link:</TitleBlock>
-          <FormWrapper onSubmit={addLinkHandler}>
+          <FormWrapper onSubmit={upLinkHandler}>
             <Input
               label="Title"
               type="text"
@@ -150,11 +161,7 @@ const LinkAddBlock = () => {
               defaultValue={activeLink.link.link_url}
             />
             <LinkButtons>
-              <Button
-                name="Cancel"
-                type="button"
-                actionHandle={closeLinkWindow}
-              />
+              <Button name="Cancel" type="button" actionHandle={closeLinkWindow} />
               <Button name="Add/Send link" type="submit" />
             </LinkButtons>
           </FormWrapper>

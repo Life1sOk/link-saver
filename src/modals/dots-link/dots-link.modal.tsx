@@ -1,18 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { icons } from "../../utils/react-icons";
 
 import { useAppDispatch } from "../../App/store/hooks";
 import { activateLink } from "../../App/store/slices/action-window.slice";
-import { updateOneStatusGeneric } from "../../App/store/slices/generics.slice";
-import { updateGroupLinkStatus } from "../../App/store/slices/groups.slice";
-import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
+
+import { useGenericLocal } from "../../controllers/useGenericLocal";
+import { useGroupLocal } from "../../controllers/useGroupLocal";
+import { useRequestProcess } from "../../controllers/useRequestProcess";
 
 import { IShortLink } from "../../interfaces/link";
 
-import {
-  useDeleteLinkSnapshotMutation,
-  useChangeLinkStatusMutation,
-} from "../../App/store/api/links";
+import { useChangeLinkStatusMutation } from "../../App/store/api/links";
 
 import {
   ModalWrapper,
@@ -29,8 +27,8 @@ interface IDotsModal {
   children: string | JSX.Element | JSX.Element[];
   position: string;
   isActive: boolean;
-  arrowActionHandler: (arg: IShortLink) => void;
-  deleteLinkLocal: (link_id: number) => void;
+  linkTransitionHandler: (arg: IShortLink) => void;
+  deleteLink: ({ link_id, data }: { link_id: number; data: IShortLink }) => void;
 }
 
 const DotsLinkModal = ({
@@ -38,57 +36,52 @@ const DotsLinkModal = ({
   children,
   isActive,
   position,
-  arrowActionHandler,
-  deleteLinkLocal,
+  linkTransitionHandler,
+  deleteLink,
 }: IDotsModal) => {
   const dispatch = useAppDispatch();
 
   const [isOpen, setIsOpen] = useState(false);
 
-  const [deleteSnapshotApi] = useDeleteLinkSnapshotMutation();
-  const [changeLinkStatus, { isError, isLoading, isSuccess }] =
-    useChangeLinkStatusMutation();
+  const { updateOneStatusGenericLocal } = useGenericLocal();
+  const { updateGroupLinkStatusLocal } = useGroupLocal();
+
+  const [changeLinkStatusApi, changeLinkStatusApiStatus] = useChangeLinkStatusMutation();
+  useRequestProcess(changeLinkStatusApiStatus);
+
+  const statusLocalChange = (newStatus: { id: number; status: boolean }) => {
+    if (position === "generics") {
+      updateOneStatusGenericLocal(newStatus);
+    } else {
+      updateGroupLinkStatusLocal({
+        link_data: newStatus,
+        index: Number(position),
+      });
+    }
+  };
 
   const changeStatusHandler = async () => {
-    if (data.status.toString() === "1") {
-      const newStatus = {
-        id: data.id,
-        status: 0,
-      };
-      // Local changes
-      if (position === "generics") {
-        dispatch(updateOneStatusGeneric(newStatus));
-      } else {
-        dispatch(
-          updateGroupLinkStatus({
-            link_data: newStatus,
-            index: Number(position),
-          })
-        );
-      }
-      // Server changes
-      await changeLinkStatus(newStatus);
-    }
+    const newStatus = {
+      id: data.id,
+      status: !data.status,
+    };
+    const oldStatus = {
+      id: data.id,
+      status: data.status,
+    };
 
-    if (data.status.toString() === "0") {
-      const newStatus = {
-        id: data.id,
-        status: 1,
-      };
-      // Local changes
-      if (position === "generics") {
-        dispatch(updateOneStatusGeneric(newStatus));
-      } else {
-        dispatch(
-          updateGroupLinkStatus({
-            link_data: newStatus,
-            index: Number(position),
-          })
-        );
-      }
-      // Server changes
-      await changeLinkStatus(newStatus);
-    }
+    // Local changes
+    statusLocalChange(newStatus);
+
+    // Server changes
+    await changeLinkStatusApi(newStatus)
+      .unwrap()
+      .catch((err) => {
+        // Back changes
+        if (err) {
+          statusLocalChange(oldStatus);
+        }
+      });
   };
 
   const openHandler = () => setIsOpen(true);
@@ -99,29 +92,18 @@ const DotsLinkModal = ({
     closeHandler();
   };
 
-  const removeHandler = async () => {
+  const deleteLinkHandler = async () => {
     if (data.id) {
       // Close window
       closeHandler();
       // Local changes
-      deleteLinkLocal(data.id);
-      // Server changes
-      await deleteSnapshotApi({ id: data.id });
+      deleteLink({ link_id: data.id, data });
     }
   };
 
   const arrowAction = () => {
-    if (arrowActionHandler) arrowActionHandler(data);
+    if (linkTransitionHandler) linkTransitionHandler(data);
   };
-
-  useEffect(() => {
-    const processStatusHandler = (status: string) =>
-      dispatch(processStatusHandlerStore(status));
-
-    if (isLoading) processStatusHandler("isLoading");
-    if (isSuccess) processStatusHandler("isSuccess");
-    if (isError) processStatusHandler("isError");
-  }, [isError, isLoading, isSuccess, dispatch]);
 
   return (
     <ModalWrapper>
@@ -137,7 +119,7 @@ const DotsLinkModal = ({
             <DialogBack onClick={closeHandler} isOpen={isOpen} />
             <OpenWindow>
               <ActionP onClick={editHandler}>Edit Some</ActionP>
-              <ActionP onClick={removeHandler}>Remove</ActionP>
+              <ActionP onClick={deleteLinkHandler}>Remove</ActionP>
             </OpenWindow>
           </>
         )}
