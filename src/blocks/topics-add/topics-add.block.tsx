@@ -23,7 +23,12 @@ const TopicsAddBlock = () => {
   const userId = useAppSelector((state) => state.user.session.user_id);
   const isOpen = useAppSelector((state) => state.topicsLocal.window.isAddTopic);
 
-  const { addOneTopicLocal, toggleTopicWindow } = useTopicLocal();
+  const {
+    addOneTopicLocal,
+    updateOneTopicIdLocal,
+    toggleTopicWindow,
+    deleteOneTopicLocal,
+  } = useTopicLocal();
 
   const [addTopicApi, addTopicApiResult] = useAddTopicByUserIdMutation();
   useRequestProcess(addTopicApiResult);
@@ -47,11 +52,23 @@ const TopicsAddBlock = () => {
     // Close window
     closeTopicWindow();
 
+    let newTopic = { id: Date.now(), user_id: userId, topic_title: checkField };
+
     // Local Add
-    addOneTopicLocal({ id: Date.now(), user_id: userId, topic_title: checkField });
+    addOneTopicLocal(newTopic);
 
     // Send request
-    await addTopicApi({ user_id: userId, topic_title: checkField });
+    await addTopicApi({ user_id: userId, topic_title: checkField })
+      .unwrap()
+      .then((res) => {
+        updateOneTopicIdLocal({ oldId: newTopic.id, newId: res });
+      })
+      .catch((err) => {
+        if (err) {
+          // Back changes
+          deleteOneTopicLocal(newTopic.id);
+        }
+      });
   };
 
   return (

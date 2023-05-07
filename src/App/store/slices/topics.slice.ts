@@ -11,7 +11,8 @@ interface IWindowTopic {
   };
 }
 
-const initialState: { data: ITopic[]; window: IWindowTopic } = {
+const initialState: { pull: boolean; data: ITopic[]; window: IWindowTopic } = {
+  pull: true,
   data: [],
   window: {
     isAddTopic: false,
@@ -28,7 +29,10 @@ export const topicsSlice = createSlice({
   initialState,
   reducers: {
     addTopics: (state, { payload }: PayloadAction<ITopic[]>) => {
-      state.data = payload;
+      if (state.pull) {
+        state.data = payload;
+        state.pull = false;
+      }
     },
     addOneTopic: (state, { payload }: PayloadAction<ITopic>) => {
       state.data.push(payload);
@@ -39,6 +43,12 @@ export const topicsSlice = createSlice({
     ) => {
       const { index, title } = payload;
       state.data[index] = { ...state.data[index], topic_title: title };
+    },
+    updateOneTopicId: (state, { payload }) => {
+      const { oldId, newId } = payload;
+      state.data = state.data.map((topic) =>
+        topic.id === oldId ? (topic = { ...topic, id: newId.id }) : topic
+      );
     },
     removeOneTopic: (state, { payload }: PayloadAction<number>) => {
       state.data = state.data.filter((topic) => topic.id !== payload);
@@ -75,6 +85,7 @@ export const {
   addTopics,
   addOneTopic,
   updateOneTopic,
+  updateOneTopicId,
   removeOneTopic,
   // Window
   toggleTopicWindowHandler,

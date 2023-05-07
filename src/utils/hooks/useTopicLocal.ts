@@ -4,6 +4,7 @@ import {
   addTopics,
   addOneTopic,
   updateOneTopic,
+  updateOneTopicId,
   removeOneTopic,
   // Window
   toggleTopicWindowHandler,
@@ -18,6 +19,11 @@ interface IUpdate {
   title: string;
 }
 
+interface IUpId {
+  oldId: number;
+  newId: void;
+}
+
 export const useTopicLocal = () => {
   const dispatch = useAppDispatch();
 
@@ -25,6 +31,7 @@ export const useTopicLocal = () => {
   const addAllTopicsLocal = (arg: ITopic[]) => dispatch(addTopics(arg));
   const addOneTopicLocal = (arg: ITopic) => dispatch(addOneTopic(arg));
   const updateOneTopicLocal = (arg: IUpdate) => dispatch(updateOneTopic(arg));
+  const updateOneTopicIdLocal = (arg: IUpId) => dispatch(updateOneTopicId(arg));
   const deleteOneTopicLocal = (arg: number) => dispatch(removeOneTopic(arg));
 
   // Window
@@ -36,6 +43,7 @@ export const useTopicLocal = () => {
     addAllTopicsLocal,
     addOneTopicLocal,
     updateOneTopicLocal,
+    updateOneTopicIdLocal,
     deleteOneTopicLocal,
     // Window
     toggleTopicWindow,

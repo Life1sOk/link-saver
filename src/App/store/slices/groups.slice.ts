@@ -13,7 +13,8 @@ interface IWindowGroup {
   };
 }
 
-const initialState: { data: IGroupGet[]; window: IWindowGroup } = {
+const initialState: { pull: boolean; data: IGroupGet[]; window: IWindowGroup } = {
+  pull: true,
   data: [],
   window: {
     isAddGroup: false,
@@ -32,6 +33,9 @@ export const groupsSlice = createSlice({
   reducers: {
     localGroupsStore: (state, { payload }: PayloadAction<IGroupGet[]>) => {
       state.data = payload;
+    },
+    openGroupPull: (state) => {
+      state.pull = true;
     },
     addOneGroup: (state, { payload }: PayloadAction<IGroupGet>) => {
       state.data.unshift(payload);
@@ -62,6 +66,12 @@ export const groupsSlice = createSlice({
 
       state.data[index].links = state.data[index].links.map((link) =>
         link.id === link_data.id ? link_data : link
+      );
+    },
+    updateGroupId: (state, { payload }) => {
+      const { oldId, newId } = payload;
+      state.data = state.data.map((group) =>
+        group.id === oldId ? (group = { ...group, id: newId.id }) : group
       );
     },
     updateGroupLinkStatus: (state, { payload }) => {
@@ -100,11 +110,13 @@ export const groupsSlice = createSlice({
 
 export const {
   localGroupsStore,
+  openGroupPull,
   addOneGroup,
   updateGroupTitle,
   addCurrentLink,
   deleteGroup,
   updateGroupLink,
+  updateGroupId,
   updateGroupLinkStatus,
   removeCurrentLink,
   // Window

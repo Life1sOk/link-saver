@@ -16,13 +16,12 @@ export const groupsApi = createApi({
   }),
   tagTypes: ["Groups"],
   endpoints: (builder) => ({
-    getGroupsByTopicId: builder.query<
-      IGroupGet[],
-      { user_id: number; topic_id: number }
-    >({
-      query: ({ user_id, topic_id }) => ({ url: `/${user_id}&${topic_id}` }),
-      providesTags: ["Groups"],
-    }),
+    getGroupsByTopicId: builder.query<IGroupGet[], { user_id: number; topic_id: number }>(
+      {
+        query: ({ user_id, topic_id }) => ({ url: `/${user_id}&${topic_id}` }),
+        providesTags: ["Groups"],
+      }
+    ),
     addGroup: builder.mutation<void, IGroupPost>({
       query: (body) => ({
         url: "/add",
@@ -50,7 +49,7 @@ export const groupsApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetGroupsByTopicIdQuery,
+  useLazyGetGroupsByTopicIdQuery,
   useAddGroupMutation,
   useChangeGroupMutation,
   useDeleteGroupMutation,

@@ -40,24 +40,7 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   -moz-box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
 `;
 
-export const FrontLoad = styled.div<{ isLoading: boolean }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 11;
-
-  display: ${({ isLoading }) => (isLoading ? "initial" : "none")};
-  width: 100%;
-  height: 100%;
-
-  border: 1px solid white;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.5);
-`;
-
 export const DotsLinkStyle = styled.div`
-  position: relative;
-
   display: flex;
   align-items: center;
   gap: 8px;
@@ -79,52 +62,5 @@ export const IconWrapper = styled.div<{ status?: number }>`
 
   &:hover {
     cursor: pointer;
-  }
-`;
-
-export const DialogBack = styled.div<{ isOpen: boolean }>`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: ${({ isOpen }) => (isOpen ? "12" : "2")};
-
-  width: 100vw;
-  height: 100vh;
-`;
-
-export const OpenWindow = styled.div`
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 15;
-
-  width: 128px;
-  height: fit-content;
-  background-color: white;
-  padding: 5px 0;
-
-  border-radius: 5px;
-  overflow: hidden;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-`;
-
-export const ActionP = styled.button`
-  width: 100%;
-  height: 32px;
-  padding: 0 24px;
-
-  border-top: 1px solid ${({ theme }) => theme.border};
-  border-bottom: 1px solid ${({ theme }) => theme.border};
-
-  text-align: center;
-  border: none;
-
-  &:hover {
-    cursor: pointer;
-    color: orange;
   }
 `;

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const TopicStyle = styled.div<{ isActive: boolean }>`
+  position: relative;
+
   width: 100%;
   height: 44px;
   padding: 8px;

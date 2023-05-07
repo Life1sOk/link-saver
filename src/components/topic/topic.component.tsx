@@ -9,6 +9,8 @@ import { ITopic } from "../../interfaces/topic";
 import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
 import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
+import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
+
 import {
   useChangeTopicTitleMutation,
   useDeleteTopicMutation,
@@ -38,7 +40,8 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const changeTitleHandler = () => setIsChange(true);
   const notReadyHandler = () => setIsChange(false);
 
-  const { updateOneTopicLocal, deleteOneTopicLocal, resetTopicWindow } = useTopicLocal();
+  const { addOneTopicLocal, updateOneTopicLocal, deleteOneTopicLocal, resetTopicWindow } =
+    useTopicLocal();
 
   // Server hook RTK
   const [changeTopicTitleApi, changeTopicTitleApiResult] = useChangeTopicTitleMutation();
@@ -60,7 +63,14 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
     await changeTopicTitleApi({
       id: topic.id,
       topic_title: changedTitle,
-    });
+    })
+      .unwrap()
+      .catch((err) => {
+        if (err) {
+          // Back changes
+          updateOneTopicLocal({ index, title: topic.topic_title });
+        }
+      });
   };
   // ------------------------------------------------ //
 
@@ -69,7 +79,8 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const deleteHandler = () => setIsDelete(true);
   const notDeleteHandler = () => setIsDelete(false);
   // Server hook RTK
-  const [deleteTopicApi] = useDeleteTopicMutation();
+  const [deleteTopicApi, deleteTopicApiResult] = useDeleteTopicMutation();
+  useRequestProcess(deleteTopicApiResult);
 
   // Send request for delete
   const sureDeleteHandler = async () => {
@@ -82,7 +93,14 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
     await deleteTopicApi({
       id: topic.id,
       user_id: topic.user_id,
-    });
+    })
+      .unwrap()
+      .catch((err) => {
+        if (err) {
+          // Back changes
+          addOneTopicLocal(topic);
+        }
+      });
   };
 
   useEffect(() => {
@@ -96,6 +114,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
         isActive={activeTopicId === topic.id}
         title={topic.topic_title}
       >
+        <FrontBlocker isBlocked={topic.id > 1683451657031} />
         <Icon>{icons.topicOpen}</Icon>
         {!isChange ? (
           <Title>{topic.topic_title}</Title>

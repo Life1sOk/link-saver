@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const LinkAddStyle = styled.div`
+export const LinkAddStyle = styled.dialog`
   position: fixed;
   top: 50%;
   left: 50%;

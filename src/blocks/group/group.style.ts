@@ -6,7 +6,6 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
 
   width: 289px;
   height: fit-content;
-  min-height: 100px;
 
   background-color: #e6f0ff;
   padding: 5px;

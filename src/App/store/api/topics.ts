@@ -20,18 +20,13 @@ export const topicsApi = createApi({
         method: "POST",
         body,
       }),
-      invalidatesTags: ["Topics"],
     }),
-    changeTopicTitle: builder.mutation<
-      void,
-      { id: number; topic_title: string }
-    >({
+    changeTopicTitle: builder.mutation<void, { id: number; topic_title: string }>({
       query: (body) => ({
         url: "/change",
         method: "PUT",
         body,
       }),
-      invalidatesTags: ["Topics"],
     }),
     deleteTopic: builder.mutation<void, { id: number; user_id: number }>({
       query: (body) => ({
@@ -39,7 +34,6 @@ export const topicsApi = createApi({
         method: "DELETE",
         body,
       }),
-      invalidatesTags: ["Topics"],
     }),
   }),
 });

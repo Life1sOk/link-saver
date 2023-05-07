@@ -16,7 +16,8 @@ interface IWindowLink {
   };
 }
 
-const initialState: { data: IShortLink[]; window: IWindowLink } = {
+const initialState: { pull: boolean; data: IShortLink[]; window: IWindowLink } = {
+  pull: true,
   data: [],
   window: {
     isAddLink: false,
@@ -37,7 +38,10 @@ export const genericsSlice = createSlice({
   initialState,
   reducers: {
     localGenericsStore: (state, { payload }: PayloadAction<IShortLink[]>) => {
-      state.data = payload;
+      if (state.pull) {
+        state.data = payload;
+        state.pull = false;
+      }
     },
     addOneGeneric: (state, { payload }: PayloadAction<IShortLink>) => {
       state.data.push(payload);

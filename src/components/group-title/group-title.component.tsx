@@ -27,16 +27,28 @@ const GroupTitle = ({ title, group_id, isActive }: IGroupTitle) => {
     // Check title changes
     if (changedTitle === title) return;
 
-    const upTitle = {
+    const newTitle = {
       id: group_id,
       new_title: changedTitle,
     };
 
+    const oldTitle = {
+      id: group_id,
+      new_title: title,
+    };
+
     // Local
-    updateGroupTitleLocal(upTitle);
+    updateGroupTitleLocal(newTitle);
 
     // Send changes
-    await changeGroupTitleApi(upTitle);
+    await changeGroupTitleApi(newTitle)
+      .unwrap()
+      .catch((err) => {
+        if (err) {
+          // back chages
+          updateGroupTitleLocal(oldTitle);
+        }
+      });
 
     return;
   };

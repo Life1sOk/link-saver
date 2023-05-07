@@ -2,11 +2,13 @@ import { useAppDispatch } from "../../App/store/hooks";
 
 import {
   localGroupsStore,
+  openGroupPull,
   addOneGroup,
   updateGroupTitle,
   deleteGroup,
   addCurrentLink,
   updateGroupLink,
+  updateGroupId,
   updateGroupLinkStatus,
   removeCurrentLink,
   // Window
@@ -23,7 +25,7 @@ interface IGroupLink {
   index: number;
 }
 
-interface IGroupLinkStatus {
+interface IGLinkStatus {
   link_data: {
     id: number;
     status: boolean;
@@ -31,7 +33,7 @@ interface IGroupLinkStatus {
   index: number;
 }
 
-interface IGroupLinkDelete {
+interface IGLinkDelete {
   link_id: number;
   index: number;
 }
@@ -42,23 +44,36 @@ interface IGroupW {
   group_index: number;
 }
 
+interface IUpTitle {
+  id: number;
+  new_title: string;
+}
+
+interface IUpId {
+  oldId: number;
+  newId: void;
+}
+
 export const useGroupLocal = () => {
   const dispatch = useAppDispatch();
 
   // CRUD
   const addAllGroupsLocal = (arg: IGroupGet[]) => dispatch(localGroupsStore(arg));
+  const openGroupPullLocal = () => dispatch(openGroupPull());
 
   const addOneGroupLocal = (arg: IGroupGet) => dispatch(addOneGroup(arg));
-  const updateGroupTitleLocal = (arg: { id: number; new_title: string }) =>
-    dispatch(updateGroupTitle(arg));
+  const updateGroupTitleLocal = (arg: IUpTitle) => dispatch(updateGroupTitle(arg));
+  const updateGroupIdLocal = (arg: IUpId) => dispatch(updateGroupId(arg));
   const deleteGroupLocal = (arg: number) => dispatch(deleteGroup(arg));
 
+  // Group link
   const addGroupLinkLocal = (arg: IGroupLink) => dispatch(addCurrentLink(arg));
+
   const updateGroupLinkLocal = (arg: IGroupLink) => dispatch(updateGroupLink(arg));
-  const updateGroupLinkStatusLocal = (arg: IGroupLinkStatus) =>
+  const updateGroupLinkStatusLocal = (arg: IGLinkStatus) =>
     dispatch(updateGroupLinkStatus(arg));
-  const deleteGroupLinkLocal = (arg: IGroupLinkDelete) =>
-    dispatch(removeCurrentLink(arg));
+
+  const deleteGroupLinkLocal = (arg: IGLinkDelete) => dispatch(removeCurrentLink(arg));
 
   // Window
   const toggleGroupWindow = () => dispatch(toggleGroupWindowHandler());
@@ -67,8 +82,10 @@ export const useGroupLocal = () => {
 
   return {
     addAllGroupsLocal,
+    openGroupPullLocal,
     addOneGroupLocal,
     updateGroupTitleLocal,
+    updateGroupIdLocal,
     deleteGroupLocal,
     addGroupLinkLocal,
     updateGroupLinkLocal,

@@ -27,7 +27,8 @@ const GroupAddBlock = () => {
   );
   const user_id = useAppSelector((state) => state.user.session.user_id);
 
-  const { addOneGroupLocal, deleteGroupLocal, toggleGroupWindow } = useGroupLocal();
+  const { addOneGroupLocal, deleteGroupLocal, toggleGroupWindow, updateGroupIdLocal } =
+    useGroupLocal();
 
   const [addGroupApi, addGroupApiResult] = useAddGroupMutation();
   useRequestProcess(addGroupApiResult);
@@ -57,6 +58,9 @@ const GroupAddBlock = () => {
     // Send data
     await addGroupApi(group)
       .unwrap()
+      .then((res) => {
+        updateGroupIdLocal({ oldId: group.id, newId: res });
+      })
       .catch((err) => {
         // Back changes
         if (err) {

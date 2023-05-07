@@ -10,16 +10,14 @@ import {
   useChangeLinkGroupTitleMutation,
   useDeleteLinkSnapshotMutation,
 } from "../../App/store/api/links";
-import { useChangeLinkStatusMutation } from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
-import Link from "../../components/link/link.component";
 import TitleSection from "../../components/title-section/title-section.component";
+import Linker from "../../components/linker/linker.component";
 
 import { IShortLink } from "../../interfaces/link";
 
 import BlankModal from "../../modals/blank/blank-section.modal";
-import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
@@ -32,13 +30,13 @@ const GenericsSection = () => {
   const { addGroupLinkLocal, deleteGroupLinkLocal } = useGroupLocal();
 
   const { data: generics } = useGetGenericLinksByUserIdQuery(userId);
-  const [deleteSnapshotApi] = useDeleteLinkSnapshotMutation();
+
+  const [deleteSnapshotApi, deleteSnapshotApiResult] = useDeleteLinkSnapshotMutation();
+  useRequestProcess(deleteSnapshotApiResult);
+
   const [changeGroupLinkApi, changeGroupLinkApiResult] =
     useChangeLinkGroupTitleMutation();
   useRequestProcess(changeGroupLinkApiResult);
-
-  const [, result] = useChangeLinkStatusMutation();
-  useRequestProcess(result);
 
   // Need local change
   const linkTransitionToGroup = async (data: IShortLink) => {
@@ -47,6 +45,7 @@ const GenericsSection = () => {
     // Local change - group add link
     addGroupLinkLocal({ link_data: data, index: activeGroup.group_index });
     // Server changes
+
     await changeGroupLinkApi({ id: data?.id, group_id: activeGroup.id })
       .unwrap()
       .catch((err) => {
@@ -80,7 +79,7 @@ const GenericsSection = () => {
   };
 
   useEffect(() => {
-    if (generics && localGenericLinks.length < 1) addAllGenericsLocal(generics);
+    if (generics) addAllGenericsLocal(generics);
   }, [generics, addAllGenericsLocal, localGenericLinks]);
 
   return (
@@ -90,16 +89,14 @@ const GenericsSection = () => {
       <LinksWrapper>
         {localGenericLinks.length > 0 ? (
           localGenericLinks.map((current, index) => (
-            <DotsLinkModal
+            <Linker
               data={current}
               key={index}
               position="generics"
               isActive={activeGroup.isActive}
               deleteLink={deleteLinkHandler}
               linkTransitionHandler={linkTransitionToGroup}
-            >
-              <Link data={current} />
-            </DotsLinkModal>
+            />
           ))
         ) : (
           <BlankModal title="Add link" color="rgb(0, 112, 201)" />

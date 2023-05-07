@@ -9,34 +9,27 @@ import { IShortLink } from "../../interfaces/link";
 
 import { useChangeLinkStatusMutation } from "../../App/store/api/links";
 
-import {
-  ModalWrapper,
-  FrontDesk,
-  FrontLoad,
-  DotsLinkStyle,
-  IconWrapper,
-  OpenWindow,
-  ActionP,
-  DialogBack,
-} from "./dots-link.style";
+import LinkSettingModal from "../../modals/link-setting/link-setting.modal";
+import Link from "../../shared/link/link.shared";
+import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
 
-interface IDotsModal {
+import { ModalWrapper, FrontDesk, DotsLinkStyle, IconWrapper } from "./linker.style";
+
+interface ILinker {
   data: IShortLink;
-  children: string | JSX.Element | JSX.Element[];
   position: string;
   isActive: boolean;
   linkTransitionHandler: (arg: IShortLink) => void;
   deleteLink: ({ link_id, data }: { link_id: number; data: IShortLink }) => void;
 }
 
-const DotsLinkModal = ({
+const Linker = ({
   data,
-  children,
   isActive,
   position,
   linkTransitionHandler,
   deleteLink,
-}: IDotsModal) => {
+}: ILinker) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { updateOneStatusGenericLocal, editLinkWindow } = useGenericLocal();
@@ -103,26 +96,23 @@ const DotsLinkModal = ({
 
   return (
     <ModalWrapper>
-      <FrontLoad isLoading={data.id > 1683451657031} />
+      <FrontBlocker isBlocked={data.id > 1683451657031} />
       <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
       <DotsLinkStyle>
         <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
           {icons.link}
         </IconWrapper>
-        {children}
+        <Link data={data} />
         <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
-        {isOpen && (
-          <>
-            <DialogBack onClick={closeHandler} isOpen={isOpen} />
-            <OpenWindow>
-              <ActionP onClick={editHandler}>Edit Some</ActionP>
-              <ActionP onClick={deleteLinkHandler}>Remove</ActionP>
-            </OpenWindow>
-          </>
-        )}
       </DotsLinkStyle>
+      <LinkSettingModal
+        isOpen={isOpen}
+        closeModel={closeHandler}
+        editLink={editHandler}
+        deleteLink={deleteLinkHandler}
+      />
     </ModalWrapper>
   );
 };
 
-export default DotsLinkModal;
+export default Linker;
