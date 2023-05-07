@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGenericLocal } from "../../controllers/useGenericLocal";
-import { useGroupLocal } from "../../controllers/useGroupLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import {
   useGetGenericLinksByUserIdQuery,
@@ -23,7 +23,7 @@ import DotsLinkModal from "../../modals/dots-link/dots-link.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
-  const activeGroup = useAppSelector((state) => state.actionWindow.activeGroup);
+  const activeGroup = useAppSelector((state) => state.groupsLocal.window.activeGroup);
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
 

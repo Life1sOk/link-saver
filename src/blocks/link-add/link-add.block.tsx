@@ -1,11 +1,10 @@
 import { useRef } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
-import { toggleLinkWindowHandler } from "../../App/store/slices/action-window.slice";
+import { useAppSelector } from "../../App/store/hooks";
 
-import { useGenericLocal } from "../../controllers/useGenericLocal";
-import { useGroupLocal } from "../../controllers/useGroupLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import {
   useAddGenericLinkMutation,
@@ -26,13 +25,17 @@ import {
 } from "./link-add.style";
 
 const LinkAddBlock = () => {
-  const dispatch = useAppDispatch();
-  const isOpen = useAppSelector((state) => state.actionWindow.isAddLink);
-  const activeLink = useAppSelector((state) => state.actionWindow.activeLink);
+  const isOpen = useAppSelector((state) => state.genericsLocal.window.isAddLink);
+  const activeLink = useAppSelector((state) => state.genericsLocal.window.activeLink);
   const userId = useAppSelector((state) => state.user.session.user_id);
 
-  const { addOneGenericLocal, updateOneGenericLocal, deleteOneGenericLocal } =
-    useGenericLocal();
+  const {
+    addOneGenericLocal,
+    updateOneGenericLocal,
+    updateOneGenericIdLocal,
+    deleteOneGenericLocal,
+    toggleLinkWindow,
+  } = useGenericLocal();
   const { updateGroupLinkLocal } = useGroupLocal();
 
   const [addGenericLinkApi, addGenericLinkApiResult] = useAddGenericLinkMutation();
@@ -43,7 +46,7 @@ const LinkAddBlock = () => {
 
   const titleRef = useRef<HTMLInputElement>(null);
   const urlRef = useRef<HTMLInputElement>(null);
-  const closeLinkWindow = () => dispatch(toggleLinkWindowHandler());
+  const closeLinkWindow = () => toggleLinkWindow();
 
   const addLinkGenericHandler = async (title: string, url: string) => {
     //Prepare object
@@ -61,6 +64,10 @@ const LinkAddBlock = () => {
     // Send data
     await addGenericLinkApi(link)
       .unwrap()
+      .then((res) => {
+        // Change custom id
+        updateOneGenericIdLocal({ oldId: link.id, newId: res });
+      })
       .catch((error) => {
         if (error) {
           // revers changes

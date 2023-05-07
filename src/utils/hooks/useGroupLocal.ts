@@ -1,4 +1,4 @@
-import { useAppDispatch } from "../App/store/hooks";
+import { useAppDispatch } from "../../App/store/hooks";
 
 import {
   localGroupsStore,
@@ -9,10 +9,14 @@ import {
   updateGroupLink,
   updateGroupLinkStatus,
   removeCurrentLink,
-} from "../App/store/slices/groups.slice";
+  // Window
+  toggleGroupWindowHandler,
+  activateGroup,
+  deactivateGroup,
+} from "../../App/store/slices/groups.slice";
 
-import { IGroupGet } from "../interfaces/group";
-import { IShortLink } from "../interfaces/link";
+import { IGroupGet } from "../../interfaces/group";
+import { IShortLink } from "../../interfaces/link";
 
 interface IGroupLink {
   link_data: IShortLink;
@@ -32,9 +36,16 @@ interface IGroupLinkDelete {
   index: number;
 }
 
+interface IGroupW {
+  title: string;
+  id: number;
+  group_index: number;
+}
+
 export const useGroupLocal = () => {
   const dispatch = useAppDispatch();
 
+  // CRUD
   const addAllGroupsLocal = (arg: IGroupGet[]) => dispatch(localGroupsStore(arg));
 
   const addOneGroupLocal = (arg: IGroupGet) => dispatch(addOneGroup(arg));
@@ -49,6 +60,11 @@ export const useGroupLocal = () => {
   const deleteGroupLinkLocal = (arg: IGroupLinkDelete) =>
     dispatch(removeCurrentLink(arg));
 
+  // Window
+  const toggleGroupWindow = () => dispatch(toggleGroupWindowHandler());
+  const editGroupWindow = (arg: IGroupW) => dispatch(activateGroup(arg));
+  const resetGroupWindow = () => dispatch(deactivateGroup());
+
   return {
     addAllGroupsLocal,
     addOneGroupLocal,
@@ -58,5 +74,9 @@ export const useGroupLocal = () => {
     updateGroupLinkLocal,
     updateGroupLinkStatusLocal,
     deleteGroupLinkLocal,
+    // Window
+    toggleGroupWindow,
+    editGroupWindow,
+    resetGroupWindow,
   };
 };

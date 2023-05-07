@@ -1,7 +1,7 @@
 import { useRef } from "react";
 
-import { useGroupLocal } from "../../controllers/useGroupLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import { useChangeGroupMutation } from "../../App/store/api/groups";
 

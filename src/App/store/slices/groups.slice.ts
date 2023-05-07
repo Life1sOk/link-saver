@@ -3,8 +3,27 @@ import { PayloadAction } from "@reduxjs/toolkit";
 
 import { IGroupGet } from "../../../interfaces/group";
 
-const initialState: { data: IGroupGet[] } = {
+interface IWindowGroup {
+  isAddGroup: boolean;
+  activeGroup: {
+    isActive: boolean;
+    id: number;
+    group_index: number;
+    title: string;
+  };
+}
+
+const initialState: { data: IGroupGet[]; window: IWindowGroup } = {
   data: [],
+  window: {
+    isAddGroup: false,
+    activeGroup: {
+      isActive: false,
+      id: -1,
+      group_index: -1,
+      title: "",
+    },
+  },
 };
 
 export const groupsSlice = createSlice({
@@ -52,6 +71,30 @@ export const groupsSlice = createSlice({
         link.id === link_data.id ? { ...link, status: link_data.status } : link
       );
     },
+    // Window
+    toggleGroupWindowHandler: (state) => {
+      const snap = state.window;
+      snap.isAddGroup = !snap.isAddGroup;
+    },
+    activateGroup: (
+      state,
+      { payload }: PayloadAction<{ title: string; id: number; group_index: number }>
+    ) => {
+      state.window.activeGroup = {
+        isActive: true,
+        id: payload.id,
+        group_index: payload.group_index,
+        title: payload.title,
+      };
+    },
+    deactivateGroup: (state) => {
+      state.window.activeGroup = {
+        isActive: false,
+        id: -1,
+        group_index: -1,
+        title: "",
+      };
+    },
   },
 });
 
@@ -64,6 +107,10 @@ export const {
   updateGroupLink,
   updateGroupLinkStatus,
   removeCurrentLink,
+  // Window
+  toggleGroupWindowHandler,
+  activateGroup,
+  deactivateGroup,
 } = groupsSlice.actions;
 
 export default groupsSlice.reducer;

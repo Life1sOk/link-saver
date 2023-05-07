@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { icons } from "../../utils/react-icons";
 
-import { useAppDispatch } from "../../App/store/hooks";
-import { activateLink } from "../../App/store/slices/action-window.slice";
-
-import { useGenericLocal } from "../../controllers/useGenericLocal";
-import { useGroupLocal } from "../../controllers/useGroupLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import { IShortLink } from "../../interfaces/link";
 
@@ -15,6 +12,7 @@ import { useChangeLinkStatusMutation } from "../../App/store/api/links";
 import {
   ModalWrapper,
   FrontDesk,
+  FrontLoad,
   DotsLinkStyle,
   IconWrapper,
   OpenWindow,
@@ -39,11 +37,9 @@ const DotsLinkModal = ({
   linkTransitionHandler,
   deleteLink,
 }: IDotsModal) => {
-  const dispatch = useAppDispatch();
-
   const [isOpen, setIsOpen] = useState(false);
 
-  const { updateOneStatusGenericLocal } = useGenericLocal();
+  const { updateOneStatusGenericLocal, editLinkWindow } = useGenericLocal();
   const { updateGroupLinkStatusLocal } = useGroupLocal();
 
   const [changeLinkStatusApi, changeLinkStatusApiStatus] = useChangeLinkStatusMutation();
@@ -88,7 +84,7 @@ const DotsLinkModal = ({
   const closeHandler = () => setIsOpen(false);
 
   const editHandler = () => {
-    dispatch(activateLink({ data, from: position }));
+    editLinkWindow({ data, from: position });
     closeHandler();
   };
 
@@ -107,6 +103,7 @@ const DotsLinkModal = ({
 
   return (
     <ModalWrapper>
+      <FrontLoad isLoading={data.id > 1683451657031} />
       <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
       <DotsLinkStyle>
         <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>

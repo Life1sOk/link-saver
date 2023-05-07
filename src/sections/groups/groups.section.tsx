@@ -2,7 +2,7 @@ import { useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGroupLocal } from "../../controllers/useGroupLocal";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
 
 import { useGetGroupsByTopicIdQuery } from "../../App/store/api/groups";
 
@@ -17,10 +17,11 @@ import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
 
 const GroupsSection = () => {
   const localGroups = useAppSelector((state) => state.groupsLocal.data);
-  const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
 
   // Listening 'active topic' on change it re-render;
-  const { id, topic_title } = useAppSelector((state) => state.activeTopic.current);
+  const { id, topic_title } = useAppSelector(
+    (state) => state.topicsLocal.window.activeTopic
+  );
 
   const user_id = useAppSelector((state) => state.user.session.user_id);
 
@@ -37,7 +38,7 @@ const GroupsSection = () => {
 
   useEffect(() => {
     refetch();
-  }, [activeTopicId, refetch]);
+  }, [id, refetch]);
 
   if (isLoading || isFetching) {
     return (

@@ -1,11 +1,10 @@
 import { useRef } from "react";
 
-import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
+import { useAppSelector } from "../../App/store/hooks";
 import { useAddTopicByUserIdMutation } from "../../App/store/api/topics";
-import { toggleTopicWindowHandler } from "../../App/store/slices/action-window.slice";
 
-import { useTopicLocal } from "../../controllers/useTopicLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
@@ -21,12 +20,10 @@ import {
 } from "./topics-add.style";
 
 const TopicsAddBlock = () => {
-  const dispatch = useAppDispatch();
-
   const userId = useAppSelector((state) => state.user.session.user_id);
-  const isOpen = useAppSelector((state) => state.actionWindow.isAddTopic);
+  const isOpen = useAppSelector((state) => state.topicsLocal.window.isAddTopic);
 
-  const { addOneTopicLocal } = useTopicLocal();
+  const { addOneTopicLocal, toggleTopicWindow } = useTopicLocal();
 
   const [addTopicApi, addTopicApiResult] = useAddTopicByUserIdMutation();
   useRequestProcess(addTopicApiResult);
@@ -34,7 +31,7 @@ const TopicsAddBlock = () => {
   const titleRef = useRef<HTMLInputElement>(null);
 
   // Toggle functions
-  const closeTopicWindow = () => dispatch(toggleTopicWindowHandler());
+  const closeTopicWindow = () => toggleTopicWindow();
 
   // Server Request
   const addTopicHandler = async (event: React.SyntheticEvent) => {

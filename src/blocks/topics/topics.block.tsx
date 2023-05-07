@@ -1,9 +1,8 @@
 import { useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
-import { activeTopicStore } from "../../App/store/slices/active-topic.slice";
+import { useAppSelector } from "../../App/store/hooks";
 
-import { useTopicLocal } from "../../controllers/useTopicLocal";
+import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
 
 import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 
@@ -15,18 +14,16 @@ import BlankModal from "../../modals/blank/blank-section.modal";
 import { TopicsStyle } from "./topics.style";
 
 const TopicsBlock = () => {
-  const dispatch = useAppDispatch();
-
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localTopics = useAppSelector((state) => state.topicsLocal.data);
 
-  const { addAllTopicsLocal } = useTopicLocal();
+  const { addAllTopicsLocal, editTopicWindow } = useTopicLocal();
 
   // RTK query hook for fetching data from the server;
   const { data } = useGetTopicsByUserIdQuery(userId);
 
   // Add active topic to Redux toolkit
-  const activeTopicHandler = (topic: ITopic) => dispatch(activeTopicStore(topic));
+  const activeTopicHandler = (topic: ITopic) => editTopicWindow(topic);
 
   useEffect(() => {
     if (data && localTopics.length < 1) addAllTopicsLocal(data);

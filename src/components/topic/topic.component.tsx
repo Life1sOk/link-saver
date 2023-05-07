@@ -1,14 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
-import { defaultState } from "../../App/store/slices/active-topic.slice";
+import { useAppSelector } from "../../App/store/hooks";
 
 import { icons } from "../../utils/react-icons";
 
 import { ITopic } from "../../interfaces/topic";
 
-import { useTopicLocal } from "../../controllers/useTopicLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import {
   useChangeTopicTitleMutation,
@@ -25,11 +24,12 @@ interface ITopicActive {
 }
 
 const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
-  const dispatch = useAppDispatch();
   const [isChange, setIsChange] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
-  const activeTopicId = useAppSelector((state) => state.activeTopic.current?.id);
+  const activeTopicId = useAppSelector(
+    (state) => state.topicsLocal.window.activeTopic.id
+  );
   // const isActive = activeTopicId === topic.id;
   const activateTopic = () => activeHandler(topic);
 
@@ -38,7 +38,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const changeTitleHandler = () => setIsChange(true);
   const notReadyHandler = () => setIsChange(false);
 
-  const { updateOneTopicLocal, deleteOneTopicLocal } = useTopicLocal();
+  const { updateOneTopicLocal, deleteOneTopicLocal, resetTopicWindow } = useTopicLocal();
 
   // Server hook RTK
   const [changeTopicTitleApi, changeTopicTitleApiResult] = useChangeTopicTitleMutation();
@@ -74,7 +74,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   // Send request for delete
   const sureDeleteHandler = async () => {
     // Local
-    dispatch(defaultState());
+    resetTopicWindow();
     deleteOneTopicLocal(topic.id);
     setIsDelete(false);
 

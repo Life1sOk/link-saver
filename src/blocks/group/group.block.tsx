@@ -1,11 +1,10 @@
 import { useState, memo } from "react";
 
-import { useAppSelector, useAppDispatch } from "../../App/store/hooks";
-import { deactivateGroup } from "../../App/store/slices/action-window.slice";
+import { useAppSelector } from "../../App/store/hooks";
 
-import { useGenericLocal } from "../../controllers/useGenericLocal";
-import { useGroupLocal } from "../../controllers/useGroupLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import {
   useChangeLinkGroupTitleMutation,
@@ -28,20 +27,20 @@ import { GroupStyle, GroupHeader, IconWrapper, LinksPlace } from "./group.style"
 
 const GroupBlock = memo(({ data, index }: { data: IGroupGet; index: number }) => {
   const { id, group_title, links } = data;
-  const dispatch = useAppDispatch();
 
   const [isSureModal, setIsSureModal] = useState(false);
 
   const userId = useAppSelector((state) => state.user.session.user_id);
 
   const { isActive: isActiveWindow, id: activeId } = useAppSelector(
-    (state) => state.actionWindow.activeGroup
+    (state) => state.groupsLocal.window.activeGroup
   );
 
   let isActive = id === activeId;
 
   const { addOneGenericLocal, deleteOneGenericLocal } = useGenericLocal();
-  const { deleteGroupLocal, addGroupLinkLocal, deleteGroupLinkLocal } = useGroupLocal();
+  const { deleteGroupLocal, addGroupLinkLocal, deleteGroupLinkLocal, resetGroupWindow } =
+    useGroupLocal();
 
   const [changeGroupLinkApi, changeGroupLinkApiResult] =
     useChangeLinkGroupTitleMutation();
@@ -82,7 +81,7 @@ const GroupBlock = memo(({ data, index }: { data: IGroupGet; index: number }) =>
   };
 
   // Close window
-  const closeActiveWindowHandler = () => dispatch(deactivateGroup());
+  const closeActiveWindowHandler = () => resetGroupWindow();
 
   // Local delete link handler
   const deleteLinkLocalHandler = async ({

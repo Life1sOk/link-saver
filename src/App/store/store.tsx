@@ -1,8 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./slices/user.slice";
-import activeTopicReducer from "./slices/active-topic.slice";
-import actionWindowReducer from "./slices/action-window.slice";
 import genericsReducer from "./slices/generics.slice";
 import processReducer from "./slices/process.slice";
 import groupsReducer from "./slices/groups.slice";
@@ -18,8 +16,6 @@ import { loginAPI } from "./api/login";
 export const store = configureStore({
   reducer: {
     user: userReducer,
-    activeTopic: activeTopicReducer,
-    actionWindow: actionWindowReducer,
     genericsLocal: genericsReducer,
     groupsLocal: groupsReducer,
     topicsLocal: topicsReducer,

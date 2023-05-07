@@ -2,8 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { ITopic } from "../../../interfaces/topic";
 
-const initialState: { data: ITopic[] } = {
+interface IWindowTopic {
+  isAddTopic: boolean;
+  activeTopic: {
+    id: number;
+    user_id: number;
+    topic_title: string;
+  };
+}
+
+const initialState: { data: ITopic[]; window: IWindowTopic } = {
   data: [],
+  window: {
+    isAddTopic: false,
+    activeTopic: {
+      id: 0,
+      user_id: 0,
+      topic_title: "Main",
+    },
+  },
 };
 
 export const topicsSlice = createSlice({
@@ -26,10 +43,43 @@ export const topicsSlice = createSlice({
     removeOneTopic: (state, { payload }: PayloadAction<number>) => {
       state.data = state.data.filter((topic) => topic.id !== payload);
     },
+    // Window
+    toggleTopicWindowHandler: (state) => {
+      const snap = state.window;
+
+      snap.isAddTopic = !snap.isAddTopic;
+    },
+    activeTopicStore: (state, { payload }) => {
+      const snap = state.window;
+      const { data } = payload;
+
+      if (data) {
+        snap.activeTopic = data;
+      } else {
+        snap.activeTopic = payload;
+      }
+    },
+    defaultState: (state) => {
+      const snap = state.window;
+
+      snap.activeTopic = {
+        id: 0,
+        user_id: 0,
+        topic_title: "Main",
+      };
+    },
   },
 });
 
-export const { addTopics, addOneTopic, updateOneTopic, removeOneTopic } =
-  topicsSlice.actions;
+export const {
+  addTopics,
+  addOneTopic,
+  updateOneTopic,
+  removeOneTopic,
+  // Window
+  toggleTopicWindowHandler,
+  activeTopicStore,
+  defaultState,
+} = topicsSlice.actions;
 
 export default topicsSlice.reducer;

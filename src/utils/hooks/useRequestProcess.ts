@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 
-import { useAppDispatch } from "../App/store/hooks";
+import { useAppDispatch } from "../../App/store/hooks";
 
-import { processStatusHandlerStore } from "../App/store/slices/process.slice";
+import { processStatusHandlerStore } from "../../App/store/slices/process.slice";
 
 interface IProcess {
   data?: any;

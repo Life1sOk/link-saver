@@ -1,8 +1,4 @@
-import { useAppDispatch } from "../../App/store/hooks";
-import {
-  activateGroup,
-  deactivateGroup,
-} from "../../App/store/slices/action-window.slice";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
 
 import { GroupActiveStyle } from "./group-active.style";
 
@@ -13,18 +9,13 @@ interface IGroupActive {
   isActive: boolean;
 }
 
-const GroupActive = ({
-  group_id,
-  title,
-  group_index,
-  isActive,
-}: IGroupActive) => {
-  const dispatch = useAppDispatch();
+const GroupActive = ({ group_id, title, group_index, isActive }: IGroupActive) => {
+  const { editGroupWindow, resetGroupWindow } = useGroupLocal();
 
   const activeGroupHandler = () => {
-    if (isActive) return dispatch(deactivateGroup());
+    if (isActive) return resetGroupWindow();
 
-    dispatch(activateGroup({ title, id: group_id, group_index }));
+    editGroupWindow({ title, id: group_id, group_index });
   };
 
   return <GroupActiveStyle onClick={activeGroupHandler} isActive={isActive} />;

@@ -40,6 +40,21 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   -moz-box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
 `;
 
+export const FrontLoad = styled.div<{ isLoading: boolean }>`
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
+
+  display: ${({ isLoading }) => (isLoading ? "initial" : "none")};
+  width: 100%;
+  height: 100%;
+
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+`;
+
 export const DotsLinkStyle = styled.div`
   position: relative;
 

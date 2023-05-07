@@ -1,12 +1,11 @@
 import { useRef } from "react";
 
-import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
-import { toggleGroupWindowHandler } from "../../App/store/slices/action-window.slice";
+import { useAppSelector } from "../../App/store/hooks";
 
 import { useAddGroupMutation } from "../../App/store/api/groups";
 
-import { useGroupLocal } from "../../controllers/useGroupLocal";
-import { useRequestProcess } from "../../controllers/useRequestProcess";
+import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -22,19 +21,20 @@ import {
 } from "./group-add.style";
 
 const GroupAddBlock = () => {
-  const dispatch = useAppDispatch();
-  const isOpen = useAppSelector((state) => state.actionWindow.isAddGroup);
-  const activeTopicId = useAppSelector((state) => state.activeTopic.current.id);
+  const isOpen = useAppSelector((state) => state.groupsLocal.window.isAddGroup);
+  const activeTopicId = useAppSelector(
+    (state) => state.topicsLocal.window.activeTopic.id
+  );
   const user_id = useAppSelector((state) => state.user.session.user_id);
 
-  const { addOneGroupLocal, deleteGroupLocal } = useGroupLocal();
+  const { addOneGroupLocal, deleteGroupLocal, toggleGroupWindow } = useGroupLocal();
 
   const [addGroupApi, addGroupApiResult] = useAddGroupMutation();
   useRequestProcess(addGroupApiResult);
 
   const groupTitleRef = useRef<HTMLInputElement>(null);
 
-  const closeGroupWindow = () => dispatch(toggleGroupWindowHandler());
+  const closeGroupWindow = () => toggleGroupWindow();
 
   const addGroupHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();

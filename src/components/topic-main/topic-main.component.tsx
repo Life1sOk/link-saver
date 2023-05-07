@@ -1,23 +1,21 @@
-import { useAppDispatch, useAppSelector } from "../../App/store/hooks";
-import { defaultState } from "../../App/store/slices/active-topic.slice";
+import { useAppSelector } from "../../App/store/hooks";
+import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
 
 import { icons } from "../../utils/react-icons";
 
 import { TopicMainStyle, Title, MarkIcon } from "./topic-main.style";
 
 const TopicMain = () => {
-  const dispatch = useAppDispatch();
-  const currentTopic = useAppSelector((state) => state.activeTopic.current);
+  const activeTopic = useAppSelector((state) => state.topicsLocal.window.activeTopic);
+
+  const { resetTopicWindow } = useTopicLocal();
 
   const defaultMain = () => {
-    if (currentTopic.topic_title !== "Main") dispatch(defaultState());
+    if (activeTopic.topic_title !== "Main") resetTopicWindow();
   };
 
   return (
-    <TopicMainStyle
-      onClick={defaultMain}
-      isActive={currentTopic.topic_title === "Main"}
-    >
+    <TopicMainStyle onClick={defaultMain} isActive={activeTopic.topic_title === "Main"}>
       <MarkIcon>{icons.marker}</MarkIcon>
       <Title>Main desk</Title>
     </TopicMainStyle>
