@@ -1,4 +1,4 @@
-import { IShortLink } from "../../interfaces/link";
+import { IShortLink } from "../../utils/interfaces/link";
 import { LinkStyle, LinkTitle } from "./link.style";
 
 /*

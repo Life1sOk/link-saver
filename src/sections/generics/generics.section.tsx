@@ -1,21 +1,16 @@
 import { useEffect } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
-import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
+import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
+import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
-import {
-  useGetGenericLinksByUserIdQuery,
-  useChangeLinkGroupTitleMutation,
-  useDeleteLinkSnapshotMutation,
-} from "../../App/store/api/links";
+import { useGetGenericLinksByUserIdQuery } from "../../App/store/api/links";
 
 import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import TitleSection from "../../components/title-section/title-section.component";
 import Linker from "../../components/linker/linker.component";
 
-import { IShortLink } from "../../interfaces/link";
+import { IShortLink } from "../../utils/interfaces/link";
 
 import BlankModal from "../../modals/blank/blank-section.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
@@ -25,57 +20,22 @@ const GenericsSection = () => {
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
 
-  const { addAllGenericsLocal, addOneGenericLocal, deleteOneGenericLocal } =
-    useGenericLocal();
-  const { addGroupLinkLocal, deleteGroupLinkLocal } = useGroupLocal();
+  const { linkTransitionToGroup, deleteGenericLink } = useLinkLogic();
+  const { addAllGenericsLocal } = useGenericLocal();
 
   const { data: generics } = useGetGenericLinksByUserIdQuery(userId);
 
-  const [deleteSnapshotApi, deleteSnapshotApiResult] = useDeleteLinkSnapshotMutation();
-  useRequestProcess(deleteSnapshotApiResult);
-
-  const [changeGroupLinkApi, changeGroupLinkApiResult] =
-    useChangeLinkGroupTitleMutation();
-  useRequestProcess(changeGroupLinkApiResult);
-
   // Need local change
-  const linkTransitionToGroup = async (data: IShortLink) => {
-    // Local change - generic remove
-    deleteOneGenericLocal(data.id);
-    // Local change - group add link
-    addGroupLinkLocal({ link_data: data, index: activeGroup.group_index });
-    // Server changes
+  const linkTransitionToGroupHandler = async (data: IShortLink) => {
+    const group_index = activeGroup.group_index;
+    const group_id = activeGroup.id;
 
-    await changeGroupLinkApi({ id: data?.id, group_id: activeGroup.id })
-      .unwrap()
-      .catch((err) => {
-        // Back changes
-        if (err) {
-          deleteGroupLinkLocal({ link_id: data.id, index: activeGroup.group_index });
-          addOneGenericLocal(data);
-        }
-      });
+    await linkTransitionToGroup({ data, group_index, group_id });
   };
 
   // Delete link
-  const deleteLinkHandler = async ({
-    link_id,
-    data,
-  }: {
-    link_id: number;
-    data: IShortLink;
-  }) => {
-    // Local
-    deleteOneGenericLocal(link_id);
-    // Server
-    await deleteSnapshotApi({ id: link_id })
-      .unwrap()
-      .catch((err) => {
-        // Back changes
-        if (err) {
-          addOneGenericLocal(data);
-        }
-      });
+  const deleteLinkHandler = async (data: IShortLink) => {
+    await deleteGenericLink(data);
   };
 
   useEffect(() => {
@@ -95,11 +55,11 @@ const GenericsSection = () => {
               position="generics"
               isActive={activeGroup.isActive}
               deleteLink={deleteLinkHandler}
-              linkTransitionHandler={linkTransitionToGroup}
+              linkTransitionHandler={linkTransitionToGroupHandler}
             />
           ))
         ) : (
-          <BlankModal title="Add link" color="rgb(0, 112, 201)" />
+          <BlankModal title="link" color="rgb(0, 112, 201)" />
         )}
       </LinksWrapper>
     </GenericsWrapper>

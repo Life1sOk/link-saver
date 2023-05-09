@@ -1,20 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
+import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
+import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
 import { icons } from "../../utils/react-icons";
 
-import { ITopic } from "../../interfaces/topic";
-
-import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
-import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
-
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
-
-import {
-  useChangeTopicTitleMutation,
-  useDeleteTopicMutation,
-} from "../../App/store/api/topics";
+import { ITopic } from "../../utils/interfaces/topic";
 
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
 import { TopicStyle, Title, TitleEditor, IconWrapper, Icon, XMark } from "./topic.style";
@@ -32,75 +25,40 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const activeTopicId = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic.id
   );
-  // const isActive = activeTopicId === topic.id;
+
+  // Helpers
   const activateTopic = () => activeHandler(topic);
 
-  // --------------- For change block ----------- //
-  // changes State handlers
   const changeTitleHandler = () => setIsChange(true);
   const notReadyHandler = () => setIsChange(false);
+  const deleteHandler = () => setIsDelete(true);
+  const notDeleteHandler = () => setIsDelete(false);
 
-  const { addOneTopicLocal, updateOneTopicLocal, deleteOneTopicLocal, resetTopicWindow } =
-    useTopicLocal();
+  // Hooks
+  const { resetTopicWindow } = useTopicLocal();
+  const { updateTitleTopic, deleteTopic } = useTopicLogic();
 
-  // Server hook RTK
-  const [changeTopicTitleApi, changeTopicTitleApiResult] = useChangeTopicTitleMutation();
-  useRequestProcess(changeTopicTitleApiResult);
-  // ref input
+  // --------------- For change block ----------- //
   const titleTopicRef = useRef<HTMLInputElement>(null);
   // Send request with checks
   const acceptChangesHandler = async () => {
     let changedTitle = titleTopicRef.current?.value!;
 
     if (changedTitle === topic.topic_title) return setIsChange(false);
-
     // Local
     setIsChange(false);
-    updateOneTopicLocal({ index, title: changedTitle });
     activateTopic();
-
-    // Server
-    await changeTopicTitleApi({
-      id: topic.id,
-      topic_title: changedTitle,
-    })
-      .unwrap()
-      .catch((err) => {
-        if (err) {
-          // Back changes
-          updateOneTopicLocal({ index, title: topic.topic_title });
-        }
-      });
+    // Update topic
+    await updateTitleTopic(index, changedTitle, topic);
   };
-  // ------------------------------------------------ //
 
   // --------------- For delete block ----------------- //
-  // delete State handlers
-  const deleteHandler = () => setIsDelete(true);
-  const notDeleteHandler = () => setIsDelete(false);
-  // Server hook RTK
-  const [deleteTopicApi, deleteTopicApiResult] = useDeleteTopicMutation();
-  useRequestProcess(deleteTopicApiResult);
-
-  // Send request for delete
   const sureDeleteHandler = async () => {
     // Local
     resetTopicWindow();
-    deleteOneTopicLocal(topic.id);
     setIsDelete(false);
-
-    // // Server
-    await deleteTopicApi({
-      id: topic.id,
-      user_id: topic.user_id,
-    })
-      .unwrap()
-      .catch((err) => {
-        if (err) {
-          // Back changes
-          addOneTopicLocal(topic);
-        }
-      });
+    // Delete
+    await deleteTopic(topic);
   };
 
   useEffect(() => {

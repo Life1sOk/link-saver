@@ -2,9 +2,9 @@ import { memo } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
-import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
+import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
+import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
+import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
 import ButtonNew from "../../components/button-new/button-new.component";
 

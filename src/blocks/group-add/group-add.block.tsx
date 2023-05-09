@@ -1,11 +1,8 @@
 import { useRef } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
-
-import { useAddGroupMutation } from "../../App/store/api/groups";
-
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
-import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
+import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
+import { useGroupsLogic } from "../../utils/contollers/useGroupLogic";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -21,17 +18,14 @@ import {
 } from "./group-add.style";
 
 const GroupAddBlock = () => {
+  const user_id = useAppSelector((state) => state.user.session.user_id);
   const isOpen = useAppSelector((state) => state.groupsLocal.window.isAddGroup);
   const activeTopicId = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic.id
   );
-  const user_id = useAppSelector((state) => state.user.session.user_id);
 
-  const { addOneGroupLocal, deleteGroupLocal, toggleGroupWindow, updateGroupIdLocal } =
-    useGroupLocal();
-
-  const [addGroupApi, addGroupApiResult] = useAddGroupMutation();
-  useRequestProcess(addGroupApiResult);
+  const { toggleGroupWindow } = useGroupLocal();
+  const { addGroup } = useGroupsLogic();
 
   const groupTitleRef = useRef<HTMLInputElement>(null);
 
@@ -51,22 +45,10 @@ const GroupAddBlock = () => {
       group_title: title,
       links: [],
     };
-    // Close window
+    // Close active modal
     closeGroupWindow();
-    // Local add
-    addOneGroupLocal(group);
-    // Send data
-    await addGroupApi(group)
-      .unwrap()
-      .then((res) => {
-        updateGroupIdLocal({ oldId: group.id, newId: res });
-      })
-      .catch((err) => {
-        // Back changes
-        if (err) {
-          deleteGroupLocal(group.id);
-        }
-      });
+    // Add group
+    await addGroup(group);
   };
 
   return (

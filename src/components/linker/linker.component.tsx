@@ -1,13 +1,10 @@
 import { useState } from "react";
 import { icons } from "../../utils/react-icons";
 
-import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
-import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
+import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
+import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
-import { IShortLink } from "../../interfaces/link";
-
-import { useChangeLinkStatusMutation } from "../../App/store/api/links";
+import { IShortLink } from "../../utils/interfaces/link";
 
 import LinkSettingModal from "../../modals/link-setting/link-setting.modal";
 import Link from "../../shared/link/link.shared";
@@ -20,7 +17,7 @@ interface ILinker {
   position: string;
   isActive: boolean;
   linkTransitionHandler: (arg: IShortLink) => void;
-  deleteLink: ({ link_id, data }: { link_id: number; data: IShortLink }) => void;
+  deleteLink: (data: IShortLink) => void;
 }
 
 const Linker = ({
@@ -32,22 +29,9 @@ const Linker = ({
 }: ILinker) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const { updateOneStatusGenericLocal, editLinkWindow } = useGenericLocal();
-  const { updateGroupLinkStatusLocal } = useGroupLocal();
+  const { editLinkWindow } = useGenericLocal();
 
-  const [changeLinkStatusApi, changeLinkStatusApiStatus] = useChangeLinkStatusMutation();
-  useRequestProcess(changeLinkStatusApiStatus);
-
-  const statusLocalChange = (newStatus: { id: number; status: boolean }) => {
-    if (position === "generics") {
-      updateOneStatusGenericLocal(newStatus);
-    } else {
-      updateGroupLinkStatusLocal({
-        link_data: newStatus,
-        index: Number(position),
-      });
-    }
-  };
+  const { updateStatusLink } = useLinkLogic();
 
   const changeStatusHandler = async () => {
     const newStatus = {
@@ -59,18 +43,7 @@ const Linker = ({
       status: data.status,
     };
 
-    // Local changes
-    statusLocalChange(newStatus);
-
-    // Server changes
-    await changeLinkStatusApi(newStatus)
-      .unwrap()
-      .catch((err) => {
-        // Back changes
-        if (err) {
-          statusLocalChange(oldStatus);
-        }
-      });
+    await updateStatusLink(position, newStatus, oldStatus);
   };
 
   const openHandler = () => setIsOpen(true);
@@ -86,7 +59,7 @@ const Linker = ({
       // Close window
       closeHandler();
       // Local changes
-      deleteLink({ link_id: data.id, data });
+      deleteLink(data);
     }
   };
 

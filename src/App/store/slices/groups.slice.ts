@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-import { IGroupGet } from "../../../interfaces/group";
+import { IGroupGet } from "../../../utils/interfaces/group";
 
 interface IWindowGroup {
   isAddGroup: boolean;

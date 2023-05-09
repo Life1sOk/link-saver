@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
-import { IUser, IAuthResponse } from "../../../interfaces/user";
+import { IUser, IAuthResponse } from "../../../utils/interfaces/user";
 
 const initialState: { session: IAuthResponse; profile: IUser } = {
   session: {

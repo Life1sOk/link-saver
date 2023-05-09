@@ -2,11 +2,11 @@ import { useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
+import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
 import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 
-import { ITopic } from "../../interfaces/topic";
+import { ITopic } from "../../utils/interfaces/topic";
 import Topic from "../../components/topic/topic.component";
 
 import BlankModal from "../../modals/blank/blank-section.modal";
@@ -41,7 +41,7 @@ const TopicsBlock = () => {
           />
         ))
       ) : (
-        <BlankModal title="Add topic" color="rgb(247, 184, 79)" />
+        <BlankModal title="topic" color="rgb(247, 184, 79)" />
       )}
     </TopicsStyle>
   );

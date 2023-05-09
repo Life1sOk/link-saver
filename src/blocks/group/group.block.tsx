@@ -2,11 +2,11 @@ import { useState, memo } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
 
 import { icons } from "../../utils/react-icons";
-import { IGroupGet } from "../../interfaces/group";
-import { IShortLink } from "../../interfaces/link";
+import { IGroupGet } from "../../utils/interfaces/group";
+import { IShortLink } from "../../utils/interfaces/link";
 
 import Linker from "../../components/linker/linker.component";
 import GroupTitle from "../../components/group-title/group-title.component";
@@ -21,7 +21,7 @@ interface IGroupBlock {
   index: number;
   data: IGroupGet;
   deleteGroupHandler: (group_id: number, data: IGroupGet) => void;
-  deleteLinkHandler: (data: IShortLink, index: number, link_id: number) => void;
+  deleteLinkHandler: (data: IShortLink, index: number) => void;
   transitionLink: (data: IShortLink, index: number) => void;
 }
 
@@ -49,6 +49,7 @@ const GroupBlock = memo(
 
     const sureDeleteHandler = () => {
       setIsSureModal(!isSureModal);
+      resetGroupWindow();
       deleteGroupHandler(id, data);
     };
 
@@ -59,14 +60,8 @@ const GroupBlock = memo(
     const closeActiveWindowHandler = () => resetGroupWindow();
 
     // Local delete link handler
-    const deleteLinkLocalHandler = async ({
-      link_id,
-      data,
-    }: {
-      link_id: number;
-      data: IShortLink;
-    }) => {
-      deleteLinkHandler(data, index, link_id);
+    const deleteLinkLocalHandler = async (data: IShortLink) => {
+      deleteLinkHandler(data, index);
     };
 
     return (

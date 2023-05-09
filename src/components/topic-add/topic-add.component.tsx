@@ -2,7 +2,7 @@ import { forwardRef } from "react";
 
 import { icons } from "../../utils/react-icons";
 
-import { ITopicAdd } from "../../interfaces/topic";
+import { ITopicAdd } from "../../utils/interfaces/topic";
 
 import { TopicAddStyle } from "./topic-add.style";
 

@@ -1,4 +1,4 @@
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
+import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
 
 import { GroupActiveStyle } from "./group-active.style";
 

@@ -6,7 +6,7 @@ interface IBlankModal {
 }
 
 const BlankModal = ({ title, color }: IBlankModal) => {
-  return <BlankModalStyle color={color}>{title}</BlankModalStyle>;
+  return <BlankModalStyle color={color}>Empty {title}</BlankModalStyle>;
 };
 
 export default BlankModal;

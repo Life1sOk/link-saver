@@ -6,7 +6,7 @@ import {
   IGroupPost,
   IGroupChange,
   IGroupDelete,
-} from "../../../interfaces/group";
+} from "../../../utils/interfaces/group";
 
 export const groupsApi = createApi({
   reducerPath: "groupsApi",

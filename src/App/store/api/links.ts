@@ -1,7 +1,7 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { IShortLink, ILink, ILinkStatus } from "../../../interfaces/link";
+import { IShortLink, ILink, ILinkStatus } from "../../../utils/interfaces/link";
 
 export const linksApi = createApi({
   reducerPath: "linksApi",
@@ -21,10 +21,7 @@ export const linksApi = createApi({
         body,
       }),
     }),
-    changeLinkGroupTitle: builder.mutation<
-      void,
-      { id: number; group_id: number | null }
-    >({
+    transitionTo: builder.mutation<void, { id: number; group_id: number | null }>({
       query: (body) => ({
         url: "/change/group",
         method: "PUT",
@@ -64,7 +61,7 @@ export const {
   useGetGenericLinksByUserIdQuery,
   useAddGenericLinkMutation,
   useChangeLinkTitleOrUrlMutation,
-  useChangeLinkGroupTitleMutation,
+  useTransitionToMutation,
   useChangeLinkStatusMutation,
   useDeleteLinkSnapshotMutation,
 } = linksApi;

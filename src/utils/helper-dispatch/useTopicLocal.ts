@@ -12,7 +12,7 @@ import {
   defaultState,
 } from "../../App/store/slices/topics.slice";
 
-import { ITopic } from "../../interfaces/topic";
+import { ITopic } from "../interfaces/topic";
 
 interface IUpdate {
   index: number;

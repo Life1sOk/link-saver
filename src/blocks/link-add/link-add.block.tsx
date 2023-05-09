@@ -2,14 +2,8 @@ import { useRef } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
-import { useGenericLocal } from "../../utils/hooks/useGenericLocal";
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
-import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
-
-import {
-  useAddGenericLinkMutation,
-  useChangeLinkTitleOrUrlMutation,
-} from "../../App/store/api/links";
+import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
+import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -29,23 +23,13 @@ const LinkAddBlock = () => {
   const activeLink = useAppSelector((state) => state.genericsLocal.window.activeLink);
   const userId = useAppSelector((state) => state.user.session.user_id);
 
-  const {
-    addOneGenericLocal,
-    updateOneGenericLocal,
-    updateOneGenericIdLocal,
-    deleteOneGenericLocal,
-    toggleLinkWindow,
-  } = useGenericLocal();
-  const { updateGroupLinkLocal } = useGroupLocal();
+  const { toggleLinkWindow } = useGenericLocal();
 
-  const [addGenericLinkApi, addGenericLinkApiResult] = useAddGenericLinkMutation();
-  useRequestProcess(addGenericLinkApiResult);
-
-  const [updateLinkApi, updateLinkApiResult] = useChangeLinkTitleOrUrlMutation();
-  useRequestProcess(updateLinkApiResult);
+  const { addLink, updateLink } = useLinkLogic();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const urlRef = useRef<HTMLInputElement>(null);
+
   const closeLinkWindow = () => toggleLinkWindow();
 
   const addLinkGenericHandler = async (title: string, url: string) => {
@@ -59,21 +43,8 @@ const LinkAddBlock = () => {
     };
     // Close window
     closeLinkWindow();
-    // Add locally
-    addOneGenericLocal(link);
-    // Send data
-    await addGenericLinkApi(link)
-      .unwrap()
-      .then((res) => {
-        // Change custom id
-        updateOneGenericIdLocal({ oldId: link.id, newId: res });
-      })
-      .catch((error) => {
-        if (error) {
-          // revers changes
-          deleteOneGenericLocal(link.id);
-        }
-      });
+    // Add link
+    await addLink(link);
   };
 
   const updateLinkGenericHandler = async (title: string, url: string) => {
@@ -89,32 +60,8 @@ const LinkAddBlock = () => {
 
     // Close window
     closeLinkWindow();
-    // Update locally
-    if (activeLink.from === "generics") {
-      updateOneGenericLocal(updatedLink);
-    } else {
-      updateGroupLinkLocal({
-        index: Number(activeLink.from),
-        link_data: updatedLink,
-      });
-    }
-
-    // If all not much so we should update link
-    await updateLinkApi(updatedLink)
-      .unwrap()
-      .catch((err) => {
-        // Back changes
-        if (err) {
-          if (activeLink.from === "generics") {
-            updateOneGenericLocal(oldLink);
-          } else {
-            updateGroupLinkLocal({
-              index: Number(activeLink.from),
-              link_data: oldLink,
-            });
-          }
-        }
-      });
+    // Update
+    await updateLink(activeLink.from, updatedLink, oldLink);
   };
 
   const upLinkHandler = async (event: React.SyntheticEvent) => {

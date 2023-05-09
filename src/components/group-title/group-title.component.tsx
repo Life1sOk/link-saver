@@ -1,9 +1,6 @@
 import { useRef } from "react";
 
-import { useGroupLocal } from "../../utils/hooks/useGroupLocal";
-import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
-
-import { useChangeGroupMutation } from "../../App/store/api/groups";
+import { useGroupsLogic } from "../../utils/contollers/useGroupLogic";
 
 import { GroupTitleStyle, Title, TitleInput } from "./group-title.style";
 
@@ -14,12 +11,9 @@ interface IGroupTitle {
 }
 
 const GroupTitle = ({ title, group_id, isActive }: IGroupTitle) => {
-  const { updateGroupTitleLocal } = useGroupLocal();
-
-  const [changeGroupTitleApi, changeGroupTitleApiResult] = useChangeGroupMutation();
-  useRequestProcess(changeGroupTitleApiResult);
-
   const titleGroupRef = useRef<HTMLInputElement>(null);
+
+  const { updateTitleGroup } = useGroupsLogic();
 
   const focusLeftHandler = async () => {
     let changedTitle = titleGroupRef.current?.value!;
@@ -37,19 +31,7 @@ const GroupTitle = ({ title, group_id, isActive }: IGroupTitle) => {
       new_title: title,
     };
 
-    // Local
-    updateGroupTitleLocal(newTitle);
-
-    // Send changes
-    await changeGroupTitleApi(newTitle)
-      .unwrap()
-      .catch((err) => {
-        if (err) {
-          // back chages
-          updateGroupTitleLocal(oldTitle);
-        }
-      });
-
+    await updateTitleGroup(newTitle, oldTitle);
     return;
   };
 

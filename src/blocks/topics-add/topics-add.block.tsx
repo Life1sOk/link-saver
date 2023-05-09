@@ -1,10 +1,8 @@
 import { useRef } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
-import { useAddTopicByUserIdMutation } from "../../App/store/api/topics";
-
-import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
-import { useRequestProcess } from "../../utils/hooks/useRequestProcess";
+import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
+import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
 
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
@@ -23,15 +21,9 @@ const TopicsAddBlock = () => {
   const userId = useAppSelector((state) => state.user.session.user_id);
   const isOpen = useAppSelector((state) => state.topicsLocal.window.isAddTopic);
 
-  const {
-    addOneTopicLocal,
-    updateOneTopicIdLocal,
-    toggleTopicWindow,
-    deleteOneTopicLocal,
-  } = useTopicLocal();
+  const { toggleTopicWindow } = useTopicLocal();
 
-  const [addTopicApi, addTopicApiResult] = useAddTopicByUserIdMutation();
-  useRequestProcess(addTopicApiResult);
+  const { addTopic } = useTopicLogic();
 
   const titleRef = useRef<HTMLInputElement>(null);
 
@@ -53,22 +45,8 @@ const TopicsAddBlock = () => {
     closeTopicWindow();
 
     let newTopic = { id: Date.now(), user_id: userId, topic_title: checkField };
-
-    // Local Add
-    addOneTopicLocal(newTopic);
-
-    // Send request
-    await addTopicApi({ user_id: userId, topic_title: checkField })
-      .unwrap()
-      .then((res) => {
-        updateOneTopicIdLocal({ oldId: newTopic.id, newId: res });
-      })
-      .catch((err) => {
-        if (err) {
-          // Back changes
-          deleteOneTopicLocal(newTopic.id);
-        }
-      });
+    // Add topic
+    await addTopic(newTopic);
   };
 
   return (

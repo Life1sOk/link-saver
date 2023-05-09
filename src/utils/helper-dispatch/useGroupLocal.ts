@@ -17,8 +17,8 @@ import {
   deactivateGroup,
 } from "../../App/store/slices/groups.slice";
 
-import { IGroupGet } from "../../interfaces/group";
-import { IShortLink } from "../../interfaces/link";
+import { IGroupGet } from "../interfaces/group";
+import { IShortLink } from "../interfaces/link";
 
 interface IGroupLink {
   link_data: IShortLink;

@@ -4,7 +4,7 @@ import {
   IAuthResponse,
   IUserToken,
   IUserTokenResponse,
-} from "../../../interfaces/user";
+} from "../../../utils/interfaces/user";
 
 export const loginAPI = createApi({
   reducerPath: "api/login",
@@ -36,8 +36,5 @@ export const loginAPI = createApi({
   }),
 });
 
-export const {
-  useGetUsersProfileQuery,
-  useLoginMutation,
-  useLoginByTokenMutation,
-} = loginAPI;
+export const { useGetUsersProfileQuery, useLoginMutation, useLoginByTokenMutation } =
+  loginAPI;

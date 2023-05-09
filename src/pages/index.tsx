@@ -19,8 +19,7 @@ const Routing = () => {
   const usersSession = useAppSelector((state) => state.user?.session);
 
   // Отправка запроса на сервер
-  const [loginByTokenAPI, { isLoading, isError, isSuccess }] =
-    useLoginByTokenMutation();
+  const [loginByTokenAPI, { isSuccess }] = useLoginByTokenMutation();
 
   useEffect(() => {
     const activeToken = window.sessionStorage.getItem("token");
@@ -30,9 +29,7 @@ const Routing = () => {
         const userId = await loginByTokenAPI({ token: activeToken });
 
         if (isSuccess)
-          dispatch(
-            usersSessionStoreByToken({ token: activeToken, response: userId })
-          );
+          dispatch(usersSessionStoreByToken({ token: activeToken, response: userId }));
       };
 
       loginUserByToken();

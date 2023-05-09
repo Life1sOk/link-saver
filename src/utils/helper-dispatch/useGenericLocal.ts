@@ -12,7 +12,7 @@ import {
   activateLink,
 } from "../../App/store/slices/generics.slice";
 
-import { IShortLink } from "../../interfaces/link";
+import { IShortLink } from "../interfaces/link";
 
 interface IUpId {
   oldId: number;

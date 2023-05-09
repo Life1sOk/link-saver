@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { ITopic } from "../../../interfaces/topic";
+import { ITopic } from "../../../utils/interfaces/topic";
 
 interface IWindowTopic {
   isAddTopic: boolean;

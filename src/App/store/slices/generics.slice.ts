@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-import { IShortLink } from "../../../interfaces/link";
+import { IShortLink } from "../../../utils/interfaces/link";
 
 interface IWindowLink {
   isAddLink: boolean;

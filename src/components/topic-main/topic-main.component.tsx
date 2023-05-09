@@ -1,5 +1,5 @@
 import { useAppSelector } from "../../App/store/hooks";
-import { useTopicLocal } from "../../utils/hooks/useTopicLocal";
+import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
 import { icons } from "../../utils/react-icons";
 
