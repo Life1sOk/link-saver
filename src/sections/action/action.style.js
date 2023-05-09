@@ -7,7 +7,7 @@ export const ActionStyle = styled.div`
 
   flex-shrink: 0;
 
-  background-color: ${({ theme }) => theme.background.main};
+  background-color: ${({ theme }) => theme.background.sections};
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 5px;
 

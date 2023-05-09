@@ -2,11 +2,10 @@ import { BlankModalStyle } from "./blank-section.style";
 
 interface IBlankModal {
   title: string;
-  color: string;
 }
 
-const BlankModal = ({ title, color }: IBlankModal) => {
-  return <BlankModalStyle color={color}>Empty {title}</BlankModalStyle>;
+const BlankModal = ({ title }: IBlankModal) => {
+  return <BlankModalStyle>Empty {title}</BlankModalStyle>;
 };
 
 export default BlankModal;

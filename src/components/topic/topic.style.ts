@@ -11,7 +11,7 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
 
   border-radius: 4px 0 0 4px;
   background-color: ${({ isActive, theme }) =>
-    isActive ? theme.active.topic : "inherit"};
+    isActive ? theme.topic.active : "inherit"};
 
   display: flex;
   justify-content: flex-start;
@@ -22,7 +22,7 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
     cursor: pointer;
 
     background-color: ${({ isActive, theme }) =>
-      !isActive ? theme.hover.topic : theme.active.topic};
+      !isActive ? theme.topic.hover : theme.topic.active};
   }
 `;
 
@@ -63,7 +63,7 @@ export const Icon = styled.div`
   align-items: center;
   justify-content: center;
 
-  color: #f7b84f;
+  color: ${({ theme }) => theme.topic.marker};
 `;
 
 export const XMark = styled.div`
@@ -81,7 +81,7 @@ export const XMark = styled.div`
 
     width: 15px;
     height: 1.5px;
-    background-color: #f7b84f;
+    background-color: ${({ theme }) => theme.topic.marker};
     transform: translateX(-50%) rotate(45deg);
 
     border-radius: 5px;
@@ -96,7 +96,7 @@ export const XMark = styled.div`
 
     width: 15px;
     height: 1.5px;
-    background-color: #f7b84f;
+    background-color: ${({ theme }) => theme.topic.marker};
     transform: translateX(-50%) rotate(-45deg);
 
     border-radius: 5px;

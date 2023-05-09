@@ -7,9 +7,9 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
   width: 289px;
   height: fit-content;
 
-  background-color: #e6f0ff;
+  background-color: ${({ theme }) => theme.group.background};
   padding: 5px;
-  border: 1px solid #0f2350;
+  border: 1px solid ${({ theme }) => theme.group.border};
   border-radius: 5px;
 
   display: flex;
@@ -19,20 +19,22 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
 export const GroupHeader = styled.div`
   width: 100%;
   padding: 7px;
-  border-bottom: 1px solid #0f2350;
+  border-bottom: 1px solid ${({ theme }) => theme.group.border};
 
   display: flex;
   align-items: center;
 `;
 
 export const IconWrapper = styled.div`
+  color: ${({ theme }) => theme.group.icon};
+
   & svg {
     width: 22px;
   }
 
   &:hover {
     cursor: pointer;
-    color: red;
+    color: ${({ theme }) => theme.group.active};
   }
 `;
 

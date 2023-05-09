@@ -42,7 +42,7 @@ export const LeftSide = styled.div`
 
   padding: 25px;
 
-  border-right: 1px solid rgb(222, 222, 222);
+  border-right: 1px solid ${({ theme }) => theme.border};
 
   display: flex;
   flex-direction: column;

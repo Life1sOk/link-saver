@@ -29,13 +29,9 @@ const ActionSection = memo(() => {
 
   return (
     <ActionStyle>
-      <ButtonNew
-        name="Add topic"
-        actionHandle={openTopicWindow}
-        color="rgb(247, 184, 79)"
-      />
-      <ButtonNew name="Add group" actionHandle={openGroupWindow} color="#ff7565" />
-      <ButtonNew name="Add link" actionHandle={openLinkWindow} color="rgb(0, 112, 201)" />
+      <ButtonNew name="Add topic" actionHandle={openTopicWindow} sectionType="topic" />
+      <ButtonNew name="Add group" actionHandle={openGroupWindow} sectionType="group" />
+      <ButtonNew name="Add link" actionHandle={openLinkWindow} sectionType="generic" />
     </ActionStyle>
   );
 });

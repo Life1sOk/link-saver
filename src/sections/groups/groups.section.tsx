@@ -44,7 +44,7 @@ const GroupsSection = () => {
   if (getGroupsStoreResult.isFetching) {
     return (
       <GroupsStyle>
-        <TitleSection title={topic_title} color="#ff7565" />
+        <TitleSection title={topic_title} sectionType="group" />
         <SpinnerWrapper>
           <LoadingSpinner />
         </SpinnerWrapper>
@@ -56,7 +56,7 @@ const GroupsSection = () => {
     <>
       <GroupAddBlock />
       <GroupsStyle>
-        <TitleSection title={topic_title} color="#ff7565" />
+        <TitleSection title={topic_title} sectionType="group" />
         <GroupsWrapper>
           {localGroups.length > 0 ? (
             localGroups.map((group, index) => (
@@ -70,7 +70,7 @@ const GroupsSection = () => {
               />
             ))
           ) : (
-            <BlankModal title="group" color="#ff7565" />
+            <BlankModal title="group" />
           )}
         </GroupsWrapper>
       </GroupsStyle>

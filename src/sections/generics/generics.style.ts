@@ -9,7 +9,7 @@ export const GenericsWrapper = styled.aside<{ isTransfer: boolean }>`
   max-height: calc(100vh - 66px);
   min-width: 277px;
 
-  background-color: ${({ theme }) => theme.background.main};
+  background-color: ${({ theme }) => theme.background.sections};
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 5px;
   padding: 0 5px 5px 5px;

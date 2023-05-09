@@ -10,7 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import SigninPage from "./signin/signin.page";
 import MainPage from "./main/main.page";
 
-import { PageWrapper } from "./index.style";
+import { PageWrapper, GlobalStyle } from "./index.style";
 
 const Routing = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +44,7 @@ const Routing = () => {
 
   return (
     <PageWrapper>
+      <GlobalStyle />
       <Routes>
         <Route index element={<SigninPage />} />
         <Route path="main" element={<MainPage />} />

@@ -7,7 +7,7 @@ export const ButtonStyle = styled.button`
   border-radius: 5px;
 
   background-color: rgba(255, 255, 255);
-  border: 1px solid grey;
+  border: 1px solid ${({ theme }) => theme.border};
 
   &:active {
     opacity: 0.9;

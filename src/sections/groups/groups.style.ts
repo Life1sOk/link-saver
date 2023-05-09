@@ -8,7 +8,7 @@ export const GroupsStyle = styled.div`
 
   padding: 0 15px 5px 15px;
 
-  background-color: ${({ theme }) => theme.background.main};
+  background-color: ${({ theme }) => theme.background.sections};
   border-right: 1px solid ${({ theme }) => theme.border};
   border-top: 1px solid ${({ theme }) => theme.border};
   border-bottom: 1px solid ${({ theme }) => theme.border};

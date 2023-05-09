@@ -17,14 +17,24 @@ export const Title = styled.h3`
   font-size: 22px;
 `;
 
-export const MarkIcon = styled.div<{ color: string }>`
+export const MarkIcon = styled.div<{ sectionType: string }>`
   width: 30px;
   height: 30px;
-  color: ${({ color }) => (color ? color : "black")};
+  color: ${({ theme, sectionType }) =>
+    sectionType === "topic"
+      ? theme.topic.marker
+      : sectionType === "group"
+      ? theme.group.marker
+      : theme.link.marker};
 
   & svg {
     width: 100%;
     height: 100%;
-    fill: ${({ color }) => (color ? color : "white")};
+    fill: ${({ theme, sectionType }) =>
+      sectionType === "topic"
+        ? theme.topic.marker
+        : sectionType === "group"
+        ? theme.group.marker
+        : theme.link.marker};
   }
 `;

@@ -6,7 +6,6 @@ export const NavigationStyle = styled.nav`
   height: 100%;
 
   padding: 5px 0px 5px 8px;
-  background-color: ${({ theme }) => theme.background.back};
 
   display: flex;
   flex-direction: column;

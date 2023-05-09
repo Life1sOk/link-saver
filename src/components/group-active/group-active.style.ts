@@ -6,9 +6,9 @@ export const GroupActiveStyle = styled.div<{ isActive: boolean }>`
   margin-right: 10px;
   flex-shrink: 0;
 
-  border: 1px solid grey;
+  border: 1px solid ${({ theme }) => theme.border};
   border-radius: 50%;
-  background-color: ${({ isActive }) => (isActive ? "green" : "white")};
+  background-color: ${({ isActive, theme }) => (isActive ? theme.group.active : "white")};
 
   transition: background-color 0.3s;
 

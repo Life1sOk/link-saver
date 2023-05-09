@@ -45,7 +45,7 @@ const GenericsSection = () => {
   return (
     <GenericsWrapper isTransfer={activeGroup.isActive}>
       <LinkAddBlock />
-      <TitleSection title="Generic links:" color="rgb(0, 112, 201)" />
+      <TitleSection title="Generic links:" sectionType="generic" />
       <LinksWrapper>
         {localGenericLinks.length > 0 ? (
           localGenericLinks.map((current, index) => (
@@ -59,7 +59,7 @@ const GenericsSection = () => {
             />
           ))
         ) : (
-          <BlankModal title="link" color="rgb(0, 112, 201)" />
+          <BlankModal title="link" />
         )}
       </LinksWrapper>
     </GenericsWrapper>

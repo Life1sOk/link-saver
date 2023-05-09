@@ -8,13 +8,13 @@ export const ModalWrapper = styled.div`
   height: fit-content;
   padding: 8px;
 
-  color: white;
-  background-color: #0070c9;
+  color: ${({ theme }) => theme.link.color};
+  background-color: ${({ theme }) => theme.link.background};
   border-radius: 5px;
 
-  box-shadow: 0px 0px 3px 0px rgba(0, 112, 201, 0.75);
-  -webkit-box-shadow: 0px 0px 3px 0px rgba(0, 112, 201, 0.75);
-  -moz-box-shadow: 0px 0px 3px 0px rgba(0, 112, 201, 0.75);
+  box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
+  -webkit-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
+  -moz-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
 
   &:hover {
     cursor: pointer;
@@ -33,11 +33,11 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
 
   border: 1px solid white;
   border-radius: 5px;
-  border: 1px solid rgba(247, 184, 79, 0.75);
+  border: 1px solid ${({ theme }) => theme.link.border};
 
-  box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
-  -webkit-box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
-  -moz-box-shadow: 0px 0px 3px 2px rgba(247, 184, 79, 0.75);
+  box-shadow: 0px 0px 3px 2px ${({ theme }) => theme.link.shadowActive};
+  -webkit-box-shadow: 0px 0px 3px 2px ${({ theme }) => theme.link.shadowActive};
+  -moz-box-shadow: 0px 0px 3px 2px ${({ theme }) => theme.link.shadowActive};
 `;
 
 export const DotsLinkStyle = styled.div`
@@ -57,7 +57,7 @@ export const IconWrapper = styled.div<{ status?: number }>`
     width: 20px;
     height: 20px;
 
-    color: ${({ status }) => (status ? "rgb(0, 222, 0)" : null)};
+    color: ${({ status, theme }) => (status ? theme.link.statusDone : null)};
   }
 
   &:hover {

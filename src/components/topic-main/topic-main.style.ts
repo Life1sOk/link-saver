@@ -10,9 +10,8 @@ export const TopicMainStyle = styled.div<{ isActive: boolean }>`
 
   border-radius: 4px 0 0 4px;
   border-top: 1px solid ${({ theme }) => theme.border};
-
   background-color: ${({ isActive, theme }) =>
-    isActive ? theme.active.topic : "inherit"};
+    isActive ? theme.topic.active : "inherit"};
 
   display: flex;
   align-items: center;
@@ -22,7 +21,7 @@ export const TopicMainStyle = styled.div<{ isActive: boolean }>`
     cursor: pointer;
 
     background-color: ${({ isActive, theme }) =>
-      !isActive ? theme.hover.topic : theme.active.topic};
+      !isActive ? theme.topic.hover : theme.topic.active};
   }
 `;
 
@@ -39,11 +38,11 @@ export const Title = styled.h3`
 export const MarkIcon = styled.div`
   width: 30px;
   height: 30px;
-  color: #f7b84f;
+  color: ${({ theme }) => theme.topic.marker};
 
   & svg {
     width: 100%;
     height: 100%;
-    fill: #f7b84f;
+    fill: ${({ theme }) => theme.topic.marker};
   }
 `;

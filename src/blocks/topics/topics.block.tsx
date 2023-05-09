@@ -41,7 +41,7 @@ const TopicsBlock = () => {
           />
         ))
       ) : (
-        <BlankModal title="topic" color="rgb(247, 184, 79)" />
+        <BlankModal title="topic" />
       )}
     </TopicsStyle>
   );

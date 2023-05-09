@@ -7,13 +7,13 @@ interface IButton {
   type?: "submit" | "reset" | "button" | undefined;
   form?: string;
   actionHandle?: () => void;
-  color?: string;
+  sectionType: string;
 }
 
-const ButtonNew = ({ name, actionHandle, type, form, color }: IButton) => {
+const ButtonNew = ({ name, actionHandle, type, form, sectionType }: IButton) => {
   return (
-    <ButtonWrapper color={color}>
-      <ColorBold color={color}>{icons.marker}</ColorBold>
+    <ButtonWrapper sectionType={sectionType}>
+      <ColorBold sectionType={sectionType}>{icons.marker}</ColorBold>
       <ButtonStyle form={form} onClick={actionHandle} type={type}>
         {name}
       </ButtonStyle>

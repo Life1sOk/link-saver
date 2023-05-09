@@ -18,10 +18,12 @@ export const OpenWindow = styled.div`
 
   width: 128px;
   height: fit-content;
-  background-color: white;
+  background-color: ${({ theme }) => theme.modals.background};
   padding: 5px 0;
 
   border-radius: 5px;
+  border-top: 1px solid ${({ theme }) => theme.border};
+  border-bottom: 1px solid ${({ theme }) => theme.border};
   overflow: hidden;
 
   display: flex;
@@ -35,14 +37,14 @@ export const ActionP = styled.button`
   height: 32px;
   padding: 0 24px;
 
-  border-top: 1px solid ${({ theme }) => theme.border};
-  border-bottom: 1px solid ${({ theme }) => theme.border};
+  background-color: ${({ theme }) => theme.modals.button};
+
+  border: none;
 
   text-align: center;
-  border: none;
 
   &:hover {
     cursor: pointer;
-    color: orange;
+    color: ${({ theme }) => theme.modals.active};
   }
 `;
