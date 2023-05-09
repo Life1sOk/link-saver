@@ -6,9 +6,10 @@ import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import { IShortLink } from "../../utils/interfaces/link";
 
-import LinkSettingModal from "../../modals/link-setting/link-setting.modal";
+import OtherActionModal from "../../modals/other-action/other-action.modal";
 import Link from "../../shared/link/link.shared";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
+import OtherButton from "../../shared/other-button/other-button.component";
 
 import { ModalWrapper, FrontDesk, DotsLinkStyle, IconWrapper } from "./linker.style";
 
@@ -78,12 +79,10 @@ const Linker = ({
         <Link data={data} />
         <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
       </DotsLinkStyle>
-      <LinkSettingModal
-        isOpen={isOpen}
-        closeModel={closeHandler}
-        editLink={editHandler}
-        deleteLink={deleteLinkHandler}
-      />
+      <OtherActionModal isOpen={isOpen} closeModel={closeHandler}>
+        <OtherButton title="Edit Some" action={editHandler} />
+        <OtherButton title="Remove" action={deleteLinkHandler} />
+      </OtherActionModal>
     </ModalWrapper>
   );
 };

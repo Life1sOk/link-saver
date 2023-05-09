@@ -12,9 +12,11 @@ import Linker from "../../components/linker/linker.component";
 import GroupTitle from "../../components/group-title/group-title.component";
 import GroupActive from "../../components/group-active/group-active.component";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
+import OtherButton from "../../shared/other-button/other-button.component";
 
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
 import BlackWindowModal from "../../modals/black-window/black-window.modal";
+import OtherActionModal from "../../modals/other-action/other-action.modal";
 import { GroupStyle, GroupHeader, IconWrapper, LinksPlace } from "./group.style";
 
 interface IGroupBlock {
@@ -35,6 +37,7 @@ const GroupBlock = memo(
   }: IGroupBlock) => {
     const { id, group_title, links } = data;
 
+    const [isModal, setIsModal] = useState(false);
     const [isSureModal, setIsSureModal] = useState(false);
 
     const { isActive: isActiveWindow, id: activeId } = useAppSelector(
@@ -45,6 +48,8 @@ const GroupBlock = memo(
 
     const { resetGroupWindow } = useGroupLocal();
 
+    const openModalHandler = () => setIsModal(true);
+    const closeModalHandler = () => setIsModal(false);
     const modalActionHandler = () => setIsSureModal(!isSureModal);
 
     const sureDeleteHandler = () => {
@@ -80,7 +85,12 @@ const GroupBlock = memo(
               group_index={index}
             />
             <GroupTitle title={group_title} group_id={id} isActive={isActive} />
-            <IconWrapper onClick={modalActionHandler}>{icons.delete}</IconWrapper>
+            <IconWrapper onClick={openModalHandler}>{icons.dots}</IconWrapper>
+            <OtherActionModal isOpen={isModal} closeModel={closeModalHandler}>
+              <OtherButton title="Transition" action={() => {}} />
+              <OtherButton title="Add link" action={() => {}} />
+              <OtherButton title="Delete" action={modalActionHandler} />
+            </OtherActionModal>
           </GroupHeader>
           <LinksPlace>
             {links?.map((link) => (

@@ -17,6 +17,8 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
 `;
 
 export const GroupHeader = styled.div`
+  position: relative;
+
   width: 100%;
   padding: 7px;
   border-bottom: 1px solid ${({ theme }) => theme.group.border};
