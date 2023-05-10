@@ -74,6 +74,12 @@ export const groupsSlice = createSlice({
         group.id === oldId ? (group = { ...group, id: newId.id }) : group
       );
     },
+    updateGroupLinkId: (state, { payload }) => {
+      const { oldId, newId, index } = payload;
+      state.data[index].links = state.data[index].links.map((link) =>
+        link.id === oldId ? { ...link, id: newId } : link
+      );
+    },
     updateGroupLinkStatus: (state, { payload }) => {
       const { link_data, index } = payload;
 
@@ -116,6 +122,7 @@ export const {
   addCurrentLink,
   deleteGroup,
   updateGroupLink,
+  updateGroupLinkId,
   updateGroupId,
   updateGroupLinkStatus,
   removeCurrentLink,

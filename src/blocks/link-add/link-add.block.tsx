@@ -25,7 +25,7 @@ const LinkAddBlock = () => {
 
   const { toggleLinkWindow } = useGenericLocal();
 
-  const { addLink, updateLink } = useLinkLogic();
+  const { addLinkGeneric, addLinkGroup, updateLink } = useLinkLogic();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const urlRef = useRef<HTMLInputElement>(null);
@@ -43,8 +43,24 @@ const LinkAddBlock = () => {
     };
     // Close window
     closeLinkWindow();
-    // Add link
-    await addLink(link);
+    // Add link generic
+    await addLinkGeneric(link);
+  };
+
+  const addLinkGroupHandler = async (title: string, url: string) => {
+    //Prepare object
+    const link = {
+      id: Date.now(),
+      user_id: userId,
+      link_title: title,
+      group_id: activeLink.fromGroup.group_id,
+      link_url: url,
+      status: false,
+    };
+    // Close window
+    closeLinkWindow();
+    // Add link group
+    await addLinkGroup(link, activeLink.fromGroup.index);
   };
 
   const updateLinkGenericHandler = async (title: string, url: string) => {
@@ -84,7 +100,13 @@ const LinkAddBlock = () => {
       return closeLinkWindow();
     }
 
-    // Add / update Generics
+    // Add group
+    if (activeLink.fromGroup.group_id > -1 && activeLink.fromGroup.index > -1) {
+      await addLinkGroupHandler(title, url);
+      return;
+    }
+
+    // Add / update
     if (activeLink.link.id < 0) {
       await addLinkGenericHandler(title, url);
       return;

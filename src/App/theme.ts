@@ -29,6 +29,7 @@ export const light = {
   modals: {
     background: "rgb(255,255,255)",
     active: "rgb(255, 117, 101)",
+    border: "rgb(15, 35, 80)",
   },
 };
 

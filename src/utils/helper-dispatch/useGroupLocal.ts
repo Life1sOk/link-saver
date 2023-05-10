@@ -8,6 +8,7 @@ import {
   deleteGroup,
   addCurrentLink,
   updateGroupLink,
+  updateGroupLinkId,
   updateGroupId,
   updateGroupLinkStatus,
   removeCurrentLink,
@@ -52,6 +53,7 @@ interface IUpTitle {
 interface IUpId {
   oldId: number;
   newId: void;
+  index?: number;
 }
 
 export const useGroupLocal = () => {
@@ -72,6 +74,7 @@ export const useGroupLocal = () => {
   const updateGroupLinkLocal = (arg: IGroupLink) => dispatch(updateGroupLink(arg));
   const updateGroupLinkStatusLocal = (arg: IGLinkStatus) =>
     dispatch(updateGroupLinkStatus(arg));
+  const updateGroupLinkIdLocal = (arg: IUpId) => dispatch(updateGroupLinkId(arg));
 
   const deleteGroupLinkLocal = (arg: IGLinkDelete) => dispatch(removeCurrentLink(arg));
 
@@ -86,6 +89,7 @@ export const useGroupLocal = () => {
     addOneGroupLocal,
     updateGroupTitleLocal,
     updateGroupIdLocal,
+    updateGroupLinkIdLocal,
     deleteGroupLocal,
     addGroupLinkLocal,
     updateGroupLinkLocal,

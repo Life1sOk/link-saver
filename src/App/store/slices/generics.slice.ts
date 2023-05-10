@@ -13,6 +13,10 @@ interface IWindowLink {
       status: boolean;
     };
     from: string;
+    fromGroup: {
+      index: number;
+      group_id: number;
+    };
   };
 }
 
@@ -29,6 +33,10 @@ const initialState: { pull: boolean; data: IShortLink[]; window: IWindowLink } =
         status: false,
       },
       from: "",
+      fromGroup: {
+        index: -1,
+        group_id: -1,
+      },
     },
   },
 };
@@ -45,6 +53,9 @@ export const genericsSlice = createSlice({
     },
     addOneGeneric: (state, { payload }: PayloadAction<IShortLink>) => {
       state.data.push(payload);
+    },
+    addOneFromGroup: (state, { payload }) => {
+      state.window.activeLink.fromGroup = payload;
     },
     updateOneGeneric: (state, { payload }: PayloadAction<IShortLink>) => {
       state.data = state.data.map((link) => (link.id === payload.id ? payload : link));
@@ -76,6 +87,10 @@ export const genericsSlice = createSlice({
           status: false,
         };
         snap.activeLink.from = "";
+        snap.activeLink.fromGroup = {
+          index: -1,
+          group_id: -1,
+        };
       } else {
         snap.isAddLink = !snap.isAddLink;
       }
@@ -95,6 +110,7 @@ export const genericsSlice = createSlice({
 
 export const {
   addOneGeneric,
+  addOneFromGroup,
   localGenericsStore,
   updateOneStatusGeneric,
   updateOneGenericId,

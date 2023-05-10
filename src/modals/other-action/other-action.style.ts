@@ -19,15 +19,13 @@ export const OpenWindow = styled.div`
   width: 128px;
   height: fit-content;
   background-color: ${({ theme }) => theme.modals.background};
-  padding: 5px 0;
 
   border-radius: 5px;
-  border-top: 1px solid ${({ theme }) => theme.border};
-  border-bottom: 1px solid ${({ theme }) => theme.border};
+  border: 1px solid ${({ theme }) => theme.modals.border};
   overflow: hidden;
 
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 1px;
 `;

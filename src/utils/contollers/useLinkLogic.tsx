@@ -23,6 +23,7 @@ export const useLinkLogic = () => {
 
   const {
     updateGroupLinkLocal,
+    updateGroupLinkIdLocal,
     deleteGroupLinkLocal,
     addGroupLinkLocal,
     updateGroupLinkStatusLocal,
@@ -48,7 +49,7 @@ export const useLinkLogic = () => {
   // --------------------- ACTION ------------------------ //
 
   // ADD LINK //
-  const addLink = async (link: IAddGeneric) => {
+  const addLinkGeneric = async (link: IAddGeneric) => {
     // Add locally
     addOneGenericLocal(link);
     // Send data
@@ -62,6 +63,24 @@ export const useLinkLogic = () => {
         if (error) {
           // revers changes
           deleteOneGenericLocal(link.id);
+        }
+      });
+  };
+
+  const addLinkGroup = async (link: IAddGeneric, index: number) => {
+    // Add locally
+    addGroupLinkLocal({ link_data: link, index });
+    // Send data
+    await addGenericLinkApi(link)
+      .unwrap()
+      .then((res) => {
+        // Change custom id
+        updateGroupLinkIdLocal({ oldId: link.id, newId: res, index });
+      })
+      .catch((error) => {
+        if (error) {
+          // revers changes
+          deleteGroupLinkLocal({ link_id: link.id, index });
         }
       });
   };
@@ -197,7 +216,8 @@ export const useLinkLogic = () => {
   };
 
   return {
-    addLink,
+    addLinkGeneric,
+    addLinkGroup,
     updateLink,
     updateStatusLink,
     linkTransitionToGeneric,

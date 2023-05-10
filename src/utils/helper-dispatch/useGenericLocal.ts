@@ -3,6 +3,7 @@ import { useAppDispatch } from "../../App/store/hooks";
 import {
   localGenericsStore,
   addOneGeneric,
+  addOneFromGroup,
   updateOneStatusGeneric,
   updateOneGenericId,
   updateOneGeneric,
@@ -19,12 +20,18 @@ interface IUpId {
   newId: void;
 }
 
+interface IGroupAdd {
+  index: number;
+  group_id: number;
+}
+
 export const useGenericLocal = () => {
   const dispatch = useAppDispatch();
 
   // CRUD
   const addAllGenericsLocal = (arg: IShortLink[]) => dispatch(localGenericsStore(arg));
   const addOneGenericLocal = (arg: IShortLink) => dispatch(addOneGeneric(arg));
+  const addOneFromGroupLocal = (arg: IGroupAdd) => dispatch(addOneFromGroup(arg));
 
   const updateOneGenericLocal = (arg: IShortLink) => dispatch(updateOneGeneric(arg));
   const updateOneStatusGenericLocal = (arg: { id: number; status: boolean }) =>
@@ -41,6 +48,7 @@ export const useGenericLocal = () => {
   return {
     addAllGenericsLocal,
     addOneGenericLocal,
+    addOneFromGroupLocal,
     updateOneGenericLocal,
     updateOneGenericIdLocal,
     updateOneStatusGenericLocal,

@@ -3,6 +3,7 @@ import { useState, memo } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
 import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
+import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
 
 import { icons } from "../../utils/react-icons";
 import { IGroupGet } from "../../utils/interfaces/group";
@@ -17,6 +18,7 @@ import OtherButton from "../../shared/other-button/other-button.component";
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
 import BlackWindowModal from "../../modals/black-window/black-window.modal";
 import OtherActionModal from "../../modals/other-action/other-action.modal";
+import GroupTransitionModal from "../../modals/group-transition/group-transition.modal";
 import { GroupStyle, GroupHeader, IconWrapper, LinksPlace } from "./group.style";
 
 interface IGroupBlock {
@@ -46,11 +48,16 @@ const GroupBlock = memo(
 
     let isActive = id === activeId;
 
+    const { addOneFromGroupLocal, toggleLinkWindow } = useGenericLocal();
     const { resetGroupWindow } = useGroupLocal();
 
     const openModalHandler = () => setIsModal(true);
     const closeModalHandler = () => setIsModal(false);
-    const modalActionHandler = () => setIsSureModal(!isSureModal);
+
+    const modalActionHandler = () => {
+      setIsSureModal(!isSureModal);
+      closeModalHandler();
+    };
 
     const sureDeleteHandler = () => {
       setIsSureModal(!isSureModal);
@@ -58,11 +65,18 @@ const GroupBlock = memo(
       deleteGroupHandler(id, data);
     };
 
+    // Add link from group
+    const addLinkFromGroupHandler = () => {
+      // Close modal
+      closeModalHandler();
+      // open link window
+      toggleLinkWindow();
+      // group info
+      addOneFromGroupLocal({ index, group_id: id });
+    };
+
     // Need local changes
     const transitionToGenerics = async (data: IShortLink) => transitionLink(data, index);
-
-    // Close window
-    const closeActiveWindowHandler = () => resetGroupWindow();
 
     // Local delete link handler
     const deleteLinkLocalHandler = async (data: IShortLink) => {
@@ -71,10 +85,7 @@ const GroupBlock = memo(
 
     return (
       <>
-        <BlackWindowModal
-          isOpen={isActiveWindow}
-          activeHandler={closeActiveWindowHandler}
-        />
+        <BlackWindowModal isOpen={isActiveWindow} activeHandler={resetGroupWindow} />
         <GroupStyle isActive={isActive}>
           <FrontBlocker isBlocked={id > 1683451657031} />
           <GroupHeader>
@@ -87,8 +98,10 @@ const GroupBlock = memo(
             <GroupTitle title={group_title} group_id={id} isActive={isActive} />
             <IconWrapper onClick={openModalHandler}>{icons.dots}</IconWrapper>
             <OtherActionModal isOpen={isModal} closeModel={closeModalHandler}>
-              <OtherButton title="Transition" action={() => {}} />
-              <OtherButton title="Add link" action={() => {}} />
+              <GroupTransitionModal>
+                <OtherButton title="Transition" action={() => {}} />
+              </GroupTransitionModal>
+              <OtherButton title="Add link" action={addLinkFromGroupHandler} />
               <OtherButton title="Delete" action={modalActionHandler} />
             </OtherActionModal>
           </GroupHeader>
