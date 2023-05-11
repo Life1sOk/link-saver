@@ -7,7 +7,6 @@ export const BlankModalStyle = styled.div`
 
   transform: translate(-50%, -50%);
 
-  padding: 5px 10px;
   color: grey;
   opacity: 0.3;
   border-radius: 3px;

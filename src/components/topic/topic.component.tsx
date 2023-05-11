@@ -5,7 +5,7 @@ import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
 import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
 import { icons } from "../../utils/react-icons";
-
+import TopicIcon from "./topic-icon/topic-icon.component";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
 import { ITopic } from "../../utils/interfaces/topic";
 
@@ -22,8 +22,12 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const [isChange, setIsChange] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
+  const userId = useAppSelector((state) => state.user.session.user_id);
   const activeTopicId = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic.id
+  );
+  const currentCount = useAppSelector(
+    (state) => state.topicsLocal.count[`${topic.topic_title}`]
   );
 
   // Helpers
@@ -36,7 +40,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
 
   // Hooks
   const { resetTopicWindow } = useTopicLocal();
-  const { updateTitleTopic, deleteTopic } = useTopicLogic();
+  const { updateTitleTopic, deleteTopic, getGroupCount } = useTopicLogic();
 
   // --------------- For change block ----------- //
   const titleTopicRef = useRef<HTMLInputElement>(null);
@@ -58,12 +62,17 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
     resetTopicWindow();
     setIsDelete(false);
     // Delete
-    await deleteTopic(topic);
+    await deleteTopic(topic, userId, currentCount);
   };
 
   useEffect(() => {
     if (activeTopicId !== topic.id) notReadyHandler();
   }, [activeTopicId, topic.id]);
+
+  useEffect(() => {
+    if (topic.id > 1683451657031) return;
+    getGroupCount(topic);
+  }, []);
 
   return (
     <>
@@ -73,7 +82,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
         title={topic.topic_title}
       >
         <FrontBlocker isBlocked={topic.id > 1683451657031} />
-        <Icon>{icons.topicOpen}</Icon>
+        <TopicIcon count={currentCount} />
         {!isChange ? (
           <Title>{topic.topic_title}</Title>
         ) : (

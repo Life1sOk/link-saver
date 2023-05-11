@@ -2,7 +2,6 @@ import { AiFillFolderAdd } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import {
-  TbFileImport,
   TbPencil,
   TbTrash,
   TbCheck,
@@ -13,6 +12,8 @@ import {
   TbLogout,
   TbColorPicker,
   TbBookmark,
+  TbArrowBigRightLines,
+  TbFolder,
 } from "react-icons/tb";
 
 export const icons = {
@@ -22,7 +23,7 @@ export const icons = {
 
   link: <TbLink />,
   home: <TbHome2 />,
-  topicOpen: <TbFileImport />,
+  topicOpen: <TbFolder />,
   delete: <TbTrash />,
   pen: <TbPencil />,
   check: <TbCheck />,
@@ -31,4 +32,5 @@ export const icons = {
   logout: <TbLogout />,
   themePick: <TbColorPicker />,
   marker: <TbBookmark />,
+  transition: <TbArrowBigRightLines />,
 };

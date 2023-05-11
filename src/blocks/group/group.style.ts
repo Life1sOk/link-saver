@@ -28,6 +28,10 @@ export const GroupHeader = styled.div`
 `;
 
 export const IconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   color: ${({ theme }) => theme.group.icon};
 
   & svg {

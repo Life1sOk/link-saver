@@ -6,23 +6,23 @@ interface IWindowTopic {
   isAddTopic: boolean;
   activeTopic: {
     id: number;
-    user_id: number;
     topic_title: string;
   };
 }
 
-const initialState: { pull: boolean; data: ITopic[]; window: IWindowTopic } = {
-  pull: true,
-  data: [],
-  window: {
-    isAddTopic: false,
-    activeTopic: {
-      id: 0,
-      user_id: 0,
-      topic_title: "Main",
+const initialState: { pull: boolean; data: ITopic[]; window: IWindowTopic; count: any } =
+  {
+    pull: true,
+    data: [],
+    count: {},
+    window: {
+      isAddTopic: false,
+      activeTopic: {
+        id: 0,
+        topic_title: "Main",
+      },
     },
-  },
-};
+  };
 
 export const topicsSlice = createSlice({
   name: "local-topics",
@@ -53,6 +53,22 @@ export const topicsSlice = createSlice({
     removeOneTopic: (state, { payload }: PayloadAction<number>) => {
       state.data = state.data.filter((topic) => topic.id !== payload);
     },
+    // Topic count
+    addTopicCount: (
+      state,
+      { payload }: PayloadAction<{ key: string; count?: number }>
+    ) => {
+      state.count[payload.key] = payload.count;
+    },
+    deleteTopicCount: (state, { payload }: PayloadAction<{ key: string }>) => {
+      delete state.count[payload.key];
+    },
+    incCount: (state, { payload }) => {
+      state.count[payload.key] = Number(state.count[payload.key]) + 1;
+    },
+    decCount: (state, { payload }) => {
+      state.count[payload.key] = Number(state.count[payload.key]) - 1;
+    },
     // Window
     toggleTopicWindowHandler: (state) => {
       const snap = state.window;
@@ -74,7 +90,6 @@ export const topicsSlice = createSlice({
 
       snap.activeTopic = {
         id: 0,
-        user_id: 0,
         topic_title: "Main",
       };
     },
@@ -87,6 +102,11 @@ export const {
   updateOneTopic,
   updateOneTopicId,
   removeOneTopic,
+  // Count
+  addTopicCount,
+  deleteTopicCount,
+  incCount,
+  decCount,
   // Window
   toggleTopicWindowHandler,
   activeTopicStore,

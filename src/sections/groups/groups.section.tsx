@@ -11,10 +11,11 @@ import GroupAddBlock from "../../blocks/group-add/group-add.block";
 import TitleSection from "../../components/title-section/title-section.component";
 
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
+import { IGroupGet } from "../../utils/interfaces/group";
+import { ITopic } from "../../utils/interfaces/topic";
 
 import BlankModal from "../../modals/blank/blank-section.modal";
 import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
-import { IGroupGet } from "../../utils/interfaces/group";
 
 const GroupsSection = () => {
   // Listening 'active topic' on change it re-render;
@@ -23,19 +24,26 @@ const GroupsSection = () => {
   );
   const user_id = useAppSelector((state) => state.user.session.user_id);
   const localGroups = useAppSelector((state) => state.groupsLocal.data);
+  const activeTopicTitle = useAppSelector(
+    (state) => state.topicsLocal.window.activeTopic.topic_title
+  );
 
   // Logic hooks takes actions and state
-  const { getGroupsStore, getGroupsStoreResult, deleteGroup } = useGroupsLogic();
+  const { getGroupsStore, getGroupsStoreResult, deleteGroup, transitionToTopic } =
+    useGroupsLogic();
   const { linkTransitionToGeneric, deleteGroupLink } = useLinkLogic();
 
   const deleteGroupHandler = (group_id: number, data: IGroupGet) =>
-    deleteGroup(user_id, group_id, data);
+    deleteGroup(user_id, group_id, data, topic_title);
 
   const deleteGroupLinkHandler = (data: IShortLink, index: number) =>
     deleteGroupLink(data, index);
 
   const transitionToGenericsHandler = (data: IShortLink, index: number) =>
     linkTransitionToGeneric(data, index);
+
+  const transitionToTopicHandler = (topic: ITopic, group: IGroupGet) =>
+    transitionToTopic(topic, group, activeTopicTitle);
 
   useEffect(() => {
     getGroupsStore(id, user_id);
@@ -65,6 +73,7 @@ const GroupsSection = () => {
                 data={group}
                 index={index}
                 transitionLink={transitionToGenericsHandler}
+                transitionGroup={transitionToTopicHandler}
                 deleteLinkHandler={deleteGroupLinkHandler}
                 deleteGroupHandler={deleteGroupHandler}
               />

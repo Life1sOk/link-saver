@@ -6,6 +6,7 @@ import {
   IGroupPost,
   IGroupChange,
   IGroupDelete,
+  IGroupTransaction,
 } from "../../../utils/interfaces/group";
 
 export const groupsApi = createApi({
@@ -36,6 +37,13 @@ export const groupsApi = createApi({
         body,
       }),
     }),
+    transactionGroup: builder.mutation<void, IGroupTransaction>({
+      query: (body) => ({
+        url: "/transaction",
+        method: "PUT",
+        body,
+      }),
+    }),
     deleteGroup: builder.mutation<void, IGroupDelete>({
       query: (body) => ({
         url: "/delete",
@@ -53,4 +61,5 @@ export const {
   useAddGroupMutation,
   useChangeGroupMutation,
   useDeleteGroupMutation,
+  useTransactionGroupMutation,
 } = groupsApi;

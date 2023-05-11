@@ -20,9 +20,7 @@ import {
 const GroupAddBlock = () => {
   const user_id = useAppSelector((state) => state.user.session.user_id);
   const isOpen = useAppSelector((state) => state.groupsLocal.window.isAddGroup);
-  const activeTopicId = useAppSelector(
-    (state) => state.topicsLocal.window.activeTopic.id
-  );
+  const activeTopic = useAppSelector((state) => state.topicsLocal.window.activeTopic);
 
   const { toggleGroupWindow } = useGroupLocal();
   const { addGroup } = useGroupsLogic();
@@ -40,7 +38,7 @@ const GroupAddBlock = () => {
     //Prepare object
     const group = {
       id: Date.now(),
-      topic_id: activeTopicId,
+      topic_id: activeTopic.id,
       user_id,
       group_title: title,
       links: [],
@@ -48,7 +46,7 @@ const GroupAddBlock = () => {
     // Close active modal
     closeGroupWindow();
     // Add group
-    await addGroup(group);
+    await addGroup(group, activeTopic.topic_title);
   };
 
   return (

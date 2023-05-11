@@ -36,13 +36,28 @@ export const Title = styled.h3`
 `;
 
 export const MarkIcon = styled.div`
-  width: 30px;
-  height: 30px;
+  position: relative;
+
+  width: 43px;
+  height: 43px;
   color: ${({ theme }) => theme.topic.marker};
 
   & svg {
+    transform: rotate(90deg);
     width: 100%;
     height: 100%;
     fill: ${({ theme }) => theme.topic.marker};
   }
+`;
+
+export const Count = styled.span`
+  position: absolute;
+  top: calc(50% - 2px);
+  left: calc(50% + 1.5px);
+
+  transform: translate(-50%, -50%);
+
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
 `;

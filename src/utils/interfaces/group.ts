@@ -33,3 +33,8 @@ export interface IAddGroup {
   group_title: string;
   links: never[];
 }
+
+export interface IGroupTransaction {
+  group_id: number;
+  new_topic_id: number;
+}

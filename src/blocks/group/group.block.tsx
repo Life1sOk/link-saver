@@ -8,6 +8,7 @@ import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
 import { icons } from "../../utils/react-icons";
 import { IGroupGet } from "../../utils/interfaces/group";
 import { IShortLink } from "../../utils/interfaces/link";
+import { ITopic } from "../../utils/interfaces/topic";
 
 import Linker from "../../components/linker/linker.component";
 import GroupTitle from "../../components/group-title/group-title.component";
@@ -27,6 +28,7 @@ interface IGroupBlock {
   deleteGroupHandler: (group_id: number, data: IGroupGet) => void;
   deleteLinkHandler: (data: IShortLink, index: number) => void;
   transitionLink: (data: IShortLink, index: number) => void;
+  transitionGroup: (topic: { id: number; topic_title: string }, group: IGroupGet) => void;
 }
 
 const GroupBlock = memo(
@@ -36,6 +38,7 @@ const GroupBlock = memo(
     deleteGroupHandler,
     deleteLinkHandler,
     transitionLink,
+    transitionGroup,
   }: IGroupBlock) => {
     const { id, group_title, links } = data;
 
@@ -75,8 +78,12 @@ const GroupBlock = memo(
       addOneFromGroupLocal({ index, group_id: id });
     };
 
-    // Need local changes
+    // Transitions
+    // link
     const transitionToGenerics = async (data: IShortLink) => transitionLink(data, index);
+    // Group
+    const transitionToTopicHandler = async (topic: ITopic) =>
+      transitionGroup(topic, data);
 
     // Local delete link handler
     const deleteLinkLocalHandler = async (data: IShortLink) => {
@@ -96,11 +103,11 @@ const GroupBlock = memo(
               group_index={index}
             />
             <GroupTitle title={group_title} group_id={id} isActive={isActive} />
+            <GroupTransitionModal action={transitionToTopicHandler}>
+              <IconWrapper>{icons.transition}</IconWrapper>
+            </GroupTransitionModal>
             <IconWrapper onClick={openModalHandler}>{icons.dots}</IconWrapper>
             <OtherActionModal isOpen={isModal} closeModel={closeModalHandler}>
-              <GroupTransitionModal>
-                <OtherButton title="Transition" action={() => {}} />
-              </GroupTransitionModal>
               <OtherButton title="Add link" action={addLinkFromGroupHandler} />
               <OtherButton title="Delete" action={modalActionHandler} />
             </OtherActionModal>

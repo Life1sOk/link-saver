@@ -2,7 +2,7 @@ import { OtherButtonStyle } from "./other-button.style";
 
 interface IOtherButton {
   title: string;
-  action: () => void;
+  action?: () => void;
 }
 
 const OtherButton = ({ title, action }: IOtherButton) => {

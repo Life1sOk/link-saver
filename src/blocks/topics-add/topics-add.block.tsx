@@ -46,7 +46,7 @@ const TopicsAddBlock = () => {
 
     let newTopic = { id: Date.now(), user_id: userId, topic_title: checkField };
     // Add topic
-    await addTopic(newTopic);
+    await addTopic(newTopic, userId);
   };
 
   return (

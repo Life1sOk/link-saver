@@ -6,6 +6,11 @@ import {
   updateOneTopic,
   updateOneTopicId,
   removeOneTopic,
+  // Count
+  addTopicCount,
+  deleteTopicCount,
+  incCount,
+  decCount,
   // Window
   toggleTopicWindowHandler,
   activeTopicStore,
@@ -24,6 +29,11 @@ interface IUpId {
   newId: void;
 }
 
+interface ICount {
+  key: string;
+  count?: number;
+}
+
 export const useTopicLocal = () => {
   const dispatch = useAppDispatch();
 
@@ -33,6 +43,12 @@ export const useTopicLocal = () => {
   const updateOneTopicLocal = (arg: IUpdate) => dispatch(updateOneTopic(arg));
   const updateOneTopicIdLocal = (arg: IUpId) => dispatch(updateOneTopicId(arg));
   const deleteOneTopicLocal = (arg: number) => dispatch(removeOneTopic(arg));
+
+  // Topic count
+  const addTopicCountLocal = (arg: ICount) => dispatch(addTopicCount(arg));
+  const deleteTopicCountLocal = (arg: ICount) => dispatch(deleteTopicCount(arg));
+  const incTopicCountLocal = (arg: ICount) => dispatch(incCount(arg));
+  const decTopicCountLocal = (arg: ICount) => dispatch(decCount(arg));
 
   // Window
   const toggleTopicWindow = () => dispatch(toggleTopicWindowHandler());
@@ -45,6 +61,11 @@ export const useTopicLocal = () => {
     updateOneTopicLocal,
     updateOneTopicIdLocal,
     deleteOneTopicLocal,
+    // Count
+    addTopicCountLocal,
+    deleteTopicCountLocal,
+    incTopicCountLocal,
+    decTopicCountLocal,
     // Window
     toggleTopicWindow,
     editTopicWindow,
