@@ -15,6 +15,8 @@ import {
   TbArrowBigRightLines,
   TbFolder,
   TbRobot,
+  TbShare,
+  TbFriends,
 } from "react-icons/tb";
 
 export const icons = {
@@ -35,4 +37,6 @@ export const icons = {
   marker: <TbBookmark />,
   transition: <TbArrowBigRightLines />,
   robot: <TbRobot />,
+  share: <TbShare />,
+  friends: <TbFriends />,
 };

@@ -3,7 +3,7 @@ import { memo } from "react";
 // Blocks
 import TopicsBlock from "../../blocks/topics/topics.block";
 import TopicsAddBlock from "../../blocks/topics-add/topics-add.block";
-import SettingsBlock from "../../blocks/settings/settings.block";
+import InfoBlock from "../../blocks/info/info.block";
 import UserBlock from "../../blocks/user/user.block";
 
 // Components
@@ -20,7 +20,7 @@ const NavigationSection = memo(() => {
         <UserBlock />
         <TopicMain />
         <TopicsBlock />
-        {/* <SettingsBlock /> */}
+        <InfoBlock />
       </NavigationStyle>
     </>
   );

@@ -3,18 +3,14 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppDispatch } from "../../App/store/hooks";
 import { usersSessionStore } from "../../App/store/slices/user.slice";
-import { useRegisterMutation } from "../../App/store/api/registaration";
+import { useRegisterMutation } from "../../App/store/api/user";
 
 import Button from "../../components/button/button.component";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 import Input from "../../components/input/input.component";
 
 import { ButtonLine } from "../block.style";
-import {
-  RegistartionForm,
-  RegistartionWrapper,
-  RegTitle,
-} from "./registration.style";
+import { RegistartionForm, RegistartionWrapper, RegTitle } from "./registration.style";
 
 interface ILogin {
   changeBlock: (block: string) => void;
@@ -24,8 +20,8 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const firstNameRef = useRef<HTMLInputElement>(null);
-  const lastNameRef = useRef<HTMLInputElement>(null);
+  const userNameRef = useRef<HTMLInputElement>(null);
+  // const lastNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const verifyPasswordRef = useRef<HTMLInputElement>(null);
@@ -47,8 +43,7 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   const submitHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
-    const firstName = firstNameRef.current?.value;
-    const lastName = lastNameRef.current?.value;
+    const username = userNameRef.current?.value!;
     const email = emailRef.current?.value!;
     const password = passwordRef.current?.value!;
     const verifyPassword = verifyPasswordRef.current?.value;
@@ -65,7 +60,7 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
 
     // User
     const response = await registerUserApi({
-      username: `${firstName} ${lastName}`,
+      username: username,
       email: email,
       password: password,
     });
@@ -83,21 +78,10 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
     <RegistartionWrapper>
       <RegTitle>Registration</RegTitle>
       <RegistartionForm onSubmit={submitHandler}>
-        <Input
-          type="text"
-          label="Your First name"
-          required
-          ref={firstNameRef}
-        />
-        <Input type="text" label="Your Last name" ref={lastNameRef} />
+        <Input type="text" label="username" required ref={userNameRef} />
         <Input type="email" label="email" required ref={emailRef} />
-        <Input type="password" label="Password" required ref={passwordRef} />
-        <Input
-          type="password"
-          label="Verify Password"
-          required
-          ref={verifyPasswordRef}
-        />
+        <Input type="password" label="password" required ref={passwordRef} />
+        <Input type="password" label="verify password" required ref={verifyPasswordRef} />
         <ButtonLine>
           <Button name="Register" type="submit" />
           <Button name="Back" actionHandle={changeHandler} type="button" />

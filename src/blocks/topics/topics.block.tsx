@@ -16,8 +16,6 @@ import { TopicsStyle } from "./topics.style";
 const TopicsBlock = () => {
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localTopics = useAppSelector((state) => state.topicsLocal.data);
-  const ttt = useAppSelector((state) => state.topicsLocal.count);
-  console.log(ttt);
 
   const { addAllTopicsLocal, editTopicWindow } = useTopicLocal();
 

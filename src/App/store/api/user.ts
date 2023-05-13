@@ -1,4 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import { IUser, IUserRegistration } from "../../../utils/interfaces/user";
+
 import {
   IUserLogin,
   IAuthResponse,
@@ -6,16 +8,20 @@ import {
   IUserTokenResponse,
 } from "../../../utils/interfaces/user";
 
-export const loginAPI = createApi({
-  reducerPath: "api/login",
+export const userApi = createApi({
+  reducerPath: "api/registraion",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
-  // baseQuery: fetchBaseQuery({
-  //   baseUrl: "http://localhost:3000/",
-  // }),
-  tagTypes: ["Login"],
+  tagTypes: ["Registration"],
   endpoints: (builder) => ({
     getUsersProfile: builder.query<any, number>({
       query: (user_id) => ({ url: `/profile/${user_id}` }),
+    }),
+    register: builder.mutation<IUser, IUserRegistration>({
+      query: (body) => ({
+        url: "/register",
+        method: "POST",
+        body,
+      }),
     }),
     login: builder.mutation<IAuthResponse, IUserLogin>({
       query: (user) => ({
@@ -36,5 +42,9 @@ export const loginAPI = createApi({
   }),
 });
 
-export const { useGetUsersProfileQuery, useLoginMutation, useLoginByTokenMutation } =
-  loginAPI;
+export const {
+  useGetUsersProfileQuery,
+  useRegisterMutation,
+  useLoginMutation,
+  useLoginByTokenMutation,
+} = userApi;

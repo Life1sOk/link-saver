@@ -1,16 +1,26 @@
-import { SettingActionStyle, ActionTitle, IconWrapper } from "./setting-action.style";
+import {
+  SettingActionStyle,
+  ActionTitle,
+  IconWrapper,
+  TriangleDown,
+  TriangleUp,
+} from "./setting-action.style";
 
 interface ISetting {
   title: string;
   icon?: any;
+  mode?: string;
+  type?: string;
   actionHandler?: () => void;
 }
 
-const SettingAction = ({ title, icon, actionHandler }: ISetting) => {
+const SettingAction = ({ title, icon, mode, actionHandler, type }: ISetting) => {
   return (
-    <SettingActionStyle onClick={actionHandler}>
+    <SettingActionStyle onClick={actionHandler} title={title}>
       <IconWrapper>{icon}</IconWrapper>
-      <ActionTitle>{title}</ActionTitle>
+      {mode !== "icon-only" && <ActionTitle>{title}</ActionTitle>}
+      {type === "modal" && <TriangleDown />}
+      {type === "window" && <TriangleUp />}
     </SettingActionStyle>
   );
 };

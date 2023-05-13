@@ -13,7 +13,6 @@ const initialState: { session: IAuthResponse; profile: IUser } = {
     id: -1,
     username: "",
     email: "",
-    created_at: "",
   },
 };
 
@@ -22,9 +21,8 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    usersDataStore: (state, { payload }: PayloadAction<any>) => {
-      const { data } = payload;
-      state.profile = data;
+    usersDataStore: (state, { payload }: PayloadAction<IUser>) => {
+      state.profile = payload;
     },
     usersSessionStore: (state, { payload }: PayloadAction<any>) => {
       const { data } = payload;

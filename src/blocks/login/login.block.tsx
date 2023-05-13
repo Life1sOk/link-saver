@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import { useAppDispatch } from "../../App/store/hooks";
 import { usersSessionStore } from "../../App/store/slices/user.slice";
-import { useLoginMutation } from "../../App/store/api/login";
+import { useLoginMutation } from "../../App/store/api/user";
 
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
@@ -50,17 +50,8 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
         <Input type="email" label="Email" ref={emailRef} required />
         <Input type="password" label="Password:" ref={passwordRef} required />
         <ButtonLine>
-          <Button
-            name="Log in"
-            type="submit"
-            form="login"
-            disabled={isLoading}
-          />
-          <Button
-            name="Registration"
-            actionHandle={changeHandler}
-            type="button"
-          />
+          <Button name="Log in" type="submit" form="login" disabled={isLoading} />
+          <Button name="Registration" actionHandle={changeHandler} type="button" />
         </ButtonLine>
         {isError && <p>An error occurred while logging in.</p>}
       </LogInPageStyle>

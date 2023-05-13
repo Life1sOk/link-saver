@@ -3,12 +3,13 @@ import { useNavigate } from "react-router-dom";
 
 import { useAppSelector, useAppDispatch } from "../App/store/hooks";
 import { usersSessionStoreByToken } from "../App/store/slices/user.slice";
-import { useLoginByTokenMutation } from "../App/store/api/login";
+import { useLoginByTokenMutation } from "../App/store/api/user";
 
 import { Routes, Route } from "react-router-dom";
 
 import SigninPage from "./signin/signin.page";
 import MainPage from "./main/main.page";
+import GandalfWall from "./gandalf/gandalf.page";
 
 import { PageWrapper, GlobalStyle } from "./index.style";
 
@@ -47,7 +48,10 @@ const Routing = () => {
       <GlobalStyle />
       <Routes>
         <Route index element={<SigninPage />} />
-        <Route path="main" element={<MainPage />} />
+        <Route
+          path="main"
+          element={usersSession.success ? <MainPage /> : <GandalfWall />}
+        />
       </Routes>
     </PageWrapper>
   );

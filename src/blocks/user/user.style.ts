@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const UserStyle = styled.div`
   display: flex;
-  gap: 5px;
+  gap: 15px;
 
   width: calc(100% - 5px);
   height: 51px;
@@ -36,10 +36,25 @@ export const UsersData = styled.div`
 
   width: 100%;
   height: 100%;
-  padding-left: 10px;
+
+  padding-right: 2px;
 `;
 
-export const SpanData = styled.span`
-  font-size: 14px;
+export const SpanBase = styled.span`
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const SpanName = styled(SpanBase)`
+  font-size: 17px;
+
   font-weight: 600;
+`;
+
+export const SpanEmail = styled(SpanBase)`
+  font-size: 14px;
+
+  font-weight: 500;
 `;
