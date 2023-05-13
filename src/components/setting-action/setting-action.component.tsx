@@ -1,8 +1,4 @@
-import {
-  SettingActionStyle,
-  ActionTitle,
-  IconWrapper,
-} from "./setting-action.style";
+import { SettingActionStyle, ActionTitle, IconWrapper } from "./setting-action.style";
 
 interface ISetting {
   title: string;

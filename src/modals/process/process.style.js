@@ -2,8 +2,8 @@ import styled from "styled-components";
 
 export const ProcessStyle = styled.div`
   position: fixed;
-  top: 10px;
-  right: 10px;
+  bottom: 10px;
+  left: 10px;
   z-index: 33;
 
   width: fit-content;

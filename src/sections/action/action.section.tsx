@@ -6,9 +6,10 @@ import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
 import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
 import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
+import SettingsBlock from "../../blocks/settings/settings.block";
 import ButtonNew from "../../components/button-new/button-new.component";
 
-import { ActionStyle } from "./action.style";
+import { ActionStyle, LocalActions } from "./action.style";
 
 // Топи логику переместить сюда
 const ActionSection = memo(() => {
@@ -29,9 +30,12 @@ const ActionSection = memo(() => {
 
   return (
     <ActionStyle>
-      <ButtonNew name="Add topic" actionHandle={openTopicWindow} sectionType="topic" />
-      <ButtonNew name="Add group" actionHandle={openGroupWindow} sectionType="group" />
-      <ButtonNew name="Add link" actionHandle={openLinkWindow} sectionType="generic" />
+      <LocalActions>
+        <ButtonNew name="Add topic" actionHandle={openTopicWindow} sectionType="topic" />
+        <ButtonNew name="Add group" actionHandle={openGroupWindow} sectionType="group" />
+        <ButtonNew name="Add link" actionHandle={openLinkWindow} sectionType="generic" />
+      </LocalActions>
+      <SettingsBlock />
     </ActionStyle>
   );
 });

@@ -28,12 +28,12 @@ const SettingsBlock = () => {
   return (
     <SettingsBlockStyle>
       <SettingAction
-        title="Pick theme"
+        title="Theme"
         icon={icons.themePick}
         actionHandler={toggleThemeHandler}
       />
       <SettingAction
-        title="Send report"
+        title="Report"
         actionHandler={openModalHandler}
         icon={icons.exclamation}
       />
