@@ -21,7 +21,6 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   const navigate = useNavigate();
 
   const userNameRef = useRef<HTMLInputElement>(null);
-  // const lastNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const verifyPasswordRef = useRef<HTMLInputElement>(null);

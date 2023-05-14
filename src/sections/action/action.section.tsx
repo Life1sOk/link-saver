@@ -15,8 +15,8 @@ const ActionSection = memo(() => {
     <ActionStyle>
       <LocalActions>
         <AddBlock />
-        <SettingAction icon={icons.share} title="Share" type="window" />
-        <SettingAction icon={icons.friends} title="Friends" type="window" />
+        <SettingAction icon={icons.share} title="Send" type="window" />
+        <SettingAction icon={icons.friends} title="Invite" type="window" />
       </LocalActions>
       <SettingsBlock />
     </ActionStyle>

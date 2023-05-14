@@ -39,6 +39,16 @@ export const userApi = createApi({
         },
       }),
     }),
+    getCheckMessage: builder.query({
+      query: () => ({ url: "/get-share" }),
+    }),
+    checkMessage: builder.mutation<any, any>({
+      query: (message) => ({
+        url: "/post-share",
+        method: "POST",
+        body: message,
+      }),
+    }),
   }),
 });
 
@@ -47,4 +57,6 @@ export const {
   useRegisterMutation,
   useLoginMutation,
   useLoginByTokenMutation,
+  useLazyGetCheckMessageQuery,
+  useCheckMessageMutation,
 } = userApi;

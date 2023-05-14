@@ -23,7 +23,7 @@ export const light = {
     color: "rgb(255,255,255)",
     border: "rgba(247, 184, 79, 0.75)",
     shadow: "rgba(0, 112, 201, 0.75)",
-    shadowActive: "rgba(247, 184, 79, 0.75)",
+    shadowActive: "rgba(238, 82, 68, 0.75)",
     statusDone: "rgb(0, 222, 0)",
   },
   modals: {

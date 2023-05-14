@@ -52,9 +52,9 @@ const AddBlock = () => {
         <>
           <DialogBack isOpen={isOpen} onClick={closeModalHandler}></DialogBack>
           <OpenWindow onClick={closeModalHandler}>
-            <ButtonNew name="topic" actionHandle={openTopicWindow} sectionType="topic" />
-            <ButtonNew name="group" actionHandle={openGroupWindow} sectionType="group" />
             <ButtonNew name="link" actionHandle={openLinkWindow} sectionType="generic" />
+            <ButtonNew name="group" actionHandle={openGroupWindow} sectionType="group" />
+            <ButtonNew name="topic" actionHandle={openTopicWindow} sectionType="topic" />
           </OpenWindow>
         </>
       )}

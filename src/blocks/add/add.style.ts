@@ -24,6 +24,7 @@ export const OpenWindow = styled.div`
 
   width: 128px;
   height: fit-content;
+  padding: 4px;
   background-color: ${({ theme }) => theme.modals.background};
 
   border-radius: 5px;
@@ -33,5 +34,5 @@ export const OpenWindow = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 1px;
+  gap: 3px;
 `;
