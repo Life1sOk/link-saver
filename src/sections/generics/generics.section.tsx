@@ -6,13 +6,12 @@ import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import { useGetGenericLinksByUserIdQuery } from "../../App/store/api/links";
 
-import LinkAddBlock from "../../blocks/link-add/link-add.block";
 import TitleSection from "../../components/title-section/title-section.component";
 import Linker from "../../components/linker/linker.component";
 
 import { IShortLink } from "../../utils/interfaces/link";
 
-import BlankModal from "../../modals/blank/blank-section.modal";
+import BlankModal from "../../shared/blank/blank-section.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
@@ -44,7 +43,6 @@ const GenericsSection = () => {
 
   return (
     <GenericsWrapper isTransfer={activeGroup.isActive}>
-      <LinkAddBlock />
       <TitleSection title="Generic links:" sectionType="generic" />
       <LinksWrapper>
         {localGenericLinks.length > 0 ? (

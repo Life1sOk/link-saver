@@ -1,14 +1,10 @@
 import styled from "styled-components";
 
-export const BlackWindowStyle = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 8;
-
+export const BlackWindowStyle = styled.dialog`
   width: 100%;
   height: 100%;
 
+  border: none;
   background-color: rgba(0, 0, 0, 0.4);
 
   display: flex;

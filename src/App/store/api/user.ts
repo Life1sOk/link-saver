@@ -1,7 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
-import { IUser, IUserRegistration } from "../../../utils/interfaces/user";
 
 import {
+  IUser,
+  IUserRegistration,
+  IUsersSeach,
   IUserLogin,
   IAuthResponse,
   IUserToken,
@@ -11,10 +13,13 @@ import {
 export const userApi = createApi({
   reducerPath: "api/registraion",
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/" }),
-  tagTypes: ["Registration"],
+  tagTypes: ["User"],
   endpoints: (builder) => ({
-    getUsersProfile: builder.query<any, number>({
+    getUserProfile: builder.query<any, number>({
       query: (user_id) => ({ url: `/profile/${user_id}` }),
+    }),
+    getUsersSearch: builder.query<IUser[], IUsersSeach>({
+      query: ({ user, value }) => ({ url: `/search/${user}&${value}` }),
     }),
     register: builder.mutation<IUser, IUserRegistration>({
       query: (body) => ({
@@ -39,24 +44,13 @@ export const userApi = createApi({
         },
       }),
     }),
-    getCheckMessage: builder.query({
-      query: () => ({ url: "/get-share" }),
-    }),
-    checkMessage: builder.mutation<any, any>({
-      query: (message) => ({
-        url: "/post-share",
-        method: "POST",
-        body: message,
-      }),
-    }),
   }),
 });
 
 export const {
-  useGetUsersProfileQuery,
+  useGetUserProfileQuery,
+  useLazyGetUsersSearchQuery,
   useRegisterMutation,
   useLoginMutation,
   useLoginByTokenMutation,
-  useLazyGetCheckMessageQuery,
-  useCheckMessageMutation,
 } = userApi;

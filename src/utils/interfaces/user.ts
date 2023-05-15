@@ -29,3 +29,8 @@ export interface IAuthResponse {
   token: string;
   user_id: number;
 }
+
+export interface IUsersSeach {
+  user: number;
+  value: string;
+}

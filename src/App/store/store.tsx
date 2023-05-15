@@ -6,11 +6,13 @@ import processReducer from "./slices/process.slice";
 import groupsReducer from "./slices/groups.slice";
 import topicsReducer from "./slices/topics.slice";
 import themeReducer from "./slices/theme.slice";
+import friendsReducer from "./slices/friends.slice";
 
 import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
 import { groupsApi } from "./api/groups";
 import { userApi } from "./api/user";
+import { friendsApi } from "./api/friends";
 
 export const store = configureStore({
   reducer: {
@@ -20,10 +22,12 @@ export const store = configureStore({
     topicsLocal: topicsReducer,
     process: processReducer,
     theme: themeReducer,
+    friends: friendsReducer,
     [topicsApi.reducerPath]: topicsApi.reducer,
     [linksApi.reducerPath]: linksApi.reducer,
     [groupsApi.reducerPath]: groupsApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [friendsApi.reducerPath]: friendsApi.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -32,7 +36,8 @@ export const store = configureStore({
       topicsApi.middleware,
       linksApi.middleware,
       groupsApi.middleware,
-      userApi.middleware
+      userApi.middleware,
+      friendsApi.middleware
     ),
 });
 

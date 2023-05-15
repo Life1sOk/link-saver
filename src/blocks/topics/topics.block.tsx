@@ -9,7 +9,7 @@ import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 import { ITopic } from "../../utils/interfaces/topic";
 import Topic from "../../components/topic/topic.component";
 
-import BlankModal from "../../modals/blank/blank-section.modal";
+import BlankModal from "../../shared/blank/blank-section.modal";
 
 import { TopicsStyle } from "./topics.style";
 

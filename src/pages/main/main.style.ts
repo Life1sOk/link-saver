@@ -6,19 +6,6 @@ export const MainLayout = styled.div`
   user-select: none;
 
   display: flex;
-
-  /* background-attachment: fixed;
-  background-image: radial-gradient(
-    circle,
-    rgba(238, 174, 202, 1) 0%,
-    rgba(148, 187, 233, 1) 100%
-  );
-  background-size: 600%;
-  background-position: 0 0;
-  background-repeat: no-repeat;
-  animation-duration: 20s;
-  animation-iteration-count: infinite;
-  animation-name: gradients; */
 `;
 
 export const MainWrapper = styled.div`

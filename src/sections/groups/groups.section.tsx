@@ -7,14 +7,13 @@ import { useGroupsLogic } from "../../utils/contollers/useGroupLogic";
 import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import GroupBlock from "../../blocks/group/group.block";
-import GroupAddBlock from "../../blocks/group-add/group-add.block";
 import TitleSection from "../../components/title-section/title-section.component";
 
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 import { IGroupGet } from "../../utils/interfaces/group";
 import { ITopic } from "../../utils/interfaces/topic";
 
-import BlankModal from "../../modals/blank/blank-section.modal";
+import BlankModal from "../../shared/blank/blank-section.modal";
 import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
 
 const GroupsSection = () => {
@@ -61,29 +60,26 @@ const GroupsSection = () => {
   }
 
   return (
-    <>
-      <GroupAddBlock />
-      <GroupsStyle>
-        <TitleSection title={topic_title} sectionType="group" />
-        <GroupsWrapper>
-          {localGroups.length > 0 ? (
-            localGroups.map((group, index) => (
-              <GroupBlock
-                key={group.id}
-                data={group}
-                index={index}
-                transitionLink={transitionToGenericsHandler}
-                transitionGroup={transitionToTopicHandler}
-                deleteLinkHandler={deleteGroupLinkHandler}
-                deleteGroupHandler={deleteGroupHandler}
-              />
-            ))
-          ) : (
-            <BlankModal title="group" />
-          )}
-        </GroupsWrapper>
-      </GroupsStyle>
-    </>
+    <GroupsStyle>
+      <TitleSection title={topic_title} sectionType="group" />
+      <GroupsWrapper>
+        {localGroups.length > 0 ? (
+          localGroups.map((group, index) => (
+            <GroupBlock
+              key={group.id}
+              data={group}
+              index={index}
+              transitionLink={transitionToGenericsHandler}
+              transitionGroup={transitionToTopicHandler}
+              deleteLinkHandler={deleteGroupLinkHandler}
+              deleteGroupHandler={deleteGroupHandler}
+            />
+          ))
+        ) : (
+          <BlankModal title="group" />
+        )}
+      </GroupsWrapper>
+    </GroupsStyle>
   );
 };
 

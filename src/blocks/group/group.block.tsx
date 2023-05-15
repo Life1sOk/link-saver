@@ -17,7 +17,7 @@ import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
 import OtherButton from "../../shared/other-button/other-button.component";
 
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
-import BlackWindowModal from "../../modals/black-window/black-window.modal";
+import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import OtherActionModal from "../../modals/other-action/other-action.modal";
 import GroupTransitionModal from "../../modals/group-transition/group-transition.modal";
 import { GroupStyle, GroupHeader, IconWrapper, LinksPlace } from "./group.style";

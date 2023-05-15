@@ -1,8 +1,10 @@
 import { useRef, useState } from "react";
+import { useConnectSse } from "../../utils/helpers/useConnectSse";
 
 import NavigationSection from "../../sections/navigation/navigation.section";
 import GroupsSection from "../../sections/groups/groups.section";
 import GenericsSection from "../../sections/generics/generics.section";
+import ModalsSection from "../../sections/modals/modals.section";
 
 import ActionSection from "../../sections/action/action.section";
 
@@ -43,6 +45,9 @@ const MainPage = () => {
     }
   };
 
+  // Connect to SSE messages
+  useConnectSse();
+
   return (
     <MainLayout onMouseUp={endAnimation}>
       <ProcessModal />
@@ -62,6 +67,7 @@ const MainPage = () => {
           <GenericsSection />
         </div>
       </MainWrapper>
+      <ModalsSection />
     </MainLayout>
   );
 };

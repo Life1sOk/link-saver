@@ -7,7 +7,7 @@ import { useGroupsLogic } from "../../utils/contollers/useGroupLogic";
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
-import BlackWindowModal from "../../modals/black-window/black-window.modal";
+import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import {
   GroupAddStyle,
   LeftSide,
@@ -17,7 +17,7 @@ import {
   TitleBlock,
 } from "./group-add.style";
 
-const GroupAddBlock = () => {
+const GroupAddModal = () => {
   const user_id = useAppSelector((state) => state.user.session.user_id);
   const isOpen = useAppSelector((state) => state.groupsLocal.window.isAddGroup);
   const activeTopic = useAppSelector((state) => state.topicsLocal.window.activeTopic);
@@ -70,4 +70,4 @@ const GroupAddBlock = () => {
   );
 };
 
-export default GroupAddBlock;
+export default GroupAddModal;

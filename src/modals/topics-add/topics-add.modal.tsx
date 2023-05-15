@@ -7,7 +7,7 @@ import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
 
-import BlackWindowModal from "../../modals/black-window/black-window.modal";
+import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import {
   TopicAddStyle,
   LeftSide,
@@ -17,7 +17,7 @@ import {
   TopicButtons,
 } from "./topics-add.style";
 
-const TopicsAddBlock = () => {
+const TopicsAddModal = () => {
   const userId = useAppSelector((state) => state.user.session.user_id);
   const isOpen = useAppSelector((state) => state.topicsLocal.window.isAddTopic);
 
@@ -70,4 +70,4 @@ const TopicsAddBlock = () => {
   );
 };
 
-export default TopicsAddBlock;
+export default TopicsAddModal;

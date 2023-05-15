@@ -17,6 +17,7 @@ const Routing = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const user = useAppSelector((state) => state.user.profile);
   const usersSession = useAppSelector((state) => state.user?.session);
 
   // Отправка запроса на сервер
@@ -41,7 +42,7 @@ const Routing = () => {
     } else {
       navigate("/");
     }
-  }, [loginByTokenAPI, dispatch, usersSession, navigate, isSuccess]);
+  }, [loginByTokenAPI, dispatch, usersSession, navigate, isSuccess, user.id]);
 
   return (
     <PageWrapper>

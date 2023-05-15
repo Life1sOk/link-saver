@@ -8,7 +8,7 @@ import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
-import BlackWindowModal from "../../modals/black-window/black-window.modal";
+import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import {
   LinkAddStyle,
   FormWrapper,
@@ -18,7 +18,7 @@ import {
   TitleBlock,
 } from "./link-add.style";
 
-const LinkAddBlock = () => {
+const LinkAddModal = () => {
   const isOpen = useAppSelector((state) => state.genericsLocal.window.isAddLink);
   const activeLink = useAppSelector((state) => state.genericsLocal.window.activeLink);
   const userId = useAppSelector((state) => state.user.session.user_id);
@@ -150,4 +150,4 @@ const LinkAddBlock = () => {
   );
 };
 
-export default LinkAddBlock;
+export default LinkAddModal;
