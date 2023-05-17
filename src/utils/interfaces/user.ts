@@ -2,6 +2,15 @@ export interface IUser {
   id: number;
   username: string;
   email: string;
+  status?: string;
+}
+
+export interface IUserTrans {
+  id: number;
+  username: string;
+  email: string;
+  status?: string;
+  friend_id: number;
 }
 
 export interface IUserRegistration {

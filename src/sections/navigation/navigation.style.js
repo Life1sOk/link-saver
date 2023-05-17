@@ -11,3 +11,12 @@ export const NavigationStyle = styled.nav`
   flex-direction: column;
   align-items: center;
 `;
+
+export const UserWrapper = styled.div`
+  width: calc(100% - 5px);
+  height: fit-content;
+
+  margin: 0 5px 5px 0;
+
+  flex-shrink: 0;
+`;

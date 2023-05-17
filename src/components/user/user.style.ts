@@ -4,9 +4,8 @@ export const UserStyle = styled.div`
   display: flex;
   gap: 15px;
 
-  width: calc(100% - 5px);
+  width: 100%;
   height: 51px;
-  margin: 0 5px 5px 0;
 
   padding: 2px 0 2px 10px;
 
@@ -14,8 +13,6 @@ export const UserStyle = styled.div`
   border: 1px solid ${({ theme }) => theme.border};
   background-color: ${({ theme }) => theme.background.sections};
   overflow: hidden;
-
-  flex-shrink: 0;
 `;
 
 export const Icon = styled.img`

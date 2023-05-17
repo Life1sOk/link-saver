@@ -1,11 +1,7 @@
 import { memo } from "react";
 import { icons } from "../../utils/react-icons";
 
-import { useAppDispatch } from "../../App/store/hooks";
-import {
-  toggleSendWindow,
-  toggleInviteWindow,
-} from "../../App/store/slices/friends.slice";
+import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
 
 import SettingsBlock from "../../blocks/settings/settings.block";
 import AddBlock from "../../blocks/add/add.block";
@@ -16,10 +12,9 @@ import { ActionStyle, LocalActions } from "./action.style";
 
 // Топи логику переместить сюда
 const ActionSection = memo(() => {
-  const dispatch = useAppDispatch();
+  const { toggleFriendsWindow } = useFriendsLocal();
 
-  const toggleSendWindowHandler = () => dispatch(toggleSendWindow());
-  const toggleInviteWindowHandler = () => dispatch(toggleInviteWindow());
+  const toggleSendWindowHandler = () => {};
 
   return (
     <ActionStyle>
@@ -33,9 +28,9 @@ const ActionSection = memo(() => {
         />
         <SettingAction
           icon={icons.friends}
-          title="Invite"
+          title="Friends"
           type="window"
-          actionHandler={toggleInviteWindowHandler}
+          actionHandler={toggleFriendsWindow}
         />
       </LocalActions>
       <SettingsBlock />

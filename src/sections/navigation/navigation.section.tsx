@@ -13,7 +13,7 @@ import TopicMain from "../../components/topic-main/topic-main.component";
 import User from "../../components/user/user.components";
 
 // Style
-import { NavigationStyle } from "./navigation.style";
+import { NavigationStyle, UserWrapper } from "./navigation.style";
 
 const NavigationSection = memo(() => {
   const dispatch = useAppDispatch();
@@ -29,7 +29,9 @@ const NavigationSection = memo(() => {
 
   return (
     <NavigationStyle>
-      <User username={username} email={email} />
+      <UserWrapper>
+        <User username={username} email={email} />
+      </UserWrapper>
       <TopicMain />
       <TopicsBlock />
       <InfoBlock />

@@ -1,27 +1,10 @@
 import styled from "styled-components";
 
-export const InviteModalStyle = styled.div`
-  width: 320px;
-  height: fit-content;
-  max-height: 510px;
-
-  background-color: ${({ theme }) => theme.modals.background};
-  border-radius: 4px;
-
-  padding: 5px;
-
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-`;
-
-export const Title = styled.h3``;
-
-export const FindedUsers = styled.div`
+export const UserFriendsStyle = styled.div`
   width: 100%;
-  height: 336px;
-  padding-left: 5px;
+  height: 100%;
 
+  padding-left: 5px;
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.background.main};
 
@@ -40,22 +23,36 @@ export const UserWrapper = styled.div`
 export const WrapperWrapper = styled.div`
   width: 100%;
   height: fit-content;
+  margin-top: 5px;
 
   display: flex;
   align-items: center;
+  gap: 5px;
 `;
 
-export const DefaultAndSpin = styled(FindedUsers)`
+export const Status = styled.div`
+  width: 25%;
+  height: 100%;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+`;
+
+export const Actions = styled.div`
+  width: 100%;
+  height: 100%;
+
+  border-radius: 5px;
+  border: 1px solid ${({ theme }) => theme.border};
+  background-color: ${({ theme }) => theme.background.sections};
+
   display: flex;
   align-items: center;
   justify-content: center;
-`;
-
-export const Buttons = styled.div`
-  width: 100%;
-
-  padding: 0 10px 10px 0;
-
-  display: flex;
-  justify-content: end;
 `;
