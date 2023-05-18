@@ -15,12 +15,16 @@ import { IUser, IUserTrans } from "../interfaces/user";
 export const useFriendsLogic = () => {
   // --------------------- LOCAL ------------------------ //
   // Lists: friends, invited, incoming, search
-  const { addOneToListLocal, deleteOneFromListLocal, updateOneFromInvitedLocal } =
-    useFriendsLocal();
+  const {
+    addOneToListLocal,
+    deleteOneFromListLocal,
+    updateOneFromInvitedLocal,
+    addAllListsLocal,
+  } = useFriendsLocal();
 
   // --------------------- SERVER ------------------------ //
-  const [getFriendListsApi, getFriendListsApiResult] = useLazyGetFriendListsQuery();
-  useRequestProcess(getFriendListsApiResult);
+  const [getAllFriendListsApi, getAllFriendListsApiResult] = useLazyGetFriendListsQuery();
+  useRequestProcess(getAllFriendListsApiResult);
 
   const [inviteFriendApi, inviteFriendApiResult] = useInviteFriendMutation();
   useRequestProcess(inviteFriendApiResult);
@@ -35,6 +39,13 @@ export const useFriendsLogic = () => {
   useRequestProcess(deleteFriendApiResult);
 
   // --------------------- ACTION ------------------------ //
+  const getAllFriendList = async (userId: number) => {
+    // Server
+    await getAllFriendListsApi(userId, true)
+      .unwrap()
+      .then((data) => addAllListsLocal(data));
+  };
+
   const inviteFriend = async (from: number, to: number, user: IUser) => {
     // Local
     deleteOneFromListLocal({ from: "search", id: user.id });
@@ -119,6 +130,7 @@ export const useFriendsLogic = () => {
   };
 
   return {
+    getAllFriendList,
     inviteFriend,
     acceptFriend,
     notAcceptFriend,

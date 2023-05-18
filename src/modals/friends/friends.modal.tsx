@@ -1,16 +1,17 @@
 import { useEffect } from "react";
+
 import { useAppSelector } from "../../App/store/hooks";
+import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
 
-import { useGetFriendListsQuery } from "../../App/store/api/friends";
-
+import FriendSwitcher from "../../components/friend-switcher/friend-switcher.component";
 import UserSearch from "../../blocks/user-search/user-search.block";
 import UserFriends from "../../blocks/user-friends/user-friends.block";
 import UserInvited from "../../blocks/user-invited/user-invited.block";
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import Button from "../../components/button/button.component";
 
-import { FriendsModalStyle, Buttons, Changer, Picked } from "./friends.style";
+import { FriendsModalStyle, Buttons, Switcher } from "./friends.style";
 
 const InviteModal = () => {
   const isOpen = useAppSelector((state) => state.friends.isFriendsWindow);
@@ -18,8 +19,14 @@ const InviteModal = () => {
   const activeSection = useAppSelector((state) => state.friends.activeSection);
   const userId = useAppSelector((state) => state.user.profile.id);
 
-  const { data } = useGetFriendListsQuery(userId);
-  const { toggleActiveList, toggleFriendsWindow, addAllListsLocal } = useFriendsLocal();
+  // Count
+  const friendCount = useAppSelector((state) => state.friends.friendsList.length);
+  const invitedCount = useAppSelector((state) => state.friends.invitedList.length);
+  const incomingCount = useAppSelector((state) => state.friends.incomingList.length);
+  const searchCount = useAppSelector((state) => state.friends.searchList.length);
+
+  const { getAllFriendList } = useFriendsLogic();
+  const { toggleActiveList, toggleFriendsWindow } = useFriendsLocal();
 
   // Helpers
   const toggleHandler = () => toggleFriendsWindow();
@@ -29,23 +36,33 @@ const InviteModal = () => {
   const activeInvited = () => toggleActiveList("invited");
 
   useEffect(() => {
-    if (data && pull) addAllListsLocal(data);
-  }, [data, pull]);
+    getAllFriendList(userId);
+  }, [pull, isOpen]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>
       <FriendsModalStyle onClick={(e) => e.stopPropagation()}>
-        <Changer>
-          <Picked onClick={activeFriends} picked={activeSection === "friends"}>
-            Friends
-          </Picked>
-          <Picked onClick={activeInvited} picked={activeSection === "invited"}>
-            Invited
-          </Picked>
-          <Picked onClick={activeSearch} picked={activeSection === "search"}>
-            Search
-          </Picked>
-        </Changer>
+        <Switcher>
+          <FriendSwitcher
+            title="Friends"
+            actionHandler={activeFriends}
+            isActive={activeSection === "friends"}
+            count={friendCount}
+            countNew={incomingCount}
+          />
+          <FriendSwitcher
+            title="Invited"
+            actionHandler={activeInvited}
+            isActive={activeSection === "invited"}
+            count={invitedCount}
+          />
+          <FriendSwitcher
+            title="Search"
+            actionHandler={activeSearch}
+            isActive={activeSection === "search"}
+            count={searchCount}
+          />
+        </Switcher>
         {activeSection === "friends" && <UserFriends />}
         {activeSection === "search" && <UserSearch />}
         {activeSection === "invited" && <UserInvited />}

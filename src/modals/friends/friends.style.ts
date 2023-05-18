@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { ButtonStyle } from "../../components/button/button.style";
-
 export const FriendsModalStyle = styled.div`
   width: 320px;
   height: 510px;
@@ -25,11 +23,9 @@ export const Buttons = styled.div`
   justify-content: end;
 `;
 
-export const Changer = styled.div`
+export const Switcher = styled.div`
   width: 100%;
-  display: flex;
-`;
 
-export const Picked = styled(ButtonStyle)`
-  border: 1px solid ${({ picked }: { picked: boolean }) => (picked ? "red" : "initial")};
+  display: flex;
+  justify-content: space-between;
 `;

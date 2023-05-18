@@ -8,7 +8,6 @@ export const friendsApi = createApi({
     getFriendLists: builder.query<any, number>({
       query: (user_id) => ({ url: `/${user_id}` }),
     }),
-    // For check - will need new api
     inviteFriend: builder.mutation<any, { from: number; to: number }>({
       query: (data) => ({
         url: "/invite",
@@ -44,7 +43,6 @@ export const friendsApi = createApi({
 });
 
 export const {
-  useGetFriendListsQuery,
   useLazyGetFriendListsQuery,
   useInviteFriendMutation,
   useAcceptFriendMutation,

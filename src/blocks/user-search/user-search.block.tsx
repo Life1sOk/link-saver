@@ -8,18 +8,13 @@ import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 import BlankModal from "../../shared/blank/blank-section.modal";
 
-import UserDisplay from "./user-display/user-display.half";
+import UserDisplay from "../../components/user-display/user-display.half";
 import Input from "../../components/input/input.component";
 
 import { useDebounce } from "../../utils/helpers/useDebounce";
 import { IUser } from "../../utils/interfaces/user";
 
-import {
-  SearchBlockStyle,
-  FindedUsers,
-  DefaultAndSpin,
-  Title,
-} from "./user-search.style";
+import { SearchBlockStyle, FindedUsers, DefaultAndSpin } from "./user-search.style";
 
 const UserSearch = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
@@ -60,7 +55,6 @@ const UserSearch = () => {
 
   return (
     <SearchBlockStyle>
-      <Title>Find user:</Title>
       <Input type="text" label="" placeholder="By user's email" change={handleChange} />
       {searchResult.length < 1 ? (
         <DefaultAndSpin>
@@ -76,7 +70,8 @@ const UserSearch = () => {
             <UserDisplay
               key={index}
               user={user}
-              actionHandler={() => sendInviteHandler(user)}
+              status="Finded"
+              actionHandlerOne={{ action: () => sendInviteHandler(user), call: "Invite" }}
             />
           ))}
         </FindedUsers>

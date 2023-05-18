@@ -10,7 +10,7 @@ import InfoBlock from "../../blocks/info/info.block";
 
 // Components
 import TopicMain from "../../components/topic-main/topic-main.component";
-import User from "../../components/user/user.components";
+import User from "../../shared/user/user.components";
 
 // Style
 import { NavigationStyle, UserWrapper } from "./navigation.style";

@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const SettingActionStyle = styled.div`
+  position: relative;
+
   width: fit-content;
   height: fit-content;
 
