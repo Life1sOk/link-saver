@@ -1,8 +1,9 @@
 import LinkAddModal from "../../modals/link-add/link-add.modal";
 import GroupAddModal from "../../modals/group-add/group-add.modal";
 import TopicsAddModal from "../../modals/topics-add/topics-add.modal";
-import SendModal from "../../modals/send/send.modal";
-import FriednsModal from "../../modals/friends/friends.modal";
+import SendModal from "../../modals/receiving/receiving.modal";
+import ReceivingModal from "../../modals/friends/friends.modal";
+import GroupSendModal from "../../modals/group-send/group-send.modal";
 
 import { ModalsSectionStyle } from "./modals.style";
 
@@ -13,7 +14,8 @@ const ModalsSection = () => {
       <GroupAddModal />
       <TopicsAddModal />
       <SendModal />
-      <FriednsModal />
+      <ReceivingModal />
+      <GroupSendModal />
     </ModalsSectionStyle>
   );
 };

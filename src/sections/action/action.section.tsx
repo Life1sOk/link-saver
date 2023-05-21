@@ -3,6 +3,7 @@ import { icons } from "../../utils/react-icons";
 
 import { useAppSelector } from "../../App/store/hooks";
 import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
+import { useReceivingBoxLocal } from "../../utils/helper-dispatch/useReceivingBoxLocal";
 
 import SettingsBlock from "../../blocks/settings/settings.block";
 import AddBlock from "../../blocks/add/add.block";
@@ -16,17 +17,17 @@ const ActionSection = memo(() => {
   const incomingCount = useAppSelector((state) => state.friends.incomingList.length);
 
   const { toggleFriendsWindow } = useFriendsLocal();
-  const toggleSendWindowHandler = () => {};
+  const { toggleReceivingBoxWindow } = useReceivingBoxLocal();
 
   return (
     <ActionStyle>
       <LocalActions>
         <AddBlock />
         <SettingAction
-          icon={icons.share}
-          title="Send"
+          icon={icons.box}
+          title="Receiving box"
           type="window"
-          actionHandler={toggleSendWindowHandler}
+          actionHandler={toggleReceivingBoxWindow}
         />
         <SettingAction
           icon={icons.friends}

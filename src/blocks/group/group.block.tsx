@@ -4,6 +4,7 @@ import { useAppSelector } from "../../App/store/hooks";
 
 import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
 import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
+import { useReceivingBoxLocal } from "../../utils/helper-dispatch/useReceivingBoxLocal";
 
 import { icons } from "../../utils/react-icons";
 import { IGroupGet } from "../../utils/interfaces/group";
@@ -51,6 +52,7 @@ const GroupBlock = memo(
 
     let isActive = id === activeId;
 
+    const { toggleSendGroupWindow } = useReceivingBoxLocal();
     const { addOneFromGroupLocal, toggleLinkWindow } = useGenericLocal();
     const { resetGroupWindow } = useGroupLocal();
 
@@ -90,6 +92,14 @@ const GroupBlock = memo(
       deleteLinkHandler(data, index);
     };
 
+    // Send to another user;
+    const openSendWindowHandler = () => {
+      if (links.length === 0) return alert("it doesn't make sense");
+      if (links.length < 2) return alert("U should have 2 or more links");
+
+      toggleSendGroupWindow();
+    };
+
     return (
       <>
         <BlackWindowModal isOpen={isActiveWindow} activeHandler={resetGroupWindow} />
@@ -103,6 +113,7 @@ const GroupBlock = memo(
               group_index={index}
             />
             <GroupTitle title={group_title} group_id={id} isActive={isActive} />
+            <IconWrapper onClick={openSendWindowHandler}>{icons.send}</IconWrapper>
             <GroupTransitionModal action={transitionToTopicHandler}>
               <IconWrapper>{icons.transition}</IconWrapper>
             </GroupTransitionModal>

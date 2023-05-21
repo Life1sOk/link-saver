@@ -6,15 +6,11 @@ interface IWindowModal {
   activeHandler?: () => void;
 }
 
-const BlackWindowModal = ({
-  isOpen,
-  children,
-  activeHandler,
-}: IWindowModal) => {
-  if (!isOpen) return <></>;
-
+const BlackWindowModal = ({ isOpen, children, activeHandler }: IWindowModal) => {
   return (
-    <BlackWindowStyle onClick={activeHandler}>{children}</BlackWindowStyle>
+    <BlackWindowStyle onClick={activeHandler} isOpen={isOpen}>
+      {children}
+    </BlackWindowStyle>
   );
 };
 
