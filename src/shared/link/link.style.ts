@@ -14,7 +14,7 @@ export const LinkStyle = styled.div`
 
 export const LinkTitle = styled.a`
   width: 100%;
-  max-width: 165px;
+  /* max-width: 165px; */
   color: inherit;
 
   text-decoration: none;

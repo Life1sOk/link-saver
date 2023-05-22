@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 import { IShortLink } from "../../utils/interfaces/link";
 
-import { useGroupsLogic } from "../../utils/contollers/useGroupLogic";
+import { useGroupsLogic } from "../../utils/contollers/useGroupsLogic";
 import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import GroupBlock from "../../blocks/group/group.block";

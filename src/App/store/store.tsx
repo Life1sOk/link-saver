@@ -7,13 +7,14 @@ import groupsReducer from "./slices/groups.slice";
 import topicsReducer from "./slices/topics.slice";
 import themeReducer from "./slices/theme.slice";
 import friendsReducer from "./slices/friends.slice";
-import receivingBoxReducer from "./slices/receivingBox.slice";
+import boxReducer from "./slices/box.slice";
 
 import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
 import { groupsApi } from "./api/groups";
 import { userApi } from "./api/user";
 import { friendsApi } from "./api/friends";
+import { transitionApi } from "./api/transition";
 
 export const store = configureStore({
   reducer: {
@@ -24,12 +25,13 @@ export const store = configureStore({
     process: processReducer,
     theme: themeReducer,
     friends: friendsReducer,
-    receivingBox: receivingBoxReducer,
+    box: boxReducer,
     [topicsApi.reducerPath]: topicsApi.reducer,
     [linksApi.reducerPath]: linksApi.reducer,
     [groupsApi.reducerPath]: groupsApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [friendsApi.reducerPath]: friendsApi.reducer,
+    [transitionApi.reducerPath]: transitionApi.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -39,7 +41,8 @@ export const store = configureStore({
       linksApi.middleware,
       groupsApi.middleware,
       userApi.middleware,
-      friendsApi.middleware
+      friendsApi.middleware,
+      transitionApi.middleware
     ),
 });
 

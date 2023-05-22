@@ -5,6 +5,11 @@ export interface IUser {
   status?: string;
 }
 
+export interface IUserFrom {
+  username: string;
+  email: string;
+}
+
 export interface IUserTrans {
   id: number;
   username: string;

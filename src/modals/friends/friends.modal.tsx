@@ -36,7 +36,7 @@ const InviteModal = () => {
   const activeInvited = () => toggleActiveList("invited");
 
   useEffect(() => {
-    getAllFriendList(userId);
+    if (pull && isOpen) getAllFriendList(userId);
   }, [pull, isOpen]);
 
   return (

@@ -11,6 +11,7 @@ import {
   updateGroupLinkId,
   updateGroupId,
   updateGroupLinkStatus,
+  updateGroupAllId,
   removeCurrentLink,
   // Window
   toggleGroupWindowHandler,
@@ -56,6 +57,13 @@ interface IUpId {
   index?: number;
 }
 
+interface IupAllId {
+  old_id: number;
+  new_id: number;
+  user_id: number;
+  links_id: number[];
+}
+
 export const useGroupLocal = () => {
   const dispatch = useAppDispatch();
 
@@ -66,6 +74,7 @@ export const useGroupLocal = () => {
   const addOneGroupLocal = (arg: IGroupGet) => dispatch(addOneGroup(arg));
   const updateGroupTitleLocal = (arg: IUpTitle) => dispatch(updateGroupTitle(arg));
   const updateGroupIdLocal = (arg: IUpId) => dispatch(updateGroupId(arg));
+  const updateGroupAllIdLocal = (arg: IupAllId) => dispatch(updateGroupAllId(arg));
   const deleteGroupLocal = (arg: number) => dispatch(deleteGroup(arg));
 
   // Group link
@@ -94,6 +103,7 @@ export const useGroupLocal = () => {
     addGroupLinkLocal,
     updateGroupLinkLocal,
     updateGroupLinkStatusLocal,
+    updateGroupAllIdLocal,
     deleteGroupLinkLocal,
     // Window
     toggleGroupWindow,

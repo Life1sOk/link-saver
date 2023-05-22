@@ -2,7 +2,7 @@ import { useRef } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
-import { useGroupsLogic } from "../../utils/contollers/useGroupLogic";
+import { useGroupsLogic } from "../../utils/contollers/useGroupsLogic";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";

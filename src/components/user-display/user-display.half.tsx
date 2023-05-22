@@ -1,6 +1,6 @@
 import User from "../../shared/user/user.components";
 
-import { IUser } from "../../utils/interfaces/user";
+import { IUser, IUserFrom } from "../../utils/interfaces/user";
 
 import {
   WrapperWrapper,
@@ -11,7 +11,7 @@ import {
 } from "./user-display.style";
 
 interface IuD {
-  user: IUser;
+  user: IUser | IUserFrom;
   actionHandlerOne: {
     action: () => void;
     call: "Accept" | "Invite" | "Fuck off" | "Cancel" | "Delete";

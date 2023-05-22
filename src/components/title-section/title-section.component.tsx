@@ -2,7 +2,12 @@ import { icons } from "../../utils/react-icons";
 
 import { TitleSectionStyle, MarkIcon, Title } from "./title-section.style";
 
-const TitleSection = ({ title, sectionType }: { title: string; sectionType: string }) => {
+interface ITitleSection {
+  title: string;
+  sectionType: string;
+}
+
+const TitleSection = ({ title, sectionType }: ITitleSection) => {
   return (
     <TitleSectionStyle>
       <MarkIcon sectionType={sectionType}>{icons.marker}</MarkIcon>

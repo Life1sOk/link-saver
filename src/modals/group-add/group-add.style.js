@@ -58,6 +58,7 @@ export const GifBlock = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
 export const GroupButtons = styled.div`
   width: 100%;
   margin-top: 22px;

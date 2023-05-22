@@ -87,6 +87,24 @@ export const groupsSlice = createSlice({
         link.id === link_data.id ? { ...link, status: link_data.status } : link
       );
     },
+    updateGroupAllId: (state, { payload }) => {
+      const { old_id, new_id, links_id, user_id } = payload;
+      // 4et di4 --------
+      state.data = state.data.map((group) => {
+        if (group.id !== old_id) {
+          return group;
+        } else {
+          const linksOld = group.links;
+          const linksNew = [];
+
+          for (let i = 0; i < linksOld.length; i++) {
+            linksNew.push({ ...linksOld[i], id: links_id[i] });
+          }
+
+          return { ...group, id: new_id, user_id, links: linksNew };
+        }
+      });
+    },
     // Window
     toggleGroupWindowHandler: (state) => {
       const snap = state.window;
@@ -125,6 +143,7 @@ export const {
   updateGroupLinkId,
   updateGroupId,
   updateGroupLinkStatus,
+  updateGroupAllId,
   removeCurrentLink,
   // Window
   toggleGroupWindowHandler,

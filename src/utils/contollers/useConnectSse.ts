@@ -3,20 +3,24 @@ import { useEffect } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
 import { useFriendsLocal } from "../helper-dispatch/useFriendsLocal";
+import { useBoxLocal } from "../helper-dispatch/useBoxLocal";
 
 export const useConnectSse = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
 
   const { addOneToListLocal, deleteOneFromListLocal } = useFriendsLocal();
+  const { addReceivingLocal } = useBoxLocal();
 
   const getMessage = async () => {
     const eventSource = new EventSource(`http://localhost:3000/connect/${userId}`);
 
     eventSource.onmessage = function (event) {
       const message = JSON.parse(event.data);
+
       console.log(message, "message");
-      // Lists: friends, invited, incoming, search
+
       switch (message.type) {
+        // Lists: friends, invited, incoming, search
         case "invite friend":
           addOneToListLocal({ which: "incoming", user: message.data });
           break;
@@ -26,6 +30,9 @@ export const useConnectSse = () => {
           break;
         case "delete friend":
           deleteOneFromListLocal({ from: "friends", id: message.data.from_id });
+          break;
+        case "transition box":
+          addReceivingLocal(message.data);
           break;
       }
 
