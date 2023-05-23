@@ -36,8 +36,8 @@ const InviteModal = () => {
   const activeInvited = () => toggleActiveList("invited");
 
   useEffect(() => {
-    if (pull && isOpen) getAllFriendList(userId);
-  }, [pull, isOpen]);
+    if (pull && userId > 0) getAllFriendList(userId);
+  }, [pull, userId]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>

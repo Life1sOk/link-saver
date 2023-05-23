@@ -5,6 +5,7 @@ import { IGroupGet } from "../../../utils/interfaces/group";
 import { ITransRece } from "../../../utils/interfaces/transition";
 
 interface IInitBox {
+  pull: boolean;
   isReceivingWindow: boolean;
   isSendWindow: boolean;
   prepare: IGroupGet | null;
@@ -13,6 +14,7 @@ interface IInitBox {
 }
 
 const initialState: IInitBox = {
+  pull: true,
   isReceivingWindow: false,
   isSendWindow: false,
   prepare: null,
@@ -37,6 +39,10 @@ export const boxSlice = createSlice({
     pickSendFor: (state, { payload }: PayloadAction<number>) => {
       state.sendFor = payload;
     },
+    addToReceivingAll: (state, { payload }) => {
+      state.receivingBox = payload;
+      state.pull = false;
+    },
     addToReceiving: (state, { payload }: PayloadAction<ITransRece>) => {
       state.receivingBox.unshift(payload);
     },
@@ -53,6 +59,7 @@ export const {
   toggleSendWindow,
   addToPrepare,
   pickSendFor,
+  addToReceivingAll,
   addToReceiving,
   removeReceivingBox,
 } = boxSlice.actions;

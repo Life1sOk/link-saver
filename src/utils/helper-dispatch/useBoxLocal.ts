@@ -9,6 +9,7 @@ import {
   toggleSendWindow,
   addToPrepare,
   pickSendFor,
+  addToReceivingAll,
   addToReceiving,
   removeReceivingBox,
 } from "../../App/store/slices/box.slice";
@@ -19,6 +20,7 @@ export const useBoxLocal = () => {
   // CRUD
   const addPrepareLocal = (arg: IGroupGet) => dispatch(addToPrepare(arg));
   const addSendForLocal = (arg: number) => dispatch(pickSendFor(arg));
+  const addToReceivingAllLocal = (arg: ITransRece[]) => dispatch(addToReceivingAll(arg));
   const addReceivingLocal = (arg: ITransRece) => dispatch(addToReceiving(arg));
   const removeReceivingLocal = (arg: number) => dispatch(removeReceivingBox(arg));
 
@@ -31,6 +33,7 @@ export const useBoxLocal = () => {
     toggleSendGroupWindow,
     addPrepareLocal,
     addSendForLocal,
+    addToReceivingAllLocal,
     addReceivingLocal,
     removeReceivingLocal,
   };

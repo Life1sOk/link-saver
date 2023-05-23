@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+
 import { useAppSelector } from "../../App/store/hooks";
 import { useTransitionLogic } from "../../utils/contollers/useTransitionLogic";
 import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
@@ -21,15 +23,19 @@ import {
 const ReceivingModal = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
   const isWindowOpen = useAppSelector((state) => state.box.isReceivingWindow);
+  const isPull = useAppSelector((state) => state.box.pull);
   const receivingBox = useAppSelector((state) => state.box.receivingBox);
 
   const { toggleReceivingBoxWindow } = useBoxLocal();
-  const { acceptTransition } = useTransitionLogic();
+  const { acceptTransition, getTransitions } = useTransitionLogic();
 
   const acceptTransitionHandler = async (data: ITransRece) => {
-    // console.log(data, "run");
     await acceptTransition(data, userId);
   };
+
+  useEffect(() => {
+    if (isPull && userId > 0) getTransitions(userId);
+  }, [userId, isPull]);
 
   return (
     <BlackWindowModal isOpen={isWindowOpen}>

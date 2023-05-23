@@ -1,4 +1,5 @@
 import {
+  useLazyGetTransitionQuery,
   useAddTransitionMutation,
   useAcceptTransitionMutation,
 } from "../../App/store/api/transition";
@@ -18,11 +19,18 @@ interface IAddTrans {
 
 export const useTransitionLogic = () => {
   // --------------------- LOCAL ------------------------ //
-  const { toggleSendGroupWindow, removeReceivingLocal, addReceivingLocal } =
-    useBoxLocal();
+  const {
+    toggleSendGroupWindow,
+    removeReceivingLocal,
+    addReceivingLocal,
+    addToReceivingAllLocal,
+  } = useBoxLocal();
   const { updateGroupAllIdLocal, addOneGroupLocal, deleteGroupLocal } = useGroupLocal();
 
   // --------------------- SERVER ------------------------ //
+  const [getTransitionsApi, getTransitionsApiResult] = useLazyGetTransitionQuery();
+  useRequestProcess(getTransitionsApiResult);
+
   const [addTransitionApi, addTransitionApiResult] = useAddTransitionMutation();
   useRequestProcess(addTransitionApiResult);
 
@@ -30,6 +38,15 @@ export const useTransitionLogic = () => {
   useRequestProcess(acceptTransitionApiResult);
 
   // --------------------- ACTION ------------------------ //
+  const getTransitions = async (user_id: number) => {
+    await getTransitionsApi(user_id)
+      .unwrap()
+      .then((response) => {
+        console.log(response, "response");
+        addToReceivingAllLocal(response);
+      });
+  };
+
   const addTransition = async (arg: IAddTrans) => {
     // Local
     toggleSendGroupWindow();
@@ -80,5 +97,6 @@ export const useTransitionLogic = () => {
   return {
     addTransition,
     acceptTransition,
+    getTransitions,
   };
 };

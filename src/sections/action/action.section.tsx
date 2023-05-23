@@ -15,6 +15,7 @@ import { ActionStyle, LocalActions } from "./action.style";
 // Топи логику переместить сюда
 const ActionSection = memo(() => {
   const incomingCount = useAppSelector((state) => state.friends.incomingList.length);
+  const receivingCount = useAppSelector((state) => state.box.receivingBox.length);
 
   const { toggleFriendsWindow } = useFriendsLocal();
   const { toggleReceivingBoxWindow } = useBoxLocal();
@@ -28,6 +29,7 @@ const ActionSection = memo(() => {
           title="Receiving box"
           type="window"
           actionHandler={toggleReceivingBoxWindow}
+          newCount={receivingCount}
         />
         <SettingAction
           icon={icons.friends}

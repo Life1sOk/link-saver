@@ -5,6 +5,9 @@ export const transitionApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/transition" }),
   tagTypes: ["Transition"],
   endpoints: (builder) => ({
+    getTransition: builder.query({
+      query: (user_id) => ({ url: `/${user_id}` }),
+    }),
     addTransition: builder.mutation({
       query: (body) => ({
         url: "/add",
@@ -22,4 +25,8 @@ export const transitionApi = createApi({
   }),
 });
 
-export const { useAddTransitionMutation, useAcceptTransitionMutation } = transitionApi;
+export const {
+  useLazyGetTransitionQuery,
+  useAddTransitionMutation,
+  useAcceptTransitionMutation,
+} = transitionApi;

@@ -20,6 +20,7 @@ export const Title = styled.h2``;
 export const GroupsStore = styled.div`
   width: 100%;
   height: 100%;
+  min-height: 333px;
 
   padding: 15px 3px;
   overflow-y: scroll;
