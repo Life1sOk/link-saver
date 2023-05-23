@@ -9,6 +9,7 @@ import { icons } from "../../utils/react-icons";
 import { TopicMainStyle, Title, MarkIcon, Count } from "./topic-main.style";
 
 const TopicMain = () => {
+  const userId = useAppSelector((state) => state.user.profile.id);
   const activeTopic = useAppSelector((state) => state.topicsLocal.window.activeTopic);
   const currentCount = useAppSelector((state) => state.topicsLocal.count[`Main`]);
 
@@ -20,8 +21,8 @@ const TopicMain = () => {
   };
 
   useEffect(() => {
-    getGroupCount({ id: 0, topic_title: "Main" });
-  }, []);
+    if (userId > 0) getGroupCount({ id: 0, topic_title: "Main" }, userId);
+  }, [userId]);
 
   return (
     <TopicMainStyle onClick={defaultMain} isActive={activeTopic.topic_title === "Main"}>

@@ -7,6 +7,7 @@ import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
 
 import { useBoxLocal } from "../helper-dispatch/useBoxLocal";
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
+import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
 
 import { IGroupGet } from "../interfaces/group";
 import { ITransRece } from "../interfaces/transition";
@@ -26,6 +27,7 @@ export const useTransitionLogic = () => {
     addToReceivingAllLocal,
   } = useBoxLocal();
   const { updateGroupAllIdLocal, addOneGroupLocal, deleteGroupLocal } = useGroupLocal();
+  const { resetTopicWindow } = useTopicLocal();
 
   // --------------------- SERVER ------------------------ //
   const [getTransitionsApi, getTransitionsApiResult] = useLazyGetTransitionQuery();
@@ -57,9 +59,11 @@ export const useTransitionLogic = () => {
 
   const acceptTransition = async (arg: ITransRece, user_id: number) => {
     const { group, transition_id } = arg;
+    // Active topic 'MAIN'
 
     // Local
     addOneGroupLocal(group);
+    resetTopicWindow();
     removeReceivingLocal(transition_id);
 
     // Prep for transition

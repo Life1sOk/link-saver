@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ButtonWrapper = styled.div<{ sectionType: string }>`
   width: 100%;
-  height: 33px;
+  min-width: 63px;
 
   display: flex;
   align-items: center;
@@ -22,11 +22,23 @@ export const ButtonWrapper = styled.div<{ sectionType: string }>`
       : sectionType === "group"
       ? theme.group.marker
       : theme.link.marker};
+
+  &:hover {
+    cursor: pointer;
+
+    color: white;
+    background-color: ${({ theme, sectionType }) =>
+      sectionType === "topic"
+        ? theme.topic.marker
+        : sectionType === "group"
+        ? theme.group.marker
+        : theme.link.marker};
+  }
 `;
 
 export const ButtonStyle = styled.button`
   width: 100%;
-  padding: 8px 17px 8px 12px;
+  padding: 3px 17px 3px 12px;
   background-color: transparent;
 
   border: none;
@@ -37,6 +49,10 @@ export const ButtonStyle = styled.button`
   font-weight: 600;
   font-family: "Ysabeau", sans-serif;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   &:active {
     opacity: 0.9;
   }
@@ -46,33 +62,22 @@ export const ColorBold = styled.div<{ sectionType: string }>`
   width: 25px;
   height: 100%;
 
-  color: ${({ theme, sectionType }) =>
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: ${({ theme, sectionType }) =>
     sectionType === "topic"
       ? theme.topic.marker
       : sectionType === "group"
       ? theme.group.marker
       : theme.link.marker};
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-right: 1px solid
-    ${({ theme, sectionType }) =>
-      sectionType === "topic"
-        ? theme.topic.marker
-        : sectionType === "group"
-        ? theme.group.marker
-        : theme.link.marker};
+  border-right: 1px solid;
 
   & svg {
     width: 25px;
     height: 25px;
-    fill: ${({ theme, sectionType }) =>
-      sectionType === "topic"
-        ? theme.topic.marker
-        : sectionType === "group"
-        ? theme.group.marker
-        : theme.link.marker};
+    fill: white;
   }
 `;

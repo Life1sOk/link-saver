@@ -5,7 +5,7 @@ import { useAppSelector } from "../../App/store/hooks";
 import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
 import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
 
-import SettingsBlock from "../../blocks/settings/settings.block";
+import HoleBlock from "../../blocks/hole/hole.block";
 import AddBlock from "../../blocks/add/add.block";
 
 import SettingAction from "../../components/setting-action/setting-action.component";
@@ -39,7 +39,7 @@ const ActionSection = memo(() => {
           newCount={incomingCount}
         />
       </LocalActions>
-      <SettingsBlock />
+      <HoleBlock />
     </ActionStyle>
   );
 });

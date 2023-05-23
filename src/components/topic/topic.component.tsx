@@ -71,7 +71,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
 
   useEffect(() => {
     if (topic.id > 1683451657031) return;
-    getGroupCount(topic);
+    getGroupCount(topic, userId);
   }, []);
 
   return (

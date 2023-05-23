@@ -37,9 +37,9 @@ export const useTopicLogic = () => {
   // --------------------- ACTION ------------------------ //
 
   // GET TOPIC'S GROUP COUNT
-  const getGroupCount = async (topic: ITopic) => {
+  const getGroupCount = async (topic: ITopic, user_id: number) => {
     // Server
-    await getTopicCount(topic.id)
+    await getTopicCount({ topic_id: topic.id, user_id })
       .unwrap()
       .then((count) => {
         // Local

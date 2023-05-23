@@ -19,4 +19,8 @@ export const UserWrapper = styled.div`
   margin: 0 5px 5px 0;
 
   flex-shrink: 0;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

@@ -1,6 +1,7 @@
 import { AiFillFolderAdd } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
 import { BsArrowBarLeft } from "react-icons/bs";
+import { GiHole } from "react-icons/gi";
 import {
   TbPencil,
   TbTrash,
@@ -41,4 +42,5 @@ export const icons = {
   send: <TbCubeSend />,
   friends: <TbFriends />,
   box: <TbBox />,
+  hole: <GiHole />,
 };

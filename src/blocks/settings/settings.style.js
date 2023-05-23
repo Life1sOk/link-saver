@@ -1,14 +1,25 @@
 import styled from "styled-components";
 
 export const SettingsBlockStyle = styled.div`
+  width: 100%;
+  height: 100%;
+  max-height: 222px;
+  padding: 0 10%;
   background-color: ${({ theme }) => theme.background.sections};
 
-  padding-left: 12px;
-
-  border-left: 1px solid ${({ theme }) => theme.border};
+  border-radius: 5px 0 0 5px;
+  border: 1px solid ${({ theme }) => theme.border};
 
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
+
+  & > div {
+    width: 100%;
+
+    justify-content: flex-start;
+    gap: 12px;
+  }
 `;

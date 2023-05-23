@@ -38,18 +38,16 @@ const SettingsBlock = () => {
     <SettingsBlockStyle>
       <ReportModal visible={isModal} onClose={closeModalHandler} />
       <SettingAction
-        title="Theme"
-        mode="icon-only"
+        title="Pick theme  ?"
         icon={icons.themePick}
         actionHandler={toggleThemeHandler}
       />
       <SettingAction
-        title="Report"
-        mode="icon-only"
+        title="Report  ?"
         actionHandler={openModalHandler}
         icon={icons.exclamation}
       />
-      <SettingAction title="FAQ" icon={icons.question} mode="icon-only" />
+      <SettingAction title="FAQ  ?" icon={icons.question} />
       <SettingAction title="Log out" icon={icons.logout} actionHandler={logOutHandler} />
     </SettingsBlockStyle>
   );

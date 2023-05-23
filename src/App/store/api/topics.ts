@@ -14,8 +14,8 @@ export const topicsApi = createApi({
       query: (user_id) => ({ url: `/${user_id}` }),
       providesTags: ["Topics"],
     }),
-    getTopicsGroupCount: builder.query<{}, number>({
-      query: (topic_id) => ({ url: `/group_count/${topic_id}` }),
+    getTopicsGroupCount: builder.query<{}, { user_id: number; topic_id: number }>({
+      query: ({ user_id, topic_id }) => ({ url: `/group_count/${user_id}&${topic_id}` }),
     }),
     addTopicByUserId: builder.mutation<void, IPostTopic>({
       query: (body) => ({

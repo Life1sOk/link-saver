@@ -12,9 +12,9 @@ interface IButton {
 
 const ButtonNew = ({ name, actionHandle, type, form, sectionType }: IButton) => {
   return (
-    <ButtonWrapper sectionType={sectionType}>
+    <ButtonWrapper sectionType={sectionType} onClick={actionHandle}>
       <ColorBold sectionType={sectionType}>{icons.marker}</ColorBold>
-      <ButtonStyle form={form} onClick={actionHandle} type={type}>
+      <ButtonStyle form={form} type={type}>
         {name}
       </ButtonStyle>
     </ButtonWrapper>
