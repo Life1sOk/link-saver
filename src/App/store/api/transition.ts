@@ -18,7 +18,14 @@ export const transitionApi = createApi({
     acceptTransition: builder.mutation({
       query: (body) => ({
         url: "/accept",
-        method: "POST",
+        method: "PUT",
+        body,
+      }),
+    }),
+    cancelTransition: builder.mutation<void, { transition_id: number }>({
+      query: (body) => ({
+        url: "/cancel",
+        method: "DELETE",
         body,
       }),
     }),
@@ -29,4 +36,5 @@ export const {
   useLazyGetTransitionQuery,
   useAddTransitionMutation,
   useAcceptTransitionMutation,
+  useCancelTransitionMutation,
 } = transitionApi;

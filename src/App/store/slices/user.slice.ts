@@ -25,11 +25,10 @@ export const userSlice = createSlice({
       state.profile = payload;
     },
     usersSessionStore: (state, { payload }: PayloadAction<any>) => {
-      const { data } = payload;
-      state.session = data;
+      state.session = payload;
 
-      if (data?.token) {
-        window.sessionStorage.setItem("token", data.token);
+      if (payload?.token) {
+        window.sessionStorage.setItem("token", payload.token);
       }
     },
     usersSessionStoreByToken: (state, { payload }: PayloadAction<any>) => {
@@ -37,8 +36,8 @@ export const userSlice = createSlice({
 
       state.session = {
         token,
-        user_id: response.data.user_id || -1,
-        success: response.data.success,
+        user_id: response.user_id || -1,
+        success: response.success,
       };
     },
   },

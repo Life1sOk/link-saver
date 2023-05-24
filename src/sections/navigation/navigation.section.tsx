@@ -7,7 +7,6 @@ import { useGetUserProfileQuery } from "../../App/store/api/user";
 // Blocks
 import TopicsBlock from "../../blocks/topics/topics.block";
 import SettingsBlock from "../../blocks/settings/settings.block";
-import InfoBlock from "../../blocks/hole/hole.block";
 
 // Components
 import TopicMain from "../../components/topic-main/topic-main.component";
@@ -36,7 +35,6 @@ const NavigationSection = memo(() => {
       <TopicMain />
       <TopicsBlock />
       <SettingsBlock />
-      {/* <InfoBlock /> */}
     </NavigationStyle>
   );
 });

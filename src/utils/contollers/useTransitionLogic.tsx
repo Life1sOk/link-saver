@@ -2,6 +2,7 @@ import {
   useLazyGetTransitionQuery,
   useAddTransitionMutation,
   useAcceptTransitionMutation,
+  useCancelTransitionMutation,
 } from "../../App/store/api/transition";
 import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
 
@@ -26,8 +27,9 @@ export const useTransitionLogic = () => {
     addReceivingLocal,
     addToReceivingAllLocal,
   } = useBoxLocal();
-  const { updateGroupAllIdLocal, addOneGroupLocal, deleteGroupLocal } = useGroupLocal();
-  const { resetTopicWindow } = useTopicLocal();
+  const { updateGroupAllIdLocal, addOneGroupLocal, deleteGroupLocal, pullGroupLocal } =
+    useGroupLocal();
+  const { resetTopicWindow, incTopicCountLocal, decTopicCountLocal } = useTopicLocal();
 
   // --------------------- SERVER ------------------------ //
   const [getTransitionsApi, getTransitionsApiResult] = useLazyGetTransitionQuery();
@@ -39,12 +41,14 @@ export const useTransitionLogic = () => {
   const [acceptTransitionApi, acceptTransitionApiResult] = useAcceptTransitionMutation();
   useRequestProcess(acceptTransitionApiResult);
 
+  const [cancelTransitionApi, cancelTransitionApiResult] = useCancelTransitionMutation();
+  useRequestProcess(cancelTransitionApiResult);
+
   // --------------------- ACTION ------------------------ //
   const getTransitions = async (user_id: number) => {
     await getTransitionsApi(user_id)
       .unwrap()
       .then((response) => {
-        console.log(response, "response");
         addToReceivingAllLocal(response);
       });
   };
@@ -60,10 +64,11 @@ export const useTransitionLogic = () => {
   const acceptTransition = async (arg: ITransRece, user_id: number) => {
     const { group, transition_id } = arg;
     // Active topic 'MAIN'
-
-    // Local
-    addOneGroupLocal(group);
     resetTopicWindow();
+    // // Local
+    pullGroupLocal(false);
+    addOneGroupLocal(group);
+    incTopicCountLocal({ key: "Main" });
     removeReceivingLocal(transition_id);
 
     // Prep for transition
@@ -85,14 +90,34 @@ export const useTransitionLogic = () => {
             user_id,
             links_id: response.links,
           };
-
           updateGroupAllIdLocal(prepObj);
+          pullGroupLocal(true);
         }
       })
       .catch((err) => {
         // Back chages
         if (err) {
+          addReceivingLocal(arg);
           deleteGroupLocal(group.id);
+          decTopicCountLocal({ key: "Main" });
+          pullGroupLocal(true);
+        }
+      });
+  };
+
+  const cancleTransition = async (arg: ITransRece) => {
+    const { transition_id } = arg;
+    console.log(transition_id, "arg");
+    // Local
+    removeReceivingLocal(transition_id);
+
+    // Server
+    await cancelTransitionApi({ transition_id })
+      .unwrap()
+      .then(console.log)
+      .catch((err) => {
+        // Back changes
+        if (err) {
           addReceivingLocal(arg);
         }
       });
@@ -102,5 +127,6 @@ export const useTransitionLogic = () => {
     addTransition,
     acceptTransition,
     getTransitions,
+    cancleTransition,
   };
 };

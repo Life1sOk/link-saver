@@ -23,6 +23,8 @@ const GroupsSection = () => {
   );
   const user_id = useAppSelector((state) => state.user.session.user_id);
   const localGroups = useAppSelector((state) => state.groupsLocal.data);
+  const isGroupPull = useAppSelector((state) => state.groupsLocal.pull);
+
   const activeTopicTitle = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic.topic_title
   );
@@ -45,8 +47,8 @@ const GroupsSection = () => {
     transitionToTopic(topic, group, activeTopicTitle);
 
   useEffect(() => {
-    getGroupsStore(id, user_id);
-  }, [id, user_id]);
+    if (isGroupPull) getGroupsStore(id, user_id);
+  }, [id, user_id, isGroupPull]);
 
   if (getGroupsStoreResult.isFetching) {
     return (

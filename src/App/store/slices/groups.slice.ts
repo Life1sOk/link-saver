@@ -34,8 +34,8 @@ export const groupsSlice = createSlice({
     localGroupsStore: (state, { payload }: PayloadAction<IGroupGet[]>) => {
       state.data = payload;
     },
-    openGroupPull: (state) => {
-      state.pull = true;
+    groupsPull: (state, { payload }: PayloadAction<boolean>) => {
+      state.pull = payload;
     },
     addOneGroup: (state, { payload }: PayloadAction<IGroupGet>) => {
       state.data.unshift(payload);
@@ -134,7 +134,7 @@ export const groupsSlice = createSlice({
 
 export const {
   localGroupsStore,
-  openGroupPull,
+  groupsPull,
   addOneGroup,
   updateGroupTitle,
   addCurrentLink,

@@ -2,7 +2,7 @@ import { useAppDispatch } from "../../App/store/hooks";
 
 import {
   localGroupsStore,
-  openGroupPull,
+  groupsPull,
   addOneGroup,
   updateGroupTitle,
   deleteGroup,
@@ -69,7 +69,7 @@ export const useGroupLocal = () => {
 
   // CRUD
   const addAllGroupsLocal = (arg: IGroupGet[]) => dispatch(localGroupsStore(arg));
-  const openGroupPullLocal = () => dispatch(openGroupPull());
+  const pullGroupLocal = (arg: boolean) => dispatch(groupsPull(arg));
 
   const addOneGroupLocal = (arg: IGroupGet) => dispatch(addOneGroup(arg));
   const updateGroupTitleLocal = (arg: IUpTitle) => dispatch(updateGroupTitle(arg));
@@ -94,7 +94,7 @@ export const useGroupLocal = () => {
 
   return {
     addAllGroupsLocal,
-    openGroupPullLocal,
+    pullGroupLocal,
     addOneGroupLocal,
     updateGroupTitleLocal,
     updateGroupIdLocal,

@@ -18,31 +18,36 @@ const Routing = () => {
   const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.user.profile);
-  const usersSession = useAppSelector((state) => state.user?.session);
+  const usersSession = useAppSelector((state) => state.user.session);
 
   // Отправка запроса на сервер
-  const [loginByTokenAPI, { isSuccess }] = useLoginByTokenMutation();
+  const [loginByTokenAPI] = useLoginByTokenMutation();
 
   useEffect(() => {
     const activeToken = window.sessionStorage.getItem("token");
 
     if (activeToken && !usersSession.success) {
       const loginUserByToken = async () => {
-        const userId = await loginByTokenAPI({ token: activeToken });
-
-        if (isSuccess)
-          dispatch(usersSessionStoreByToken({ token: activeToken, response: userId }));
+        await loginByTokenAPI({ token: activeToken })
+          .unwrap()
+          .then((response) => {
+            dispatch(usersSessionStoreByToken({ token: activeToken, response }));
+          });
       };
 
       loginUserByToken();
     }
+  }, [usersSession, loginByTokenAPI, dispatch]);
+
+  useEffect(() => {
+    const activeToken = window.sessionStorage.getItem("token");
 
     if (activeToken && usersSession.success) {
       navigate("/main");
     } else {
       navigate("/");
     }
-  }, [loginByTokenAPI, dispatch, usersSession, navigate, isSuccess, user.id]);
+  }, [usersSession, navigate, user.id]);
 
   return (
     <PageWrapper>
@@ -51,7 +56,7 @@ const Routing = () => {
         <Route index element={<SigninPage />} />
         <Route
           path="main"
-          element={usersSession.success ? <MainPage /> : <GandalfWall />}
+          element={usersSession?.success ? <MainPage /> : <GandalfWall />}
         />
       </Routes>
     </PageWrapper>

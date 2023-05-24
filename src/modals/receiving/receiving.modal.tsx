@@ -27,11 +27,13 @@ const ReceivingModal = () => {
   const receivingBox = useAppSelector((state) => state.box.receivingBox);
 
   const { toggleReceivingBoxWindow } = useBoxLocal();
-  const { acceptTransition, getTransitions } = useTransitionLogic();
+  const { acceptTransition, getTransitions, cancleTransition } = useTransitionLogic();
 
-  const acceptTransitionHandler = async (data: ITransRece) => {
+  const acceptTransitionHandler = async (data: ITransRece) =>
     await acceptTransition(data, userId);
-  };
+
+  const cancelTransitionHandler = async (data: ITransRece) =>
+    await cancleTransition(data);
 
   useEffect(() => {
     if (isPull && userId > 0) getTransitions(userId);
@@ -42,15 +44,18 @@ const ReceivingModal = () => {
       <ReceivingModalStyle onClick={(e) => e.stopPropagation()}>
         <Title>Receiving Box:</Title>
         <GroupsStore>
-          {receivingBox.map((data) => (
-            <GroupWrapper key={data.transition_id}>
+          {receivingBox.map((data, index) => (
+            <GroupWrapper key={index}>
               <UserDisplay
                 user={data.from}
                 actionHandlerOne={{
                   action: () => acceptTransitionHandler(data),
                   call: "Accept",
                 }}
-                actionHandlerTwo={{ action: () => {}, call: "Fuck off" }}
+                actionHandlerTwo={{
+                  action: () => cancelTransitionHandler(data),
+                  call: "Fuck off",
+                }}
               />
               <GroupDefault data={data.group} />
             </GroupWrapper>
