@@ -41,6 +41,6 @@ export const useConnectSse = () => {
   };
 
   useEffect(() => {
-    if (userId > -1) getMessage();
+    if (userId > 0) getMessage();
   }, [userId]);
 };

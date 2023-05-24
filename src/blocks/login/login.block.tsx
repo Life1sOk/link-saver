@@ -1,8 +1,6 @@
 import { useRef, useState } from "react";
 
-import { useAppDispatch } from "../../App/store/hooks";
-import { usersSessionStore } from "../../App/store/slices/user.slice";
-import { useLoginMutation } from "../../App/store/api/user";
+import { useAuthorisationLogic } from "../../utils/contollers/useAuthorisationLogic";
 
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
@@ -18,17 +16,15 @@ interface ILogin {
 const LoginBlock = ({ changeBlock }: ILogin) => {
   const [errorMess, setErrorMess] = useState("An error occurred while logging in.");
 
-  const dispatch = useAppDispatch();
-
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
+
+  const { loginUser, loginUserApiResult } = useAuthorisationLogic();
 
   // Изменяем блоки
   const changeHandler = () => changeBlock("registration");
 
   // Отправка запроса на сервер
-  const [loginMutation, { isLoading, isError }] = useLoginMutation();
-
   const onSubmit = async (event: React.SyntheticEvent) => {
     event.preventDefault();
 
@@ -37,18 +33,12 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
       password: passwordRef.current?.value!,
     };
 
-    // User
-    await loginMutation(loginObj)
-      .unwrap()
-      .then((response) => {
-        dispatch(usersSessionStore(response));
-      })
-      .catch((err) => {
-        setErrorMess(err.data);
-      });
+    await loginUser(loginObj).catch((err) => {
+      setErrorMess(err.data);
+    });
   };
 
-  if (isLoading) return <LoadingSpinner />;
+  if (loginUserApiResult.isLoading) return <LoadingSpinner />;
 
   return (
     <LoginWrapper>
@@ -57,10 +47,15 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
         <Input type="email" label="Email" ref={emailRef} required />
         <Input type="password" label="Password:" ref={passwordRef} required />
         <ButtonLine>
-          <Button name="Log in" type="submit" form="login" disabled={isLoading} />
+          <Button
+            name="Log in"
+            type="submit"
+            form="login"
+            disabled={loginUserApiResult.isLoading}
+          />
           <Button name="Registration" actionHandle={changeHandler} type="button" />
         </ButtonLine>
-        {isError && <p>{errorMess}</p>}
+        {loginUserApiResult.isError && <p>{errorMess}</p>}
       </LogInPageStyle>
     </LoginWrapper>
   );

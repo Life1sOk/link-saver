@@ -1,8 +1,8 @@
 import { useState, useEffect, ChangeEvent } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
-import { useLazyGetUsersSearchQuery } from "../../App/store/api/user";
 import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
+import { useUserLogic } from "../../utils/contollers/useUserLogic";
 import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
@@ -25,7 +25,7 @@ const UserSearch = () => {
   const debouncedValue = useDebounce(value, 500);
 
   const { addSearchListLocal } = useFriendsLocal();
-  const [getUsersSearchApi, result] = useLazyGetUsersSearchQuery();
+  const { getUserSearch, getUserSearchApiResult: result } = useUserLogic();
 
   const { inviteFriend } = useFriendsLogic();
 
@@ -41,11 +41,7 @@ const UserSearch = () => {
 
   // Run server search
   const getUsersSearchHandler = async () => {
-    await getUsersSearchApi({ user: userId, value: debouncedValue })
-      .unwrap()
-      .then((users) => {
-        if (users) addSearchListLocal(users);
-      });
+    await getUserSearch(userId, debouncedValue);
   };
 
   useEffect(() => {
@@ -56,13 +52,17 @@ const UserSearch = () => {
   return (
     <SearchBlockStyle>
       <Input type="text" label="" placeholder="By user's email" change={handleChange} />
-      {searchResult.length < 1 ? (
-        <DefaultAndSpin>
-          <BlankModal title="users" />
-        </DefaultAndSpin>
-      ) : result.isFetching || result.isLoading ? (
+      {result.isFetching || result.isLoading ? (
         <DefaultAndSpin>
           <LoadingSpinner />
+        </DefaultAndSpin>
+      ) : result.data && result.data.length <= 0 ? (
+        <DefaultAndSpin>
+          <span>No such a users</span>
+        </DefaultAndSpin>
+      ) : searchResult.length < 1 ? (
+        <DefaultAndSpin>
+          <BlankModal title="users" />
         </DefaultAndSpin>
       ) : (
         <FindedUsers>

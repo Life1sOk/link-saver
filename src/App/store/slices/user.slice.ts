@@ -24,14 +24,14 @@ export const userSlice = createSlice({
     usersDataStore: (state, { payload }: PayloadAction<IUser>) => {
       state.profile = payload;
     },
-    usersSessionStore: (state, { payload }: PayloadAction<any>) => {
+    usersSessionStore: (state, { payload }) => {
       state.session = payload;
 
       if (payload?.token) {
         window.sessionStorage.setItem("token", payload.token);
       }
     },
-    usersSessionStoreByToken: (state, { payload }: PayloadAction<any>) => {
+    usersSessionStoreByToken: (state, { payload }) => {
       const { token, response } = payload;
 
       state.session = {

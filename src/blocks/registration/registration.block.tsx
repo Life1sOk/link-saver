@@ -1,9 +1,6 @@
-import { useRef, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
-import { useAppDispatch } from "../../App/store/hooks";
-import { usersSessionStore } from "../../App/store/slices/user.slice";
-import { useRegisterMutation } from "../../App/store/api/user";
+import { useAuthorisationLogic } from "../../utils/contollers/useAuthorisationLogic";
 
 import Button from "../../components/button/button.component";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
@@ -17,9 +14,6 @@ interface ILogin {
 }
 
 const RegistrationBlock = ({ changeBlock }: ILogin) => {
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
-
   const userNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -37,7 +31,7 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   }
 
   // Запрос на сервер
-  const [registerUserApi, { isSuccess, isLoading }] = useRegisterMutation();
+  const { registerUser, registerUserApiResult } = useAuthorisationLogic();
 
   const submitHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -58,20 +52,14 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
     }
 
     // User
-    const response = await registerUserApi({
+    await registerUser({
       username: username,
       email: email,
       password: password,
     });
-
-    dispatch(usersSessionStore(response));
   };
 
-  useEffect(() => {
-    if (isSuccess) navigate("/main");
-  }, [isSuccess, navigate]);
-
-  if (isLoading) return <LoadingSpinner />;
+  if (registerUserApiResult.isLoading) return <LoadingSpinner />;
 
   return (
     <RegistartionWrapper>
