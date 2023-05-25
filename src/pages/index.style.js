@@ -5,6 +5,10 @@ export const GlobalStyle = createGlobalStyle`
     background-color: ${({ theme }) => theme.background.main};
     color: ${({ theme }) => theme.color};
   }
+
+  ol,ul {
+    list-style-type: none;
+  }
 `;
 
 export const PageWrapper = styled.div`

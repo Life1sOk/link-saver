@@ -10,6 +10,7 @@ import TitleSection from "../../components/title-section/title-section.component
 import Linker from "../../components/linker/linker.component";
 
 import { IShortLink } from "../../utils/interfaces/link";
+import DragDrop from "../../utils/drag-drop/drag-drop.wrapper";
 
 import BlankModal from "../../shared/blank/blank-section.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
@@ -38,8 +39,8 @@ const GenericsSection = () => {
   };
 
   useEffect(() => {
-    if (generics) addAllGenericsLocal(generics);
-  }, [generics, addAllGenericsLocal, localGenericLinks]);
+    if (generics && generics?.length > 0) addAllGenericsLocal(generics);
+  }, [generics, addAllGenericsLocal]);
 
   return (
     <GenericsWrapper isTransfer={activeGroup.isActive}>
@@ -47,14 +48,15 @@ const GenericsSection = () => {
       <LinksWrapper>
         {localGenericLinks.length > 0 ? (
           localGenericLinks.map((current, index) => (
-            <Linker
-              data={current}
-              key={index}
-              position="generics"
-              isActive={activeGroup.isActive}
-              deleteLink={deleteLinkHandler}
-              linkTransitionHandler={linkTransitionToGroupHandler}
-            />
+            <DragDrop key={index}>
+              <Linker
+                data={current}
+                position="generics"
+                isActive={activeGroup.isActive}
+                deleteLink={deleteLinkHandler}
+                linkTransitionHandler={linkTransitionToGroupHandler}
+              />
+            </DragDrop>
           ))
         ) : (
           <BlankModal title="link" />

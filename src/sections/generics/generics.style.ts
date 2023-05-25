@@ -18,7 +18,7 @@ export const GenericsWrapper = styled.aside<{ isTransfer: boolean }>`
   flex-direction: column;
 `;
 
-export const LinksWrapper = styled.div`
+export const LinksWrapper = styled.ul`
   position: relative;
 
   width: 100%;
