@@ -6,8 +6,8 @@ export interface IUser {
 }
 
 export interface IUserFrom {
-  username: string;
-  email: string;
+  username: string | null;
+  email: string | null;
 }
 
 export interface IUserTrans {

@@ -23,7 +23,7 @@ export const useAuthorisationLogic = () => {
   const navigate = useNavigate();
 
   // --------------------- LOCAL ------------------------ //
-  const { storeSession, storeSessionByToken } = useUserLocal();
+  const { storeSessionLocal, storeSessionByTokenLocal } = useUserLocal();
 
   // --------------------- SERVER ------------------------ //
   const [registerUserApi, registerUserApiResult] = useRegisterMutation();
@@ -35,7 +35,7 @@ export const useAuthorisationLogic = () => {
     await registerUserApi(arg)
       .unwrap()
       .then((response) => {
-        storeSession(response);
+        storeSessionLocal(response);
         navigate("/main");
       });
   };
@@ -45,7 +45,7 @@ export const useAuthorisationLogic = () => {
     await loginUserApi(loginObj)
       .unwrap()
       .then((response) => {
-        storeSession(response);
+        storeSessionLocal(response);
         navigate("/main");
       });
   };
@@ -54,7 +54,7 @@ export const useAuthorisationLogic = () => {
     await loginTokenUserApi({ token })
       .unwrap()
       .then((response) => {
-        storeSessionByToken({ token, response });
+        storeSessionByTokenLocal({ token, response });
         navigate("/main");
       });
   };

@@ -3,7 +3,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { IUser, IAuthResponse } from "../../../utils/interfaces/user";
 
-const initialState: { session: IAuthResponse; profile: IUser } = {
+interface IUserSlice {
+  session: IAuthResponse;
+  profile: IUser;
+  isProfileWindow: boolean;
+}
+
+const initialState: IUserSlice = {
   session: {
     user_id: -1,
     token: "",
@@ -14,6 +20,7 @@ const initialState: { session: IAuthResponse; profile: IUser } = {
     username: "",
     email: "",
   },
+  isProfileWindow: false,
 };
 
 // dont use this slice;
@@ -40,10 +47,24 @@ export const userSlice = createSlice({
         success: response.success,
       };
     },
+    toggleWindow: (state) => {
+      state.isProfileWindow = !state.isProfileWindow;
+    },
+    updateProfile: (state, { payload }) => {
+      const { username, email } = payload;
+
+      if (username) state.profile.username = username;
+      if (email) state.profile.email = email;
+    },
   },
 });
 
-export const { usersDataStore, usersSessionStore, usersSessionStoreByToken } =
-  userSlice.actions;
+export const {
+  usersDataStore,
+  usersSessionStore,
+  usersSessionStoreByToken,
+  toggleWindow,
+  updateProfile,
+} = userSlice.actions;
 
 export default userSlice.reducer;

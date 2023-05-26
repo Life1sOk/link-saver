@@ -1,4 +1,4 @@
-import { forwardRef, ChangeEvent } from "react";
+import { forwardRef, ChangeEvent, useId } from "react";
 import { InputWrapper, InputStyle, InputLabel } from "./input.style";
 
 interface IInput {
@@ -17,7 +17,7 @@ const Input = forwardRef<HTMLInputElement, IInput>(
         {label && <InputLabel htmlFor={label}>{label}</InputLabel>}
         <InputStyle
           type={type}
-          id={label}
+          id={useId()}
           required={required}
           ref={ref}
           defaultValue={defaultValue}

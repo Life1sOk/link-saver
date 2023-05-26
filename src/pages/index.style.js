@@ -9,11 +9,13 @@ export const GlobalStyle = createGlobalStyle`
   ol,ul {
     list-style-type: none;
   }
+
+  div {
+    transition: all 0.3s;
+  }
 `;
 
 export const PageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
-
-  transition: all 0.2;
 `;

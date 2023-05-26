@@ -4,20 +4,31 @@ import {
   usersDataStore,
   usersSessionStore,
   usersSessionStoreByToken,
+  toggleWindow,
+  updateProfile,
 } from "../../App/store/slices/user.slice";
 
-import { IUser } from "../interfaces/user";
+import { IUser, IUserFrom } from "../interfaces/user";
 
 export const useUserLocal = () => {
   const dispatch = useAppDispatch();
 
-  const storeProfile = (arg: IUser) => dispatch(usersDataStore(arg));
-  const storeSession = (arg: any) => dispatch(usersSessionStore(arg));
-  const storeSessionByToken = (arg: any) => dispatch(usersSessionStoreByToken(arg));
+  // Session
+  const storeSessionLocal = (arg: any) => dispatch(usersSessionStore(arg));
+  const storeSessionByTokenLocal = (arg: any) => dispatch(usersSessionStoreByToken(arg));
+
+  // Profile
+  const storeProfileLocal = (arg: IUser) => dispatch(usersDataStore(arg));
+  const updateProfileLocal = (arg: IUserFrom) => dispatch(updateProfile(arg));
+
+  // Toggle
+  const toggleProfileWindow = () => dispatch(toggleWindow());
 
   return {
-    storeProfile,
-    storeSession,
-    storeSessionByToken,
+    storeProfileLocal,
+    storeSessionLocal,
+    storeSessionByTokenLocal,
+    toggleProfileWindow,
+    updateProfileLocal,
   };
 };

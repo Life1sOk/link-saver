@@ -27,7 +27,7 @@ const UserDisplay = ({ user, actionHandlerOne, status, actionHandlerTwo }: IuD) 
   return (
     <WrapperWrapper>
       <UserWrapper>
-        <User username={user.username} email={user.email} />
+        <User username={user.username!} email={user.email!} />
       </UserWrapper>
       <StatusWrapper>
         {status && <Status status={status}>{status}</Status>}
