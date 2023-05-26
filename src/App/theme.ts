@@ -13,7 +13,7 @@ export const light = {
   group: {
     marker: "rgb(255, 117, 101)",
     background: "rgb(230, 240, 255)",
-    border: "rgb(15, 35, 80)",
+    border: "rgb(255, 117, 101)",
     icon: null,
     active: "rgb(238, 82, 68)",
   },

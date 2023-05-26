@@ -38,9 +38,14 @@ export const GroupsWrapper = styled.div`
 
   overflow: scroll;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(278px, 278px));
+  justify-content: center;
+  grid-gap: 55px;
+
+  /* display: flex;
   justify-content: space-around;
   align-content: flex-start;
   flex-wrap: wrap;
-  gap: 33px;
+  gap: 33px; */
 `;

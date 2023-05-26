@@ -10,8 +10,10 @@ export const GlobalStyle = createGlobalStyle`
     list-style-type: none;
   }
 
-  div {
+  ${
+    "" /* div {
     transition: all 0.3s;
+  } */
   }
 `;
 
