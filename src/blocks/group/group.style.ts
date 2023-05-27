@@ -14,10 +14,14 @@ export const GroupStyle = styled.div<{ isActive: boolean }>`
   /* border: 1px solid ${({ theme }) => theme.group.marker}; // */
   background-color: white;
   border-radius: 5px;
-
+  /*   
   -webkit-box-shadow: 0px 0px 5px 3px rgba(255, 117, 101, 0.3);
   -moz-box-shadow: 0px 0px 5px 3px rgba(255, 117, 101, 0.3);
-  box-shadow: 0px 0px 5px 3px rgba(255, 117, 101, 0.3);
+  box-shadow: 0px 0px 5px 3px rgba(255, 117, 101, 0.3); */
+
+  -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
 
   display: flex;
   flex-direction: column;
