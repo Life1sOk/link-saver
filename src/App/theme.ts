@@ -29,7 +29,6 @@ export const light = {
     background: "rgb(255,255,255)",
     active: "rgba(0, 128, 255)",
     hover: "rgba(0, 128, 255, .5)",
-    border: "rgb(15, 35, 80)",
     news: "#e145a5",
   },
 };

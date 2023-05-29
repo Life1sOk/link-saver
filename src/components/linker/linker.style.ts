@@ -76,3 +76,39 @@ export const IconWrapper = styled.div<{ status?: number }>`
     cursor: pointer;
   }
 `;
+
+export const UpAction = styled.span`
+  width: 100%;
+  height: fit-content;
+  padding: 3px;
+
+  color: ${({ theme }) => theme.color};
+
+  font-size: 13px;
+  font-weight: 600;
+
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.link.marker};
+  }
+`;
+
+export const OpenWindow = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 15;
+
+  width: 128px;
+  height: fit-content;
+  background-color: ${({ theme }) => theme.modals.background};
+
+  border-radius: 5px;
+  border: 1px solid ${({ theme }) => theme.border};
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+`;

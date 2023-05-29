@@ -6,7 +6,7 @@ import { useFilterById } from "../../utils/helpers/useFilterById";
 import { ITopic } from "../../utils/interfaces/topic";
 
 // Thaths from others modals - need to be fixed;
-import { DialogBack } from "../other-action/other-action.style";
+import { DialogBack } from "../../components/linker/link-up/link-up.style";
 
 import {
   GroupTransitionModalStyle,

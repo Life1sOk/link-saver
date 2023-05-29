@@ -8,27 +8,46 @@ export const ChildWrapper = styled.div``;
 
 export const GroupTransitionModalStyle = styled.div`
   position: absolute;
-  left: 21px;
+  top: 28px;
+  left: -50%;
   z-index: 15;
 
   width: 128px;
   height: fit-content;
 
   background-color: ${({ theme }) => theme.modals.background};
-  border: 1px solid ${({ theme }) => theme.modals.border};
+  border: 1px solid ${({ theme }) => theme.border};
   border-radius: 5px;
-  overflow: hidden;
 
   display: flex;
   flex-direction: column;
+
+  &::after {
+    position: absolute;
+    top: -7px;
+    left: 50%;
+    z-index: 16;
+
+    transform: translateX(-50%);
+
+    content: "";
+    width: 0;
+    height: 0;
+
+    border-bottom: 7px solid ${({ theme }) => theme.topic.marker};
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+  }
 `;
 
 export const TransTitle = styled.h4`
   width: 100%;
 
+  border-radius: 4px 4px 0 0;
+
   color: white;
   background-color: ${({ theme }) => theme.topic.marker};
-  border-bottom: 1px solid ${({ theme }) => theme.modals.border};
+  border-bottom: 1px solid ${({ theme }) => theme.border};
 `;
 
 export const TransMain = styled.ul`
@@ -54,14 +73,11 @@ export const TopicsPick = styled(BasicLi)`
   overflow: hidden;
   text-overflow: ellipsis;
 
-  color: ${({ theme }) => theme.topic.marker};
+  color: ${({ theme }) => theme.color};
 
   &:hover {
     cursor: pointer;
-
-    box-shadow: 0px 0px 10px 0px ${({ theme }) => theme.topic.marker} inset;
-    -webkit-box-shadow: 0px 0px 10px 0px ${({ theme }) => theme.topic.marker} inset;
-    -moz-box-shadow: 0px 0px 10px 0px ${({ theme }) => theme.topic.marker} inset;
+    color: ${({ theme }) => theme.topic.marker};
   }
 `;
 

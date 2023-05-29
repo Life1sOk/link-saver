@@ -1,4 +1,4 @@
-import { DialogBack, OpenWindow } from "./other-action.style";
+import { DialogBack } from "./link-up.style";
 
 interface IOtherActionModal {
   isOpen: boolean;
@@ -6,17 +6,17 @@ interface IOtherActionModal {
   children?: string | JSX.Element | JSX.Element[];
 }
 
-const OtherActionModal = ({ isOpen, closeModel, children }: IOtherActionModal) => {
+const LinkUpModal = ({ isOpen, closeModel, children }: IOtherActionModal) => {
   return (
     <>
       {isOpen && (
         <>
           <DialogBack onClick={closeModel} isOpen={isOpen} />
-          <OpenWindow>{children}</OpenWindow>
+          {children}
         </>
       )}
     </>
   );
 };
 
-export default OtherActionModal;
+export default LinkUpModal;
