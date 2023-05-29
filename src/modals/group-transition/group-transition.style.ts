@@ -54,6 +54,8 @@ export const TopicsPick = styled(BasicLi)`
   overflow: hidden;
   text-overflow: ellipsis;
 
+  color: ${({ theme }) => theme.topic.marker};
+
   &:hover {
     cursor: pointer;
 

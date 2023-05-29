@@ -15,7 +15,6 @@ export const light = {
     background: "rgb(230, 240, 255)",
     border: "rgb(255, 117, 101)",
     icon: null,
-    active: "rgb(238, 82, 68)",
   },
   link: {
     marker: "rgb(0, 112, 201)",

@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-import { useGroupsLogic } from "../../utils/contollers/useGroupsLogic";
+import { useGroupsLogic } from "../../../utils/contollers/useGroupsLogic";
 
 import { GroupTitleStyle, Title, TitleInput } from "./group-title.style";
 

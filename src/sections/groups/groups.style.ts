@@ -39,7 +39,7 @@ export const GroupsWrapper = styled.div`
   overflow: scroll;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(278px, 1fr));
+  grid-template-columns: repeat(auto-fill, 278px);
   justify-content: center;
   /* justify-items: stretch; */
   align-content: stretch;

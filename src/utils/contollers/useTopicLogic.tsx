@@ -21,7 +21,6 @@ export const useTopicLogic = () => {
   } = useTopicLocal();
 
   // --------------------- SERVER ------------------------ //
-
   const [getTopicCount, getTopicCountResult] = useLazyGetTopicsGroupCountQuery();
   useRequestProcess(getTopicCountResult);
 

@@ -26,8 +26,8 @@ const TopicsBlock = () => {
   const activeTopicHandler = (topic: ITopic) => editTopicWindow(topic);
 
   useEffect(() => {
-    if (data && localTopics.length < 1) addAllTopicsLocal(data);
-  }, [data, addAllTopicsLocal, localTopics]);
+    if (data && data.length > 0) addAllTopicsLocal(data);
+  }, [data, addAllTopicsLocal]);
 
   return (
     <TopicsStyle>

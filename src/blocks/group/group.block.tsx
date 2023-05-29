@@ -12,16 +12,21 @@ import { IShortLink } from "../../utils/interfaces/link";
 import { ITopic } from "../../utils/interfaces/topic";
 
 import Linker from "../../components/linker/linker.component";
-import GroupTitle from "../../components/group-title/group-title.component";
-import GroupActive from "../../components/group-active/group-active.component";
+import GroupTitle from "./group-title/group-title.component";
+import GroupActive from "./group-active/group-active.component";
+import GroupAction from "./group-action/group-action.component";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
-import OtherButton from "../../shared/other-button/other-button.component";
 
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
-import OtherActionModal from "../../modals/other-action/other-action.modal";
 import GroupTransitionModal from "../../modals/group-transition/group-transition.modal";
-import { GroupStyle, GroupHeader, IconWrapper, LinksPlace } from "./group.style";
+import {
+  GroupStyle,
+  GroupHeader,
+  LinksPlace,
+  ActionsLine,
+  GroupHeaderTop,
+} from "./group.style";
 
 interface IGroupBlock {
   index: number;
@@ -43,7 +48,6 @@ const GroupBlock = memo(
   }: IGroupBlock) => {
     const { id, group_title, links } = data;
 
-    const [isModal, setIsModal] = useState(false);
     const [isSureModal, setIsSureModal] = useState(false);
 
     const { isActive: isActiveWindow, id: activeId } = useAppSelector(
@@ -56,13 +60,7 @@ const GroupBlock = memo(
     const { addOneFromGroupLocal, toggleLinkWindow } = useGenericLocal();
     const { resetGroupWindow } = useGroupLocal();
 
-    const openModalHandler = () => setIsModal(true);
-    const closeModalHandler = () => setIsModal(false);
-
-    const modalActionHandler = () => {
-      setIsSureModal(!isSureModal);
-      closeModalHandler();
-    };
+    const modalActionHandler = () => setIsSureModal(!isSureModal);
 
     const sureDeleteHandler = () => {
       setIsSureModal(!isSureModal);
@@ -72,8 +70,6 @@ const GroupBlock = memo(
 
     // Add link from group
     const addLinkFromGroupHandler = () => {
-      // Close modal
-      closeModalHandler();
       // open link window
       toggleLinkWindow();
       // group info
@@ -105,25 +101,42 @@ const GroupBlock = memo(
     return (
       <>
         <BlackWindowModal isOpen={isActiveWindow} activeHandler={resetGroupWindow} />
-        <GroupStyle isActive={isActive}>
+        <GroupStyle isActive={id === activeId}>
           <FrontBlocker isBlocked={id > 1683451657031} />
           <GroupHeader>
-            <GroupActive
-              title={group_title}
-              group_id={id}
-              isActive={isActive}
-              group_index={index}
-            />
-            <GroupTitle title={group_title} group_id={id} isActive={isActive} />
-            <IconWrapper onClick={openSendWindowHandler}>{icons.send}</IconWrapper>
-            <GroupTransitionModal action={transitionToTopicHandler}>
-              <IconWrapper>{icons.transition}</IconWrapper>
-            </GroupTransitionModal>
-            <IconWrapper onClick={openModalHandler}>{icons.dots}</IconWrapper>
-            <OtherActionModal isOpen={isModal} closeModel={closeModalHandler}>
-              <OtherButton title="Add link" action={addLinkFromGroupHandler} />
-              <OtherButton title="Delete" action={modalActionHandler} />
-            </OtherActionModal>
+            <GroupHeaderTop>
+              <GroupActive
+                title={group_title}
+                group_id={id}
+                isActive={isActive}
+                group_index={index}
+              />
+              <GroupTitle title={group_title} group_id={id} isActive={isActive} />
+            </GroupHeaderTop>
+            <ActionsLine>
+              <GroupAction
+                title="add"
+                icon={icons.link}
+                actionHandler={addLinkFromGroupHandler}
+              />
+              <GroupAction
+                title="send"
+                icon={icons.send}
+                actionHandler={openSendWindowHandler}
+              />
+              <GroupTransitionModal action={transitionToTopicHandler}>
+                <GroupAction
+                  title="topic"
+                  icon={icons.transition}
+                  actionHandler={() => {}}
+                />
+              </GroupTransitionModal>
+              <GroupAction
+                title="delete"
+                icon={icons.delete}
+                actionHandler={modalActionHandler}
+              />
+            </ActionsLine>
           </GroupHeader>
           <LinksPlace>
             {links?.map((link) => (
