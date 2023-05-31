@@ -1,10 +1,8 @@
 import styled from "styled-components";
 
 export const GroupSendModalStyle = styled.div`
-  width: 100%;
-  max-width: 666px;
-  height: 100%;
-  max-height: 411px;
+  width: 666px;
+  height: 411px;
 
   padding: 5px;
   background-color: white;
@@ -15,19 +13,21 @@ export const GroupSendModalStyle = styled.div`
   align-items: center;
 `;
 
-export const GifBlock = styled.div`
+export const GroupBlock = styled.div`
   width: 50%;
   height: 100%;
-  padding: 15px;
+  padding: 15px 15px 7px 15px;
 
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   align-items: center;
+  gap: 7px;
 `;
 
 export const ButtonWrapper = styled.div`
   width: 100%;
-  margin-top: auto;
+  height: fit-content;
 
   display: flex;
   justify-content: flex-end;
@@ -68,12 +68,13 @@ export const Friend = styled.div<{ isPicked: boolean }>`
   flex-shrink: 0;
 
   border-radius: 5px;
-
-  border: 1px solid ${({ isPicked }) => (isPicked ? "red" : "initial")};
+  border: 1px solid
+    ${({ isPicked, theme }) => (isPicked ? theme.modals.active : "initial")};
 
   &:hover {
     cursor: pointer;
 
-    border: 1px solid ${({ isPicked }) => (isPicked ? "red" : "lightblue")};
+    border: 1px solid
+      ${({ isPicked, theme }) => (isPicked ? theme.modals.active : "lightblue")};
   }
 `;

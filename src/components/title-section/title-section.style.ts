@@ -16,25 +16,3 @@ export const TitleSectionStyle = styled.div`
 export const Title = styled.h3`
   font-size: 22px;
 `;
-
-export const MarkIcon = styled.div<{ sectionType: string }>`
-  width: 30px;
-  height: 30px;
-  color: ${({ theme, sectionType }) =>
-    sectionType === "topic"
-      ? theme.topic.marker
-      : sectionType === "group"
-      ? theme.group.marker
-      : theme.link.marker};
-
-  & svg {
-    width: 100%;
-    height: 100%;
-    fill: ${({ theme, sectionType }) =>
-      sectionType === "topic"
-        ? theme.topic.marker
-        : sectionType === "group"
-        ? theme.group.marker
-        : theme.link.marker};
-  }
-`;

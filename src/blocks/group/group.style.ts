@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-export const GroupStyle = styled.div<{ isActive: boolean }>`
+export const GroupStyle = styled.div<{ isActive?: boolean }>`
   position: relative;
   z-index: ${({ isActive }) => (isActive ? "9" : "0")};
 
   width: 100%;
   height: fit-content;
+
   background-color: white;
   border-radius: 5px;
 
@@ -43,7 +44,11 @@ export const GroupHeaderTop = styled.div`
 
 export const LinksPlace = styled.div`
   width: 100%;
+  height: 100%;
+  max-height: 255px;
   padding: 10px;
+
+  overflow-y: scroll;
 
   display: flex;
   flex-wrap: wrap;
@@ -61,4 +66,35 @@ export const ActionsLine = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+`;
+
+export const Title = styled.h3`
+  width: 100%;
+  padding: 7px 0;
+
+  font-size: 22px;
+  font-weight: 600;
+
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const ModalWrapper = styled.div`
+  width: 100%;
+  max-width: 266px;
+  padding: 8px;
+
+  color: ${({ theme }) => theme.link.color};
+  background-color: ${({ theme }) => theme.link.background};
+  border-radius: 5px;
+
+  box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
+  -webkit-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
+  -moz-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
+
+  &:hover {
+    cursor: pointer;
+  }
 `;

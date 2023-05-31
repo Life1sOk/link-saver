@@ -18,10 +18,10 @@ export const InputStyle = styled.input`
   font-weight: 500;
   letter-spacing: 1px;
   color: black;
-  padding-left: 3px;
+  padding-left: 5px;
 
   border: none;
-  border: 1px solid grey;
+  border: 1px solid ${({ theme }) => theme.border};
   border-radius: 3px;
 
   &:focus {
@@ -30,7 +30,7 @@ export const InputStyle = styled.input`
 `;
 
 export const InputLabel = styled.label`
-  font-size: 16px;
+  font-size: 14.5px;
   font-weight: 600;
   letter-spacing: 0.5px;
   padding-bottom: 5px;

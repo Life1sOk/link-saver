@@ -7,7 +7,7 @@ import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
 import { IUserTrans } from "../../utils/interfaces/user";
 
-import { UserFriendsStyle, Line } from "./user-friends.style";
+import { FriendsStyle, Line } from "./friends-wrapper.style";
 
 const UserFriends = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
@@ -17,17 +17,17 @@ const UserFriends = () => {
   const { acceptFriend, notAcceptFriend, deleteFriend } = useFriendsLogic();
 
   const acceptFriendHandler = (user: IUserTrans) => acceptFriend(user);
-  const fuckOffHandler = (user: IUserTrans) => notAcceptFriend(user);
+  const cancelHandler = (user: IUserTrans) => notAcceptFriend(user);
   const deleteFriendHandler = (user: IUserTrans) => deleteFriend(user, userId);
 
   return (
-    <UserFriendsStyle>
+    <FriendsStyle>
       {incomingList.map((user, index) => (
         <UserDisplay
           key={index}
           user={user}
           actionHandlerOne={{ action: () => acceptFriendHandler(user), call: "Accept" }}
-          actionHandlerTwo={{ action: () => fuckOffHandler(user), call: "Fuck off" }}
+          actionHandlerTwo={{ action: () => cancelHandler(user), call: "Cancel" }}
         />
       ))}
       {incomingList.length > 0 && <Line />}
@@ -43,7 +43,7 @@ const UserFriends = () => {
           />
         ))
       )}
-    </UserFriendsStyle>
+    </FriendsStyle>
   );
 };
 

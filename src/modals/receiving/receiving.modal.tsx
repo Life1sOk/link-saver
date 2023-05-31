@@ -5,7 +5,7 @@ import { useTransitionLogic } from "../../utils/contollers/useTransitionLogic";
 import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
 
 import UserDisplay from "../../components/user-display/user-display.half";
-import GroupDefault from "../../blocks/group-default/group-default.block";
+import GroupDefault from "../../blocks/group/group.default";
 import Button from "../../components/button/button.component";
 import BlankModal from "../../shared/blank/blank-section.modal";
 
@@ -44,23 +44,26 @@ const ReceivingModal = () => {
       <ReceivingModalStyle onClick={(e) => e.stopPropagation()}>
         <Title>Receiving Box:</Title>
         <GroupsStore>
-          {receivingBox.map((data, index) => (
-            <GroupWrapper key={index}>
-              <UserDisplay
-                user={data.from}
-                actionHandlerOne={{
-                  action: () => acceptTransitionHandler(data),
-                  call: "Accept",
-                }}
-                actionHandlerTwo={{
-                  action: () => cancelTransitionHandler(data),
-                  call: "Fuck off",
-                }}
-              />
-              <GroupDefault data={data.group} />
-            </GroupWrapper>
-          ))}
-          {/* <BlankModal title="Groups" /> */}
+          {receivingBox.length < 1 ? (
+            <BlankModal title="Groups" />
+          ) : (
+            receivingBox.map((data, index) => (
+              <GroupWrapper key={index}>
+                <UserDisplay
+                  user={data.from}
+                  actionHandlerOne={{
+                    action: () => acceptTransitionHandler(data),
+                    call: "Accept",
+                  }}
+                  actionHandlerTwo={{
+                    action: () => cancelTransitionHandler(data),
+                    call: "Cancel",
+                  }}
+                />
+                <GroupDefault data={data.group} />
+              </GroupWrapper>
+            ))
+          )}
         </GroupsStore>
         <ButtonWrapper>
           <Button name="Cancel" actionHandle={toggleReceivingBoxWindow} />

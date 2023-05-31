@@ -1,4 +1,4 @@
-import { BlackWindowStyle } from "./black-window.style";
+import { BlackWindowStyle, AnimationWrapper } from "./black-window.style";
 
 interface IWindowModal {
   isOpen: boolean;
@@ -9,7 +9,7 @@ interface IWindowModal {
 const BlackWindowModal = ({ isOpen, children, activeHandler }: IWindowModal) => {
   return (
     <BlackWindowStyle onClick={activeHandler} isOpen={isOpen}>
-      {children}
+      <AnimationWrapper>{children}</AnimationWrapper>
     </BlackWindowStyle>
   );
 };

@@ -15,6 +15,7 @@ export const ButtonStyle = styled.button`
 
   &:hover {
     cursor: pointer;
-    background-color: rgba(255, 255, 255, 0.7);
+    border: 1px solid ${({ theme }) => theme.modals.active};
+    color: ${({ theme }) => theme.modals.active};
   }
 `;

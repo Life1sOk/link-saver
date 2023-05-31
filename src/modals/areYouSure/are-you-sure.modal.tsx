@@ -1,11 +1,8 @@
+import BlackWindowModal from "../../shared/black-window/black-window.modal";
+
 import Button from "../../components/button/button.component";
 
-import {
-  AreYouSureWrapper,
-  AreYouSureStyle,
-  ButtonsWrapper,
-  Message,
-} from "./are-you-sure.style";
+import { AreYouSureStyle, ButtonsWrapper, Message } from "./are-you-sure.style";
 
 interface ISure {
   isActive: boolean;
@@ -23,7 +20,7 @@ const AreYouSureModal = ({
   if (!isActive) return <></>;
 
   return (
-    <AreYouSureWrapper>
+    <BlackWindowModal isOpen={isActive}>
       <AreYouSureStyle>
         <Message>{message}</Message>
         <ButtonsWrapper>
@@ -31,7 +28,7 @@ const AreYouSureModal = ({
           <Button name="No, I'm not" actionHandle={actionToggleHandler} />
         </ButtonsWrapper>
       </AreYouSureStyle>
-    </AreYouSureWrapper>
+    </BlackWindowModal>
   );
 };
 

@@ -14,7 +14,7 @@ import Input from "../../components/input/input.component";
 import { useDebounce } from "../../utils/helpers/useDebounce";
 import { IUser } from "../../utils/interfaces/user";
 
-import { SearchBlockStyle, FindedUsers, DefaultAndSpin } from "./user-search.style";
+import { FriendsStyle, SearchBlockStyle, DefaultAndSpin } from "./friends-wrapper.style";
 
 const UserSearch = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
@@ -65,7 +65,7 @@ const UserSearch = () => {
           <BlankModal title="users" />
         </DefaultAndSpin>
       ) : (
-        <FindedUsers>
+        <FriendsStyle>
           {searchResult.map((user, index) => (
             <UserDisplay
               key={index}
@@ -74,7 +74,7 @@ const UserSearch = () => {
               actionHandlerOne={{ action: () => sendInviteHandler(user), call: "Invite" }}
             />
           ))}
-        </FindedUsers>
+        </FriendsStyle>
       )}
     </SearchBlockStyle>
   );

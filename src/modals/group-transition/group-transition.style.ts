@@ -12,9 +12,11 @@ export const GroupTransitionModalStyle = styled.div`
   left: -50%;
   z-index: 15;
 
+  animation-name: modalAnimation;
+  animation-duration: 0.5s;
+
   width: 128px;
   height: fit-content;
-
   background-color: ${({ theme }) => theme.modals.background};
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 5px;

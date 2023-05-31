@@ -6,16 +6,16 @@ import { useGroupsLogic } from "../../utils/contollers/useGroupsLogic";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
+import Mark from "../../shared/mark/mark.shared";
 
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import {
-  GroupAddStyle,
-  LeftSide,
-  GifBlock,
-  GroupButtons,
+  AddModalStyle,
+  ButtonsWrapper,
   FormWrapper,
   TitleBlock,
-} from "./group-add.style";
+  ModalHeader,
+} from "./add-modals.style";
 
 const GroupAddModal = () => {
   const user_id = useAppSelector((state) => state.user.session.user_id);
@@ -51,21 +51,19 @@ const GroupAddModal = () => {
 
   return (
     <BlackWindowModal isOpen={isOpen}>
-      <GroupAddStyle>
-        <LeftSide>
-          <TitleBlock>Add new group</TitleBlock>
-          <FormWrapper onSubmit={addGroupHandler}>
-            <Input label="Group Title:" type="text" required ref={groupTitleRef} />
-            <GroupButtons>
-              <Button name="Cancel" type="button" actionHandle={closeGroupWindow} />
-              <Button name="Add group" type="submit" />
-            </GroupButtons>
-          </FormWrapper>
-        </LeftSide>
-        <GifBlock>
-          <h3>Gif</h3>
-        </GifBlock>
-      </GroupAddStyle>
+      <AddModalStyle>
+        <ModalHeader>
+          <TitleBlock>Add group</TitleBlock>
+          <Mark sectionType="group" />
+        </ModalHeader>
+        <FormWrapper onSubmit={addGroupHandler}>
+          <Input label="Group Title:" type="text" required ref={groupTitleRef} />
+          <ButtonsWrapper>
+            <Button name="Cancel" type="button" actionHandle={closeGroupWindow} />
+            <Button name="Add group" type="submit" />
+          </ButtonsWrapper>
+        </FormWrapper>
+      </AddModalStyle>
     </BlackWindowModal>
   );
 };

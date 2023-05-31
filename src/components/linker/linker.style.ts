@@ -6,7 +6,7 @@ export const ModalWrapper = styled.div`
   width: 100%;
   /* max-width: 255px; */
   height: fit-content;
-  padding: 8px;
+  padding: 6px;
 
   color: ${({ theme }) => theme.link.color};
   background-color: ${({ theme }) => theme.link.background};

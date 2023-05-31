@@ -1,23 +1,14 @@
 import styled from "styled-components";
 
 export const ProfileStyle = styled.div`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  width: 100%;
-  max-width: 666px;
-  height: 100%;
-  max-height: 411px;
+  width: 555px;
+  height: 411px;
 
   padding: 10px;
   background-color: white;
   border-radius: 4px;
 
   display: flex;
-  /* justify-content: center;
-  align-items: center; */
 `;
 
 export const LeftSide = styled.div`

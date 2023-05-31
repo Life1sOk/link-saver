@@ -2,17 +2,11 @@ import Link from "../../shared/link/link.shared";
 
 import { IGroupGet } from "../../utils/interfaces/group";
 
-import {
-  GroupDisplay,
-  Title,
-  LinksPlace,
-  ModalWrapper,
-  GroupHeader,
-} from "./group-default.style";
+import { GroupStyle, GroupHeader, LinksPlace, Title, ModalWrapper } from "./group.style";
 
 const GroupDefault = ({ data }: { data: IGroupGet | null }) => {
   return (
-    <GroupDisplay>
+    <GroupStyle>
       <GroupHeader>
         <Title>{data?.group_title}</Title>
       </GroupHeader>
@@ -23,7 +17,7 @@ const GroupDefault = ({ data }: { data: IGroupGet | null }) => {
           </ModalWrapper>
         ))}
       </LinksPlace>
-    </GroupDisplay>
+    </GroupStyle>
   );
 };
 

@@ -6,16 +6,16 @@ import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
 
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
+import Mark from "../../shared/mark/mark.shared";
 
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import {
-  TopicAddStyle,
-  LeftSide,
-  GifBlock,
+  AddModalStyle,
   TitleBlock,
   FormWrapper,
-  TopicButtons,
-} from "./topics-add.style";
+  ButtonsWrapper,
+  ModalHeader,
+} from "./add-modals.style";
 
 const TopicsAddModal = () => {
   const userId = useAppSelector((state) => state.user.session.user_id);
@@ -41,7 +41,7 @@ const TopicsAddModal = () => {
     if (checkField.length < 3) {
       return alert("title should have more than 2 characters");
     }
-    // Close window
+    // // Close window
     closeTopicWindow();
 
     let newTopic = { id: Date.now(), user_id: userId, topic_title: checkField };
@@ -51,21 +51,19 @@ const TopicsAddModal = () => {
 
   return (
     <BlackWindowModal isOpen={isOpen}>
-      <TopicAddStyle>
-        <LeftSide>
-          <TitleBlock>Add new topic</TitleBlock>
-          <FormWrapper onSubmit={addTopicHandler}>
-            <Input label="Title" type="text" required ref={titleRef} />
-            <TopicButtons>
-              <Button name="Cancel" type="button" actionHandle={closeTopicWindow} />
-              <Button name="Add topic" type="submit" />
-            </TopicButtons>
-          </FormWrapper>
-        </LeftSide>
-        <GifBlock>
-          <h3>Gif</h3>
-        </GifBlock>
-      </TopicAddStyle>
+      <AddModalStyle>
+        <ModalHeader>
+          <TitleBlock>Add topic</TitleBlock>
+          <Mark sectionType="topic" />
+        </ModalHeader>
+        <FormWrapper method="dialog" onSubmit={addTopicHandler}>
+          <Input label="Title" type="text" required ref={titleRef} />
+          <ButtonsWrapper>
+            <Button name="Cancel" type="button" actionHandle={closeTopicWindow} />
+            <Button name="Add topic" type="submit" />
+          </ButtonsWrapper>
+        </FormWrapper>
+      </AddModalStyle>
     </BlackWindowModal>
   );
 };

@@ -14,11 +14,11 @@ interface IuD {
   user: IUser | IUserFrom;
   actionHandlerOne: {
     action: () => void;
-    call: "Accept" | "Invite" | "Fuck off" | "Cancel" | "Delete";
+    call: "Accept" | "Invite" | "Cancel" | "Delete";
   };
   actionHandlerTwo?: {
     action: () => void;
-    call: "Accept" | "Invite" | "Fuck off" | "Cancel" | "Delete";
+    call: "Accept" | "Invite" | "Cancel" | "Delete";
   };
   status?: "Friend" | "Invited" | "Finded";
 }

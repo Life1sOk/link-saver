@@ -7,7 +7,7 @@ import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
 import { IUserTrans } from "../../utils/interfaces/user";
 
-import { UserFriendsStyle } from "./user-invited.style";
+import { FriendsStyle } from "./friends-wrapper.style";
 
 const UserInvited = () => {
   const invitedList = useAppSelector((state) => state.friends.invitedList);
@@ -17,7 +17,7 @@ const UserInvited = () => {
   const cancelInviteHandler = (user: IUserTrans) => cancelInviteFriend(user);
 
   return (
-    <UserFriendsStyle>
+    <FriendsStyle>
       {invitedList.length < 1 ? (
         <BlankModal title="invites" />
       ) : (
@@ -30,7 +30,7 @@ const UserInvited = () => {
           />
         ))
       )}
-    </UserFriendsStyle>
+    </FriendsStyle>
   );
 };
 

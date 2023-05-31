@@ -10,14 +10,22 @@ export const GlobalStyle = createGlobalStyle`
     list-style-type: none;
   }
 
-  ${
-    "" /* div {
-    transition: all 0.3s;
-  } */
+  @keyframes modalAnimation {
+    from {
+      transform: translateY(-20%);
+      opacity: 0;
+    }
+
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
   }
 `;
 
 export const PageWrapper = styled.div`
   width: 100vw;
   height: 100vh;
+
+  min-width: 975px;
 `;

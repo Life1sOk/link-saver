@@ -5,10 +5,13 @@ interface IDragDrop {
 }
 
 const DragDrop = ({ children }: IDragDrop) => {
-  const onDragHandler = () => console.log("on drag");
+  const onDragStartHandler = () => console.log("on drag");
+  const onDragOverHander = () => console.log("drag over");
+  const onDragHandler = () => console.log("drag");
+  const onDragEndHandler = () => console.log("drag emd");
 
   return (
-    <DragDropStyle onDragStart={onDragHandler} draggable>
+    <DragDropStyle onDragStart={onDragStartHandler} draggable>
       {children}
     </DragDropStyle>
   );

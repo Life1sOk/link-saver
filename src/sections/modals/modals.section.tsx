@@ -1,10 +1,11 @@
-import LinkAddModal from "../../modals/link-add/link-add.modal";
-import GroupAddModal from "../../modals/group-add/group-add.modal";
-import TopicsAddModal from "../../modals/topics-add/topics-add.modal";
 import SendModal from "../../modals/receiving/receiving.modal";
 import ReceivingModal from "../../modals/friends/friends.modal";
 import GroupSendModal from "../../modals/group-send/group-send.modal";
 import ProfileModal from "../../modals/profile/profile.modal";
+
+import LinkAddModal from "../../modals/add-modals/links-add.modal";
+import GroupAddModal from "../../modals/add-modals/groups-add.modal";
+import TopicsAddModal from "../../modals/add-modals/topics-add.modal";
 
 import { ModalsSectionStyle } from "./modals.style";
 

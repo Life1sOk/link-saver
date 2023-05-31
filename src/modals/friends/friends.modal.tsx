@@ -5,9 +5,9 @@ import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
 
 import FriendSwitcher from "../../components/friend-switcher/friend-switcher.component";
-import UserSearch from "../../blocks/user-search/user-search.block";
-import UserFriends from "../../blocks/user-friends/user-friends.block";
-import UserInvited from "../../blocks/user-invited/user-invited.block";
+import UserFriends from "../../blocks/friends/friends.block";
+import UserInvited from "../../blocks/friends/invited.block";
+import UserSearch from "../../blocks/friends/search.block";
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import Button from "../../components/button/button.component";
 

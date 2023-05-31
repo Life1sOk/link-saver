@@ -6,11 +6,11 @@ import BlackWindowModal from "../../shared/black-window/black-window.modal";
 
 import User from "../../shared/user/user.components";
 import Button from "../../components/button/button.component";
-import GroupDefault from "../../blocks/group-default/group-default.block";
+import GroupDefault from "../../blocks/group/group.default";
 
 import {
   GroupSendModalStyle,
-  GifBlock,
+  GroupBlock,
   LeftSide,
   ButtonWrapper,
   FriendsWrapper,
@@ -42,7 +42,7 @@ const GroupSendModal = () => {
     <BlackWindowModal isOpen={isOpen}>
       <GroupSendModalStyle>
         <LeftSide>
-          <h3>Friends:</h3>
+          <h3>To friend:</h3>
           <FriendsWrapper>
             {myFriends.map((friend) => (
               <Friend
@@ -55,14 +55,14 @@ const GroupSendModal = () => {
             ))}
           </FriendsWrapper>
         </LeftSide>
-        <GifBlock>
+        <GroupBlock>
           <h3>Sending group:</h3>
           <GroupDefault data={prepareBox} />
           <ButtonWrapper>
             <Button name="Cancel" actionHandle={toggleSendGroupWindow} />
             <Button name="Send =>" actionHandle={sendTransitionHandler} />
           </ButtonWrapper>
-        </GifBlock>
+        </GroupBlock>
       </GroupSendModalStyle>
     </BlackWindowModal>
   );

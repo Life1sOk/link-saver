@@ -7,16 +7,16 @@ import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
+import Mark from "../../shared/mark/mark.shared";
 
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import {
-  LinkAddStyle,
   FormWrapper,
-  GifBlock,
-  LinkButtons,
-  LeftSide,
+  AddModalStyle,
+  ButtonsWrapper,
   TitleBlock,
-} from "./link-add.style";
+  ModalHeader,
+} from "./add-modals.style";
 
 const LinkAddModal = () => {
   const isOpen = useAppSelector((state) => state.genericsLocal.window.isAddLink);
@@ -118,34 +118,32 @@ const LinkAddModal = () => {
 
   return (
     <BlackWindowModal isOpen={isOpen}>
-      <LinkAddStyle>
-        <LeftSide>
-          <TitleBlock>Add new link:</TitleBlock>
-          <FormWrapper onSubmit={upLinkHandler}>
-            <Input
-              label="Title"
-              type="text"
-              ref={titleRef}
-              required
-              defaultValue={activeLink.link.link_title}
-            />
-            <Input
-              label="Url"
-              type="text"
-              ref={urlRef}
-              required
-              defaultValue={activeLink.link.link_url}
-            />
-            <LinkButtons>
-              <Button name="Cancel" type="button" actionHandle={closeLinkWindow} />
-              <Button name="Add/Send link" type="submit" />
-            </LinkButtons>
-          </FormWrapper>
-        </LeftSide>
-        <GifBlock>
-          <h3>Gif</h3>
-        </GifBlock>
-      </LinkAddStyle>
+      <AddModalStyle>
+        <ModalHeader>
+          <TitleBlock>Add link</TitleBlock>
+          <Mark sectionType="generic" />
+        </ModalHeader>
+        <FormWrapper onSubmit={upLinkHandler}>
+          <Input
+            label="Title"
+            type="text"
+            ref={titleRef}
+            required
+            defaultValue={activeLink.link.link_title}
+          />
+          <Input
+            label="Url"
+            type="text"
+            ref={urlRef}
+            required
+            defaultValue={activeLink.link.link_url}
+          />
+          <ButtonsWrapper>
+            <Button name="Cancel" type="button" actionHandle={closeLinkWindow} />
+            <Button name="Add/Send link" type="submit" />
+          </ButtonsWrapper>
+        </FormWrapper>
+      </AddModalStyle>
     </BlackWindowModal>
   );
 };

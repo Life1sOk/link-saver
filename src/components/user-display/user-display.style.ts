@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const UserWrapper = styled.div`
-  width: 75%;
+  width: 80%;
   height: fit-content;
 `;
 
@@ -14,17 +14,24 @@ export const WrapperWrapper = styled.div`
 `;
 
 export const Actions = styled.div<{ type: string }>`
-  /* "Accept" | "Invite" | "Fuck off" | "Cancel" | "Delete" */
+  /* "Accept" | "Invite" | "Cancel" | "Delete" */
   width: 100%;
   height: 100%;
 
   border-radius: 5px;
-  background-color: ${({ type }) =>
+  border: 1px solid
+    ${({ type }) =>
+      type === "Accept"
+        ? "rgba(0,255,0)"
+        : type === "Invite"
+        ? "#f7b84f"
+        : "rgba(255,0,0, .5)"};
+  color: ${({ type }) =>
     type === "Accept"
       ? "rgba(0,255,0)"
       : type === "Invite"
       ? "#f7b84f"
-      : "rgba(255,0,0)"};
+      : "rgba(255,0,0, .5)"};
 
   display: flex;
   align-items: center;
@@ -32,6 +39,7 @@ export const Actions = styled.div<{ type: string }>`
 
   &:hover {
     cursor: pointer;
+    color: white;
     background-color: ${({ type }) =>
       type === "Accept"
         ? "rgba(102,255,102)"
@@ -42,7 +50,7 @@ export const Actions = styled.div<{ type: string }>`
 `;
 
 export const StatusWrapper = styled.div`
-  width: 25%;
+  width: 20%;
   height: 100%;
   padding: 4px;
 

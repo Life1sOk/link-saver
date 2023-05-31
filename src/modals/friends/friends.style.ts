@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const FriendsModalStyle = styled.div`
   width: 320px;
-  height: 510px;
+  height: 466px;
 
   background-color: ${({ theme }) => theme.modals.background};
   border-radius: 4px;

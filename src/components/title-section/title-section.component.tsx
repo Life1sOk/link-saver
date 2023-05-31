@@ -1,16 +1,16 @@
-import { icons } from "../../utils/react-icons";
+import Mark from "../../shared/mark/mark.shared";
 
-import { TitleSectionStyle, MarkIcon, Title } from "./title-section.style";
+import { TitleSectionStyle, Title } from "./title-section.style";
 
 interface ITitleSection {
   title: string;
-  sectionType: string;
+  sectionType: "topic" | "group" | "generic";
 }
 
 const TitleSection = ({ title, sectionType }: ITitleSection) => {
   return (
     <TitleSectionStyle>
-      <MarkIcon sectionType={sectionType}>{icons.marker}</MarkIcon>
+      <Mark sectionType={sectionType} />
       <Title>{title}</Title>
     </TitleSectionStyle>
   );
