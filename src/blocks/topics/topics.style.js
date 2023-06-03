@@ -5,10 +5,7 @@ export const TopicsStyle = styled.div`
 
   width: 100%;
   height: 100%;
-  padding: 7px 0;
-
-  /* border-bottom: 1px solid ${({ theme }) => theme.border}; */
-  /* border-radius: 0 0 0 4px; */
+  padding: 2px 0;
 
   overflow-y: scroll;
 

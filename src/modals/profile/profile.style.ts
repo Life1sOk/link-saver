@@ -5,7 +5,8 @@ export const ProfileStyle = styled.div`
   height: 411px;
 
   padding: 10px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.modals.background};
+  color: ${({ theme }) => theme.color};
   border-radius: 4px;
 
   display: flex;
@@ -24,8 +25,8 @@ export const LeftSide = styled.div`
 
 export const UserWrapper = styled.div`
   padding: 0 10px 10px 0;
-  border-bottom: 1px solid ${({ theme }) => theme.border};
 
+  border-bottom: 1px solid ${({ theme }) => theme.border};
   margin-bottom: 10px;
 `;
 

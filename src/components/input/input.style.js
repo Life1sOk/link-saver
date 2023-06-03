@@ -22,6 +22,7 @@ export const InputStyle = styled.input`
 
   border: none;
   border: 1px solid ${({ theme }) => theme.border};
+  background-color: rgba(255, 255, 255);
   border-radius: 3px;
 
   &:focus {

@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+import { icons } from "../../utils/react-icons";
+
 import { useAppSelector } from "../../App/store/hooks";
 import { useTransitionLogic } from "../../utils/contollers/useTransitionLogic";
 import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
@@ -7,7 +9,7 @@ import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
 import UserDisplay from "../../components/user-display/user-display.half";
 import GroupDefault from "../../blocks/group/group.default";
 import Button from "../../components/button/button.component";
-import BlankModal from "../../shared/blank/blank-section.modal";
+import Blank from "../../components/blank/blank-section.modal";
 
 import { ITransRece } from "../../utils/interfaces/transition";
 
@@ -45,7 +47,7 @@ const ReceivingModal = () => {
         <Title>Receiving Box:</Title>
         <GroupsStore>
           {receivingBox.length < 1 ? (
-            <BlankModal title="Groups" />
+            <Blank icon={icons.group} title="Groups" />
           ) : (
             receivingBox.map((data, index) => (
               <GroupWrapper key={index}>

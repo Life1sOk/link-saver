@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
+import { icons } from "../../utils/react-icons";
+
 import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
 import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
@@ -12,7 +14,7 @@ import Linker from "../../components/linker/linker.component";
 import { IShortLink } from "../../utils/interfaces/link";
 import DragDrop from "../../utils/drag-drop/drag-drop.wrapper";
 
-import BlankModal from "../../shared/blank/blank-section.modal";
+import Blank from "../../components/blank/blank-section.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
@@ -59,7 +61,7 @@ const GenericsSection = () => {
             </DragDrop>
           ))
         ) : (
-          <BlankModal title="link" />
+          <Blank title="links" icon={icons.link} />
         )}
       </LinksWrapper>
     </GenericsWrapper>

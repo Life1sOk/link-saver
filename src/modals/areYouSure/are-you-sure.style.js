@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const AreYouSureStyle = styled.div`
   padding: 22px;
   border-radius: 12px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.background.sections};
+  color: ${({ theme }) => theme.color};
 `;
 
 export const Message = styled.article`

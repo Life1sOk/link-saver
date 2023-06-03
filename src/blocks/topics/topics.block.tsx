@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 
+import { icons } from "../../utils/react-icons";
+
 import { useAppSelector } from "../../App/store/hooks";
-
 import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
-
 import { useGetTopicsByUserIdQuery } from "../../App/store/api/topics";
 
 import { ITopic } from "../../utils/interfaces/topic";
 import Topic from "../../components/topic/topic.component";
 
-import BlankModal from "../../shared/blank/blank-section.modal";
+import Blank from "../../components/blank/blank-section.modal";
 
 import { TopicsStyle } from "./topics.style";
 
@@ -41,7 +41,7 @@ const TopicsBlock = () => {
           />
         ))
       ) : (
-        <BlankModal title="topic" />
+        <Blank title="topics" icon={icons.topicOpen} />
       )}
     </TopicsStyle>
   );

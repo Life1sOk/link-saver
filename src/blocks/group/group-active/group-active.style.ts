@@ -1,16 +1,17 @@
 import styled from "styled-components";
 
-export const GroupActiveStyle = styled.div<{ isActive: boolean }>`
-  width: 23px;
-  height: 23px;
+export const IconWrapper = styled.div<{ isActive: boolean }>`
   margin-right: 10px;
   flex-shrink: 0;
 
-  border: 1px solid ${({ theme }) => theme.border};
-  border-radius: 50%;
-  background-color: ${({ isActive, theme }) => (isActive ? theme.group.active : "white")};
+  transition: color 0.2s;
+  color: ${({ isActive, theme }) => (isActive ? theme.group.active : "white")};
 
-  transition: background-color 0.3s;
+  & svg {
+    width: 23px;
+    height: 23px;
+    color: inherit;
+  }
 
   &:hover {
     cursor: pointer;

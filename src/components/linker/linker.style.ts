@@ -4,8 +4,7 @@ export const ModalWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  /* max-width: 255px; */
-  height: fit-content;
+  height: 40px;
   padding: 6px;
 
   color: ${({ theme }) => theme.link.color};

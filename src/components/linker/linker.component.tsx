@@ -87,8 +87,8 @@ const Linker = ({
       </DotsLinkStyle>
       <LinkUpModal isOpen={isOpen} closeModel={closeHandler}>
         <OpenWindow>
-          <UpAction>Edit link</UpAction>
-          <UpAction>Remove link</UpAction>
+          <UpAction onClick={editHandler}>Edit link</UpAction>
+          <UpAction onClick={deleteLinkHandler}>Remove link</UpAction>
         </OpenWindow>
       </LinkUpModal>
     </ModalWrapper>

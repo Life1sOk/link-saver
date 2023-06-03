@@ -1,7 +1,9 @@
 import { useAppSelector } from "../../App/store/hooks";
 
+import { icons } from "../../utils/react-icons";
+
 import UserDisplay from "../../components/user-display/user-display.half";
-import BlankModal from "../../shared/blank/blank-section.modal";
+import Blank from "../../components/blank/blank-section.modal";
 
 import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
@@ -32,7 +34,7 @@ const UserFriends = () => {
       ))}
       {incomingList.length > 0 && <Line />}
       {friendsList.length < 1 ? (
-        <BlankModal title="friends" />
+        <Blank title="friends" icon={icons.friends} />
       ) : (
         friendsList.map((user, index) => (
           <UserDisplay

@@ -15,7 +15,9 @@ import Linker from "../../components/linker/linker.component";
 import GroupTitle from "./group-title/group-title.component";
 import GroupActive from "./group-active/group-active.component";
 import GroupAction from "./group-action/group-action.component";
+import Status from "./group-status/status.component";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
+import Blank from "../../components/blank/blank-section.modal";
 
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
@@ -26,6 +28,7 @@ import {
   LinksPlace,
   ActionsLine,
   GroupHeaderTop,
+  CenterBlack,
 } from "./group.style";
 
 interface IGroupBlock {
@@ -102,6 +105,7 @@ const GroupBlock = memo(
       <>
         <BlackWindowModal isOpen={isActiveWindow} activeHandler={resetGroupWindow} />
         <GroupStyle isActive={id === activeId}>
+          <Status />
           <FrontBlocker isBlocked={id > 1683451657031} />
           <GroupHeader>
             <GroupHeaderTop>
@@ -138,18 +142,24 @@ const GroupBlock = memo(
               />
             </ActionsLine>
           </GroupHeader>
-          <LinksPlace>
-            {links?.map((link) => (
-              <Linker
-                data={link}
-                key={link.id}
-                isActive={isActive}
-                position={`${index}`}
-                deleteLink={deleteLinkLocalHandler}
-                linkTransitionHandler={transitionToGenerics}
-              />
-            ))}
-          </LinksPlace>
+          {links.length < 1 ? (
+            <CenterBlack>
+              <Blank title="links" icon={icons.link} />
+            </CenterBlack>
+          ) : (
+            <LinksPlace>
+              {links?.map((link) => (
+                <Linker
+                  data={link}
+                  key={link.id}
+                  isActive={isActive}
+                  position={`${index}`}
+                  deleteLink={deleteLinkLocalHandler}
+                  linkTransitionHandler={transitionToGenerics}
+                />
+              ))}
+            </LinksPlace>
+          )}
         </GroupStyle>
         <AreYouSureModal
           isActive={isSureModal}

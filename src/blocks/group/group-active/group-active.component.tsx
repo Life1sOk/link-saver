@@ -1,6 +1,8 @@
+import { icons } from "../../../utils/react-icons";
+
 import { useGroupLocal } from "../../../utils/helper-dispatch/useGroupLocal";
 
-import { GroupActiveStyle } from "./group-active.style";
+import { IconWrapper } from "./group-active.style";
 
 interface IGroupActive {
   group_id: number;
@@ -18,7 +20,11 @@ const GroupActive = ({ group_id, title, group_index, isActive }: IGroupActive) =
     editGroupWindow({ title, id: group_id, group_index });
   };
 
-  return <GroupActiveStyle onClick={activeGroupHandler} isActive={isActive} />;
+  return (
+    <IconWrapper onClick={activeGroupHandler} isActive={isActive}>
+      {icons.group}
+    </IconWrapper>
+  );
 };
 
 export default GroupActive;

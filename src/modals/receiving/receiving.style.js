@@ -8,6 +8,7 @@ export const ReceivingModalStyle = styled.div`
   padding: 15px;
 
   background-color: ${({ theme }) => theme.modals.background};
+  color: ${({ theme }) => theme.color};
   border-radius: 4px;
 
   display: flex;

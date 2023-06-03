@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 
+import { icons } from "../../utils/react-icons";
+
 import { useAppSelector } from "../../App/store/hooks";
 import { IShortLink } from "../../utils/interfaces/link";
 
@@ -13,7 +15,7 @@ import LoadingSpinner from "../../components/loading-spinner/loading-spinner.com
 import { IGroupGet } from "../../utils/interfaces/group";
 import { ITopic } from "../../utils/interfaces/topic";
 
-import BlankModal from "../../shared/blank/blank-section.modal";
+import Blank from "../../components/blank/blank-section.modal";
 import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
 
 const GroupsSection = () => {
@@ -78,7 +80,7 @@ const GroupsSection = () => {
             />
           ))
         ) : (
-          <BlankModal title="group" />
+          <Blank title="groups" icon={icons.group} />
         )}
       </GroupsWrapper>
     </GroupsStyle>

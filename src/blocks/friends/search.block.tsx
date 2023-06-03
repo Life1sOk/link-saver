@@ -1,12 +1,14 @@
 import { useState, useEffect, ChangeEvent } from "react";
 
+import { icons } from "../../utils/react-icons";
+
 import { useAppSelector } from "../../App/store/hooks";
 import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
 import { useUserLogic } from "../../utils/contollers/useUserLogic";
 import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
-import BlankModal from "../../shared/blank/blank-section.modal";
+import Blank from "../../components/blank/blank-section.modal";
 
 import UserDisplay from "../../components/user-display/user-display.half";
 import Input from "../../components/input/input.component";
@@ -62,7 +64,7 @@ const UserSearch = () => {
         </DefaultAndSpin>
       ) : searchResult.length < 1 ? (
         <DefaultAndSpin>
-          <BlankModal title="users" />
+          <Blank title="users" icon={icons.friends} />
         </DefaultAndSpin>
       ) : (
         <FriendsStyle>

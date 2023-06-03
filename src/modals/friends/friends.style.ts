@@ -5,6 +5,7 @@ export const FriendsModalStyle = styled.div`
   height: 466px;
 
   background-color: ${({ theme }) => theme.modals.background};
+  color: ${({ theme }) => theme.color};
   border-radius: 4px;
 
   padding: 5px;

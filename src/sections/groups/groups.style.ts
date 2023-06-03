@@ -40,14 +40,9 @@ export const GroupsWrapper = styled.div`
 
   display: grid;
   grid-template-columns: repeat(auto-fill, 278px);
+  grid-template-rows: repeat(auto-fill, 315px);
   justify-content: center;
-  /* justify-items: stretch; */
   align-content: stretch;
-  grid-gap: 55px;
-
-  /* display: flex;
-  justify-content: space-around;
-  align-content: flex-start;
-  flex-wrap: wrap;
-  gap: 33px; */
+  grid-row-gap: 33px;
+  grid-column-gap: 55px;
 `;

@@ -4,7 +4,8 @@ export const AddModalStyle = styled.div`
   width: 333px;
   height: fit-content;
   padding: 30px 40px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.modals.background};
+  color: ${({ theme }) => theme.color};
   border-radius: 7px;
 
   display: flex;

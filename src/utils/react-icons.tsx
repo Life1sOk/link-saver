@@ -1,3 +1,4 @@
+import { FaLayerGroup } from "react-icons/fa";
 import { BiDotsVertical } from "react-icons/bi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import { GiHole } from "react-icons/gi";
@@ -25,6 +26,7 @@ export const icons = {
   arrowLeft: <BsArrowBarLeft />,
 
   link: <TbLink />,
+  group: <FaLayerGroup />,
   home: <TbHome2 />,
   topicOpen: <TbFolder />,
   delete: <TbTrash />,

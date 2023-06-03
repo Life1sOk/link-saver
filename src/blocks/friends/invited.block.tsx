@@ -1,7 +1,9 @@
 import { useAppSelector } from "../../App/store/hooks";
 
+import { icons } from "../../utils/react-icons";
+
 import UserDisplay from "../../components/user-display/user-display.half";
-import BlankModal from "../../shared/blank/blank-section.modal";
+import Blank from "../../components/blank/blank-section.modal";
 
 import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
@@ -19,7 +21,7 @@ const UserInvited = () => {
   return (
     <FriendsStyle>
       {invitedList.length < 1 ? (
-        <BlankModal title="invites" />
+        <Blank title="invites" icon={icons.friends} />
       ) : (
         invitedList.map((user, index) => (
           <UserDisplay

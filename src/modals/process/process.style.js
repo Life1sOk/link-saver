@@ -10,10 +10,10 @@ export const ProcessStyle = styled.div`
   padding: 3px 10px;
   border-radius: 3px;
 
-  font-size: var(--font-basic);
+  font-size: var(--font-mid);
   font-weight: var(--font-weight-normal);
 
-  background-color: white;
+  background-color: ${({ theme }) => theme.background.sections};
   border: 1px solid rgb(222, 222, 222);
 
   -webkit-box-shadow: 0px 4px 8px 0px rgba(34, 60, 80, 0.2);

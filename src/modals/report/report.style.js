@@ -3,7 +3,8 @@ import styled from "styled-components";
 export const ReportStyle = styled.form`
   width: 444px;
   height: fit-content;
-  background-color: white;
+  background-color: ${({ theme }) => theme.modals.background};
+  color: ${({ theme }) => theme.color};
   border-radius: 10px;
   padding: 17px;
 

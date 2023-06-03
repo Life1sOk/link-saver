@@ -29,9 +29,9 @@ export const LinksWrapper = styled.ul`
 
   display: grid;
   grid-template-columns: repeat(auto-fill, 266px);
-  grid-template-rows: repeat(auto-fill, 44px);
+  grid-template-rows: repeat(auto-fill, 40px);
   justify-content: center;
   justify-items: center;
   align-items: start;
-  gap: 9px;
+  gap: 7px;
 `;
