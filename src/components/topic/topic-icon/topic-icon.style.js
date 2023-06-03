@@ -20,13 +20,13 @@ export const Icon = styled.div`
 
 export const Count = styled.span`
   position: absolute;
-  top: calc(50% - 2px);
+  top: 50%;
 
   transform: translateY(-50%);
 
   width: fit-content;
   height: fit-content;
 
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-mini);
+  font-weight: var(--font-weight-main);
 `;

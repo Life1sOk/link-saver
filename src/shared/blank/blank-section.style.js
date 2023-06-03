@@ -15,6 +15,6 @@ export const BlankModalStyle = styled.div`
   align-items: center;
   justify-content: center;
 
-  font-size: 16px;
-  font-weight: 600;
+  font-size: var(--font-basic);
+  font-weight: var(--font-weight-main);
 `;

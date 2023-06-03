@@ -26,15 +26,15 @@ export const Icon = styled.img`
 `;
 
 export const UsersData = styled.div`
+  width: 100%;
+  height: 100%;
+  padding-right: 2px;
+
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-
-  width: 100%;
-  height: 100%;
-
-  padding-right: 2px;
+  gap: 3px;
 `;
 
 export const SpanBase = styled.span`
@@ -45,13 +45,11 @@ export const SpanBase = styled.span`
 `;
 
 export const SpanName = styled(SpanBase)`
-  font-size: 17px;
-
-  font-weight: 600;
+  font-size: var(--font-big);
+  font-weight: var(--font-weight-main);
 `;
 
 export const SpanEmail = styled(SpanBase)`
-  font-size: 14px;
-
-  font-weight: 500;
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-basic);
 `;

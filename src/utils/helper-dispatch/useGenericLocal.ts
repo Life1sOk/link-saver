@@ -38,7 +38,7 @@ export const useGenericLocal = () => {
     dispatch(updateOneStatusGeneric(arg));
   const updateOneGenericIdLocal = (arg: IUpId) => dispatch(updateOneGenericId(arg));
 
-  const deleteOneGenericLocal = (arg: number) => dispatch(deleteOneGeneric(arg));
+  const deleteOneGenericLocal = (link_id: number) => dispatch(deleteOneGeneric(link_id));
 
   // Window
   const toggleLinkWindow = () => dispatch(toggleLinkWindowHandler());

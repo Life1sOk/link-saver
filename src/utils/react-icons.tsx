@@ -1,4 +1,3 @@
-import { AiFillFolderAdd } from "react-icons/ai";
 import { BiDotsVertical } from "react-icons/bi";
 import { BsArrowBarLeft } from "react-icons/bs";
 import { GiHole } from "react-icons/gi";
@@ -22,7 +21,6 @@ import {
 } from "react-icons/tb";
 
 export const icons = {
-  topicAdd: <AiFillFolderAdd />,
   dots: <BiDotsVertical />,
   arrowLeft: <BsArrowBarLeft />,
 

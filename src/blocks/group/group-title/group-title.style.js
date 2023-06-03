@@ -9,9 +9,10 @@ export const GroupTitleStyle = styled.div`
 export const TitleInput = styled.input`
   width: 100%;
 
-  font-size: 22px;
-  font-weight: 600;
+  font-size: var(--font-large);
+  font-weight: var(--font-weight-main);
   font-family: inherit;
+  color: inherit;
 
   border: none;
   background-color: transparent;
@@ -20,8 +21,8 @@ export const TitleInput = styled.input`
 export const Title = styled.h3`
   width: 100%;
 
-  font-size: 22px;
-  font-weight: 600;
+  font-size: var(--font-large);
+  font-weight: var(--font-weight-main);
 
   text-decoration: none;
   white-space: nowrap;

@@ -32,8 +32,8 @@ export const UserWrapper = styled.div`
 export const ActionSection = styled.div<{ isActive: boolean }>`
   padding: 10px;
 
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-big);
+  font-weight: var(--font-weight-basic);
 
   background-color: ${({ theme, isActive }) =>
     isActive ? theme.modals.hover : "initial"};

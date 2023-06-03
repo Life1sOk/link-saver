@@ -25,8 +25,8 @@ export const SettingActionStyle = styled.div`
 export const ActionTitle = styled.a`
   margin-left: 5px;
 
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 13.5px;
+  font-weight: var(--font-weight-main);
 `;
 
 const triangle = styled.div`

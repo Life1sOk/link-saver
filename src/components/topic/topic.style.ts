@@ -7,7 +7,6 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
   height: 44px;
   padding: 8px;
   text-align: left;
-  font-size: 20px;
 
   border-radius: 4px 0 0 4px;
   background-color: ${({ isActive, theme }) =>
@@ -30,8 +29,8 @@ export const Title = styled.p`
   width: 100%;
   max-width: 128px;
 
-  font-size: 17px;
-  font-weight: 500;
+  font-size: var(--font-basic);
+  font-weight: var(--font-weight-main);
 
   white-space: nowrap;
   overflow: hidden;
@@ -42,8 +41,8 @@ export const TitleEditor = styled.input`
   width: 100%;
   max-width: 128px;
 
-  font-size: 17px;
-  font-weight: 500;
+  font-size: var(--font-basic);
+  font-weight: var(--font-weight-main);
   font-family: inherit;
 
   border: none;

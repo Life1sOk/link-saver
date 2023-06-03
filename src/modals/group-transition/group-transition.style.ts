@@ -42,7 +42,7 @@ export const GroupTransitionModalStyle = styled.div`
   }
 `;
 
-export const TransTitle = styled.h4`
+export const TransTitle = styled.h5`
   width: 100%;
 
   border-radius: 4px 4px 0 0;
@@ -63,10 +63,9 @@ export const TransMain = styled.ul`
 const BasicLi = styled.li`
   width: 100%;
   max-width: 128px;
-  height: 33px;
 
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--font-basic);
+  font-weight: var(--font-weight-basic);
   padding: 3px;
 `;
 

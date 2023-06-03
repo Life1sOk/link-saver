@@ -14,5 +14,6 @@ export const TitleSectionStyle = styled.div`
 `;
 
 export const Title = styled.h3`
-  font-size: 22px;
+  font-size: var(--font-huge);
+  font-weight: var(--font-weight-main);
 `;

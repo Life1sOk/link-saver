@@ -19,14 +19,17 @@ export const NewCountStyle = styled.div<{
   color: ${({ theme }) => theme.modals.background};
   flex-shrink: 0;
 
-  font-size: 14px;
+  font-size: var(--font-mini);
+  font-weight: var(--font-weight-main);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Count = styled.div`
-  position: absolute;
-  top: -2px;
-  right: 0;
-
   width: 100%;
-  height: 100%;
+  height: 75%;
+
+  /* margin-bottom: 1px; */
 `;

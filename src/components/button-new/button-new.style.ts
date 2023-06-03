@@ -45,9 +45,8 @@ export const ButtonStyle = styled.button`
   color: inherit;
   cursor: pointer;
 
-  font-size: 16px;
-  font-weight: 600;
-  font-family: "Ysabeau", sans-serif;
+  font-size: 13.5px;
+  font-weight: var(--font-weight-main);
 
   display: flex;
   align-items: center;

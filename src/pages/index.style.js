@@ -1,13 +1,32 @@
 import styled, { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
-  body {
+
+  html,body {
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
     background-color: ${({ theme }) => theme.background.main};
     color: ${({ theme }) => theme.color};
+
+    font-family: 'Raleway', sans-serif;
   }
 
   ol,ul {
     list-style-type: none;
+  }
+
+  textarea,
+  input {
+    font-family: 'Raleway', sans-serif;
+  }
+
+  textarea:focus,
+  input:focus {
+    outline: none;
   }
 
   @keyframes modalAnimation {

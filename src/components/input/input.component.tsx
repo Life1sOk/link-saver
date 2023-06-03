@@ -12,12 +12,14 @@ interface IInput {
 
 const Input = forwardRef<HTMLInputElement, IInput>(
   ({ type, label, required, defaultValue, placeholder, change }, ref) => {
+    const id = useId();
+
     return (
       <InputWrapper>
-        {label && <InputLabel htmlFor={label}>{label}</InputLabel>}
+        {label && <InputLabel htmlFor={id}>{label}</InputLabel>}
         <InputStyle
           type={type}
-          id={useId()}
+          id={id}
           required={required}
           ref={ref}
           defaultValue={defaultValue}

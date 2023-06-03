@@ -54,8 +54,8 @@ export const StatusWrapper = styled.div`
   height: 100%;
   padding: 4px;
 
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-small);
+  font-weight: var(--font-weight-main);
   color: white;
 
   display: flex;

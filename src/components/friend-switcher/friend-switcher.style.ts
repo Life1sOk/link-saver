@@ -6,8 +6,8 @@ export const FriendSwitcherStyle = styled.div<{ isActive: boolean }>`
   width: 99px;
   height: 41px;
 
-  font-size: 14px;
-  font-weight: 600;
+  font-size: var(--font-mini);
+  font-weight: var(--font-weight-main);
 
   border-radius: 5px;
   border-top: 2px solid

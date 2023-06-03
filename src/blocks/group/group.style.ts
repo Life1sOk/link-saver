@@ -72,8 +72,8 @@ export const Title = styled.h3`
   width: 100%;
   padding: 7px 0;
 
-  font-size: 22px;
-  font-weight: 600;
+  font-size: var(--font-large);
+  font-weight: var(--font-weight-main);
 
   text-decoration: none;
   white-space: nowrap;

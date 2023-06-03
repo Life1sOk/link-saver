@@ -29,13 +29,15 @@ export const FormWrapper = styled.form`
 `;
 
 export const ModalHeader = styled.div`
+  margin-bottom: 22px;
+
   display: flex;
+  align-items: center;
   gap: 5px;
 `;
 
 export const TitleBlock = styled.h3`
-  font-size: 20px;
-  margin-bottom: 22px;
+  font-size: var(--font-huge);
 `;
 
 export const ButtonsWrapper = styled.div`

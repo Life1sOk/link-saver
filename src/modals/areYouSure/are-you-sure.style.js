@@ -7,7 +7,8 @@ export const AreYouSureStyle = styled.div`
 `;
 
 export const Message = styled.article`
-  font-size: 22px;
+  font-size: var(--font-huge);
+  font-weight: var(--font-weight-normal);
   padding: 10px;
 `;
 

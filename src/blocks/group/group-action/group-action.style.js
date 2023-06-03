@@ -11,8 +11,8 @@ export const GroupActionStyle = styled.div`
   align-items: center;
   gap: 2px;
 
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 11.5px;
+  font-weight: var(--font-weight-basic);
 
   &:hover {
     cursor: pointer;

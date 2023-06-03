@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const LinkStyle = styled.div`
   width: 100%;
 
-  font-size: 18px;
-  font-weight: 500;
+  font-size: var(--font-mid);
+  font-weight: var(--font-weight-main);
   text-align: left;
 
   display: flex;
@@ -14,7 +14,6 @@ export const LinkStyle = styled.div`
 
 export const LinkTitle = styled.a`
   width: 100%;
-  /* max-width: 165px; */
   color: inherit;
 
   text-decoration: none;

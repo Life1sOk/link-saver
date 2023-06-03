@@ -10,7 +10,7 @@ export const ChangePassStyle = styled.form`
 `;
 
 export const Title = styled.h3`
-  font-size: 21px;
+  font-size: var(--font-huge);
   border-bottom: 1px solid ${({ theme }) => theme.border};
 `;
 

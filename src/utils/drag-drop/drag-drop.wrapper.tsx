@@ -1,17 +1,17 @@
 import { DragDropStyle } from "./drag-drop.style";
+import { useGenericLocal } from "../helper-dispatch/useGenericLocal";
 
 interface IDragDrop {
   children: string | JSX.Element | JSX.Element[];
 }
 
 const DragDrop = ({ children }: IDragDrop) => {
-  const onDragStartHandler = () => console.log("on drag");
-  const onDragOverHander = () => console.log("drag over");
-  const onDragHandler = () => console.log("drag");
-  const onDragEndHandler = () => console.log("drag emd");
+  const onDragOvertHandler = (event: React.SyntheticEvent) => {
+    event.preventDefault();
+  };
 
   return (
-    <DragDropStyle onDragStart={onDragStartHandler} draggable>
+    <DragDropStyle onDragOver={onDragOvertHandler} draggable>
       {children}
     </DragDropStyle>
   );

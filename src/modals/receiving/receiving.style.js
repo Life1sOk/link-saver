@@ -15,7 +15,7 @@ export const ReceivingModalStyle = styled.div`
   gap: 15px;
 `;
 
-export const Title = styled.h2``;
+export const Title = styled.h3``;
 
 export const GroupsStore = styled.div`
   width: 100%;

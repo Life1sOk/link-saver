@@ -80,12 +80,12 @@ export const IconWrapper = styled.div<{ status?: number }>`
 export const UpAction = styled.span`
   width: 100%;
   height: fit-content;
-  padding: 3px;
+  padding: 7px;
 
   color: ${({ theme }) => theme.color};
 
-  font-size: 13px;
-  font-weight: 600;
+  font-size: var(--font-mini);
+  font-weight: var(--font-weight-basic);
 
   &:hover {
     cursor: pointer;

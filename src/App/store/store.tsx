@@ -8,6 +8,7 @@ import topicsReducer from "./slices/topics.slice";
 import themeReducer from "./slices/theme.slice";
 import friendsReducer from "./slices/friends.slice";
 import boxReducer from "./slices/box.slice";
+import repfaqReducer from "./slices/repfaq.slice";
 
 import { topicsApi } from "./api/topics";
 import { linksApi } from "./api/links";
@@ -27,6 +28,7 @@ export const store = configureStore({
     theme: themeReducer,
     friends: friendsReducer,
     box: boxReducer,
+    repfaq: repfaqReducer,
     [topicsApi.reducerPath]: topicsApi.reducer,
     [linksApi.reducerPath]: linksApi.reducer,
     [groupsApi.reducerPath]: groupsApi.reducer,
