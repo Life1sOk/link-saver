@@ -9,7 +9,7 @@ export const BlackWindowStyle = styled.dialog<{ isOpen: boolean }>`
   height: 100%;
 
   border: none;
-  background-color: rgba(0, 0, 0, 0.3);
+  background-color: ${({ theme }) => theme.modals.window};
 
   display: ${({ isOpen }) => (isOpen ? "flex" : "none")};
   align-items: center;

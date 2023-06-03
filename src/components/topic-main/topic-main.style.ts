@@ -59,7 +59,7 @@ export const Count = styled.span`
 
   transform: translate(-50%, -50%);
 
-  color: white;
+  color: ${({ theme }) => theme.modals.background};
   font-size: var(--font-mini);
   font-weight: var(--font-weight-main);
 `;

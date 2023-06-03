@@ -12,7 +12,7 @@ export const light = {
   },
   group: {
     marker: "rgb(255, 117, 101)",
-    background: "rgb(230, 240, 255)",
+    background: "rgb(255, 255, 255)",
     border: "rgb(255, 117, 101)",
     icon: null,
     active: "rgba(245, 241, 39, 0.8)",
@@ -32,6 +32,7 @@ export const light = {
     active: "rgba(0, 128, 255)",
     hover: "rgba(0, 128, 255, .5)",
     news: "#e145a5",
+    window: "rgba(0, 0, 0, 0.3)",
   },
 };
 
@@ -49,7 +50,7 @@ export const dark = {
   },
   group: {
     marker: "rgb(255, 117, 101)",
-    background: "rgb(230, 240, 255, .5)",
+    background: "rgb(210, 210, 215)",
     border: "rgb(255, 117, 101)",
     icon: null,
     active: "rgba(245, 241, 39, 0.8)",
@@ -69,5 +70,6 @@ export const dark = {
     active: "rgba(0, 128, 255)",
     hover: "rgba(0, 128, 255, .5)",
     news: "#e145a5",
+    window: "rgba(0, 0, 0, 0.6)",
   },
 };
