@@ -33,12 +33,12 @@ const SettingsBlock = () => {
   return (
     <SettingsBlockStyle>
       <SettingAction
-        title="Pick theme  ?"
+        title={activeTheme === "dark" ? "Light theme" : "Dark theme"}
         icon={icons.themePick}
         actionHandler={toggleThemeHandler}
       />
       <SettingAction
-        title="Report  ?"
+        title="Report"
         actionHandler={toggleReportLocal}
         icon={icons.exclamation}
       />

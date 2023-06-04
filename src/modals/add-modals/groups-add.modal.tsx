@@ -47,6 +47,9 @@ const GroupAddModal = () => {
     closeGroupWindow();
     // Add group
     await addGroup(group, activeTopic.topic_title);
+
+    // Reset input
+    if (groupTitleRef.current) groupTitleRef.current.value = "";
   };
 
   return (

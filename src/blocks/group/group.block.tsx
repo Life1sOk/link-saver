@@ -63,7 +63,10 @@ const GroupBlock = memo(
     const { addOneFromGroupLocal, toggleLinkWindow } = useGenericLocal();
     const { resetGroupWindow } = useGroupLocal();
 
-    const modalActionHandler = () => setIsSureModal(!isSureModal);
+    const modalActionHandler = () => {
+      resetGroupWindow();
+      setIsSureModal(!isSureModal);
+    };
 
     const sureDeleteHandler = () => {
       setIsSureModal(!isSureModal);
@@ -73,6 +76,7 @@ const GroupBlock = memo(
 
     // Add link from group
     const addLinkFromGroupHandler = () => {
+      resetGroupWindow();
       // open link window
       toggleLinkWindow();
       // group info
@@ -95,6 +99,8 @@ const GroupBlock = memo(
     const openSendWindowHandler = () => {
       if (links.length === 0) return alert("it doesn't make sense - 0 links");
       if (links.length < 2) return alert("U should have 2 or more links");
+
+      resetGroupWindow();
 
       toggleSendGroupWindow();
       // Add into prepare local
@@ -132,7 +138,7 @@ const GroupBlock = memo(
                 <GroupAction
                   title="topic"
                   icon={icons.transition}
-                  actionHandler={() => {}}
+                  actionHandler={resetGroupWindow}
                 />
               </GroupTransitionModal>
               <GroupAction

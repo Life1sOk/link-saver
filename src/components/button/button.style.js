@@ -6,7 +6,7 @@ export const ButtonStyle = styled.button`
   border: none;
   border-radius: 5px;
 
-  background-color: rgba(255, 255, 255);
+  background-color: ${({ theme }) => theme.inputs};
   border: 1px solid ${({ theme }) => theme.border};
 
   &:active {

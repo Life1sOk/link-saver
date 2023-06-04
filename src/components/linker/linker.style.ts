@@ -8,14 +8,12 @@ export const ModalWrapper = styled.div`
   padding: 6px;
 
   color: ${({ theme }) => theme.link.color};
-  background-color: ${({ theme }) => theme.link.background};
   border-radius: 5px;
 
   box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
   -webkit-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
   -moz-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
 
-  background: rgb(47, 164, 255);
   background: linear-gradient(
     171deg,
     rgba(47, 164, 255, 1) 0%,

@@ -23,6 +23,7 @@ export const TextAreaStyle = styled.textarea`
 
   border: none;
   border: 1px solid ${({ theme }) => theme.border};
+  background-color: ${({ theme }) => theme.inputs};
   border-radius: 3px;
 
   &:focus {

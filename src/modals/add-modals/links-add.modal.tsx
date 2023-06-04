@@ -109,10 +109,14 @@ const LinkAddModal = () => {
     // Add / update
     if (activeLink.link.id < 0) {
       await addLinkGenericHandler(title, url);
-      return;
     } else {
       await updateLinkGenericHandler(title, url);
-      return;
+    }
+
+    // Reset inputs
+    if (titleRef.current && urlRef.current) {
+      titleRef.current.value = "";
+      urlRef.current.value = "";
     }
   };
 

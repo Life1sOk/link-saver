@@ -5,6 +5,7 @@ export const light = {
   },
   border: "rgb(222, 222, 222)",
   color: "rgb(62, 44, 20)",
+  inputs: "rgb(222, 222, 222)",
   topic: {
     marker: "rgb(247, 184, 79)",
     active: "rgb(255,255,255)",
@@ -43,6 +44,7 @@ export const dark = {
   },
   border: "rgba(222, 222, 222, .15)",
   color: "rgb(222, 222, 222)",
+  inputs: "rgb(222, 222, 222)",
   topic: {
     marker: "rgb(247, 184, 79)",
     active: "rgba(27,27,27)",
@@ -54,7 +56,7 @@ export const dark = {
     border: "rgb(255, 117, 101)",
     icon: null,
     active: "rgba(245, 241, 39, 0.8)",
-    shadow: "rgba(255, 255, 255, .6)",
+    shadow: "rgba(0, 0, 0, 0.5)",
   },
   link: {
     marker: "rgb(0, 112, 201)",
