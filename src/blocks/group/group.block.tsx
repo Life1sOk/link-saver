@@ -18,6 +18,7 @@ import GroupAction from "./group-action/group-action.component";
 import Status from "./group-status/status.component";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
 import Blank from "../../components/blank/blank-section.modal";
+import DropOver from "../../utils/drag-drop/drop.wrapper";
 
 import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
@@ -148,24 +149,26 @@ const GroupBlock = memo(
               />
             </ActionsLine>
           </GroupHeader>
-          {links.length < 1 ? (
-            <CenterBlack>
-              <Blank title="links" icon={icons.link} />
-            </CenterBlack>
-          ) : (
-            <LinksPlace>
-              {links?.map((link) => (
-                <Linker
-                  data={link}
-                  key={link.id}
-                  isActive={isActive}
-                  position={`${index}`}
-                  deleteLink={deleteLinkLocalHandler}
-                  linkTransitionHandler={transitionToGenerics}
-                />
-              ))}
-            </LinksPlace>
-          )}
+          <DropOver group_id={data.id} group_index={index}>
+            {links.length < 1 ? (
+              <CenterBlack>
+                <Blank title="links" icon={icons.link} />
+              </CenterBlack>
+            ) : (
+              <LinksPlace>
+                {links?.map((link) => (
+                  <Linker
+                    data={link}
+                    key={link.id}
+                    isActive={isActive}
+                    position={`${index}`}
+                    deleteLink={deleteLinkLocalHandler}
+                    linkTransitionHandler={transitionToGenerics}
+                  />
+                ))}
+              </LinksPlace>
+            )}
+          </DropOver>
         </GroupStyle>
         <AreYouSureModal
           isActive={isSureModal}

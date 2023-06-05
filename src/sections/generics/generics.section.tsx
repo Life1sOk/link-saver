@@ -12,7 +12,6 @@ import TitleSection from "../../components/title-section/title-section.component
 import Linker from "../../components/linker/linker.component";
 
 import { IShortLink } from "../../utils/interfaces/link";
-import DragDrop from "../../utils/drag-drop/drag-drop.wrapper";
 
 import Blank from "../../components/blank/blank-section.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
@@ -50,15 +49,14 @@ const GenericsSection = () => {
       <LinksWrapper>
         {localGenericLinks.length > 0 ? (
           localGenericLinks.map((current, index) => (
-            <DragDrop key={index}>
-              <Linker
-                data={current}
-                position="generics"
-                isActive={activeGroup.isActive}
-                deleteLink={deleteLinkHandler}
-                linkTransitionHandler={linkTransitionToGroupHandler}
-              />
-            </DragDrop>
+            <Linker
+              key={index}
+              data={current}
+              position="generics"
+              isActive={activeGroup.isActive}
+              deleteLink={deleteLinkHandler}
+              linkTransitionHandler={linkTransitionToGroupHandler}
+            />
           ))
         ) : (
           <Blank title="links" icon={icons.link} />

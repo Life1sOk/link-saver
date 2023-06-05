@@ -6,6 +6,7 @@ import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import { IShortLink } from "../../utils/interfaces/link";
 
+import DragDrop from "../../utils/drag-drop/drag.wrapper";
 import LinkUpModal from "./link-up/link-up.modal";
 import Link from "../../shared/link/link.shared";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
@@ -75,23 +76,25 @@ const Linker = ({
   };
 
   return (
-    <ModalWrapper>
-      <FrontBlocker isBlocked={data.id > 1683451657031} />
-      <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
-      <DotsLinkStyle>
-        <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
-          {icons.link}
-        </IconWrapper>
-        <Link data={data} />
-        <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
-      </DotsLinkStyle>
-      <LinkUpModal isOpen={isOpen} closeModel={closeHandler}>
-        <OpenWindow>
-          <UpAction onClick={editHandler}>Edit link</UpAction>
-          <UpAction onClick={deleteLinkHandler}>Remove link</UpAction>
-        </OpenWindow>
-      </LinkUpModal>
-    </ModalWrapper>
+    <DragDrop link_id={data.id}>
+      <ModalWrapper>
+        <FrontBlocker isBlocked={data.id > 1683451657031} />
+        <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
+        <DotsLinkStyle>
+          <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
+            {icons.link}
+          </IconWrapper>
+          <Link data={data} />
+          <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
+        </DotsLinkStyle>
+        <LinkUpModal isOpen={isOpen} closeModel={closeHandler}>
+          <OpenWindow>
+            <UpAction onClick={editHandler}>Edit link</UpAction>
+            <UpAction onClick={deleteLinkHandler}>Remove link</UpAction>
+          </OpenWindow>
+        </LinkUpModal>
+      </ModalWrapper>
+    </DragDrop>
   );
 };
 
