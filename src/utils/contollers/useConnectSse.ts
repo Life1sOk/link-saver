@@ -12,9 +12,7 @@ export const useConnectSse = () => {
   const { addReceivingLocal } = useBoxLocal();
 
   const getMessage = async () => {
-    const eventSource = new EventSource(
-      `https://link-saver.herokuapp.com/connect/${userId}`
-    );
+    const eventSource = new EventSource(`http://localhost:3000/connect/${userId}`);
 
     eventSource.onmessage = function (event) {
       const message = JSON.parse(event.data);
