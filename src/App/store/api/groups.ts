@@ -12,7 +12,7 @@ import {
 export const groupsApi = createApi({
   reducerPath: "groupsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/groups",
+    baseUrl: "https://link-saver.herokuapp.com/groups",
     // baseUrl: "https://link-saver.herokuapp.com/groups",
   }),
   tagTypes: ["Groups"],
