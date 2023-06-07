@@ -13,7 +13,8 @@ export const useConnectSse = () => {
 
   const getMessage = async () => {
     const eventSource = new EventSource(
-      `https://link-saver.herokuapp.com/connect/${userId}`
+      `https://link-saver.herokuapp.com/connect/${userId}`,
+      { withCredentials: true }
     );
 
     eventSource.onmessage = function (event) {
