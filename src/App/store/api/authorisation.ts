@@ -13,7 +13,6 @@ export const authorisationApi = createApi({
   reducerPath: "api/authorisation",
   baseQuery: fetchBaseQuery({
     baseUrl: "https://link-saver.herokuapp.com/",
-    mode: "no-cors",
   }),
   tagTypes: ["Authorisation"],
   endpoints: (builder) => ({
