@@ -4,7 +4,7 @@ import { IUser, IUsersSeach } from "../../../utils/interfaces/user";
 
 export const userApi = createApi({
   reducerPath: "api/registraion",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://link-saver.herokuapp.com/profile" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3000/profile" }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
     getUserProfile: builder.query<any, number>({
