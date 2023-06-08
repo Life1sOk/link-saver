@@ -47,7 +47,7 @@ export const useUserLogic = () => {
 
   // --------------------- ACTION ------------------------ //
   const getUserSearch = async (user_id: number, value: string) => {
-    await getUserSearchApi({ user: user_id, value })
+    return await getUserSearchApi({ user: user_id, value })
       .unwrap()
       .then((users) => {
         if (users) addSearchListLocal(users);
@@ -59,7 +59,7 @@ export const useUserLogic = () => {
     updateProfileLocal({ username: upObj.newUsername, email: null });
 
     // Server
-    await updateUserNameApi(upObj)
+    return await updateUserNameApi(upObj)
       .unwrap()
       .catch((err) => {
         if (err) {
@@ -73,7 +73,7 @@ export const useUserLogic = () => {
     updateProfileLocal({ username: null, email: upObj.newEmail });
 
     // Server
-    await updateUserEmailApi(upObj)
+    return await updateUserEmailApi(upObj)
       .unwrap()
       .catch((err) => {
         if (err) {
@@ -83,7 +83,7 @@ export const useUserLogic = () => {
   };
 
   const updatePassword = async (upObj: IUpPassword) => {
-    await updateUserPasswordApi(upObj).unwrap().catch(console.log);
+    return await updateUserPasswordApi(upObj).unwrap().catch(console.log);
   };
 
   return {

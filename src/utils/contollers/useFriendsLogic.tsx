@@ -41,7 +41,7 @@ export const useFriendsLogic = () => {
   // --------------------- ACTION ------------------------ //
   const getAllFriendList = async (userId: number) => {
     // Server
-    await getAllFriendListsApi(userId, true)
+    return await getAllFriendListsApi(userId, true)
       .unwrap()
       .then((data) => addAllListsLocal(data));
   };
@@ -52,7 +52,7 @@ export const useFriendsLogic = () => {
     addOneToListLocal({ which: "invited", user });
 
     // Server
-    await inviteFriendApi({ from, to })
+    return await inviteFriendApi({ from, to })
       .unwrap()
       .then((res) => {
         updateOneFromInvitedLocal({ user_id: to, friend_id: res });
@@ -72,7 +72,7 @@ export const useFriendsLogic = () => {
     addOneToListLocal({ which: "friends", user });
 
     // Server
-    await acceptFriendApi({ friend_id: user.friend_id })
+    return await acceptFriendApi({ friend_id: user.friend_id })
       .unwrap()
       .then(console.log)
       .catch((err) => {
@@ -89,7 +89,7 @@ export const useFriendsLogic = () => {
     deleteOneFromListLocal({ from: "incoming", id: user.id });
 
     // Server
-    await cancelFriendApi({ friend_id: user.friend_id })
+    return await cancelFriendApi({ friend_id: user.friend_id })
       .unwrap()
       .catch((err) => {
         if (err) {
@@ -104,7 +104,7 @@ export const useFriendsLogic = () => {
     deleteOneFromListLocal({ from: "invited", id: user.id });
 
     // Server
-    await cancelFriendApi({ friend_id: user.friend_id })
+    return await cancelFriendApi({ friend_id: user.friend_id })
       .unwrap()
       .catch((err) => {
         if (err) {

@@ -53,7 +53,7 @@ export const useLinkLogic = () => {
     // Add locally
     addOneGenericLocal(link);
     // Send data
-    await addGenericLinkApi(link)
+    return await addGenericLinkApi(link)
       .unwrap()
       .then((res) => {
         // Change custom id
@@ -71,7 +71,7 @@ export const useLinkLogic = () => {
     // Add locally
     addGroupLinkLocal({ link_data: link, index });
     // Send data
-    await addGenericLinkApi(link)
+    return await addGenericLinkApi(link)
       .unwrap()
       .then((res) => {
         // Change custom id
@@ -102,7 +102,7 @@ export const useLinkLogic = () => {
     }
 
     // If all not much so we should update link
-    await updateLinkApi(updatedLink)
+    return await updateLinkApi(updatedLink)
       .unwrap()
       .catch((err) => {
         // Back changes
@@ -141,7 +141,7 @@ export const useLinkLogic = () => {
     statusLocalChange(newStatus);
 
     // Server changes
-    await changeLinkStatusApi(newStatus)
+    return await changeLinkStatusApi(newStatus)
       .unwrap()
       .catch((err) => {
         // Back changes
@@ -158,7 +158,7 @@ export const useLinkLogic = () => {
     // Local change - add to generics
     addOneGenericLocal(data);
     // // Server change
-    await changeGroupLinkApi({ id: data.id, group_id: null })
+    return await changeGroupLinkApi({ id: data.id, group_id: null })
       .unwrap()
       .catch((err) => {
         if (err) {
@@ -175,7 +175,7 @@ export const useLinkLogic = () => {
     addGroupLinkLocal({ link_data: data, index: group_index });
     // Server changes
 
-    await changeGroupLinkApi({ id: data?.id, group_id })
+    return await changeGroupLinkApi({ id: data?.id, group_id })
       .unwrap()
       .catch((err) => {
         // Back changes
@@ -191,7 +191,7 @@ export const useLinkLogic = () => {
     // Local
     deleteGroupLinkLocal({ link_id: data.id, index });
     // Server
-    await deleteSnapshotApi({ id: data.id })
+    return await deleteSnapshotApi({ id: data.id })
       .unwrap()
       .catch((err) => {
         // Back changes
@@ -205,7 +205,7 @@ export const useLinkLogic = () => {
     // Local
     deleteOneGenericLocal(data.id);
     // Server
-    await deleteSnapshotApi({ id: data.id })
+    return await deleteSnapshotApi({ id: data.id })
       .unwrap()
       .catch((err) => {
         // Back changes

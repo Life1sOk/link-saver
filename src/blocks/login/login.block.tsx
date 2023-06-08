@@ -33,9 +33,9 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
       password: passwordRef.current?.value!,
     };
 
-    console.log(loginObj);
     await loginUser(loginObj).catch((err) => {
-      if (err) setErrorMess(err.data);
+      if (err.data) setErrorMess(err.data);
+      console.log(err);
     });
   };
 
@@ -56,7 +56,7 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
           />
           <Button name="Registration" actionHandle={changeHandler} type="button" />
         </ButtonLine>
-        {loginUserApiResult.isError && <p>{errorMess}</p>}
+        {loginUserApiResult?.isError && <span>{errorMess}</span>}
       </LogInPageStyle>
     </LoginWrapper>
   );

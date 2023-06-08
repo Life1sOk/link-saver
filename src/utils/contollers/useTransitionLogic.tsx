@@ -46,7 +46,7 @@ export const useTransitionLogic = () => {
 
   // --------------------- ACTION ------------------------ //
   const getTransitions = async (user_id: number) => {
-    await getTransitionsApi(user_id)
+    return await getTransitionsApi(user_id)
       .unwrap()
       .then((response) => {
         addToReceivingAllLocal(response);
@@ -58,7 +58,7 @@ export const useTransitionLogic = () => {
     toggleSendGroupWindow();
 
     // Server
-    await addTransitionApi(arg).unwrap().then(console.log);
+    return await addTransitionApi(arg).unwrap().then(console.log);
   };
 
   const acceptTransition = async (arg: ITransRece, user_id: number) => {
@@ -80,7 +80,7 @@ export const useTransitionLogic = () => {
       links: group.links,
     };
 
-    await acceptTransitionApi(prepObj)
+    return await acceptTransitionApi(prepObj)
       .unwrap()
       .then((response) => {
         if (response) {
@@ -112,7 +112,7 @@ export const useTransitionLogic = () => {
     removeReceivingLocal(transition_id);
 
     // Server
-    await cancelTransitionApi({ transition_id })
+    return await cancelTransitionApi({ transition_id })
       .unwrap()
       .then(console.log)
       .catch((err) => {

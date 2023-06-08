@@ -42,7 +42,7 @@ export const useAuthorisationLogic = () => {
 
   const loginUser = async (loginObj: ILog) => {
     // User
-    await loginUserApi(loginObj)
+    return await loginUserApi(loginObj)
       .unwrap()
       .then((response) => {
         storeSessionLocal(response);
@@ -51,7 +51,7 @@ export const useAuthorisationLogic = () => {
   };
 
   const loginUserByToken = async (token: string) => {
-    await loginTokenUserApi({ token })
+    return await loginTokenUserApi({ token })
       .unwrap()
       .then((response) => {
         storeSessionByTokenLocal({ token, response });

@@ -38,7 +38,7 @@ export const useTopicLogic = () => {
   // GET TOPIC'S GROUP COUNT
   const getGroupCount = async (topic: ITopic, user_id: number) => {
     // Server
-    await getTopicCount({ topic_id: topic.id, user_id })
+    return await getTopicCount({ topic_id: topic.id, user_id })
       .unwrap()
       .then((count) => {
         // Local
@@ -58,7 +58,7 @@ export const useTopicLogic = () => {
     addOneTopicLocal(newTopic);
 
     // Send request
-    await addTopicApi({ user_id: userId, topic_title: newTopic.topic_title })
+    return await addTopicApi({ user_id: userId, topic_title: newTopic.topic_title })
       .unwrap()
       .then((res) => {
         updateOneTopicIdLocal({ oldId: newTopic.id, newId: res });
@@ -75,7 +75,7 @@ export const useTopicLogic = () => {
   const updateTitleTopic = async (index: number, changedTitle: string, topic: ITopic) => {
     updateOneTopicLocal({ index, title: changedTitle });
     // Server
-    await changeTopicTitleApi({
+    return await changeTopicTitleApi({
       id: topic.id,
       topic_title: changedTitle,
     })
@@ -95,7 +95,7 @@ export const useTopicLogic = () => {
     deleteTopicCountLocal({ key: topic.topic_title });
 
     // // Server
-    await deleteTopicApi({
+    return await deleteTopicApi({
       id: topic.id,
       user_id: userId,
     })

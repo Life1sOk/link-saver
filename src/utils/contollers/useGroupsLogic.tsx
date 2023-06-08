@@ -49,7 +49,7 @@ export const useGroupsLogic = () => {
   const getGroupsStore = async (id: number, user_id: number) => {
     let ids = { topic_id: id, user_id };
     //
-    await getGroupsApi(ids)
+    return await getGroupsApi(ids)
       .unwrap()
       .then((data) => addAllGroupsLocal(data));
   };
@@ -60,7 +60,7 @@ export const useGroupsLogic = () => {
     addOneGroupLocal(group);
     incTopicCountLocal({ key: topic_title });
     // Send data
-    await addGroupApi(group)
+    return await addGroupApi(group)
       .unwrap()
       .then((res) => {
         updateGroupIdLocal({ oldId: group.id, newId: res });
@@ -80,7 +80,7 @@ export const useGroupsLogic = () => {
     updateGroupTitleLocal(newTitle);
 
     // Send changes
-    await changeGroupTitleApi(newTitle)
+    return await changeGroupTitleApi(newTitle)
       .unwrap()
       .catch((err) => {
         if (err) {
@@ -101,7 +101,7 @@ export const useGroupsLogic = () => {
     deleteGroupLocal(group_id);
     decTopicCountLocal({ key: topic_title });
     // server
-    await deleteGroupApi({ id: group_id, user_id })
+    return await deleteGroupApi({ id: group_id, user_id })
       .unwrap()
       .catch((err) => {
         if (err) {
@@ -127,7 +127,7 @@ export const useGroupsLogic = () => {
     decTopicCountLocal({ key: oldTopic_title });
 
     // Server
-    await transitionGroupApi({ new_topic_id: topic_id, group_id })
+    return await transitionGroupApi({ new_topic_id: topic_id, group_id })
       .unwrap()
       .then(console.log)
       .catch((err) => {
