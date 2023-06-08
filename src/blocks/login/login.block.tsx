@@ -34,7 +34,7 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
     };
 
     await loginUser(loginObj).catch((err) => {
-      if (err.data) setErrorMess(err.data);
+      // if (err.data) setErrorMess(err.data);
       console.log(err);
     });
   };
