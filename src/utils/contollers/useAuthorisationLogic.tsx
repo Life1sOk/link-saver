@@ -32,7 +32,7 @@ export const useAuthorisationLogic = () => {
 
   // --------------------- ACTION ------------------------ //
   const registerUser = async (arg: IRegister) => {
-    await registerUserApi(arg)
+    return await registerUserApi(arg)
       .unwrap()
       .then((response) => {
         storeSessionLocal(response);
