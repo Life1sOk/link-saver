@@ -1,15 +1,27 @@
-import { DragDropStyle } from "./drag-drop.style";
+import { useDispatch } from 'react-redux';
+import { DragDropStyle } from './drag-drop.style';
+import { addLink } from '../../App/store/slices/link.slice';
+
 
 interface IDrag {
-  group_id?: number;
   link_id?: number;
   data?: any;
   children: string | JSX.Element | JSX.Element[];
 }
 
 const Drag = ({ link_id, children }: IDrag) => {
+  const dispatch = useDispatch();
+
   const onDragStart = (event: React.SyntheticEvent) => {
-    console.log(link_id, "started link");
+    const linkTitle = ''; 
+    const linkUrl = ''; 
+
+    const linkData = {
+      link_title: linkTitle,
+      link_url: linkUrl,
+    };
+
+    dispatch(addLink(linkData));
   };
 
   return (
