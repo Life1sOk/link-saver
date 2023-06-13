@@ -1,8 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
+import { currentUrl } from "../../../utils/urls";
+
 export const transitionApi = createApi({
   reducerPath: "api/transition",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://link-saver.herokuapp.com/transition" }),
+  baseQuery: fetchBaseQuery({ baseUrl: currentUrl + "/transition" }),
   tagTypes: ["Transition"],
   endpoints: (builder) => ({
     getTransition: builder.query({

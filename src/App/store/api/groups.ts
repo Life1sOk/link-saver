@@ -1,6 +1,8 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
+import { currentUrl } from "../../../utils/urls";
+
 import {
   IGroupGet,
   IGroupPost,
@@ -12,7 +14,7 @@ import {
 export const groupsApi = createApi({
   reducerPath: "groupsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://link-saver.herokuapp.com/groups",
+    baseUrl: currentUrl + "/groups",
   }),
   tagTypes: ["Groups"],
   endpoints: (builder) => ({

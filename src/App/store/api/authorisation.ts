@@ -1,5 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
+import { currentUrl } from "../../../utils/urls";
+
 import {
   IUser,
   IUserRegistration,
@@ -12,7 +14,7 @@ import {
 export const authorisationApi = createApi({
   reducerPath: "api/authorisation",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://link-saver.herokuapp.com",
+    baseUrl: currentUrl,
   }),
   tagTypes: ["Authorisation"],
   endpoints: (builder) => ({

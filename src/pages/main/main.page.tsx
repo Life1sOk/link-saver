@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { useConnectSse } from "../../utils/contollers/useConnectSse";
 
 import NavigationSection from "../../sections/navigation/navigation.section";
 import GroupsSection from "../../sections/groups/groups.section";
@@ -44,9 +43,6 @@ const MainPage = () => {
       }
     }
   };
-
-  // Connect to SSE messages
-  useConnectSse();
 
   return (
     <MainLayout onMouseUp={endAnimation}>
