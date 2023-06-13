@@ -1,15 +1,15 @@
+import { useDragLocal } from "../helper-dispatch/useDragLocal";
+
+import { IDragWrapper } from "../interfaces/drag";
+
 import { DragDropStyle } from "./drag-drop.style";
 
-interface IDrag {
-  group_id?: number;
-  link_id?: number;
-  data?: any;
-  children: string | JSX.Element | JSX.Element[];
-}
+const DragWrapper = ({ type, data, children }: IDragWrapper) => {
+  const { addDraggableLocal } = useDragLocal();
 
-const Drag = ({ link_id, children }: IDrag) => {
   const onDragStart = (event: React.SyntheticEvent) => {
-    console.log(link_id, "started link");
+    if (type === "link") addDraggableLocal({ type: "link", data });
+    if (type === "group") addDraggableLocal({ type: "group", data });
   };
 
   return (
@@ -19,4 +19,4 @@ const Drag = ({ link_id, children }: IDrag) => {
   );
 };
 
-export default Drag;
+export default DragWrapper;

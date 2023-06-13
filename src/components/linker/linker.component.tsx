@@ -6,7 +6,7 @@ import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import { IShortLink } from "../../utils/interfaces/link";
 
-import DragDrop from "../../utils/drag-drop/drag.wrapper";
+import DragWrapper from "../../utils/drag-drop/drag.wrapper";
 import LinkUpModal from "./link-up/link-up.modal";
 import Link from "../../shared/link/link.shared";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
@@ -76,7 +76,7 @@ const Linker = ({
   };
 
   return (
-    <DragDrop link_id={data.id}>
+    <DragWrapper data={data} type="link">
       <ModalWrapper>
         <FrontBlocker isBlocked={data.id > 1683451657031} />
         <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
@@ -94,7 +94,7 @@ const Linker = ({
           </OpenWindow>
         </LinkUpModal>
       </ModalWrapper>
-    </DragDrop>
+    </DragWrapper>
   );
 };
 
