@@ -38,7 +38,6 @@ const Linker = ({
   const [isOpen, setIsOpen] = useState(false);
 
   const { editLinkWindow } = useGenericLocal();
-
   const { updateStatusLink } = useLinkLogic();
 
   const changeStatusHandler = async () => {
@@ -75,8 +74,10 @@ const Linker = ({
     if (linkTransitionHandler) linkTransitionHandler(data);
   };
 
+  const generateFrom = position === "generics" ? null : Number(position);
+
   return (
-    <DragWrapper data={data} type="link">
+    <DragWrapper data={data} from={generateFrom} type="link">
       <ModalWrapper>
         <FrontBlocker isBlocked={data.id > 1683451657031} />
         <FrontDesk isGroupActive={isActive} onClick={arrowAction} />

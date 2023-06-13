@@ -9,7 +9,7 @@ import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
 
 import { icons } from "../../utils/react-icons";
 import { IGroupGet } from "../../utils/interfaces/group";
-import { IShortLink, ITransGroup } from "../../utils/interfaces/link";
+import { IShortLink } from "../../utils/interfaces/link";
 import { ITopic } from "../../utils/interfaces/topic";
 
 import Linker from "../../components/linker/linker.component";

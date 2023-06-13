@@ -4,12 +4,12 @@ import { IDragWrapper } from "../interfaces/drag";
 
 import { DragDropStyle } from "./drag-drop.style";
 
-const DragWrapper = ({ type, data, children }: IDragWrapper) => {
+const DragWrapper = ({ type, data, from, children }: IDragWrapper) => {
   const { addDraggableLocal } = useDragLocal();
 
   const onDragStart = (event: React.SyntheticEvent) => {
-    if (type === "link") addDraggableLocal({ type: "link", data });
-    if (type === "group") addDraggableLocal({ type: "group", data });
+    if (type === "link") addDraggableLocal({ type: "link", data, from });
+    // if (type === "group") addDraggableLocal({ type: "group", data });
   };
 
   return (

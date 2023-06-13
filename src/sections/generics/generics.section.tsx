@@ -8,20 +8,23 @@ import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
 import { useGetGenericLinksByUserIdQuery } from "../../App/store/api/links";
 
+import DropWrapper from "../../utils/drag-drop/drop.wrapper";
 import TitleSection from "../../components/title-section/title-section.component";
 import Linker from "../../components/linker/linker.component";
+import Blank from "../../components/blank/blank-section.modal";
 
 import { IShortLink } from "../../utils/interfaces/link";
 
-import Blank from "../../components/blank/blank-section.modal";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
   const activeGroup = useAppSelector((state) => state.groupsLocal.window.activeGroup);
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
+  const dragData = useAppSelector((state) => state.drag.current);
 
-  const { linkTransitionToGroup, deleteGenericLink } = useLinkLogic();
+  const { linkTransitionToGroup, linkTransitionToGeneric, deleteGenericLink } =
+    useLinkLogic();
   const { addAllGenericsLocal } = useGenericLocal();
 
   const { data: generics } = useGetGenericLinksByUserIdQuery(userId);
@@ -32,6 +35,16 @@ const GenericsSection = () => {
     const group_id = activeGroup.id;
 
     await linkTransitionToGroup({ data, group_index, group_id });
+  };
+
+  // Drop action
+  const dropIntoGenerics = async () => {
+    const { type, data, from } = dragData;
+    console.log(dragData);
+
+    if (type === "link" && data && from !== null) {
+      await linkTransitionToGeneric(data, from);
+    }
   };
 
   // Delete link
@@ -46,22 +59,24 @@ const GenericsSection = () => {
   return (
     <GenericsWrapper isTransfer={activeGroup.isActive}>
       <TitleSection title="Generic links:" sectionType="generic" />
-      <LinksWrapper>
-        {localGenericLinks.length > 0 ? (
-          localGenericLinks.map((current, index) => (
-            <Linker
-              key={index}
-              data={current}
-              position="generics"
-              isActive={activeGroup.isActive}
-              deleteLink={deleteLinkHandler}
-              linkTransitionHandler={linkTransitionToGroupHandler}
-            />
-          ))
-        ) : (
-          <Blank title="links" icon={icons.link} />
-        )}
-      </LinksWrapper>
+      <DropWrapper actionHandler={dropIntoGenerics}>
+        <LinksWrapper>
+          {localGenericLinks.length > 0 ? (
+            localGenericLinks.map((current, index) => (
+              <Linker
+                key={index}
+                data={current}
+                position="generics"
+                isActive={activeGroup.isActive}
+                deleteLink={deleteLinkHandler}
+                linkTransitionHandler={linkTransitionToGroupHandler}
+              />
+            ))
+          ) : (
+            <Blank title="links" icon={icons.link} />
+          )}
+        </LinksWrapper>
+      </DropWrapper>
     </GenericsWrapper>
   );
 };

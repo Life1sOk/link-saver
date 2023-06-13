@@ -152,9 +152,9 @@ export const useLinkLogic = () => {
   };
 
   // TRANSITION LINK TO GENERICS or GROUPS //
-  const linkTransitionToGeneric = async (data: IShortLink, index: number) => {
+  const linkTransitionToGeneric = async (data: IShortLink, group_index: number) => {
     // Local change - removee from group
-    deleteGroupLinkLocal({ link_id: data.id, index });
+    deleteGroupLinkLocal({ link_id: data.id, index: group_index });
     // Local change - add to generics
     addOneGenericLocal(data);
     // // Server change
@@ -163,7 +163,7 @@ export const useLinkLogic = () => {
       .catch((err) => {
         if (err) {
           deleteOneGenericLocal(data.id);
-          addGroupLinkLocal({ link_data: data, index });
+          addGroupLinkLocal({ link_data: data, index: group_index });
         }
       });
   };

@@ -7,6 +7,7 @@ const initialState: { current: IIntDrag } = {
   current: {
     type: null,
     data: null,
+    from: null,
   },
 };
 
@@ -19,7 +20,7 @@ export const dragSlice = createSlice({
       state.current = payload;
     },
     removeDraggable: (state) => {
-      state.current = { type: null, data: null };
+      state.current = { type: null, data: null, from: null };
     },
   },
 });
