@@ -1,14 +1,12 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { currentUrl } from "../../../utils/urls";
-
 import { ITopic, IPostTopic } from "../../../utils/interfaces/topic";
 
 export const topicsApi = createApi({
   reducerPath: "topicsApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: currentUrl + "/topics",
+    baseUrl: "https://link-saver.herokuapp.com/topics",
   }),
   tagTypes: ["Topics"],
   endpoints: (builder) => ({

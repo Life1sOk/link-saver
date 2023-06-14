@@ -1,12 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
-import { currentUrl } from "../../../utils/urls";
-
 import { IUser, IUsersSeach } from "../../../utils/interfaces/user";
 
 export const userApi = createApi({
   reducerPath: "api/registraion",
-  baseQuery: fetchBaseQuery({ baseUrl: currentUrl + "/profile" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://link-saver.herokuapp.com/profile" }),
   tagTypes: ["User"],
   endpoints: (builder) => ({
     getUserProfile: builder.query<any, number>({

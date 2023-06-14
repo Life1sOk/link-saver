@@ -1,14 +1,12 @@
 // Need to use the React-specific entry point to import createApi
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-import { currentUrl } from "../../../utils/urls";
-
 import { IShortLink, ILink, ILinkStatus } from "../../../utils/interfaces/link";
 
 export const linksApi = createApi({
   reducerPath: "linksApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: currentUrl + "/links",
+    baseUrl: "https://link-saver.herokuapp.com/links",
   }),
   tagTypes: ["Links", "Groups"],
   endpoints: (builder) => ({

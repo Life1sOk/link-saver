@@ -4,8 +4,6 @@ import { useAppSelector } from "../../App/store/hooks";
 import { useFriendsLocal } from "../helper-dispatch/useFriendsLocal";
 import { useBoxLocal } from "../helper-dispatch/useBoxLocal";
 
-import { socketUrl } from "../urls";
-
 export const useWebsocket = () => {
   const session = useAppSelector((state) => state.user.session);
 
@@ -14,7 +12,7 @@ export const useWebsocket = () => {
 
   useEffect(() => {
     if (session.success) {
-      const socket = new WebSocket(socketUrl);
+      const socket = new WebSocket("wss://link-saver.herokuapp.com/connect");
 
       const userId = JSON.stringify({ user_id: session.user_id });
 
