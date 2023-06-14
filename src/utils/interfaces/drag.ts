@@ -4,12 +4,12 @@ import { IGroupGet } from "./group";
 export type IEmpty = {
   type: null;
   data: null;
-  from: null | number;
+  from: null | "generics" | { group_id: number; group_index: number };
 };
 
 export type IDragLink = {
   type: "link";
-  from: null | number;
+  from: null | "generics" | { group_id: number; group_index: number };
   data: IShortLink;
 };
 

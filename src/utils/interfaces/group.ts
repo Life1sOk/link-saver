@@ -38,3 +38,8 @@ export interface IGroupTransaction {
   group_id: number;
   new_topic_id: number;
 }
+
+export interface IGroupItemPosition {
+  start: number;
+  end: number;
+}

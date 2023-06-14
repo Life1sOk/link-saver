@@ -10,7 +10,13 @@ import { useGenericLocal } from "../helper-dispatch/useGenericLocal";
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
 import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
 
-import { IAddGeneric, IShortLink, ILinkStatus, ITransGroup } from "../interfaces/link";
+import {
+  IAddGeneric,
+  IShortLink,
+  ILinkStatus,
+  ITransGroup,
+  ITransGroupToGroup,
+} from "../interfaces/link";
 
 export const useLinkLogic = () => {
   const {
@@ -87,7 +93,7 @@ export const useLinkLogic = () => {
 
   // UPDATE LINK TITLE/URL //
   const updateLink = async (
-    from: string,
+    from: "generics" | number,
     updatedLink: IShortLink,
     oldLink: IShortLink
   ) => {
@@ -96,7 +102,7 @@ export const useLinkLogic = () => {
       updateOneGenericLocal(updatedLink);
     } else {
       updateGroupLinkLocal({
-        index: Number(from),
+        index: from,
         link_data: updatedLink,
       });
     }
@@ -111,7 +117,7 @@ export const useLinkLogic = () => {
             updateOneGenericLocal(oldLink);
           } else {
             updateGroupLinkLocal({
-              index: Number(from),
+              index: from,
               link_data: oldLink,
             });
           }
@@ -121,7 +127,7 @@ export const useLinkLogic = () => {
 
   // UPDATE LINK TITLE //
   const updateStatusLink = async (
-    position: string,
+    position: "generics" | number,
     newStatus: ILinkStatus,
     oldStatus: ILinkStatus
   ) => {
@@ -132,7 +138,7 @@ export const useLinkLogic = () => {
       } else {
         updateGroupLinkStatusLocal({
           link_data: status,
-          index: Number(position),
+          index: position,
         });
       }
     };
@@ -186,6 +192,29 @@ export const useLinkLogic = () => {
       });
   };
 
+  const linkTransitionFromGroupToGroup = async ({
+    data,
+    old_group_index,
+    new_group_index,
+    group_id,
+  }: ITransGroupToGroup) => {
+    // Local change - removee from group
+    deleteGroupLinkLocal({ link_id: data.id, index: old_group_index });
+    // Local change - group add link
+    addGroupLinkLocal({ link_data: data, index: new_group_index });
+    // Server changes
+
+    return await changeGroupLinkApi({ id: data?.id, group_id })
+      .unwrap()
+      .catch((err) => {
+        // Back changes
+        if (err) {
+          deleteGroupLinkLocal({ link_id: data.id, index: new_group_index });
+          addGroupLinkLocal({ link_data: data, index: old_group_index });
+        }
+      });
+  };
+
   // DELETE LINK //
   const deleteGroupLink = async (data: IShortLink, index: number) => {
     // Local
@@ -222,6 +251,7 @@ export const useLinkLogic = () => {
     updateStatusLink,
     linkTransitionToGeneric,
     linkTransitionToGroup,
+    linkTransitionFromGroupToGroup,
     deleteGroupLink,
     deleteGenericLink,
   };

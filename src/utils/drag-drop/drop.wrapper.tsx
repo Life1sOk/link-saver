@@ -1,11 +1,16 @@
-import { DragDropStyle } from "./drag-drop.style";
+import { useAppSelector } from "../../App/store/hooks";
+
+import { DropStyle } from "./drag-drop.style";
 
 interface IDrop {
+  typeFor: "link" | "group";
   actionHandler: () => void;
   children: string | JSX.Element | JSX.Element[];
 }
 
-const DropWrapper = ({ actionHandler, children }: IDrop) => {
+const DropWrapper = ({ typeFor, actionHandler, children }: IDrop) => {
+  const currentType = useAppSelector((state) => state.drag.current.type);
+
   const onDragOver = (event: React.SyntheticEvent) => {
     event.preventDefault();
   };
@@ -15,9 +20,13 @@ const DropWrapper = ({ actionHandler, children }: IDrop) => {
   };
 
   return (
-    <DragDropStyle onDragOver={onDragOver} onDrop={onDropHandler}>
+    <DropStyle
+      onDragOver={onDragOver}
+      onDrop={onDropHandler}
+      isShow={typeFor === currentType}
+    >
       {children}
-    </DragDropStyle>
+    </DropStyle>
   );
 };
 

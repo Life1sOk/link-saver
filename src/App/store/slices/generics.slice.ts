@@ -12,7 +12,7 @@ interface IWindowLink {
       link_url: string;
       status: boolean;
     };
-    from: string;
+    from: "generics" | number;
     fromGroup: {
       index: number;
       group_id: number;
@@ -32,7 +32,7 @@ const initialState: { pull: boolean; data: IShortLink[]; window: IWindowLink } =
         link_url: "",
         status: false,
       },
-      from: "",
+      from: "generics",
       fromGroup: {
         index: -1,
         group_id: -1,
@@ -86,7 +86,7 @@ export const genericsSlice = createSlice({
           link_url: "",
           status: false,
         };
-        snap.activeLink.from = "";
+        snap.activeLink.from = "generics";
         snap.activeLink.fromGroup = {
           index: -1,
           group_id: -1,
@@ -97,7 +97,7 @@ export const genericsSlice = createSlice({
     },
     activateLink: (
       state,
-      { payload }: PayloadAction<{ data: IShortLink; from: string }>
+      { payload }: PayloadAction<{ data: IShortLink; from: "generics" | number }>
     ) => {
       const snap = state.window;
 

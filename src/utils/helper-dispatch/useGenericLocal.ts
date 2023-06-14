@@ -42,7 +42,7 @@ export const useGenericLocal = () => {
 
   // Window
   const toggleLinkWindow = () => dispatch(toggleLinkWindowHandler());
-  const editLinkWindow = (arg: { data: IShortLink; from: string }) =>
+  const editLinkWindow = (arg: { data: IShortLink; from: "generics" | number }) =>
     dispatch(activateLink(arg));
 
   return {

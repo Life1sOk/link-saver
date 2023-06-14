@@ -11,7 +11,8 @@ export const useWebsocket = () => {
   const { addReceivingLocal } = useBoxLocal();
 
   const websocketHandler = () => {
-    const socket = new WebSocket("wss://link-saver.herokuapp.com/connect");
+    // const socket = new WebSocket("wss://link-saver.herokuapp.com/connect");
+    const socket = new WebSocket("ws://localhost:3000/connect");
 
     const userId = JSON.stringify({ user_id: session.user_id });
 

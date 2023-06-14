@@ -22,7 +22,7 @@ import {
 
 interface ILinker {
   data: IShortLink;
-  position: string;
+  position: { group_id: number; group_index: number } | "generics";
   isActive: boolean;
   linkTransitionHandler: (arg: IShortLink) => void;
   deleteLink: (data: IShortLink) => void;
@@ -50,14 +50,21 @@ const Linker = ({
       status: data.status,
     };
 
-    await updateStatusLink(position, newStatus, oldStatus);
+    await updateStatusLink(
+      position === "generics" ? position : position.group_index,
+      newStatus,
+      oldStatus
+    );
   };
 
   const openHandler = () => setIsOpen(true);
   const closeHandler = () => setIsOpen(false);
 
   const editHandler = () => {
-    editLinkWindow({ data, from: position });
+    editLinkWindow({
+      data,
+      from: position === "generics" ? position : position.group_index,
+    });
     closeHandler();
   };
 
@@ -74,10 +81,8 @@ const Linker = ({
     if (linkTransitionHandler) linkTransitionHandler(data);
   };
 
-  const generateFrom = position === "generics" ? null : Number(position);
-
   return (
-    <DragWrapper data={data} from={generateFrom} type="link">
+    <DragWrapper data={data} from={position} type="link">
       <ModalWrapper>
         <FrontBlocker isBlocked={data.id > 1683451657031} />
         <FrontDesk isGroupActive={isActive} onClick={arrowAction} />

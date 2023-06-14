@@ -1,11 +1,10 @@
 import styled from "styled-components";
 
-export const GroupStyle = styled.div<{ isActive?: boolean }>`
+export const GroupStyle = styled.div<{ isActive?: boolean; gridRow?: string }>`
   position: relative;
   z-index: ${({ isActive }) => (isActive ? "9" : "0")};
 
   width: 100%;
-  max-width: 278px;
   height: fit-content;
 
   background-color: ${({ theme }) => theme.group.background};
@@ -17,6 +16,8 @@ export const GroupStyle = styled.div<{ isActive?: boolean }>`
 
   display: flex;
   flex-direction: column;
+
+  grid-row: ${({ gridRow }) => (gridRow ? gridRow : null)};
 `;
 
 export const GroupHeader = styled.div`
@@ -49,6 +50,7 @@ export const GroupHeaderTop = styled.div`
 
 export const LinksPlace = styled.div`
   width: 100%;
+  min-height: 107px;
   height: fit-content;
   padding: 10px;
 
@@ -111,7 +113,7 @@ export const CenterBlack = styled.div`
   position: relative;
 
   width: 100%;
-  height: 249px;
+  height: 107px;
   padding: 10px;
 
   display: flex;

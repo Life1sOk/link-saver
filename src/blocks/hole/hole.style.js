@@ -1,11 +1,14 @@
 import styled from "styled-components";
 
 export const HoleBlockStyle = styled.div`
+  width: 100%;
+  max-width: 287px;
   min-width: 122px;
   height: 100%;
 
   background-color: ${({ theme }) => theme.background.sections};
 
+  margin-left: 10px;
   padding-left: 12px;
 
   border-left: 1px solid ${({ theme }) => theme.border};

@@ -2,7 +2,10 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 export const friendsApi = createApi({
   reducerPath: "api/friends",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://link-saver.herokuapp.com/friends" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: "http://localhost:3000/friends",
+    // baseUrl: "https://link-saver.herokuapp.com/friends",
+  }),
   tagTypes: ["Friends"],
   endpoints: (builder) => ({
     getFriendLists: builder.query<any, number>({

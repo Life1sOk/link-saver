@@ -27,6 +27,10 @@ export const ActionTitle = styled.a`
 
   font-size: 13.5px;
   font-weight: var(--font-weight-main);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const triangle = styled.div`

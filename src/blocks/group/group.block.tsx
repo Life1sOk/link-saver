@@ -6,6 +6,7 @@ import { useAppSelector } from "../../App/store/hooks";
 import { useGroupLocal } from "../../utils/helper-dispatch/useGroupLocal";
 import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
 import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
+import { useDragLocal } from "../../utils/helper-dispatch/useDragLocal";
 
 import { icons } from "../../utils/react-icons";
 import { IGroupGet } from "../../utils/interfaces/group";
@@ -36,6 +37,7 @@ import {
 interface IGroupBlock {
   index: number;
   data: IGroupGet;
+  gridRow?: string;
   deleteGroupHandler: (group_id: number, data: IGroupGet) => void;
   deleteLinkHandler: (data: IShortLink, index: number) => void;
   transitionLink: (data: IShortLink, index: number) => void;
@@ -46,6 +48,7 @@ const GroupBlock = memo(
   ({
     data,
     index,
+    gridRow,
     deleteGroupHandler,
     deleteLinkHandler,
     transitionLink,
@@ -62,10 +65,11 @@ const GroupBlock = memo(
 
     let isActive = id === activeId;
 
-    const { linkTransitionToGroup } = useLinkLogic();
+    const { linkTransitionToGroup, linkTransitionFromGroupToGroup } = useLinkLogic();
 
     const { toggleSendGroupWindow, addPrepareLocal } = useBoxLocal();
     const { addOneFromGroupLocal, toggleLinkWindow } = useGenericLocal();
+    const { removeDraggableLocal } = useDragLocal();
     const { resetGroupWindow } = useGroupLocal();
 
     const modalActionHandler = () => {
@@ -102,15 +106,37 @@ const GroupBlock = memo(
 
     // Drop action
     const dropIntoGroupHandler = async () => {
-      if (dragData.type === "link" && dragData.data && dragData.from === null) {
+      const { type, data: link_data, from } = dragData;
+
+      // From generics
+      if (type === "link" && link_data && from === "generics") {
         const prepData = {
-          data: dragData.data,
+          data: link_data,
           group_index: index,
           group_id: data.id,
         };
 
         await linkTransitionToGroup(prepData);
       }
+
+      // From group
+      if (
+        type === "link" &&
+        link_data &&
+        from !== "generics" &&
+        from?.group_id !== data.id
+      ) {
+        const prepObj = {
+          data: link_data,
+          group_id: data.id,
+          new_group_index: index,
+          old_group_index: from?.group_index!,
+        };
+
+        await linkTransitionFromGroupToGroup(prepObj);
+      }
+
+      removeDraggableLocal();
     };
 
     // Send to another user;
@@ -128,7 +154,7 @@ const GroupBlock = memo(
     return (
       <>
         <BlackWindowModal isOpen={isActiveWindow} activeHandler={resetGroupWindow} />
-        <GroupStyle isActive={id === activeId}>
+        <GroupStyle isActive={id === activeId} gridRow={gridRow}>
           <Status />
           <FrontBlocker isBlocked={id > 1683451657031} />
           <GroupHeader>
@@ -166,7 +192,7 @@ const GroupBlock = memo(
               />
             </ActionsLine>
           </GroupHeader>
-          <DropWrapper actionHandler={dropIntoGroupHandler}>
+          <DropWrapper typeFor="link" actionHandler={dropIntoGroupHandler}>
             {links.length < 1 ? (
               <CenterBlack>
                 <Blank title="links" icon={icons.link} />
@@ -178,7 +204,7 @@ const GroupBlock = memo(
                     data={link}
                     key={link.id}
                     isActive={isActive}
-                    position={`${index}`}
+                    position={{ group_id: data.id, group_index: index }}
                     deleteLink={deleteLinkLocalHandler}
                     linkTransitionHandler={transitionToGenerics}
                   />

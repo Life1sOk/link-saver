@@ -2,16 +2,13 @@ import { useDragLocal } from "../helper-dispatch/useDragLocal";
 
 import { IDragWrapper } from "../interfaces/drag";
 
-import { DragDropStyle } from "./drag-drop.style";
+import { DragStyle } from "./drag-drop.style";
 
 const DragWrapper = ({ type, data, from, children }: IDragWrapper) => {
-  const { addDraggableLocal } = useDragLocal();
+  const { addDraggableLocal, removeDraggableLocal } = useDragLocal();
 
   const onDragStart = (event: any) => {
-    // setIsActive(true);
-    setTimeout(() => {
-      event.target.style.opacity = "0";
-    }, 0);
+    event.target.style.opacity = ".4";
 
     if (type === "link") addDraggableLocal({ type: "link", data, from });
     // if (type === "group") addDraggableLocal({ type: "group", data });
@@ -19,12 +16,14 @@ const DragWrapper = ({ type, data, from, children }: IDragWrapper) => {
 
   const onDragEnd = (event: any) => {
     event.target.style.opacity = "1";
+
+    if (type === "link") removeDraggableLocal();
   };
 
   return (
-    <DragDropStyle onDragStart={onDragStart} onDragEnd={onDragEnd} draggable>
+    <DragStyle onDragStart={onDragStart} onDragEnd={onDragEnd} draggable>
       {children}
-    </DragDropStyle>
+    </DragStyle>
   );
 };
 

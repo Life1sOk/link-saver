@@ -36,7 +36,6 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   width: 100%;
   height: 100%;
 
-  border: 1px solid white;
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.link.border};
 
@@ -53,6 +52,8 @@ export const DotsLinkStyle = styled.div`
   display: flex;
   align-items: center;
   gap: 8px;
+
+  border-radius: 5px;
 `;
 
 export const IconWrapper = styled.div<{ status?: number }>`

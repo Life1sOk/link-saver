@@ -20,6 +20,7 @@ export const TitleInput = styled.input`
 
 export const Title = styled.h3`
   width: 100%;
+  max-width: 159px;
 
   font-size: var(--font-large);
   font-weight: var(--font-weight-main);

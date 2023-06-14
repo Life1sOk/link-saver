@@ -5,6 +5,7 @@ import { icons } from "../../utils/react-icons";
 
 import { useGenericLocal } from "../../utils/helper-dispatch/useGenericLocal";
 import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
+import { useDragLocal } from "../../utils/helper-dispatch/useDragLocal";
 
 import { useGetGenericLinksByUserIdQuery } from "../../App/store/api/links";
 
@@ -26,6 +27,7 @@ const GenericsSection = () => {
   const { linkTransitionToGroup, linkTransitionToGeneric, deleteGenericLink } =
     useLinkLogic();
   const { addAllGenericsLocal } = useGenericLocal();
+  const { removeDraggableLocal } = useDragLocal();
 
   const { data: generics } = useGetGenericLinksByUserIdQuery(userId);
 
@@ -40,11 +42,12 @@ const GenericsSection = () => {
   // Drop action
   const dropIntoGenerics = async () => {
     const { type, data, from } = dragData;
-    console.log(dragData);
 
-    if (type === "link" && data && from !== null) {
-      await linkTransitionToGeneric(data, from);
+    if (type === "link" && data && from !== "generics") {
+      await linkTransitionToGeneric(data, from?.group_index!);
     }
+
+    removeDraggableLocal();
   };
 
   // Delete link
@@ -59,7 +62,7 @@ const GenericsSection = () => {
   return (
     <GenericsWrapper isTransfer={activeGroup.isActive}>
       <TitleSection title="Generic links:" sectionType="generic" />
-      <DropWrapper actionHandler={dropIntoGenerics}>
+      <DropWrapper typeFor="link" actionHandler={dropIntoGenerics}>
         <LinksWrapper>
           {localGenericLinks.length > 0 ? (
             localGenericLinks.map((current, index) => (
