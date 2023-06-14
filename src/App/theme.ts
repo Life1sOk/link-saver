@@ -52,7 +52,7 @@ export const dark = {
   },
   group: {
     marker: "rgb(255, 117, 101)",
-    background: "rgb(210, 210, 215)",
+    background: "rgb(255, 255, 255)",
     border: "rgb(255, 117, 101)",
     icon: null,
     active: "rgba(245, 241, 39, 0.8)",

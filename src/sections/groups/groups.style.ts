@@ -13,7 +13,7 @@ export const GroupsStyle = styled.div`
   border-top: 1px solid ${({ theme }) => theme.border};
   border-bottom: 1px solid ${({ theme }) => theme.border};
 
-  border-radius: 0 5px 15px 0;
+  border-radius: 0 5px 5px 0;
 
   display: flex;
   flex-direction: column;
