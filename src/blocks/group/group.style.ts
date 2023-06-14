@@ -50,10 +50,7 @@ export const GroupHeaderTop = styled.div`
 export const LinksPlace = styled.div`
   width: 100%;
   height: fit-content;
-  /* height: 249px; */
   padding: 10px;
-
-  overflow-y: scroll;
 
   display: grid;
   grid-template-columns: repeat(auto-fill, 255px);

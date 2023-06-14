@@ -102,7 +102,7 @@ const GroupBlock = memo(
 
     // Drop action
     const dropIntoGroupHandler = async () => {
-      if (dragData.type === "link" && dragData.data) {
+      if (dragData.type === "link" && dragData.data && dragData.from === null) {
         const prepData = {
           data: dragData.data,
           group_index: index,
