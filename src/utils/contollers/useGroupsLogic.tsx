@@ -9,7 +9,7 @@ import {
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
 import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
 
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import { IGroupGet, IGroupChange, IAddGroup } from "../interfaces/group";
 import { ITopic } from "../interfaces/topic";

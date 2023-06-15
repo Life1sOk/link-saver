@@ -21,6 +21,13 @@ import {
   TbBox,
 } from "react-icons/tb";
 
+import {
+  MdFileDownloadDone,
+  MdOutlineErrorOutline,
+  MdOutlineAirlineSeatReclineNormal,
+} from "react-icons/md";
+import { FcProcess } from "react-icons/fc";
+
 export const icons = {
   dots: <BiDotsVertical />,
   arrowLeft: <BsArrowBarLeft />,
@@ -43,4 +50,9 @@ export const icons = {
   friends: <TbFriends />,
   box: <TbBox />,
   hole: <GiHole />,
+
+  done: <MdFileDownloadDone />,
+  process: <FcProcess />,
+  error: <MdOutlineErrorOutline />,
+  default: <MdOutlineAirlineSeatReclineNormal />,
 };

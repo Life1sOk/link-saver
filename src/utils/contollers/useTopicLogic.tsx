@@ -6,7 +6,7 @@ import {
 } from "../../App/store/api/topics";
 
 import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import { ITopic } from "../interfaces/topic";
 

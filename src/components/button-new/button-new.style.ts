@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
 export const ButtonWrapper = styled.div<{ sectionType: string }>`
-  width: 100%;
-  min-width: 63px;
-
   display: flex;
   align-items: center;
 
@@ -38,7 +35,7 @@ export const ButtonWrapper = styled.div<{ sectionType: string }>`
 
 export const ButtonStyle = styled.button`
   width: 100%;
-  padding: 3px 17px 3px 12px;
+  padding: 3px 13px 3px 7px;
   background-color: transparent;
 
   border: none;
@@ -47,6 +44,10 @@ export const ButtonStyle = styled.button`
 
   font-size: 13.5px;
   font-weight: var(--font-weight-main);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   display: flex;
   align-items: center;

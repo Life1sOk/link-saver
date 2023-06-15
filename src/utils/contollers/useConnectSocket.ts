@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 import { useFriendsLocal } from "../helper-dispatch/useFriendsLocal";
 import { useBoxLocal } from "../helper-dispatch/useBoxLocal";
+import { useProcessLocal } from "../helper-dispatch/useProcessLocal";
 
 export const useWebsocket = () => {
   const session = useAppSelector((state) => state.user.session);
 
   const { addOneToListLocal, deleteOneFromListLocal } = useFriendsLocal();
   const { addReceivingLocal } = useBoxLocal();
+  const { addProcessMessage } = useProcessLocal();
 
   const websocketHandler = () => {
     // const socket = new WebSocket("wss://link-saver.herokuapp.com/connect");
@@ -26,6 +28,7 @@ export const useWebsocket = () => {
         // Lists: friends, invited, incoming, search
         case "invite friend":
           addOneToListLocal({ which: "incoming", user: message.data });
+          addProcessMessage("friend");
           break;
         case "confirmed friend":
           deleteOneFromListLocal({ from: "invited", id: message.data.id });
@@ -36,6 +39,7 @@ export const useWebsocket = () => {
           break;
         case "transition box":
           addReceivingLocal(message.data);
+          addProcessMessage("box");
           break;
       }
     };
@@ -51,7 +55,7 @@ export const useWebsocket = () => {
         // например, сервер убил процесс или сеть недоступна
         // обычно в этом случае event.code 1006
         console.log("connection was closed", event.code);
-        setTimeout(websocketHandler, 1000);
+        setTimeout(websocketHandler, 0);
       }
     };
   };

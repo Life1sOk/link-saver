@@ -8,7 +8,7 @@ import {
 
 import { useGenericLocal } from "../helper-dispatch/useGenericLocal";
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import {
   IAddGeneric,
