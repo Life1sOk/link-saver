@@ -4,8 +4,8 @@ import { useAppSelector } from "../../App/store/hooks";
 import { useUserLocal } from "../../utils/helper-dispatch/useUserLocal";
 
 import User from "../../shared/user/user.components";
-import ChangePassBlock from "../../blocks/change-pass/change-pass.block";
-import ChangeProfileBlock from "../../blocks/change-profile/change-profile.block";
+import ChangePassBlock from "../../blocks/profile-setting/change-pass.block";
+import ChangeProfileBlock from "../../blocks/profile-setting/change-profile.block";
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
 
 import { ProfileStyle, LeftSide, UserWrapper, ActionSection } from "./profile.style";

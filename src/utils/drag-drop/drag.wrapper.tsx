@@ -1,7 +1,7 @@
 import { useDragLocal } from "../helper-dispatch/useDragLocal";
 
 import { IDragWrapper } from "../interfaces/drag";
-import omg from "../../assets/link32.png";
+import omg from "../../assets/drag-link.webp";
 
 import { DragStyle } from "./drag-drop.style";
 
@@ -16,7 +16,7 @@ const DragWrapper = ({ type, data, from, children }: IDragWrapper) => {
       event.target.style.opacity = ".4";
     }, 0);
 
-    event.dataTransfer.setDragImage(img, 16, 32);
+    event.dataTransfer.setDragImage(img, 16, 22);
 
     if (type === "link") addDraggableLocal({ type: "link", data, from });
   };

@@ -9,7 +9,7 @@ import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
 import { IUserTrans } from "../../utils/interfaces/user";
 
-import { FriendsStyle } from "./friends-wrapper.style";
+import { FriendsStyle, UsersWrapper } from "./friends-wrapper.style";
 
 const UserInvited = () => {
   const invitedList = useAppSelector((state) => state.friends.invitedList);
@@ -23,14 +23,19 @@ const UserInvited = () => {
       {invitedList.length < 1 ? (
         <Blank title="invites" icon={icons.friends} />
       ) : (
-        invitedList.map((user, index) => (
-          <UserDisplay
-            key={index}
-            user={user}
-            status="Invited"
-            actionHandlerOne={{ action: () => cancelInviteHandler(user), call: "Cancel" }}
-          />
-        ))
+        <UsersWrapper>
+          {invitedList.map((user, index) => (
+            <UserDisplay
+              key={index}
+              user={user}
+              status="Invited"
+              actionHandlerOne={{
+                action: () => cancelInviteHandler(user),
+                call: "Cancel",
+              }}
+            />
+          ))}
+        </UsersWrapper>
       )}
     </FriendsStyle>
   );

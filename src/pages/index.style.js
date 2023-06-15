@@ -47,4 +47,7 @@ export const PageWrapper = styled.div`
   height: 100vh;
 
   min-width: 975px;
+  max-width: 1662px;
+
+  margin: 0 auto;
 `;

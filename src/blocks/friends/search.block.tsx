@@ -16,7 +16,12 @@ import Input from "../../components/input/input.component";
 import { useDebounce } from "../../utils/helpers/useDebounce";
 import { IUser } from "../../utils/interfaces/user";
 
-import { FriendsStyle, SearchBlockStyle, DefaultAndSpin } from "./friends-wrapper.style";
+import {
+  FriendsStyle,
+  SearchBlockStyle,
+  DefaultAndSpin,
+  UsersWrapper,
+} from "./friends-wrapper.style";
 
 const UserSearch = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
@@ -68,14 +73,19 @@ const UserSearch = () => {
         </DefaultAndSpin>
       ) : (
         <FriendsStyle>
-          {searchResult.map((user, index) => (
-            <UserDisplay
-              key={index}
-              user={user}
-              status="Finded"
-              actionHandlerOne={{ action: () => sendInviteHandler(user), call: "Invite" }}
-            />
-          ))}
+          <UsersWrapper>
+            {searchResult.map((user, index) => (
+              <UserDisplay
+                key={index}
+                user={user}
+                status="Finded"
+                actionHandlerOne={{
+                  action: () => sendInviteHandler(user),
+                  call: "Invite",
+                }}
+              />
+            ))}
+          </UsersWrapper>
         </FriendsStyle>
       )}
     </SearchBlockStyle>

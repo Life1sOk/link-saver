@@ -10,16 +10,25 @@ export const FriendSwitcherStyle = styled.div<{ isActive: boolean }>`
   font-weight: var(--font-weight-main);
 
   border-radius: 5px;
-  border-top: 2px solid
-    ${({ isActive, theme }) => (isActive ? theme.modals.active : "initial")};
 
   display: flex;
   align-items: center;
   justify-content: center;
 
+  -webkit-box-shadow: 0px 0px 3px 0px
+    ${({ isActive, theme }) => (isActive ? theme.modals.active : "initial")};
+  -moz-box-shadow: 0px 0px 3px 0px
+    ${({ isActive, theme }) => (isActive ? theme.modals.active : "initial")};
+  box-shadow: 0px 0px 3px 0px
+    ${({ isActive, theme }) => (isActive ? theme.modals.active : "initial")};
+
   &:hover {
     cursor: pointer;
-    border-top: 2px solid
-      ${({ isActive, theme }) => (!isActive ? theme.modals.hover : "initial")};
+    -webkit-box-shadow: 0px 0px 3px 0px
+      ${({ isActive, theme }) => (!isActive ? theme.modals.activeShadow : "initial")};
+    -moz-box-shadow: 0px 0px 3px 0px
+      ${({ isActive, theme }) => (!isActive ? theme.modals.activeShadow : "initial")};
+    box-shadow: 0px 0px 3px 0px
+      ${({ isActive, theme }) => (!isActive ? theme.modals.activeShadow : "initial")};
   }
 `;

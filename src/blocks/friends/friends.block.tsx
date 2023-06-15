@@ -9,7 +9,7 @@ import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 
 import { IUserTrans } from "../../utils/interfaces/user";
 
-import { FriendsStyle, Line } from "./friends-wrapper.style";
+import { FriendsStyle, Line, UsersWrapper } from "./friends-wrapper.style";
 
 const UserFriends = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
@@ -24,26 +24,33 @@ const UserFriends = () => {
 
   return (
     <FriendsStyle>
-      {incomingList.map((user, index) => (
-        <UserDisplay
-          key={index}
-          user={user}
-          actionHandlerOne={{ action: () => acceptFriendHandler(user), call: "Accept" }}
-          actionHandlerTwo={{ action: () => cancelHandler(user), call: "Cancel" }}
-        />
-      ))}
+      <UsersWrapper>
+        {incomingList.map((user, index) => (
+          <UserDisplay
+            key={index}
+            user={user}
+            actionHandlerOne={{ action: () => acceptFriendHandler(user), call: "Accept" }}
+            actionHandlerTwo={{ action: () => cancelHandler(user), call: "Cancel" }}
+          />
+        ))}
+      </UsersWrapper>
       {incomingList.length > 0 && <Line />}
       {friendsList.length < 1 ? (
         <Blank title="friends" icon={icons.friends} />
       ) : (
-        friendsList.map((user, index) => (
-          <UserDisplay
-            key={index}
-            user={user}
-            status="Friend"
-            actionHandlerOne={{ action: () => deleteFriendHandler(user), call: "Delete" }}
-          />
-        ))
+        <UsersWrapper>
+          {friendsList.map((user, index) => (
+            <UserDisplay
+              key={index}
+              user={user}
+              status="Friend"
+              actionHandlerOne={{
+                action: () => deleteFriendHandler(user),
+                call: "Delete",
+              }}
+            />
+          ))}
+        </UsersWrapper>
       )}
     </FriendsStyle>
   );

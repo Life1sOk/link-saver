@@ -1,25 +1,25 @@
 import styled from "styled-components";
 
-export const HoleBlockStyle = styled.div`
+export const HoleStyle = styled.div`
   width: 100%;
-  max-width: 287px;
+  max-width: 297px;
   min-width: 122px;
   height: 100%;
 
-  background-color: ${({ theme }) => theme.background.sections};
-
-  margin-left: 10px;
-  padding-left: 12px;
-
+  margin-left: 12px;
   border-left: 1px solid ${({ theme }) => theme.border};
 
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
+`;
 
+export const HoleBlockStyle = styled.div`
   & > svg {
-    width: 100%;
-    height: 100%;
+    width: 48px;
+    height: 48px;
+
+    color: rgba(255, 58, 0, 0.6);
   }
 `;

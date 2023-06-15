@@ -5,7 +5,7 @@ export const light = {
   },
   border: "rgb(222, 222, 222)",
   color: "rgb(62, 44, 20)",
-  inputs: "rgb(222, 222, 222)",
+  inputs: "rgb(244, 244, 244)",
   topic: {
     marker: "rgb(247, 184, 79)",
     active: "rgb(255,255,255)",
@@ -31,6 +31,8 @@ export const light = {
   modals: {
     background: "rgb(255,255,255)",
     active: "rgba(0, 128, 255)",
+    activeShadow: "rgba(166, 166, 166, 1)",
+    hoverSection: "rgba(200, 200, 200, 0.2)",
     hover: "rgba(0, 128, 255, .5)",
     news: "#e145a5",
     window: "rgba(0, 0, 0, 0.3)",
@@ -70,6 +72,8 @@ export const dark = {
   modals: {
     background: "rgba(37,37,37)",
     active: "rgba(0, 128, 255)",
+    activeShadow: "rgba(200, 200, 200, 0.5)",
+    hoverSection: "rgba(200, 200, 200, 0.2)",
     hover: "rgba(0, 128, 255, .5)",
     news: "#e145a5",
     window: "rgba(0, 0, 0, 0.6)",

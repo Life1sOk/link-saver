@@ -62,7 +62,7 @@ export const StatusWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 7px;
 `;
 
 export const Status = styled.div<{ status: string }>`
