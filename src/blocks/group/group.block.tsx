@@ -35,7 +35,7 @@ import {
 } from "./group.style";
 
 interface IGroupBlock {
-  index: number;
+  group_index: number;
   data: IGroupGet;
   gridRow?: string;
   deleteGroupHandler: (group_id: number, data: IGroupGet) => void;
@@ -47,7 +47,7 @@ interface IGroupBlock {
 const GroupBlock = memo(
   ({
     data,
-    index,
+    group_index,
     gridRow,
     deleteGroupHandler,
     deleteLinkHandler,
@@ -90,19 +90,20 @@ const GroupBlock = memo(
       // open link window
       toggleLinkWindow();
       // group info
-      addOneFromGroupLocal({ index, group_id: id });
+      addOneFromGroupLocal({ index: group_index, group_id: id });
     };
 
     // ======== Transitions
     // link
-    const transitionToGenerics = async (data: IShortLink) => transitionLink(data, index);
+    const transitionToGenerics = async (data: IShortLink) =>
+      transitionLink(data, group_index);
     // Group
     const transitionToTopicHandler = async (topic: ITopic) =>
       transitionGroup(topic, data);
 
     // Local delete link handler
     const deleteLinkLocalHandler = async (data: IShortLink) => {
-      deleteLinkHandler(data, index);
+      deleteLinkHandler(data, group_index);
     };
 
     // Drop action
@@ -113,7 +114,7 @@ const GroupBlock = memo(
       if (type === "link" && link_data && from === "generics") {
         const prepData = {
           data: link_data,
-          group_index: index,
+          group_index,
           group_id: data.id,
         };
 
@@ -130,7 +131,7 @@ const GroupBlock = memo(
         const prepObj = {
           data: link_data,
           group_id: data.id,
-          new_group_index: index,
+          new_group_index: group_index,
           old_group_index: from?.group_index!,
         };
 
@@ -156,7 +157,7 @@ const GroupBlock = memo(
       <>
         <BlackWindowModal isOpen={isActiveWindow} activeHandler={resetGroupWindow} />
         <GroupStyle isActive={id === activeId} gridRow={gridRow}>
-          <Status />
+          <Status array={links} />
           <FrontBlocker isBlocked={id > 1683451657031} />
           <GroupHeader>
             <GroupHeaderTop>
@@ -164,7 +165,7 @@ const GroupBlock = memo(
                 title={group_title}
                 group_id={id}
                 isActive={isActive}
-                group_index={index}
+                group_index={group_index}
               />
               <GroupTitle title={group_title} group_id={id} isActive={isActive} />
             </GroupHeaderTop>
@@ -205,7 +206,7 @@ const GroupBlock = memo(
                     data={link}
                     key={uniqueId + index}
                     isActive={isActive}
-                    position={{ group_id: data.id, group_index: index }}
+                    position={{ group_id: data.id, group_index }}
                     deleteLink={deleteLinkLocalHandler}
                     linkTransitionHandler={transitionToGenerics}
                   />

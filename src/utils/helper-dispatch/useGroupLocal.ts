@@ -81,8 +81,10 @@ export const useGroupLocal = () => {
   const addGroupLinkLocal = (arg: IGroupLink) => dispatch(addCurrentLink(arg));
 
   const updateGroupLinkLocal = (arg: IGroupLink) => dispatch(updateGroupLink(arg));
-  const updateGroupLinkStatusLocal = (arg: IGLinkStatus) =>
+  const updateGroupLinkStatusLocal = (arg: IGLinkStatus) => {
+    console.log(arg, "check");
     dispatch(updateGroupLinkStatus(arg));
+  };
   const updateGroupLinkIdLocal = (arg: IUpId) => dispatch(updateGroupLinkId(arg));
 
   const deleteGroupLinkLocal = (arg: IGLinkDelete) => dispatch(removeCurrentLink(arg));

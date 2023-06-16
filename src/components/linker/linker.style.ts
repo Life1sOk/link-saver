@@ -6,6 +6,7 @@ export const ModalWrapper = styled.div`
   width: 100%;
   height: 40px;
   padding: 6px;
+  overflow: hidden;
 
   color: ${({ theme }) => theme.link.color};
   border-radius: 5px;
@@ -56,7 +57,7 @@ export const DotsLinkStyle = styled.div`
   border-radius: 5px;
 `;
 
-export const IconWrapper = styled.div<{ status?: number }>`
+export const IconWrapper = styled.div<{ status?: boolean }>`
   padding: 4px;
 
   display: flex;

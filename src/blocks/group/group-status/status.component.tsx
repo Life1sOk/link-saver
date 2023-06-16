@@ -1,16 +1,31 @@
 import { StatusStyle, Count } from "./status.style";
 
-const Status = () => {
+import { IShortLink } from "../../../utils/interfaces/link";
+
+interface IStatus {
+  array: IShortLink[];
+}
+
+const Status = ({ array }: IStatus) => {
+  let total = array.length;
+  let done = 0;
+  let regular = 0;
+
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].status) done++;
+    if (!array[i].status) regular++;
+  }
+
   return (
     <StatusStyle>
       <Count title="Total links" type="one">
-        12
+        {total}
       </Count>
-      <Count title="Active links" type="two">
-        3
+      <Count title="Done links" type="two">
+        {done}
       </Count>
-      <Count title="No-active links" type="three">
-        9
+      <Count title="Regular links" type="three">
+        {regular}
       </Count>
     </StatusStyle>
   );

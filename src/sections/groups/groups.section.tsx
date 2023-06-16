@@ -148,7 +148,7 @@ const GroupsSection = () => {
             <GroupBlock
               key={uniqueId + index}
               data={group}
-              index={index}
+              group_index={index}
               gridRow={`${gridPosition[index]?.start} / ${gridPosition[index]?.end}`}
               transitionLink={transitionToGenericsHandler}
               transitionGroup={transitionToTopicHandler}

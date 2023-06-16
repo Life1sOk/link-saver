@@ -10,6 +10,7 @@ import DragWrapper from "../../utils/drag-drop/drag.wrapper";
 import LinkUpModal from "./link-up/link-up.modal";
 import Link from "../../shared/link/link.shared";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
+import DragMarker from "../../shared/drag-marker/drag-marker.shared";
 
 import {
   ModalWrapper,
@@ -84,10 +85,11 @@ const Linker = ({
   return (
     <DragWrapper data={data} from={position} type="link">
       <ModalWrapper>
+        <DragMarker />
         <FrontBlocker isBlocked={data.id > 1683451657031} />
         <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
         <DotsLinkStyle>
-          <IconWrapper status={Number(data.status)} onClick={changeStatusHandler}>
+          <IconWrapper status={data.status} onClick={changeStatusHandler}>
             {icons.link}
           </IconWrapper>
           <Link data={data} />
