@@ -7,24 +7,29 @@ import { MessageStyle, IconWrapper, Message, Action } from "./message.style";
 interface IMessageType {
   icon: any;
   action: string;
+  actionHandler: () => void;
   message: string;
 }
 
-const MessageType = ({ icon, action, message }: IMessageType) => {
+const MessageType = ({ icon, action, actionHandler, message }: IMessageType) => {
   const [isActive, setIsActive] = useState(true);
 
   const { addProcessMessage } = useProcessLocal();
 
-  useEffect(() => {
-    setTimeout(() => setIsActive(false), 3000);
+  const showActionHandler = () => {
+    addProcessMessage(null);
+    actionHandler();
+  };
 
-    setTimeout(() => addProcessMessage(null), 4000);
+  useEffect(() => {
+    setTimeout(() => setIsActive(false), 7000);
+    setTimeout(() => addProcessMessage(null), 8000);
   }, []);
 
   return (
     <MessageStyle isActive={isActive}>
       <IconWrapper>{icon}</IconWrapper>
-      <Action>{action}</Action>
+      <Action onClick={showActionHandler}>{action}</Action>
       <Message>{message}</Message>
     </MessageStyle>
   );

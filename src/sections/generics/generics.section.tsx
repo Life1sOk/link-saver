@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
 import { icons } from "../../utils/react-icons";
@@ -19,6 +19,7 @@ import { IShortLink } from "../../utils/interfaces/link";
 import { LinksWrapper, GenericsWrapper } from "./generics.style";
 
 const GenericsSection = () => {
+  const uniqueId = useId();
   const activeGroup = useAppSelector((state) => state.groupsLocal.window.activeGroup);
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
@@ -67,7 +68,7 @@ const GenericsSection = () => {
           {localGenericLinks.length > 0 ? (
             localGenericLinks.map((current, index) => (
               <Linker
-                key={index}
+                key={uniqueId + index}
                 data={current}
                 position="generics"
                 isActive={activeGroup.isActive}

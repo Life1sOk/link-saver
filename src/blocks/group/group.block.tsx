@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, memo, useId } from "react";
 
 import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
@@ -56,6 +56,7 @@ const GroupBlock = memo(
   }: IGroupBlock) => {
     const { id, group_title, links } = data;
 
+    const uniqueId = useId();
     const [isSureModal, setIsSureModal] = useState(false);
 
     const { isActive: isActiveWindow, id: activeId } = useAppSelector(
@@ -199,10 +200,10 @@ const GroupBlock = memo(
               </CenterBlack>
             ) : (
               <LinksPlace>
-                {links?.map((link) => (
+                {links?.map((link, index) => (
                   <Linker
                     data={link}
-                    key={link.id}
+                    key={uniqueId + index}
                     isActive={isActive}
                     position={{ group_id: data.id, group_index: index }}
                     deleteLink={deleteLinkLocalHandler}

@@ -73,5 +73,8 @@ export const Message = styled.span`
 export const Action = styled.a`
   text-decoration: underline;
 
-  cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    color: ${({ theme }) => theme.modals.news};
+  }
 `;

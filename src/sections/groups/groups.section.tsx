@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useId } from "react";
 
 import { icons } from "../../utils/react-icons";
 
@@ -19,6 +19,7 @@ import Blank from "../../components/blank/blank-section.modal";
 import { GroupsStyle, SpinnerWrapper, GroupsWrapper } from "./groups.style";
 
 const GroupsSection = () => {
+  const uniqueId = useId();
   // Listening 'active topic' on change it re-render;
   const { id, topic_title } = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic
@@ -145,7 +146,7 @@ const GroupsSection = () => {
         {localGroups.length > 0 ? (
           localGroups.map((group, index) => (
             <GroupBlock
-              key={group.id}
+              key={uniqueId + index}
               data={group}
               index={index}
               gridRow={`${gridPosition[index]?.start} / ${gridPosition[index]?.end}`}

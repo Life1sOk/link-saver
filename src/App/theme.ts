@@ -34,7 +34,7 @@ export const light = {
     activeShadow: "rgba(166, 166, 166, 1)",
     hoverSetting: "rgba(0, 0, 0, 0.75)",
     hover: "rgba(0, 128, 255, .5)",
-    news: "#e145a5",
+    news: "rgba(225, 69, 165, 1)",
     window: "rgba(0, 0, 0, 0.3)",
   },
 };
@@ -75,7 +75,7 @@ export const dark = {
     activeShadow: "rgba(200, 200, 200, 0.5)",
     hoverSetting: "rgba(255, 255, 255, 0.75)",
     hover: "rgba(0, 128, 255, .5)",
-    news: "#e145a5",
+    news: "rgba(225, 69, 165, 1)",
     window: "rgba(0, 0, 0, 0.6)",
   },
 };

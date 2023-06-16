@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 
 import { icons } from "../../utils/react-icons";
 
@@ -23,6 +23,7 @@ import {
 } from "./receiving.style";
 
 const ReceivingModal = () => {
+  const uniqueId = useId();
   const userId = useAppSelector((state) => state.user.profile.id);
   const isWindowOpen = useAppSelector((state) => state.box.isReceivingWindow);
   const isPull = useAppSelector((state) => state.box.pull);
@@ -50,7 +51,7 @@ const ReceivingModal = () => {
             <Blank icon={icons.group} title="Groups" />
           ) : (
             receivingBox.map((data, index) => (
-              <GroupWrapper key={index}>
+              <GroupWrapper key={uniqueId + index}>
                 <UserDisplay
                   user={data.from}
                   actionHandlerOne={{

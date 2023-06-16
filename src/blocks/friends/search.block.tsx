@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, useId } from "react";
 
 import { icons } from "../../utils/react-icons";
 
@@ -24,6 +24,7 @@ import {
 } from "./friends-wrapper.style";
 
 const UserSearch = () => {
+  const uniqueId = useId();
   const userId = useAppSelector((state) => state.user.profile.id);
   const isOpen = useAppSelector((state) => state.friends.isFriendsWindow);
   const searchResult = useAppSelector((state) => state.friends.searchList);
@@ -76,7 +77,7 @@ const UserSearch = () => {
           <UsersWrapper>
             {searchResult.map((user, index) => (
               <UserDisplay
-                key={index}
+                key={uniqueId + index}
                 user={user}
                 status="Finded"
                 actionHandlerOne={{

@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
 import { icons } from "../../utils/react-icons";
@@ -12,6 +13,7 @@ import { IUserTrans } from "../../utils/interfaces/user";
 import { FriendsStyle, Line, UsersWrapper } from "./friends-wrapper.style";
 
 const UserFriends = () => {
+  const uniqueId = useId();
   const userId = useAppSelector((state) => state.user.profile.id);
   const friendsList = useAppSelector((state) => state.friends.friendsList);
   const incomingList = useAppSelector((state) => state.friends.incomingList);
@@ -27,7 +29,7 @@ const UserFriends = () => {
       <UsersWrapper>
         {incomingList.map((user, index) => (
           <UserDisplay
-            key={index}
+            key={uniqueId + index}
             user={user}
             actionHandlerOne={{ action: () => acceptFriendHandler(user), call: "Accept" }}
             actionHandlerTwo={{ action: () => cancelHandler(user), call: "Cancel" }}
@@ -41,7 +43,7 @@ const UserFriends = () => {
         <UsersWrapper>
           {friendsList.map((user, index) => (
             <UserDisplay
-              key={index}
+              key={uniqueId + index}
               user={user}
               status="Friend"
               actionHandlerOne={{
