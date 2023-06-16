@@ -76,6 +76,6 @@ export const dark = {
     hoverSetting: "rgba(255, 255, 255, 0.75)",
     hover: "rgba(0, 128, 255, .5)",
     news: "rgba(225, 69, 165, 1)",
-    window: "rgba(0, 0, 0, 0.6)",
+    window: "rgba(0, 0, 0, 0.5)",
   },
 };
