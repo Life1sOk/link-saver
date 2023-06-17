@@ -1,12 +1,27 @@
+import { useState } from "react";
 import { StatusStyle, Count } from "./status.style";
 
 import { IShortLink } from "../../../utils/interfaces/link";
 
-interface IStatus {
+interface IStatusProp {
   array: IShortLink[];
+  actionHandler: (active: "done" | "regular" | "total") => void;
 }
 
-const Status = ({ array }: IStatus) => {
+interface IStatus {
+  title: string;
+  type: "done" | "regular" | "total";
+}
+
+const status: IStatus[] = [
+  { title: "Tital links", type: "total" },
+  { title: "Done links", type: "done" },
+  { title: "Regular links", type: "regular" },
+];
+
+const Status = ({ array, actionHandler }: IStatusProp) => {
+  const [current, setCurrent] = useState("total");
+
   let total = array.length;
   let done = 0;
   let regular = 0;
@@ -16,17 +31,26 @@ const Status = ({ array }: IStatus) => {
     if (!array[i].status) regular++;
   }
 
+  const activateCurrent = (current: "done" | "regular" | "total") => {
+    actionHandler(current);
+    setCurrent(current);
+  };
+
   return (
     <StatusStyle>
-      <Count title="Total links" type="one">
-        {total}
-      </Count>
-      <Count title="Done links" type="two">
-        {done}
-      </Count>
-      <Count title="Regular links" type="three">
-        {regular}
-      </Count>
+      {status.map(({ title, type }) => (
+        <Count
+          key={title}
+          title={title}
+          type={type}
+          isActive={current === type}
+          onClick={() => activateCurrent(type)}
+        >
+          {type === "total" && total}
+          {type === "regular" && regular}
+          {type === "done" && done}
+        </Count>
+      ))}
     </StatusStyle>
   );
 };

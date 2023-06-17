@@ -1,12 +1,11 @@
 import styled from "styled-components";
 
-export const ModalWrapper = styled.div`
+export const ModalWrapper = styled.div<{ status: boolean }>`
   position: relative;
 
   width: 100%;
   height: 40px;
   padding: 6px;
-  overflow: hidden;
 
   color: ${({ theme }) => theme.link.color};
   border-radius: 5px;
@@ -15,12 +14,20 @@ export const ModalWrapper = styled.div`
   -webkit-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
   -moz-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
 
-  background: linear-gradient(
-    171deg,
-    rgba(47, 164, 255, 1) 0%,
-    rgba(0, 112, 201, 1) 49%,
-    rgba(24, 90, 143, 1) 100%
-  );
+  background: ${({ status }) =>
+    status
+      ? `linear-gradient(
+        171deg,
+        rgba(0, 204, 102, 1) 0%,
+        rgba(0, 145, 61, 1) 49%,
+        rgba(18, 102, 66, 1) 100%
+      )`
+      : `linear-gradient(
+        171deg,
+        rgba(47, 164, 255, 1) 0%,
+        rgba(0, 112, 201, 1) 49%,
+        rgba(24, 90, 143, 1) 100%
+      )`};
 
   &:hover {
     cursor: pointer;
@@ -40,12 +47,12 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.link.border};
 
-  background: rgb(111, 111, 111);
+  /* background: rgb(111, 111, 111); */
   background: linear-gradient(
     171deg,
-    rgba(111, 111, 111, 0.2) 0%,
-    rgba(255, 255, 255, 0.2) 49%,
-    rgba(154, 154, 154, 0.2) 100%
+    rgba(111, 111, 111, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 49%,
+    rgba(154, 154, 154, 0.5) 100%
   );
 `;
 
@@ -55,6 +62,7 @@ export const DotsLinkStyle = styled.div`
   gap: 8px;
 
   border-radius: 5px;
+  overflow: hidden;
 `;
 
 export const IconWrapper = styled.div<{ status?: boolean }>`

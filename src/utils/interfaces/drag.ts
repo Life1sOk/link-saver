@@ -21,6 +21,7 @@ export type IDragGroup = {
 
 type IDragChildren = {
   children: string | JSX.Element | JSX.Element[];
+  isDraggable?: boolean;
 };
 
 type IFromGroupIndex = {

@@ -1,4 +1,4 @@
-import { useState, memo, useId } from "react";
+import { useState, memo, useId, useEffect } from "react";
 
 import { useLinkLogic } from "../../utils/contollers/useLinkLogic";
 
@@ -58,6 +58,7 @@ const GroupBlock = memo(
 
     const uniqueId = useId();
     const [isSureModal, setIsSureModal] = useState(false);
+    const [upLinks, setUpLinks] = useState(links);
 
     const { isActive: isActiveWindow, id: activeId } = useAppSelector(
       (state) => state.groupsLocal.window.activeGroup
@@ -153,11 +154,28 @@ const GroupBlock = memo(
       addPrepareLocal(data);
     };
 
+    // Filter links
+    const filterLinks = (active: "done" | "regular" | "total") => {
+      // done, total, regular
+      if (active === "done") setUpLinks(links.filter((link) => link.status === true));
+      if (active === "regular") setUpLinks(links.filter((link) => link.status !== true));
+      if (active === "total") sortLinks();
+    };
+
+    // Sort by status
+    const sortLinks = () => {
+      const copyLinks = [...links];
+      copyLinks.sort((a, b) => Number(a.status) - Number(b.status));
+      setUpLinks(copyLinks);
+    };
+
+    useEffect(() => sortLinks(), [links]);
+
     return (
       <>
         <BlackWindowModal isOpen={isActiveWindow} activeHandler={resetGroupWindow} />
         <GroupStyle isActive={id === activeId} gridRow={gridRow}>
-          <Status array={links} />
+          <Status array={links} actionHandler={filterLinks} />
           <FrontBlocker isBlocked={id > 1683451657031} />
           <GroupHeader>
             <GroupHeaderTop>
@@ -201,7 +219,7 @@ const GroupBlock = memo(
               </CenterBlack>
             ) : (
               <LinksPlace>
-                {links?.map((link, index) => (
+                {upLinks?.map((link, index) => (
                   <Linker
                     data={link}
                     key={uniqueId + index}

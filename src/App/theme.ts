@@ -26,7 +26,7 @@ export const light = {
     border: "rgba(247, 184, 79, 0.75)",
     shadow: "rgba(0, 112, 201, 0.75)",
     shadowActive: "rgba(238, 82, 68, 0.75)",
-    statusDone: "rgb(0, 177, 0)",
+    statusDone: "rgba(96, 209, 57, 1)",
   },
   modals: {
     background: "rgb(255,255,255)",
@@ -67,7 +67,7 @@ export const dark = {
     border: "rgba(247, 184, 79, 0.75)",
     shadow: "rgba(0, 112, 201, 0.75)",
     shadowActive: "rgba(238, 82, 68, 0.75)",
-    statusDone: "rgb(0, 177, 0)",
+    statusDone: "rgba(96, 209, 57, 1)",
   },
   modals: {
     background: "rgba(37,37,37)",

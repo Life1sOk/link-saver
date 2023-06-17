@@ -27,6 +27,9 @@ interface ILinker {
   isActive: boolean;
   linkTransitionHandler: (arg: IShortLink) => void;
   deleteLink: (data: IShortLink) => void;
+  isDraggable?: boolean;
+  isOptions?: boolean;
+  isStatus?: boolean;
 }
 
 const Linker = ({
@@ -35,6 +38,9 @@ const Linker = ({
   position,
   linkTransitionHandler,
   deleteLink,
+  isOptions = true,
+  isDraggable = true,
+  isStatus = true,
 }: ILinker) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -42,20 +48,22 @@ const Linker = ({
   const { updateStatusLink } = useLinkLogic();
 
   const changeStatusHandler = async () => {
-    const newStatus = {
-      id: data.id,
-      status: !data.status,
-    };
-    const oldStatus = {
-      id: data.id,
-      status: data.status,
-    };
+    if (isStatus) {
+      const newStatus = {
+        id: data.id,
+        status: !data.status,
+      };
+      const oldStatus = {
+        id: data.id,
+        status: data.status,
+      };
 
-    await updateStatusLink(
-      position === "generics" ? position : position.group_index,
-      newStatus,
-      oldStatus
-    );
+      await updateStatusLink(
+        position === "generics" ? position : position.group_index,
+        newStatus,
+        oldStatus
+      );
+    }
   };
 
   const openHandler = () => setIsOpen(true);
@@ -83,17 +91,19 @@ const Linker = ({
   };
 
   return (
-    <DragWrapper data={data} from={position} type="link">
-      <ModalWrapper>
-        <DragMarker />
+    <DragWrapper data={data} from={position} type="link" isDraggable={isDraggable}>
+      <ModalWrapper status={data.status}>
         <FrontBlocker isBlocked={data.id > 1683451657031} />
         <FrontDesk isGroupActive={isActive} onClick={arrowAction} />
         <DotsLinkStyle>
+          {isDraggable ? <DragMarker /> : null}
           <IconWrapper status={data.status} onClick={changeStatusHandler}>
             {icons.link}
           </IconWrapper>
           <Link data={data} />
-          <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
+          {isOptions ? (
+            <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
+          ) : null}
         </DotsLinkStyle>
         <LinkUpModal isOpen={isOpen} closeModel={closeHandler}>
           <OpenWindow>

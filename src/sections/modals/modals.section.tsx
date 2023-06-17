@@ -4,6 +4,7 @@ import GroupSendModal from "../../modals/group-send/group-send.modal";
 import ProfileModal from "../../modals/profile/profile.modal";
 import ReportModal from "../../modals/report/report.modal";
 import MessageModal from "../../modals/message/message.modal";
+import ArchiveModal from "../../modals/archive/archive.modal";
 
 import LinkAddModal from "../../modals/add-modals/links-add.modal";
 import GroupAddModal from "../../modals/add-modals/groups-add.modal";
@@ -23,6 +24,7 @@ const ModalsSection = () => {
       <ProfileModal />
       <ReportModal />
       <MessageModal />
+      <ArchiveModal />
     </ModalsSectionStyle>
   );
 };

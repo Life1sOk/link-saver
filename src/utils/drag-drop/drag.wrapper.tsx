@@ -5,7 +5,7 @@ import omg from "../../assets/drag-link.webp";
 
 import { DragStyle } from "./drag-drop.style";
 
-const DragWrapper = ({ type, data, from, children }: IDragWrapper) => {
+const DragWrapper = ({ type, data, from, children, isDraggable }: IDragWrapper) => {
   const { addDraggableLocal, removeDraggableLocal } = useDragLocal();
 
   const img = new Image();
@@ -28,7 +28,7 @@ const DragWrapper = ({ type, data, from, children }: IDragWrapper) => {
   };
 
   return (
-    <DragStyle onDragStart={onDragStart} onDragEnd={onDragEnd} draggable>
+    <DragStyle onDragStart={onDragStart} onDragEnd={onDragEnd} draggable={isDraggable}>
       {children}
     </DragStyle>
   );

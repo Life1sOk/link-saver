@@ -45,5 +45,5 @@ export const DropStyle = styled.div<{ isShow: boolean; typeAction?: string }>`
 
 export const DragStyle = styled.div`
   width: 100%;
-  height: 100%;
+  height: fit-content;
 `;

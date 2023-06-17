@@ -25,6 +25,7 @@ import {
   MdFileDownloadDone,
   MdOutlineErrorOutline,
   MdOutlineAirlineSeatReclineNormal,
+  MdOutlineSettingsBackupRestore,
 } from "react-icons/md";
 import { FcProcess } from "react-icons/fc";
 
@@ -50,6 +51,8 @@ export const icons = {
   friends: <TbFriends />,
   box: <TbBox />,
   hole: <GiHole />,
+
+  restore: <MdOutlineSettingsBackupRestore />,
 
   done: <MdFileDownloadDone />,
   process: <FcProcess />,

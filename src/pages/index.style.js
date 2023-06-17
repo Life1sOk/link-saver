@@ -54,4 +54,6 @@ export const PageWrapper = styled.div`
   box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
   -webkit-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
   -moz-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
+
+  transition: all 0.1s;
 `;

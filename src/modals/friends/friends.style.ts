@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const FriendsModalStyle = styled.div`
-  /* width: 320px; */
   width: 640px;
   height: 466px;
 

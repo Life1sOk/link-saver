@@ -56,6 +56,7 @@ const MainPage = () => {
           onMouseMove={mouseMoveHandler}
           style={{
             gridTemplateColumns: `minmax(331px, 1fr) 8px ${groupRepoc}px`,
+            transition: "none",
           }}
         >
           <GroupsSection />
