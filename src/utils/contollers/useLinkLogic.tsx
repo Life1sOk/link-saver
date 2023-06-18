@@ -9,6 +9,7 @@ import {
 import { useGenericLocal } from "../helper-dispatch/useGenericLocal";
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
 import { useRequestProcess } from "../helpers/useRequestProcess";
+import { useArchiveLocal } from "../helper-dispatch/useArchiveLocal";
 
 import {
   IAddGeneric,
@@ -19,6 +20,7 @@ import {
 } from "../interfaces/link";
 
 export const useLinkLogic = () => {
+  // --------------------- LOCAL ------------------------ //
   const {
     addOneGenericLocal,
     updateOneGenericIdLocal,
@@ -34,6 +36,8 @@ export const useLinkLogic = () => {
     addGroupLinkLocal,
     updateGroupLinkStatusLocal,
   } = useGroupLocal();
+
+  const { addLinkIntoArchiveLocal, deleteLinkFromArchiveLocal } = useArchiveLocal();
 
   // --------------------- SERVER ------------------------ //
 
@@ -219,6 +223,7 @@ export const useLinkLogic = () => {
   const deleteGroupLink = async (data: IShortLink, index: number) => {
     // Local
     deleteGroupLinkLocal({ link_id: data.id, index });
+    addLinkIntoArchiveLocal(data);
     // Server
     return await deleteSnapshotApi({ id: data.id })
       .unwrap()
@@ -226,6 +231,7 @@ export const useLinkLogic = () => {
         // Back changes
         if (err) {
           addGroupLinkLocal({ link_data: data, index });
+          deleteLinkFromArchiveLocal(data.id);
         }
       });
   };
@@ -233,6 +239,7 @@ export const useLinkLogic = () => {
   const deleteGenericLink = async (data: IShortLink) => {
     // Local
     deleteOneGenericLocal(data.id);
+    addLinkIntoArchiveLocal(data);
     // Server
     return await deleteSnapshotApi({ id: data.id })
       .unwrap()
@@ -240,6 +247,7 @@ export const useLinkLogic = () => {
         // Back changes
         if (err) {
           addOneGenericLocal(data);
+          deleteLinkFromArchiveLocal(data.id);
         }
       });
   };

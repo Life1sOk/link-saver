@@ -237,7 +237,7 @@ const GroupBlock = memo(
           isActive={isSureModal}
           actionSureHandler={sureDeleteHandler}
           actionToggleHandler={modalActionHandler}
-          message="All your links in this group will be also deleted! Are you sure?"
+          message="All your links in this group will be stored in the archive! Are you sure?"
         />
       </>
     );

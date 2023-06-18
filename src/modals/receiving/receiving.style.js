@@ -25,10 +25,13 @@ export const GroupsStore = styled.div`
 
   padding: 15px 3px;
   overflow-y: scroll;
-  background-color: ${({ theme }) => theme.background.main};
 
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 4px;
+
+  box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
+  -webkit-box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
+  -moz-box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
 
   display: grid;
   grid-template-columns: repeat(2, 333px);

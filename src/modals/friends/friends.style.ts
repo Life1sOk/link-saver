@@ -24,7 +24,7 @@ export const Buttons = styled.div`
   justify-content: end;
 `;
 
-export const Switcher = styled.div`
+export const SwitcherWrapper = styled.div`
   width: 100%;
   padding: 5px;
 

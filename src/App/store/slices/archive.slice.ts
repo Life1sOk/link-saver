@@ -2,15 +2,20 @@ import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
 import { IShortLink } from "../../../utils/interfaces/link";
+import { IGroupGet } from "../../../utils/interfaces/group";
 
 interface IArchive {
   isWindowOpen: boolean;
-  archive: { data: IShortLink; deleted: Date }[];
+  activeArchive: "links" | "groups";
+  links: IShortLink[];
+  groups: IGroupGet[];
 }
 
 const initialState: IArchive = {
   isWindowOpen: false,
-  archive: [],
+  activeArchive: "links",
+  links: [],
+  groups: [],
 };
 
 const archiveSlice = createSlice({
@@ -20,8 +25,22 @@ const archiveSlice = createSlice({
     toggleArchiveWindow: (state) => {
       state.isWindowOpen = !state.isWindowOpen;
     },
+    toggleActiveArchive: (state, { payload }: PayloadAction<"links" | "groups">) => {
+      state.activeArchive = payload;
+    },
+    addLinkIntoArchive: (state, { payload }: PayloadAction<IShortLink>) => {
+      state.links.push(payload);
+    },
+    deleteLinkFromArchive: (state, { payload }: PayloadAction<number>) => {
+      state.links = state.links.filter((link) => link.id === payload);
+    },
   },
 });
 
-export const { toggleArchiveWindow } = archiveSlice.actions;
+export const {
+  toggleArchiveWindow,
+  addLinkIntoArchive,
+  deleteLinkFromArchive,
+  toggleActiveArchive,
+} = archiveSlice.actions;
 export default archiveSlice.reducer;

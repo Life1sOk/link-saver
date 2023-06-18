@@ -8,7 +8,7 @@ import {
 
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
 import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
-
+import { useArchiveLocal } from "../helper-dispatch/useArchiveLocal";
 import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import { IGroupGet, IGroupChange, IAddGroup } from "../interfaces/group";
@@ -25,6 +25,8 @@ export const useGroupsLogic = () => {
   } = useGroupLocal();
 
   const { incTopicCountLocal, decTopicCountLocal } = useTopicLocal();
+
+  const { addLinksFromDeletedGroup, deleteLinksFromDeletedGroup } = useArchiveLocal();
 
   // --------------------- SERVER ------------------------ //
 
@@ -98,6 +100,7 @@ export const useGroupsLogic = () => {
     topic_title: string
   ) => {
     // local
+    addLinksFromDeletedGroup(group_id);
     deleteGroupLocal(group_id);
     decTopicCountLocal({ key: topic_title });
     // server
@@ -107,6 +110,7 @@ export const useGroupsLogic = () => {
         if (err) {
           // Back changes
           addOneGroupLocal(data);
+          deleteLinksFromDeletedGroup(group_id);
           incTopicCountLocal({ key: topic_title });
         }
       });

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const FriendSwitcherStyle = styled.div<{ isActive: boolean }>`
+export const SwitcherStyle = styled.div<{ isActive: boolean }>`
   position: relative;
 
   width: 99px;

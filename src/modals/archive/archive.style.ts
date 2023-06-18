@@ -22,6 +22,13 @@ export const ArchiveHeader = styled.div`
 
   display: flex;
   align-items: center;
+  justify-content: space-between;
+`;
+
+export const SwitcherWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 13px;
 `;
 
 export const Title = styled.h3`
@@ -29,11 +36,10 @@ export const Title = styled.h3`
 `;
 
 export const ArchiveIcon = styled.div`
-  margin-right: 7px;
-
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 5px;
 
   & > svg {
     width: 25px;
@@ -43,7 +49,6 @@ export const ArchiveIcon = styled.div`
 
 export const InputWrapper = styled.div`
   width: 313px;
-  margin-left: auto;
 
   display: flex;
   align-items: center;
@@ -74,7 +79,7 @@ export const IconWrapper = styled.div`
 export const ArchiveMain = styled.div<{ count?: number }>`
   width: 100%;
   height: 100%;
-  padding: 5px 5px 8px 5px;
+  padding: 8px;
   border-radius: 4px;
 
   overflow-y: scroll;
@@ -86,9 +91,9 @@ export const ArchiveMain = styled.div<{ count?: number }>`
   justify-items: center;
   grid-gap: 11px;
 
-  box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.75) inset;
-  -webkit-box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.75) inset;
-  -moz-box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.75) inset;
+  box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
+  -webkit-box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
+  -moz-box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
 
   /* width */
   ::-webkit-scrollbar {

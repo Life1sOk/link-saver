@@ -115,7 +115,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
         isActive={isDelete}
         actionSureHandler={sureDeleteHandler}
         actionToggleHandler={notDeleteHandler}
-        message="All your groups and links in this topic will be destroyed! Are you sure?"
+        message="All your groups and links in this topic will be destroyed! They will NOT be stored in the archive. Are you sure?"
       />
     </>
   );
