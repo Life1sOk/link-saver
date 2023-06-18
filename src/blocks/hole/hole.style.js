@@ -16,10 +16,27 @@ export const HoleStyle = styled.div`
 `;
 
 export const HoleBlockStyle = styled.div`
-  & > svg {
-    width: 48px;
-    height: 48px;
+  font-size: 18px;
+  font-weight: var(--font-weight-basic);
+  padding: 10px;
+  border: 1px solid transparent;
+  border-radius: 0 5px 5px 0;
 
-    color: rgba(255, 58, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+
+  & > svg {
+    width: 27px;
+    height: 27px;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
+    -webkit-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
+    -moz-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
   }
 `;

@@ -12,7 +12,6 @@ export const ArchiveItemStyle = styled.div`
   box-shadow: 0px 0px 5px 0px ${({ theme }) => theme.modals.activeShadow};
 
   display: flex;
-  /* flex-direction: column; */
   align-items: center;
   gap: 3px;
 `;

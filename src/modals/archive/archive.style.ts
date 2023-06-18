@@ -15,14 +15,67 @@ export const ArchiveModalStyle = styled.div`
   align-items: center;
 `;
 
+export const ArchiveHeader = styled.div`
+  width: 100%;
+  padding: 0 10px 10px 15px;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+`;
+
 export const Title = styled.h3`
-  margin-bottom: 12px;
+  font-size: 22px;
+`;
+
+export const ArchiveIcon = styled.div`
+  margin-right: 7px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > svg {
+    width: 25px;
+    height: 25px;
+  }
+`;
+
+export const InputWrapper = styled.div`
+  width: 313px;
+  margin-left: auto;
+
+  display: flex;
+  align-items: center;
+
+  & input {
+    height: 33px;
+    border-left: 1px solid transparent;
+    border-radius: 0;
+  }
+`;
+
+export const IconWrapper = styled.div`
+  width: 33px;
+  height: 33px;
+  border: 1px solid ${({ theme }) => theme.border};
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > svg {
+    width: 23px;
+    height: 23px;
+  }
 `;
 
 export const ArchiveMain = styled.div<{ count?: number }>`
   width: 100%;
   height: 100%;
-  padding: 8px 5px;
+  padding: 5px 5px 8px 5px;
+  border-radius: 4px;
 
   overflow-y: scroll;
 
@@ -33,9 +86,9 @@ export const ArchiveMain = styled.div<{ count?: number }>`
   justify-items: center;
   grid-gap: 11px;
 
-  box-shadow: 0px -5px 54px -31px rgba(222, 222, 222, 0.75) inset;
-  -webkit-box-shadow: 0px -5px 54px -31px rgba(222, 222, 222, 0.75) inset;
-  -moz-box-shadow: 0px -5px 54px -31px rgba(222, 222, 222, 0.75) inset;
+  box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.75) inset;
+  -webkit-box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.75) inset;
+  -moz-box-shadow: 0px 1px 6px -2px rgba(0, 0, 0, 0.75) inset;
 
   /* width */
   ::-webkit-scrollbar {
@@ -44,7 +97,6 @@ export const ArchiveMain = styled.div<{ count?: number }>`
 
   /* Track */
   ::-webkit-scrollbar-track {
-    /* box-shadow: inset 0 0 5px grey; */
     border-radius: 10px;
   }
 
@@ -58,7 +110,7 @@ export const ArchiveMain = styled.div<{ count?: number }>`
 export const Message = styled.div`
   width: 100%;
   padding: 12px;
-  margin-bottom: 10px;
+  margin: 5px 0 10px 0;
 
   font-size: var(--font-big);
   font-weight: var(--font-weight-normal);
@@ -69,6 +121,16 @@ export const Message = styled.div`
   -webkit-box-shadow: 0px 0px 5px 0px ${({ theme }) => theme.modals.activeShadow};
   -moz-box-shadow: 0px 0px 5px 0px ${({ theme }) => theme.modals.activeShadow};
   box-shadow: 0px 0px 5px 0px ${({ theme }) => theme.modals.activeShadow};
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & > svg {
+    width: 25px;
+    height: 25px;
+    margin: 0 6px;
+  }
 `;
 
 export const ArchiveBottom = styled.div`

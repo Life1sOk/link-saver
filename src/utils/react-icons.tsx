@@ -19,6 +19,8 @@ import {
   TbCubeSend,
   TbFriends,
   TbBox,
+  TbSearch,
+  TbArchive,
 } from "react-icons/tb";
 
 import {
@@ -51,7 +53,9 @@ export const icons = {
   friends: <TbFriends />,
   box: <TbBox />,
   hole: <GiHole />,
+  search: <TbSearch />,
 
+  archive: <TbArchive />,
   restore: <MdOutlineSettingsBackupRestore />,
 
   done: <MdFileDownloadDone />,
