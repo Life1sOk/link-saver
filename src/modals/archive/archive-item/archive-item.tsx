@@ -11,7 +11,9 @@ const ArchiveItem = ({ date, children }: IArchiveItem) => {
   return (
     <ArchiveItemStyle>
       {children}
-      <Actions title="Restore back">{icons.restore}</Actions>
+      <Actions title="Restore back" onClick={() => console.log("check")}>
+        {icons.restore}
+      </Actions>
     </ArchiveItemStyle>
   );
 };

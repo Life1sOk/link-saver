@@ -11,5 +11,5 @@ export const TopicsStyle = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 7px;
+  gap: 2px;
 `;

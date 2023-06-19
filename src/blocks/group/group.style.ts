@@ -81,32 +81,11 @@ export const Title = styled.h3`
   font-size: var(--font-large);
   font-weight: var(--font-weight-main);
 
+  text-align: left;
   text-decoration: none;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
-
-export const ModalWrapper = styled.div`
-  width: 100%;
-  max-width: 266px;
-  height: 40px;
-  padding: 8px 8px 8px 12px;
-
-  color: ${({ theme }) => theme.link.color};
-  background-color: ${({ theme }) => theme.link.background};
-  border-radius: 5px;
-
-  box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
-  -webkit-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
-  -moz-box-shadow: 0px 0px 3px 0px ${({ theme }) => theme.link.shadow};
-
-  display: flex;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-  }
 `;
 
 export const CenterBlack = styled.div`

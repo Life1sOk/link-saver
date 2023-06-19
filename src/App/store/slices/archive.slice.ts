@@ -8,7 +8,7 @@ interface IArchive {
   isWindowOpen: boolean;
   activeArchive: "links" | "groups";
   links: IShortLink[];
-  groups: IGroupGet[];
+  groups: { topic_title: string; group: IGroupGet }[];
 }
 
 const initialState: IArchive = {
@@ -34,13 +34,24 @@ const archiveSlice = createSlice({
     deleteLinkFromArchive: (state, { payload }: PayloadAction<number>) => {
       state.links = state.links.filter((link) => link.id === payload);
     },
+    addGroupIntoArchive: (
+      state,
+      { payload }: PayloadAction<{ topic_title: string; group: IGroupGet }>
+    ) => {
+      state.groups.push(payload);
+    },
+    deleteGroupsFromArchive: (state, { payload }: PayloadAction<number>) => {
+      state.groups = state.groups.filter((data) => data.group.id === payload);
+    },
   },
 });
 
 export const {
   toggleArchiveWindow,
   addLinkIntoArchive,
+  addGroupIntoArchive,
   deleteLinkFromArchive,
+  deleteGroupsFromArchive,
   toggleActiveArchive,
 } = archiveSlice.actions;
 export default archiveSlice.reducer;

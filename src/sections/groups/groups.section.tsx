@@ -131,7 +131,7 @@ const GroupsSection = () => {
   if (getGroupsStoreResult.isFetching) {
     return (
       <GroupsStyle>
-        <TitleSection title={topic_title} sectionType="group" />
+        <TitleSection title={topic_title} sectionType="group" count={0} />
         <SpinnerWrapper>
           <LoadingSpinner />
         </SpinnerWrapper>
@@ -141,7 +141,7 @@ const GroupsSection = () => {
 
   return (
     <GroupsStyle>
-      <TitleSection title={topic_title} sectionType="group" />
+      <TitleSection title={topic_title} sectionType="group" count={localGroups.length} />
       <GroupsWrapper ref={groupsRef} rowsCount={rowCount}>
         {localGroups.length > 0 ? (
           localGroups.map((group, index) => (

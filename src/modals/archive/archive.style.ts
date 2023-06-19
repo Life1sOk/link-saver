@@ -76,20 +76,13 @@ export const IconWrapper = styled.div`
   }
 `;
 
-export const ArchiveMain = styled.div<{ count?: number }>`
+const ArchiveMain = styled.div`
   width: 100%;
   height: 100%;
   padding: 8px;
   border-radius: 4px;
 
-  overflow-y: scroll;
-
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(${({ count }) => (count ? `${count}` : "auto-fill")}, 46px);
-  align-items: center;
-  justify-items: center;
-  grid-gap: 11px;
+  overflow: scroll;
 
   box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
   -webkit-box-shadow: 0px 1px 6px -3px rgba(0, 0, 0, 0.75) inset;
@@ -109,6 +102,28 @@ export const ArchiveMain = styled.div<{ count?: number }>`
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.modals.news};
     border-radius: 10px;
+  }
+`;
+
+export const ArchiveMainLinks = styled(ArchiveMain)<{ count?: number; type?: string }>`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(${({ count }) => (count ? `${count}` : "auto-fill")}, 46px);
+  align-items: center;
+  justify-items: center;
+  grid-gap: 15px;
+`;
+
+export const ArchiveMainGroups = styled(ArchiveMain)`
+  padding: 13px 0 0 13px;
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 22px;
+
+  ::-webkit-scrollbar {
+    height: 5px;
   }
 `;
 

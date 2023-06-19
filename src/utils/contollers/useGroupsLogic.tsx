@@ -26,7 +26,7 @@ export const useGroupsLogic = () => {
 
   const { incTopicCountLocal, decTopicCountLocal } = useTopicLocal();
 
-  const { addLinksFromDeletedGroup, deleteLinksFromDeletedGroup } = useArchiveLocal();
+  const { addGroupIntoArchiveLocal, deleteGroupsFromArchiveLocal } = useArchiveLocal();
 
   // --------------------- SERVER ------------------------ //
 
@@ -100,8 +100,8 @@ export const useGroupsLogic = () => {
     topic_title: string
   ) => {
     // local
-    addLinksFromDeletedGroup(group_id);
     deleteGroupLocal(group_id);
+    addGroupIntoArchiveLocal({ topic_title, group: data });
     decTopicCountLocal({ key: topic_title });
     // server
     return await deleteGroupApi({ id: group_id, user_id })
@@ -110,7 +110,7 @@ export const useGroupsLogic = () => {
         if (err) {
           // Back changes
           addOneGroupLocal(data);
-          deleteLinksFromDeletedGroup(group_id);
+          deleteGroupsFromArchiveLocal(group_id);
           incTopicCountLocal({ key: topic_title });
         }
       });

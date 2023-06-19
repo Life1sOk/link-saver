@@ -6,7 +6,7 @@ export const TopicMainStyle = styled.div<{ isActive: boolean }>`
 
   flex-shrink: 0;
 
-  padding-left: 12px;
+  padding: 0 8px 0 12px;
 
   border-radius: 4px 0 0 4px;
   border-top: 1px solid ${({ theme }) => theme.border};
@@ -15,7 +15,7 @@ export const TopicMainStyle = styled.div<{ isActive: boolean }>`
 
   display: flex;
   align-items: center;
-  gap: 7px;
+  gap: 5px;
 
   &:hover {
     cursor: pointer;
@@ -27,6 +27,7 @@ export const TopicMainStyle = styled.div<{ isActive: boolean }>`
 
 export const Title = styled.h3`
   width: 100%;
+  max-width: 128px;
   text-align: left;
 
   font-size: var(--font-large);
@@ -37,29 +38,6 @@ export const Title = styled.h3`
   }
 `;
 
-export const MarkIcon = styled.div`
-  position: relative;
-
-  width: 43px;
-  height: 43px;
-  color: ${({ theme }) => theme.topic.marker};
-
-  & svg {
-    transform: rotate(90deg);
-    width: 100%;
-    height: 100%;
-    fill: ${({ theme }) => theme.topic.marker};
-  }
-`;
-
-export const Count = styled.span`
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  transform: translate(-50%, -50%);
-
-  color: ${({ theme }) => theme.modals.background};
-  font-size: var(--font-mini);
-  font-weight: var(--font-weight-main);
+export const CountWrapper = styled.div`
+  margin: 0 5px 0 auto;
 `;

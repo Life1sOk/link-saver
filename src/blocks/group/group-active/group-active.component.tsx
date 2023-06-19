@@ -9,15 +9,24 @@ interface IGroupActive {
   group_index: number;
   title: string;
   isActive: boolean;
+  isActivate?: boolean;
 }
 
-const GroupActive = ({ group_id, title, group_index, isActive }: IGroupActive) => {
+const GroupActive = ({
+  group_id,
+  title,
+  group_index,
+  isActive,
+  isActivate,
+}: IGroupActive) => {
   const { editGroupWindow, resetGroupWindow } = useGroupLocal();
 
   const activeGroupHandler = () => {
-    if (isActive) return resetGroupWindow();
+    if (isActivate) {
+      if (isActive) return resetGroupWindow();
 
-    editGroupWindow({ title, id: group_id, group_index });
+      editGroupWindow({ title, id: group_id, group_index });
+    }
   };
 
   return (

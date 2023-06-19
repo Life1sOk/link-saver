@@ -22,11 +22,11 @@ const status: IStatus[] = [
 const Status = ({ array, actionHandler }: IStatusProp) => {
   const [current, setCurrent] = useState("total");
 
-  let total = array.length;
+  let total = array?.length;
   let done = 0;
   let regular = 0;
 
-  for (let i = 0; i < array.length; i++) {
+  for (let i = 0; i < array?.length; i++) {
     if (array[i].status) done++;
     if (!array[i].status) regular++;
   }

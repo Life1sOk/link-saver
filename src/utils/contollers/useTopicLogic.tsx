@@ -40,9 +40,9 @@ export const useTopicLogic = () => {
     // Server
     return await getTopicCount({ topic_id: topic.id, user_id })
       .unwrap()
-      .then((count) => {
+      .then((data: { count?: number }) => {
         // Local
-        addTopicCountLocal({ key: topic.topic_title, ...count });
+        if (data.count) addTopicCountLocal({ key: topic.topic_title, count: data.count });
       })
       // back
       .catch((err) => {
@@ -55,6 +55,7 @@ export const useTopicLogic = () => {
   // ADD TOPIC //
   const addTopic = async (newTopic: ITopic, userId: number) => {
     // Local Add
+    addTopicCountLocal({ key: newTopic.topic_title, count: 0 });
     addOneTopicLocal(newTopic);
 
     // Send request
@@ -66,6 +67,7 @@ export const useTopicLogic = () => {
       .catch((err) => {
         if (err) {
           // Back changes
+          deleteTopicCountLocal({ key: newTopic.topic_title });
           deleteOneTopicLocal(newTopic.id);
         }
       });

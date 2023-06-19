@@ -7,14 +7,16 @@ import GroupDefault from "../../blocks/group/group.default";
 import ArchiveItem from "./archive-item/archive-item";
 import Blank from "../../components/blank/blank-section.modal";
 
-import { ArchiveMain } from "./archive.style";
+import { ArchiveMainGroups } from "./archive.style";
 
 const ArchiveGroups = ({ search }: { search: string }) => {
   const archiveGroups = useAppSelector((state) => state.archive.groups);
   const [upData, setUpData] = useState(archiveGroups);
 
   useEffect(() => {
-    const filtered = archiveGroups.filter((item) => item.group_title.includes(search));
+    const filtered = archiveGroups.filter((item) =>
+      item.group.group_title.includes(search)
+    );
     setUpData(filtered);
   }, [search]);
 
@@ -23,17 +25,17 @@ const ArchiveGroups = ({ search }: { search: string }) => {
   }, [archiveGroups]);
 
   return (
-    <ArchiveMain count={Math.ceil(archiveGroups.length / 2)}>
+    <ArchiveMainGroups>
       {archiveGroups?.length > 0 ? (
-        upData?.map((group, index) => (
+        upData?.map((data, index) => (
           <ArchiveItem key={index} date={new Date()}>
-            <GroupDefault data={group} />
+            <GroupDefault data={data.group} />
           </ArchiveItem>
         ))
       ) : (
         <Blank title="groups" icon={icons.group} />
       )}
-    </ArchiveMain>
+    </ArchiveMainGroups>
   );
 };
 

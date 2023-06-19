@@ -17,3 +17,13 @@ export const Title = styled.h3`
   font-size: var(--font-huge);
   font-weight: var(--font-weight-main);
 `;
+
+export const CountWrapper = styled.div`
+  width: 30px;
+  aspect-ratio: 1 / 1;
+  margin-left: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;

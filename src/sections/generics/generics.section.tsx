@@ -62,7 +62,11 @@ const GenericsSection = () => {
 
   return (
     <GenericsWrapper isTransfer={activeGroup.isActive}>
-      <TitleSection title="Generic links:" sectionType="generic" />
+      <TitleSection
+        title="Generic links"
+        sectionType="generic"
+        count={localGenericLinks.length}
+      />
       <DropWrapper typeFor="link" actionHandler={dropIntoGenerics}>
         <LinksWrapper>
           {localGenericLinks.length > 0 ? (

@@ -42,6 +42,8 @@ interface IGroupBlock {
   deleteLinkHandler: (data: IShortLink, index: number) => void;
   transitionLink: (data: IShortLink, index: number) => void;
   transitionGroup: (topic: { id: number; topic_title: string }, group: IGroupGet) => void;
+  isOptions?: boolean;
+  isActivate?: boolean;
 }
 
 const GroupBlock = memo(
@@ -53,6 +55,8 @@ const GroupBlock = memo(
     deleteLinkHandler,
     transitionLink,
     transitionGroup,
+    isOptions = true,
+    isActivate = true,
   }: IGroupBlock) => {
     const { id, group_title, links } = data;
 
@@ -184,33 +188,36 @@ const GroupBlock = memo(
                 group_id={id}
                 isActive={isActive}
                 group_index={group_index}
+                isActivate={isActivate}
               />
               <GroupTitle title={group_title} group_id={id} isActive={isActive} />
             </GroupHeaderTop>
-            <ActionsLine>
-              <GroupAction
-                title="add"
-                icon={icons.link}
-                actionHandler={addLinkFromGroupHandler}
-              />
-              <GroupAction
-                title="send"
-                icon={icons.send}
-                actionHandler={openSendWindowHandler}
-              />
-              <GroupTransitionModal action={transitionToTopicHandler}>
+            {isOptions && (
+              <ActionsLine>
                 <GroupAction
-                  title="topic"
-                  icon={icons.transition}
-                  actionHandler={resetGroupWindow}
+                  title="add"
+                  icon={icons.link}
+                  actionHandler={addLinkFromGroupHandler}
                 />
-              </GroupTransitionModal>
-              <GroupAction
-                title="delete"
-                icon={icons.delete}
-                actionHandler={modalActionHandler}
-              />
-            </ActionsLine>
+                <GroupAction
+                  title="send"
+                  icon={icons.send}
+                  actionHandler={openSendWindowHandler}
+                />
+                <GroupTransitionModal action={transitionToTopicHandler}>
+                  <GroupAction
+                    title="topic"
+                    icon={icons.transition}
+                    actionHandler={resetGroupWindow}
+                  />
+                </GroupTransitionModal>
+                <GroupAction
+                  title="delete"
+                  icon={icons.delete}
+                  actionHandler={modalActionHandler}
+                />
+              </ActionsLine>
+            )}
           </GroupHeader>
           <DropWrapper typeFor="link" actionHandler={dropIntoGroupHandler}>
             {links.length < 1 ? (

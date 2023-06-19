@@ -5,12 +5,23 @@ import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
 import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
 import { icons } from "../../utils/react-icons";
-import TopicIcon from "./topic-icon/topic-icon.component";
+
+import SectionCount from "../../shared/section-count/section-count.shared";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
+import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
+
 import { ITopic } from "../../utils/interfaces/topic";
 
-import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
-import { TopicStyle, Title, TitleEditor, IconWrapper, Icon, XMark } from "./topic.style";
+import {
+  TopicStyle,
+  Title,
+  TitleEditor,
+  IconWrapper,
+  Icon,
+  XMark,
+  IconMain,
+  CountWrapper,
+} from "./topic.style";
 
 interface ITopicActive {
   topic: ITopic;
@@ -70,7 +81,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   }, [activeTopicId, topic.id]);
 
   useEffect(() => {
-    // if (topic.id > 1683451657031) return;
+    if (topic.id > 1683451657031) return;
     getGroupCount(topic, userId);
   }, []);
 
@@ -82,7 +93,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
         title={topic.topic_title}
       >
         <FrontBlocker isBlocked={topic.id > 1683451657031} />
-        <TopicIcon count={currentCount} />
+        <IconMain>{icons.topicOpen}</IconMain>
         {!isChange ? (
           <Title>{topic.topic_title}</Title>
         ) : (
@@ -93,7 +104,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
             autoFocus
           />
         )}
-        {activeTopicId === topic.id && (
+        {activeTopicId === topic.id ? (
           <IconWrapper>
             {isChange ? (
               <>
@@ -109,6 +120,10 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
               </>
             )}
           </IconWrapper>
+        ) : (
+          <CountWrapper>
+            <SectionCount sectionType="topic" count={currentCount} />
+          </CountWrapper>
         )}
       </TopicStyle>
       <AreYouSureModal
