@@ -10,6 +10,7 @@ export const light = {
     marker: "rgb(247, 184, 79)",
     active: "rgb(255,255,255)",
     hover: "rgb(250, 250, 250)",
+    scrollBar: "rgba(247, 184, 79, .5)",
   },
   group: {
     marker: "rgb(255, 117, 101)",
@@ -18,6 +19,7 @@ export const light = {
     icon: null,
     active: "rgba(245, 241, 39, 0.8)",
     shadow: "rgba(0, 0, 0, 0.3)",
+    scrollBar: "rgba(255, 117, 101, .5)",
   },
   link: {
     marker: "rgb(0, 112, 201)",
@@ -27,6 +29,7 @@ export const light = {
     shadow: "rgba(0, 112, 201, 0.75)",
     shadowActive: "rgba(238, 82, 68, 0.75)",
     statusDone: "rgba(96, 209, 57, 1)",
+    scrollBar: "rgba(0, 112, 201, .7)",
   },
   modals: {
     background: "rgb(255,255,255)",
@@ -51,6 +54,7 @@ export const dark = {
     marker: "rgb(247, 184, 79)",
     active: "rgba(27,27,27)",
     hover: "rgba(27,27,27)",
+    scrollBar: "rgba(247, 184, 79, .5)",
   },
   group: {
     marker: "rgb(255, 117, 101)",
@@ -59,6 +63,7 @@ export const dark = {
     icon: null,
     active: "rgba(245, 241, 39, 0.8)",
     shadow: "rgba(0, 0, 0, 0.5)",
+    scrollBar: "rgba(255, 117, 101, .5)",
   },
   link: {
     marker: "rgb(0, 112, 201)",
@@ -68,6 +73,7 @@ export const dark = {
     shadow: "rgba(0, 112, 201, 0.75)",
     shadowActive: "rgba(238, 82, 68, 0.75)",
     statusDone: "rgba(96, 209, 57, 1)",
+    scrollBar: "rgba(0, 112, 201, .7)",
   },
   modals: {
     background: "rgba(37,37,37)",

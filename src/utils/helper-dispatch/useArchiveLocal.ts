@@ -38,7 +38,7 @@ export const useArchiveLocal = () => {
   const addGroupIntoArchiveLocal = (group: { topic_title: string; group: IGroupGet }) =>
     dispatch(addGroupIntoArchive(group));
 
-  const deleteGroupsFromArchiveLocal = (group_id: number) =>
+  const deleteGroupFromArchiveLocal = (group_id: number) =>
     dispatch(deleteGroupsFromArchive(group_id));
 
   const addAllGroupIntoArchiveLocal = (groups: IGroupGet[], activeTopic: string) => {
@@ -58,7 +58,7 @@ export const useArchiveLocal = () => {
     addLinkIntoArchiveLocal,
     addGroupIntoArchiveLocal,
     deleteLinkFromArchiveLocal,
-    deleteGroupsFromArchiveLocal,
+    deleteGroupFromArchiveLocal,
     addAllGroupIntoArchiveLocal,
     deleteGroupsFromArchiveByTopicLocal,
   };

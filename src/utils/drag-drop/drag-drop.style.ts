@@ -7,6 +7,8 @@ export const DropStyle = styled.div<{ isShow: boolean; typeAction?: string }>`
   width: 100%;
   height: 100%;
 
+  border-radius: 5px;
+
   box-shadow: ${({ isShow, typeAction }) =>
     isShow
       ? `inset 0 0 10px ${typeAction === "delete" ? red : blue},

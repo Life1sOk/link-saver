@@ -40,7 +40,7 @@ const archiveSlice = createSlice({
       state.links.push(payload);
     },
     deleteLinkFromArchive: (state, { payload }: PayloadAction<number>) => {
-      state.links = state.links.filter((link) => link.id === payload);
+      state.links = state.links.filter((link) => link.id !== payload);
     },
     addGroupIntoArchive: (
       state,

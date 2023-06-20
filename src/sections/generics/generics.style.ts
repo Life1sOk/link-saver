@@ -18,14 +18,12 @@ export const GenericsWrapper = styled.aside<{ isTransfer: boolean }>`
   flex-direction: column;
 `;
 
-export const LinksWrapper = styled.ul`
+export const LinksWrapper = styled.div`
   position: relative;
 
   width: 100%;
-  height: 100%;
-  padding-top: 15px;
-
-  overflow: scroll;
+  height: 90%;
+  padding: 8px;
 
   display: grid;
   grid-template-columns: repeat(auto-fill, 266px);
@@ -33,5 +31,33 @@ export const LinksWrapper = styled.ul`
   justify-content: center;
   justify-items: center;
   align-items: start;
-  gap: 7px;
+  grid-gap: 7px;
+`;
+
+export const LinksScrollBar = styled.div`
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+
+  margin-bottom: 28px;
+
+  -webkit-box-shadow: 0px -1px 3px -1px ${({ theme }) => theme.link.scrollBar} inset;
+  -moz-box-shadow: 0px -1px 3px -1px ${({ theme }) => theme.link.scrollBar} inset;
+  box-shadow: 0px -1px 3px -1px ${({ theme }) => theme.link.scrollBar} inset;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.link.scrollBar};
+    border-radius: 10px;
+  }
 `;

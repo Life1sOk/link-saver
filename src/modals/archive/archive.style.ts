@@ -127,32 +127,6 @@ export const ArchiveMainGroups = styled(ArchiveMain)`
   }
 `;
 
-export const Message = styled.div`
-  width: 100%;
-  padding: 12px;
-  margin: 5px 0 10px 0;
-
-  font-size: var(--font-big);
-  font-weight: var(--font-weight-normal);
-
-  border-radius: 5px;
-  border-left: 4px solid ${({ theme }) => theme.modals.news};
-
-  -webkit-box-shadow: 0px 0px 5px 0px ${({ theme }) => theme.modals.activeShadow};
-  -moz-box-shadow: 0px 0px 5px 0px ${({ theme }) => theme.modals.activeShadow};
-  box-shadow: 0px 0px 5px 0px ${({ theme }) => theme.modals.activeShadow};
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  & > svg {
-    width: 25px;
-    height: 25px;
-    margin: 0 6px;
-  }
-`;
-
 export const ArchiveBottom = styled.div`
   width: 100%;
   height: fit-content;

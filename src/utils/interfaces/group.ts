@@ -31,7 +31,7 @@ export interface IAddGroup {
   topic_id: number;
   user_id: number;
   group_title: string;
-  links: never[];
+  links: IShortLink[];
 }
 
 export interface IGroupTransaction {

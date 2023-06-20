@@ -7,6 +7,7 @@ import { useArchiveLocal } from "../../utils/helper-dispatch/useArchiveLocal";
 import { useDebounce } from "../../utils/helpers/useDebounce";
 import { icons } from "../../utils/react-icons";
 
+import Note from "./note/note.component";
 import Switcher from "../../components/switcher/switcher.component";
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
@@ -22,7 +23,6 @@ import {
   InputWrapper,
   Title,
   IconWrapper,
-  Message,
   ArchiveIcon,
   SwitcherWrapper,
 } from "./archive.style";
@@ -80,10 +80,7 @@ const ArchiveModal = () => {
         </ArchiveHeader>
         {activeArchive === "links" && <ArchiveLinks search={debouncedValue} />}
         {activeArchive === "groups" && <ArchiveGroups search={debouncedValue} />}
-        <Message>
-          Deleted links and groups will be stored here for 4 days (96 hours)! To restore,
-          click {icons.restore}!
-        </Message>
+        <Note type={activeArchive} />
         <ArchiveBottom>
           <Button name="Cancel" actionHandle={toggleArchiveWindowLocal} />
         </ArchiveBottom>

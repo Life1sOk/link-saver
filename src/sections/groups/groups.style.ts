@@ -34,7 +34,7 @@ export const GroupsWrapper = styled.div<{ rowsCount?: number }>`
 
   width: 100%;
   height: 100%;
-  padding: 17px 12px 12px 12px;
+  padding: 17px 0px 12px 0px;
 
   overflow-y: scroll;
 
@@ -45,4 +45,20 @@ export const GroupsWrapper = styled.div<{ rowsCount?: number }>`
   justify-content: center;
   align-items: start;
   grid-column-gap: 55px;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.group.scrollBar};
+    border-radius: 10px;
+  }
 `;

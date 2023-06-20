@@ -2,14 +2,14 @@ import styled from "styled-components";
 
 export const TopicMainStyle = styled.div<{ isActive: boolean }>`
   width: 100%;
-  height: 55px;
+  height: 56px;
 
   flex-shrink: 0;
 
   padding: 0 8px 0 12px;
 
   border-radius: 4px 0 0 4px;
-  border-top: 1px solid ${({ theme }) => theme.border};
+  border: 1px solid ${({ theme }) => theme.border};
   background-color: ${({ isActive, theme }) =>
     isActive ? theme.topic.active : "inherit"};
 

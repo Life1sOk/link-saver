@@ -5,7 +5,7 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
 
   width: 100%;
   height: 44px;
-  padding: 8px 8px 8px 12px;
+  padding: 8px 6px 8px 12px;
   text-align: left;
 
   border-radius: 4px 0 0 4px;

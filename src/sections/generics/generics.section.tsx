@@ -16,7 +16,7 @@ import Blank from "../../components/blank/blank-section.modal";
 
 import { IShortLink } from "../../utils/interfaces/link";
 
-import { LinksWrapper, GenericsWrapper } from "./generics.style";
+import { LinksWrapper, GenericsWrapper, LinksScrollBar } from "./generics.style";
 
 const GenericsSection = () => {
   const uniqueId = useId();
@@ -67,24 +67,26 @@ const GenericsSection = () => {
         sectionType="generic"
         count={localGenericLinks.length}
       />
-      <DropWrapper typeFor="link" actionHandler={dropIntoGenerics}>
-        <LinksWrapper>
-          {localGenericLinks.length > 0 ? (
-            localGenericLinks.map((current, index) => (
-              <Linker
-                key={uniqueId + index}
-                data={current}
-                position="generics"
-                isActive={activeGroup.isActive}
-                deleteLink={deleteLinkHandler}
-                linkTransitionHandler={linkTransitionToGroupHandler}
-              />
-            ))
-          ) : (
-            <Blank title="links" icon={icons.link} />
-          )}
-        </LinksWrapper>
-      </DropWrapper>
+      <LinksScrollBar>
+        <DropWrapper typeFor="link" actionHandler={dropIntoGenerics}>
+          <LinksWrapper>
+            {localGenericLinks.length > 0 ? (
+              localGenericLinks.map((current, index) => (
+                <Linker
+                  key={uniqueId + index}
+                  data={current}
+                  position="generics"
+                  isActive={activeGroup.isActive}
+                  deleteLink={deleteLinkHandler}
+                  linkTransitionHandler={linkTransitionToGroupHandler}
+                />
+              ))
+            ) : (
+              <Blank title="links" icon={icons.link} />
+            )}
+          </LinksWrapper>
+        </DropWrapper>
+      </LinksScrollBar>
     </GenericsWrapper>
   );
 };

@@ -26,7 +26,7 @@ export const useGroupsLogic = () => {
 
   const { incTopicCountLocal, decTopicCountLocal } = useTopicLocal();
 
-  const { addGroupIntoArchiveLocal, deleteGroupsFromArchiveLocal } = useArchiveLocal();
+  const { addGroupIntoArchiveLocal, deleteGroupFromArchiveLocal } = useArchiveLocal();
 
   // --------------------- SERVER ------------------------ //
 
@@ -110,7 +110,7 @@ export const useGroupsLogic = () => {
         if (err) {
           // Back changes
           addOneGroupLocal(data);
-          deleteGroupsFromArchiveLocal(group_id);
+          deleteGroupFromArchiveLocal(group_id);
           incTopicCountLocal({ key: topic_title });
         }
       });

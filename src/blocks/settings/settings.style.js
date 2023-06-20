@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const SettingsBlockStyle = styled.div`
   width: 100%;
   height: 100%;
-  max-height: 222px;
+  max-height: 210px;
   padding: 0 10%;
   background-color: ${({ theme }) => theme.background.sections};
 
