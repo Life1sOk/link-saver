@@ -107,7 +107,7 @@ const ArchiveMain = styled.div`
 
 export const ArchiveMainLinks = styled(ArchiveMain)<{ count?: number; type?: string }>`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(${({ count }) => (count ? `${count}` : "auto-fill")}, 46px);
   align-items: center;
   justify-items: center;
@@ -115,7 +115,7 @@ export const ArchiveMainLinks = styled(ArchiveMain)<{ count?: number; type?: str
 `;
 
 export const ArchiveMainGroups = styled(ArchiveMain)`
-  padding: 13px 0 0 13px;
+  padding: 13px 13px 0 13px;
 
   display: flex;
   align-items: flex-start;

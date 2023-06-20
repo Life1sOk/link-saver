@@ -1,6 +1,7 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
+import { useArchiveLogic } from "../../utils/contollers/useArchiveLogic";
 import { useArchiveLocal } from "../../utils/helper-dispatch/useArchiveLocal";
 
 import { useDebounce } from "../../utils/helpers/useDebounce";
@@ -34,12 +35,21 @@ const ArchiveModal = () => {
   const activeArchive = useAppSelector((state) => state.archive.activeArchive);
   const linksCount = useAppSelector((state) => state.archive.links.length);
   const groupsCount = useAppSelector((state) => state.archive.groups.length);
+
+  const user_id = useAppSelector((state) => state.user.session.user_id);
+  const isPull = useAppSelector((state) => state.archive.pull);
+
+  const { getArchive } = useArchiveLogic();
   const { toggleArchiveWindowLocal, toggleActiveArchiveLocal } = useArchiveLocal();
 
   // helpers
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
+
+  useEffect(() => {
+    if (isPull && user_id > 0) getArchive(user_id);
+  }, [isPull, user_id]);
 
   return (
     <BlackWindowModal isOpen={isOpenWindow}>

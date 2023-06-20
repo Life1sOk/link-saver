@@ -4,16 +4,25 @@ import { IShortLink } from "../interfaces/link";
 import { IGroupGet } from "../interfaces/group";
 
 import {
+  addToArchiveAll,
   toggleArchiveWindow,
   toggleActiveArchive,
   addLinkIntoArchive,
   addGroupIntoArchive,
   deleteLinkFromArchive,
   deleteGroupsFromArchive,
+  deleteGroupsFromArchiveByTopic,
 } from "../../App/store/slices/archive.slice";
+
+interface IAllArch {
+  links: IShortLink[];
+  groups: { topic_title: string; group: IGroupGet }[];
+}
 
 export const useArchiveLocal = () => {
   const dispatch = useAppDispatch();
+
+  const addToArchiveAllLocal = (arg: IAllArch) => dispatch(addToArchiveAll(arg));
 
   const toggleArchiveWindowLocal = () => dispatch(toggleArchiveWindow());
 
@@ -32,12 +41,25 @@ export const useArchiveLocal = () => {
   const deleteGroupsFromArchiveLocal = (group_id: number) =>
     dispatch(deleteGroupsFromArchive(group_id));
 
+  const addAllGroupIntoArchiveLocal = (groups: IGroupGet[], activeTopic: string) => {
+    groups.forEach((group) =>
+      addGroupIntoArchiveLocal({ topic_title: activeTopic, group })
+    );
+  };
+
+  const deleteGroupsFromArchiveByTopicLocal = (topic_title: string) => {
+    dispatch(deleteGroupsFromArchiveByTopic(topic_title));
+  };
+
   return {
+    addToArchiveAllLocal,
     toggleArchiveWindowLocal,
     toggleActiveArchiveLocal,
     addLinkIntoArchiveLocal,
     addGroupIntoArchiveLocal,
     deleteLinkFromArchiveLocal,
     deleteGroupsFromArchiveLocal,
+    addAllGroupIntoArchiveLocal,
+    deleteGroupsFromArchiveByTopicLocal,
   };
 };

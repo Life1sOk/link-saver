@@ -21,7 +21,7 @@ import { LinksWrapper, GenericsWrapper } from "./generics.style";
 const GenericsSection = () => {
   const uniqueId = useId();
   const activeGroup = useAppSelector((state) => state.groupsLocal.window.activeGroup);
-  const userId = useAppSelector((state) => state.user.session.user_id);
+  const user_id = useAppSelector((state) => state.user.session.user_id);
   const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
   const dragData = useAppSelector((state) => state.drag.current);
 
@@ -30,7 +30,7 @@ const GenericsSection = () => {
   const { addAllGenericsLocal } = useGenericLocal();
   const { removeDraggableLocal } = useDragLocal();
 
-  const { data: generics } = useGetGenericLinksByUserIdQuery(userId);
+  const { data: generics } = useGetGenericLinksByUserIdQuery(user_id);
 
   // Need local change
   const linkTransitionToGroupHandler = async (data: IShortLink) => {
@@ -53,7 +53,7 @@ const GenericsSection = () => {
 
   // Delete link
   const deleteLinkHandler = async (data: IShortLink) => {
-    await deleteGenericLink(data);
+    await deleteGenericLink(data, user_id);
   };
 
   useEffect(() => {

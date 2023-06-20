@@ -46,7 +46,7 @@ export const linksApi = createApi({
         body,
       }),
     }),
-    deleteLinkSnapshot: builder.mutation<void, { id: number }>({
+    deleteLinkSnapshot: builder.mutation<void, { id: number; user_id: number }>({
       query: (body) => ({
         url: "/delete",
         method: "DELETE",

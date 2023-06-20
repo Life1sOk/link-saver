@@ -220,12 +220,12 @@ export const useLinkLogic = () => {
   };
 
   // DELETE LINK //
-  const deleteGroupLink = async (data: IShortLink, index: number) => {
+  const deleteGroupLink = async (data: IShortLink, index: number, user_id: number) => {
     // Local
     deleteGroupLinkLocal({ link_id: data.id, index });
     addLinkIntoArchiveLocal(data);
     // Server
-    return await deleteSnapshotApi({ id: data.id })
+    return await deleteSnapshotApi({ id: data.id, user_id })
       .unwrap()
       .catch((err) => {
         // Back changes
@@ -236,12 +236,12 @@ export const useLinkLogic = () => {
       });
   };
 
-  const deleteGenericLink = async (data: IShortLink) => {
+  const deleteGenericLink = async (data: IShortLink, user_id: number) => {
     // Local
     deleteOneGenericLocal(data.id);
     addLinkIntoArchiveLocal(data);
     // Server
-    return await deleteSnapshotApi({ id: data.id })
+    return await deleteSnapshotApi({ id: data.id, user_id })
       .unwrap()
       .catch((err) => {
         // Back changes

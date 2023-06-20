@@ -19,6 +19,7 @@ import { userApi } from "./api/user";
 import { friendsApi } from "./api/friends";
 import { transitionApi } from "./api/transition";
 import { authorisationApi } from "./api/authorisation";
+import { archiveApi } from "./api/archive";
 
 export const store = configureStore({
   reducer: {
@@ -40,6 +41,7 @@ export const store = configureStore({
     [friendsApi.reducerPath]: friendsApi.reducer,
     [transitionApi.reducerPath]: transitionApi.reducer,
     [authorisationApi.reducerPath]: authorisationApi.reducer,
+    [archiveApi.reducerPath]: archiveApi.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling,
   // and other useful features of `rtk-query`.
@@ -51,7 +53,8 @@ export const store = configureStore({
       userApi.middleware,
       friendsApi.middleware,
       transitionApi.middleware,
-      authorisationApi.middleware
+      authorisationApi.middleware,
+      archiveApi.middleware
     ),
 });
 

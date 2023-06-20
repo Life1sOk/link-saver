@@ -108,7 +108,7 @@ const GroupsSection = () => {
     deleteGroup(user_id, group_id, data, topic_title);
 
   const deleteGroupLinkHandler = (data: IShortLink, index: number) =>
-    deleteGroupLink(data, index);
+    deleteGroupLink(data, index, user_id);
 
   const transitionToGenericsHandler = (data: IShortLink, index: number) =>
     linkTransitionToGeneric(data, index);

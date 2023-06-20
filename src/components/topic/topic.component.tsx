@@ -37,6 +37,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const activeTopicId = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic.id
   );
+  const topicGroups = useAppSelector((state) => state.groupsLocal.data);
   const currentCount = useAppSelector(
     (state) => state.topicsLocal.count[`${topic.topic_title}`]
   );
@@ -73,7 +74,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
     resetTopicWindow();
     setIsDelete(false);
     // Delete
-    await deleteTopic(topic, userId, currentCount);
+    await deleteTopic(topic, userId, currentCount, topicGroups);
   };
 
   useEffect(() => {
