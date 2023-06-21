@@ -221,9 +221,16 @@ export const useLinkLogic = () => {
 
   // DELETE LINK //
   const deleteGroupLink = async (data: IShortLink, index: number, user_id: number) => {
+    const prepLink = {
+      id: data.id,
+      link_title: data.link_title,
+      link_url: data.link_url,
+      status: data.status,
+      user_id,
+    };
     // Local
     deleteGroupLinkLocal({ link_id: data.id, index });
-    addLinkIntoArchiveLocal(data);
+    addLinkIntoArchiveLocal(prepLink);
     // Server
     return await deleteSnapshotApi({ id: data.id, user_id })
       .unwrap()

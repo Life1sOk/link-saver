@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
-import { useArchiveLogic } from "../../utils/contollers/useArchiveLogic";
 
 import { icons } from "../../utils/react-icons";
 
@@ -15,8 +14,6 @@ const ArchiveGroups = ({ search }: { search: string }) => {
   const archiveGroups = useAppSelector((state) => state.archive.groups);
   const [upData, setUpData] = useState(archiveGroups);
 
-  const { deleteArchive } = useArchiveLogic();
-
   useEffect(() => {
     const filtered = archiveGroups.filter((item) =>
       item.group.group_title.includes(search)
@@ -25,17 +22,12 @@ const ArchiveGroups = ({ search }: { search: string }) => {
   }, [search]);
 
   useEffect(() => setUpData(archiveGroups), [archiveGroups]);
-
+  console.log(upData);
   return (
     <ArchiveMainGroups>
       {archiveGroups?.length > 0 ? (
         upData?.map((data, index) => (
-          <ArchiveItem
-            key={index}
-            data={data.group}
-            data_type="group"
-            actionHandler={deleteArchive}
-          >
+          <ArchiveItem key={index} data={data.group} data_type="group">
             <GroupDefault data={data.group} />
           </ArchiveItem>
         ))

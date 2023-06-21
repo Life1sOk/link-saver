@@ -3,6 +3,7 @@ import { IShortLink } from "./link";
 export interface IGroupGet {
   id: number;
   group_title: string;
+  topic_id?: number;
   links: IShortLink[];
 }
 

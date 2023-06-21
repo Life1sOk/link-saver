@@ -62,6 +62,7 @@ export const useGroupsLogic = () => {
     addOneGroupLocal(group);
     incTopicCountLocal({ key: topic_title });
     // Send data
+
     return await addGroupApi(group)
       .unwrap()
       .then((res) => {

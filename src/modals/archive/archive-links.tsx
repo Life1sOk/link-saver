@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
-import { useArchiveLogic } from "../../utils/contollers/useArchiveLogic";
 
 import { icons } from "../../utils/react-icons";
 
@@ -15,8 +14,6 @@ const ArchiveLinks = ({ search }: { search: string }) => {
   const archiveLinks = useAppSelector((state) => state.archive.links);
   const [upData, setUpData] = useState(archiveLinks);
 
-  const { deleteArchive } = useArchiveLogic();
-
   useEffect(() => {
     const filtered = archiveLinks.filter((item) => item.link_title.includes(search));
     setUpData(filtered);
@@ -28,12 +25,7 @@ const ArchiveLinks = ({ search }: { search: string }) => {
     <ArchiveMainLinks count={Math.ceil(archiveLinks.length / 3)} type="links">
       {archiveLinks?.length > 0 ? (
         upData?.map((link, index) => (
-          <ArchiveItem
-            key={index}
-            data={link}
-            data_type="link"
-            actionHandler={deleteArchive}
-          >
+          <ArchiveItem key={index} data={link} data_type="link">
             <Linker
               data={link}
               isActive={false}

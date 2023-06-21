@@ -1,14 +1,15 @@
 import {
   useLazyGetArchiveQuery,
-  useDeleteArchiveMutation,
+  useRestoreArchiveMutation,
 } from "../../App/store/api/archive";
 
-import { useGenericLocal } from "../helper-dispatch/useGenericLocal";
-import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
 import { useArchiveLocal } from "../helper-dispatch/useArchiveLocal";
+import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
+import { useGenericLocal } from "../helper-dispatch/useGenericLocal";
+import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
 import { useRequestProcess } from "../helpers/useRequestProcess";
 
-import { IDeleteLinkArchive, IDeleteGroupArchive } from "../interfaces/archive";
+import { IRestoreLinkArchive, IRestoreGroupArchive } from "../interfaces/archive";
 
 export const useArchiveLogic = () => {
   // --------------------- LOCAL ------------------------ //
@@ -20,15 +21,16 @@ export const useArchiveLogic = () => {
     deleteGroupFromArchiveLocal,
   } = useArchiveLocal();
 
-  const { addOneGenericLocal, deleteOneGenericLocal } = useGenericLocal();
+  const { incTopicCountLocal } = useTopicLocal();
   const { addOneGroupLocal, deleteGroupLocal } = useGroupLocal();
+  const { addOneGenericLocal, deleteOneGenericLocal } = useGenericLocal();
 
   // --------------------- SERVER ------------------------ //
   const [getArchiveApi, getArchiveApiResult] = useLazyGetArchiveQuery();
   useRequestProcess(getArchiveApiResult);
 
-  const [deleteArchiveApi, deleteArchiveApiResult] = useDeleteArchiveMutation();
-  useRequestProcess(deleteArchiveApiResult);
+  const [restoreArchiveApi, restoreArchiveApiResult] = useRestoreArchiveMutation();
+  useRequestProcess(restoreArchiveApiResult);
 
   // --------------------- ACTION ------------------------ //
   const getArchive = async (user_id: number) => {
@@ -52,37 +54,48 @@ export const useArchiveLogic = () => {
     }
   };
 
-  const deleteArchive = async ({
+  // Zanovo produmat logicku to pzd
+  /// Change to 'restoreArchive'  and make it add old data to the server;
+  const restoreArchive = async ({
     data,
     user_id,
     data_type,
-  }: IDeleteLinkArchive | IDeleteGroupArchive) => {
-    const props = { user_id, data_id: data.id, data_type };
+    topic_id,
+    topic_title,
+  }: IRestoreLinkArchive | IRestoreGroupArchive) => {
+    const props = { user_id, data, data_type };
 
     // Local changes
     if (data_type === "link") {
       deleteLinkFromArchiveLocal(data.id);
+      addOneGenericLocal(data);
     }
 
     if (data_type === "group") {
+      props.data = { ...data, topic_id };
       deleteGroupFromArchiveLocal(data.id);
-      // addOneGroupLocal(data);
+      addOneGroupLocal({ ...data, topic_id });
+      incTopicCountLocal({ key: topic_title });
     }
 
     // Server changes
     try {
-      const response = await deleteArchiveApi(props).unwrap();
+      const response = await restoreArchiveApi(props).unwrap();
       console.log(response);
     } catch (err) {
       // Back local changes
       if (err) {
         if (data_type === "link") {
           addLinkIntoArchiveLocal(data);
+          deleteOneGenericLocal(data.id);
         }
 
         if (data_type === "group") {
-          addGroupIntoArchiveLocal({ topic_title: "Main", group: data });
-          // deleteGroupLocal(data.id);
+          addGroupIntoArchiveLocal({
+            topic_title: "Main",
+            group: data,
+          });
+          deleteGroupLocal(data.id);
         }
       }
     }
@@ -90,6 +103,6 @@ export const useArchiveLogic = () => {
 
   return {
     getArchive,
-    deleteArchive,
+    restoreArchive,
   };
 };

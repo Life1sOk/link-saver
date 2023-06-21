@@ -11,7 +11,7 @@ export const archiveApi = createApi({
     getArchive: builder.query({
       query: (user_id) => ({ url: `/${user_id}` }),
     }),
-    deleteArchive: builder.mutation({
+    restoreArchive: builder.mutation({
       query: (body) => ({
         url: "/clear",
         method: "PUT",
@@ -21,4 +21,4 @@ export const archiveApi = createApi({
   }),
 });
 
-export const { useLazyGetArchiveQuery, useDeleteArchiveMutation } = archiveApi;
+export const { useLazyGetArchiveQuery, useRestoreArchiveMutation } = archiveApi;
