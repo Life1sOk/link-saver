@@ -49,6 +49,7 @@ export const GroupsWrapper = styled.div<{ rowsCount?: number }>`
   /* width */
   ::-webkit-scrollbar {
     width: 3px;
+    height: 0px;
   }
 
   /* Track */

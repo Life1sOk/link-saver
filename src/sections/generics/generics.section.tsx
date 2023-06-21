@@ -1,4 +1,4 @@
-import { useEffect, useId } from "react";
+import { useEffect, useId, memo } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 
 import { icons } from "../../utils/react-icons";
@@ -18,7 +18,7 @@ import { IShortLink } from "../../utils/interfaces/link";
 
 import { LinksWrapper, GenericsWrapper, LinksScrollBar } from "./generics.style";
 
-const GenericsSection = () => {
+const GenericsSection = memo(() => {
   const uniqueId = useId();
   const activeGroup = useAppSelector((state) => state.groupsLocal.window.activeGroup);
   const user_id = useAppSelector((state) => state.user.session.user_id);
@@ -89,6 +89,6 @@ const GenericsSection = () => {
       </LinksScrollBar>
     </GenericsWrapper>
   );
-};
+});
 
 export default GenericsSection;

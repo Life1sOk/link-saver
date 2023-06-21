@@ -125,7 +125,6 @@ const GroupsSection = () => {
   useEffect(() => {
     if (localGroups) setGridPosition(calcPosition(clmCount, localGroups));
   }, [clmCount, localGroups]);
-
   // --------------------------------------------- //
 
   if (getGroupsStoreResult.isFetching) {
