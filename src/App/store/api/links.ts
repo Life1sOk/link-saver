@@ -6,8 +6,8 @@ import { IShortLink, ILink, ILinkStatus } from "../../../utils/interfaces/link";
 export const linksApi = createApi({
   reducerPath: "linksApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3000/links",
-    // baseUrl: "https://link-saver.herokuapp.com/links",
+    // baseUrl: "http://localhost:3000/links",
+    baseUrl: "https://link-saver.herokuapp.com/links",
   }),
   tagTypes: ["Links", "Groups"],
   endpoints: (builder) => ({
