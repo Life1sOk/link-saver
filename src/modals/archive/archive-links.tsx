@@ -15,7 +15,9 @@ const ArchiveLinks = ({ search }: { search: string }) => {
   const [upData, setUpData] = useState(archiveLinks);
 
   useEffect(() => {
-    const filtered = archiveLinks.filter((item) => item.link_title.includes(search));
+    const filtered = archiveLinks.filter((item) =>
+      item.link_title.toLowerCase().includes(search)
+    );
     setUpData(filtered);
   }, [search]);
 

@@ -1,6 +1,7 @@
 import {
   useLazyGetArchiveQuery,
   useRestoreArchiveMutation,
+  useDeleteArchiveMutation,
 } from "../../App/store/api/archive";
 
 import { useArchiveLocal } from "../helper-dispatch/useArchiveLocal";
@@ -9,7 +10,12 @@ import { useGenericLocal } from "../helper-dispatch/useGenericLocal";
 import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
 import { useRequestProcess } from "../helpers/useRequestProcess";
 
-import { IRestoreLinkArchive, IRestoreGroupArchive } from "../interfaces/archive";
+import {
+  IRestoreLinkArchive,
+  IRestoreGroupArchive,
+  IGroupArchive,
+  ILinkArchive,
+} from "../interfaces/archive";
 
 export const useArchiveLogic = () => {
   // --------------------- LOCAL ------------------------ //
@@ -31,6 +37,9 @@ export const useArchiveLogic = () => {
 
   const [restoreArchiveApi, restoreArchiveApiResult] = useRestoreArchiveMutation();
   useRequestProcess(restoreArchiveApiResult);
+
+  const [deleteArchiveApi, deleteArchiveApiResult] = useDeleteArchiveMutation();
+  useRequestProcess(deleteArchiveApiResult);
 
   // --------------------- ACTION ------------------------ //
   const getArchive = async (user_id: number) => {
@@ -54,8 +63,6 @@ export const useArchiveLogic = () => {
     }
   };
 
-  // Zanovo produmat logicku to pzd
-  /// Change to 'restoreArchive'  and make it add old data to the server;
   const restoreArchive = async ({
     data,
     user_id,
@@ -101,8 +108,28 @@ export const useArchiveLogic = () => {
     }
   };
 
+  const deleteArchive = async (
+    topic_title: string,
+    { data, data_type, user_id }: IGroupArchive | ILinkArchive
+  ) => {
+    // Local
+    if (data_type === "link") deleteLinkFromArchiveLocal(data.id);
+    if (data_type === "group") deleteGroupFromArchiveLocal(data.id);
+
+    await deleteArchiveApi({ user_id, data_id: data.id, data_type })
+      .unwrap()
+      .catch((err) => {
+        if (err) {
+          if (data_type === "link") addLinkIntoArchiveLocal(data);
+          if (data_type === "group")
+            addGroupIntoArchiveLocal({ topic_title, group: data });
+        }
+      });
+  };
+
   return {
     getArchive,
     restoreArchive,
+    deleteArchive,
   };
 };

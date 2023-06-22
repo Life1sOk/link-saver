@@ -28,6 +28,7 @@ import {
   MdOutlineErrorOutline,
   MdOutlineAirlineSeatReclineNormal,
   MdOutlineSettingsBackupRestore,
+  MdOutlineDeleteForever,
 } from "react-icons/md";
 import { FcProcess } from "react-icons/fc";
 
@@ -57,6 +58,7 @@ export const icons = {
 
   archive: <TbArchive />,
   restore: <MdOutlineSettingsBackupRestore />,
+  archiveDelete: <MdOutlineDeleteForever />,
 
   done: <MdFileDownloadDone />,
   process: <FcProcess />,
