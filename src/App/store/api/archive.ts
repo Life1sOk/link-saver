@@ -4,6 +4,7 @@ export const archiveApi = createApi({
   reducerPath: "api/archive",
   baseQuery: fetchBaseQuery({
     // baseUrl: "http://localhost:3000/archive",
+
     baseUrl: "https://link-saver.herokuapp.com/archive",
   }),
   tagTypes: ["Transition"],
