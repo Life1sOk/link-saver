@@ -14,7 +14,9 @@ interface ILogin {
 }
 
 const LoginBlock = ({ changeBlock }: ILogin) => {
-  const [errorMess, setErrorMess] = useState("An error occurred while logging in.");
+  const [errorMess, setErrorMess] = useState<string>(
+    "An error occurred while logging in."
+  );
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -35,7 +37,7 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
 
     await loginUser(loginObj).catch((err) => {
       if (err.data) setErrorMess(err.data);
-      console.log(err);
+      // console.log(err.data);
     });
   };
 
