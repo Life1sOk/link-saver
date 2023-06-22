@@ -19,7 +19,17 @@ import {
   TbCubeSend,
   TbFriends,
   TbBox,
+  TbSearch,
+  TbArchive,
 } from "react-icons/tb";
+
+import {
+  MdFileDownloadDone,
+  MdOutlineErrorOutline,
+  MdOutlineAirlineSeatReclineNormal,
+  MdOutlineSettingsBackupRestore,
+} from "react-icons/md";
+import { FcProcess } from "react-icons/fc";
 
 export const icons = {
   dots: <BiDotsVertical />,
@@ -43,4 +53,13 @@ export const icons = {
   friends: <TbFriends />,
   box: <TbBox />,
   hole: <GiHole />,
+  search: <TbSearch />,
+
+  archive: <TbArchive />,
+  restore: <MdOutlineSettingsBackupRestore />,
+
+  done: <MdFileDownloadDone />,
+  process: <FcProcess />,
+  error: <MdOutlineErrorOutline />,
+  default: <MdOutlineAirlineSeatReclineNormal />,
 };

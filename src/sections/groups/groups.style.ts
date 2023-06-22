@@ -13,7 +13,7 @@ export const GroupsStyle = styled.div`
   border-top: 1px solid ${({ theme }) => theme.border};
   border-bottom: 1px solid ${({ theme }) => theme.border};
 
-  border-radius: 0 5px 15px 0;
+  border-radius: 0 5px 5px 0;
 
   display: flex;
   flex-direction: column;
@@ -29,20 +29,37 @@ export const SpinnerWrapper = styled.div`
   justify-content: center;
 `;
 
-export const GroupsWrapper = styled.div`
+export const GroupsWrapper = styled.div<{ rowsCount?: number }>`
   position: relative;
 
   width: 100%;
   height: 100%;
-  padding: 17px 12px 12px 12px;
+  padding: 17px 0px 12px 0px;
 
-  overflow: scroll;
+  overflow-y: scroll;
 
   display: grid;
   grid-template-columns: repeat(auto-fill, 278px);
-  grid-template-rows: repeat(auto-fill, 315px);
+  grid-template-rows: ${({ rowsCount }) =>
+    rowsCount ? `repeat(${rowsCount}, 47px)` : "repeat(20, 47px)"};
   justify-content: center;
-  align-content: stretch;
-  grid-row-gap: 33px;
+  align-items: start;
   grid-column-gap: 55px;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 3px;
+    height: 0px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.group.scrollBar};
+    border-radius: 10px;
+  }
 `;

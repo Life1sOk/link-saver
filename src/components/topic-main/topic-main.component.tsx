@@ -4,9 +4,10 @@ import { useAppSelector } from "../../App/store/hooks";
 import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
 
-import { icons } from "../../utils/react-icons";
+import SectionCount from "../../shared/section-count/section-count.shared";
+import Mark from "../../shared/mark/mark.shared";
 
-import { TopicMainStyle, Title, MarkIcon, Count } from "./topic-main.style";
+import { TopicMainStyle, Title, CountWrapper } from "./topic-main.style";
 
 const TopicMain = () => {
   const userId = useAppSelector((state) => state.user.profile.id);
@@ -26,11 +27,13 @@ const TopicMain = () => {
 
   return (
     <TopicMainStyle onClick={defaultMain} isActive={activeTopic.topic_title === "Main"}>
-      <MarkIcon>
-        {icons.marker}
-        <Count>{currentCount}</Count>
-      </MarkIcon>
+      <Mark sectionType="topic" />
       <Title>Main topic</Title>
+      {activeTopic.topic_title !== "Main" && (
+        <CountWrapper>
+          <SectionCount sectionType="topic" count={currentCount} />
+        </CountWrapper>
+      )}
     </TopicMainStyle>
   );
 };

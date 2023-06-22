@@ -11,5 +11,20 @@ export const TopicsStyle = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 7px;
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 3px;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 10px;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.topic.scrollBar};
+    border-radius: 10px;
+  }
 `;

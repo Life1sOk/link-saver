@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const FriendsModalStyle = styled.div`
-  width: 320px;
+  width: 640px;
   height: 466px;
 
   background-color: ${({ theme }) => theme.modals.background};
@@ -24,9 +24,11 @@ export const Buttons = styled.div`
   justify-content: end;
 `;
 
-export const Switcher = styled.div`
+export const SwitcherWrapper = styled.div`
   width: 100%;
+  padding: 5px;
 
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 13px;
 `;

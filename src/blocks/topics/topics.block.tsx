@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useId } from "react";
 
 import { icons } from "../../utils/react-icons";
 
@@ -14,6 +14,7 @@ import Blank from "../../components/blank/blank-section.modal";
 import { TopicsStyle } from "./topics.style";
 
 const TopicsBlock = () => {
+  const uniqueId = useId();
   const userId = useAppSelector((state) => state.user.session.user_id);
   const localTopics = useAppSelector((state) => state.topicsLocal.data);
 
@@ -35,7 +36,7 @@ const TopicsBlock = () => {
         localTopics.map((topic, index) => (
           <Topic
             topic={topic}
-            key={topic.id}
+            key={uniqueId + index}
             activeHandler={activeTopicHandler}
             index={index}
           />

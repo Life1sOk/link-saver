@@ -47,4 +47,11 @@ export const PageWrapper = styled.div`
   height: 100vh;
 
   min-width: 975px;
+  max-width: 1662px;
+
+  margin: 0 auto;
+
+  box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
+  -webkit-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
+  -moz-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
 `;

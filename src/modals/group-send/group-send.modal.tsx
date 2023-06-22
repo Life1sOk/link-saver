@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useAppSelector } from "../../App/store/hooks";
 import { useTransitionLogic } from "../../utils/contollers/useTransitionLogic";
 import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
@@ -18,6 +19,7 @@ import {
 } from "./group-send.style";
 
 const GroupSendModal = () => {
+  const uniqueId = useId();
   const isOpen = useAppSelector((state) => state.box.isSendWindow);
   const prepareBox = useAppSelector((state) => state.box.prepare);
   const myFriends = useAppSelector((state) => state.friends.friendsList);
@@ -44,9 +46,9 @@ const GroupSendModal = () => {
         <LeftSide>
           <h3>To friend:</h3>
           <FriendsWrapper>
-            {myFriends.map((friend) => (
+            {myFriends.map((friend, index) => (
               <Friend
-                key={friend.id}
+                key={uniqueId + index}
                 onClick={() => pickFriendSendForHandler(friend.id)}
                 isPicked={pickedFriend === friend.id}
               >

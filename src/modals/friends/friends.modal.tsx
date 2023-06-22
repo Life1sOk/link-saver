@@ -4,14 +4,14 @@ import { useAppSelector } from "../../App/store/hooks";
 import { useFriendsLogic } from "../../utils/contollers/useFriendsLogic";
 import { useFriendsLocal } from "../../utils/helper-dispatch/useFriendsLocal";
 
-import FriendSwitcher from "../../components/friend-switcher/friend-switcher.component";
+import Switcher from "../../components/switcher/switcher.component";
 import UserFriends from "../../blocks/friends/friends.block";
 import UserInvited from "../../blocks/friends/invited.block";
 import UserSearch from "../../blocks/friends/search.block";
 import BlackWindowModal from "../../shared/black-window/black-window.modal";
 import Button from "../../components/button/button.component";
 
-import { FriendsModalStyle, Buttons, Switcher } from "./friends.style";
+import { FriendsModalStyle, Buttons, SwitcherWrapper } from "./friends.style";
 
 const InviteModal = () => {
   const isOpen = useAppSelector((state) => state.friends.isFriendsWindow);
@@ -42,27 +42,27 @@ const InviteModal = () => {
   return (
     <BlackWindowModal isOpen={isOpen}>
       <FriendsModalStyle onClick={(e) => e.stopPropagation()}>
-        <Switcher>
-          <FriendSwitcher
+        <SwitcherWrapper>
+          <Switcher
             title="Friends"
             actionHandler={activeFriends}
             isActive={activeSection === "friends"}
             count={friendCount}
             countNew={incomingCount}
           />
-          <FriendSwitcher
+          <Switcher
             title="Invited"
             actionHandler={activeInvited}
             isActive={activeSection === "invited"}
             count={invitedCount}
           />
-          <FriendSwitcher
+          <Switcher
             title="Search"
             actionHandler={activeSearch}
             isActive={activeSection === "search"}
             count={searchCount}
           />
-        </Switcher>
+        </SwitcherWrapper>
         {activeSection === "friends" && <UserFriends />}
         {activeSection === "search" && <UserSearch />}
         {activeSection === "invited" && <UserInvited />}

@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../App/store/hooks";
 import { useAuthorisationLogic } from "../utils/contollers/useAuthorisationLogic";
 
+import { useWebsocket } from "../utils/contollers/useConnectSocket";
+
 import { Routes, Route } from "react-router-dom";
 
 import SigninPage from "./signin/signin.page";
@@ -17,15 +19,15 @@ const Routing = () => {
   // Отправка запроса на сервер
   const { loginUserByToken } = useAuthorisationLogic();
 
+  useWebsocket();
+
   useEffect(() => {
     const activeToken = window.sessionStorage.getItem("token");
 
     if (activeToken && !usersSession.success) {
-      const loginUserByTokenHandler = async () => {
+      (async () => {
         await loginUserByToken(activeToken);
-      };
-
-      loginUserByTokenHandler();
+      })();
     }
   }, [usersSession, dispatch]);
 

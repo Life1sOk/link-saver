@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { PayloadAction } from "@reduxjs/toolkit";
 
 import { IGroupGet } from "../../../utils/interfaces/group";
+import { IShortLink } from "../../../utils/interfaces/link";
 
 interface IWindowGroup {
   isAddGroup: boolean;
@@ -77,7 +78,7 @@ export const groupsSlice = createSlice({
     updateGroupLinkId: (state, { payload }) => {
       const { oldId, newId, index } = payload;
       state.data[index].links = state.data[index].links.map((link) =>
-        link.id === oldId ? { ...link, id: newId } : link
+        link.id === oldId ? { ...link, id: newId.id } : link
       );
     },
     updateGroupLinkStatus: (state, { payload }) => {

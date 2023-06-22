@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const ActionStyle = styled.div`
   width: 100%;
   height: 51px;
-  padding: 0 10px;
+  padding-left: 10px;
 
   flex-shrink: 0;
 

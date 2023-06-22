@@ -8,8 +8,8 @@ import {
 
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
 import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
-
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useArchiveLocal } from "../helper-dispatch/useArchiveLocal";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import { IGroupGet, IGroupChange, IAddGroup } from "../interfaces/group";
 import { ITopic } from "../interfaces/topic";
@@ -25,6 +25,8 @@ export const useGroupsLogic = () => {
   } = useGroupLocal();
 
   const { incTopicCountLocal, decTopicCountLocal } = useTopicLocal();
+
+  const { addGroupIntoArchiveLocal, deleteGroupFromArchiveLocal } = useArchiveLocal();
 
   // --------------------- SERVER ------------------------ //
 
@@ -60,6 +62,7 @@ export const useGroupsLogic = () => {
     addOneGroupLocal(group);
     incTopicCountLocal({ key: topic_title });
     // Send data
+
     return await addGroupApi(group)
       .unwrap()
       .then((res) => {
@@ -99,6 +102,7 @@ export const useGroupsLogic = () => {
   ) => {
     // local
     deleteGroupLocal(group_id);
+    addGroupIntoArchiveLocal({ topic_title, group: data });
     decTopicCountLocal({ key: topic_title });
     // server
     return await deleteGroupApi({ id: group_id, user_id })
@@ -107,6 +111,7 @@ export const useGroupsLogic = () => {
         if (err) {
           // Back changes
           addOneGroupLocal(data);
+          deleteGroupFromArchiveLocal(group_id);
           incTopicCountLocal({ key: topic_title });
         }
       });

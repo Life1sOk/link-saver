@@ -56,11 +56,12 @@ export const topicsSlice = createSlice({
     // Topic count
     addTopicCount: (
       state,
-      { payload }: PayloadAction<{ key: string; count?: number }>
+      { payload }: PayloadAction<{ key: string; count: number }>
     ) => {
       state.count[payload.key] = payload.count;
     },
     deleteTopicCount: (state, { payload }: PayloadAction<{ key: string }>) => {
+      console.log("runned delete");
       delete state.count[payload.key];
     },
     incCount: (state, { payload }) => {

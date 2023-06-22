@@ -1,16 +1,18 @@
 import styled from "styled-components";
 
-export const ChangePassStyle = styled.form`
+export const ProfileSettingStyle = styled.form`
   width: 100%;
   height: 100%;
 
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 34px 1fr 54px;
+  align-items: center;
 `;
 
 export const Title = styled.h3`
   font-size: var(--font-huge);
+  padding-bottom: 10px;
   border-bottom: 1px solid ${({ theme }) => theme.border};
 `;
 
@@ -28,7 +30,7 @@ export const InputWrapper = styled.div`
 
   display: flex;
   flex-direction: column;
-  gap: 17px;
+  gap: 22px;
 `;
 
 export const Line = styled.div`

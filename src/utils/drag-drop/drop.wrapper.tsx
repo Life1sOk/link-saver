@@ -1,26 +1,35 @@
-import { IShortLink } from "../interfaces/link";
+import { useAppSelector } from "../../App/store/hooks";
 
-import { DragDropStyle } from "./drag-drop.style";
+import { DropStyle } from "./drag-drop.style";
 
 interface IDrop {
-  data?: IShortLink;
-  group_index?: number;
-  group_id: number;
+  typeFor: "link" | "group";
+  typeAction?: "delete" | "add";
+  actionHandler: () => void;
   children: string | JSX.Element | JSX.Element[];
 }
 
-const Drop = ({ group_id, data, group_index, children }: IDrop) => {
+const DropWrapper = ({ typeFor, typeAction, actionHandler, children }: IDrop) => {
+  const currentType = useAppSelector((state) => state.drag.current.type);
+
   const onDragOver = (event: React.SyntheticEvent) => {
     event.preventDefault();
   };
 
-  const onDropHandler = () => console.log(group_id, data, group_index, "started group");
+  const onDropHandler = () => {
+    actionHandler();
+  };
 
   return (
-    <DragDropStyle onDragOver={onDragOver} onDrop={onDropHandler}>
+    <DropStyle
+      onDragOver={onDragOver}
+      onDrop={onDropHandler}
+      isShow={typeFor === currentType}
+      typeAction={typeAction}
+    >
       {children}
-    </DragDropStyle>
+    </DropStyle>
   );
 };
 
-export default Drop;
+export default DropWrapper;

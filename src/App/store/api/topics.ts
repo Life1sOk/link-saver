@@ -7,6 +7,7 @@ export const topicsApi = createApi({
   reducerPath: "topicsApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/topics",
+    // baseUrl: "https://link-saver.herokuapp.com/topics",
   }),
   tagTypes: ["Topics"],
   endpoints: (builder) => ({

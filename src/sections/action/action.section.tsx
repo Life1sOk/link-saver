@@ -7,6 +7,7 @@ import { useBoxLocal } from "../../utils/helper-dispatch/useBoxLocal";
 
 import HoleBlock from "../../blocks/hole/hole.block";
 import AddBlock from "../../blocks/add/add.block";
+import CheckWrapper from "../../utils/check-wrapper/check.wrapper";
 
 import SettingAction from "../../components/setting-action/setting-action.component";
 
@@ -24,20 +25,24 @@ const ActionSection = memo(() => {
     <ActionStyle>
       <LocalActions>
         <AddBlock />
-        <SettingAction
-          icon={icons.box}
-          title="Receiving box"
-          type="window"
-          actionHandler={toggleReceivingBoxWindow}
-          newCount={receivingCount}
-        />
-        <SettingAction
-          icon={icons.friends}
-          title="Friends"
-          type="window"
-          actionHandler={toggleFriendsWindow}
-          newCount={incomingCount}
-        />
+        <CheckWrapper isCheck={receivingCount > 0}>
+          <SettingAction
+            icon={icons.box}
+            title="Receiving box"
+            type="window"
+            actionHandler={toggleReceivingBoxWindow}
+            newCount={receivingCount}
+          />
+        </CheckWrapper>
+        <CheckWrapper isCheck={incomingCount > 0}>
+          <SettingAction
+            icon={icons.friends}
+            title="Friends"
+            type="window"
+            actionHandler={toggleFriendsWindow}
+            newCount={incomingCount}
+          />
+        </CheckWrapper>
       </LocalActions>
       <HoleBlock />
     </ActionStyle>

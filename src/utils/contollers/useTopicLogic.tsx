@@ -6,9 +6,12 @@ import {
 } from "../../App/store/api/topics";
 
 import { useTopicLocal } from "../helper-dispatch/useTopicLocal";
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useGroupLocal } from "../helper-dispatch/useGroupLocal";
+import { useArchiveLocal } from "../helper-dispatch/useArchiveLocal";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import { ITopic } from "../interfaces/topic";
+import { IGroupGet } from "../interfaces/group";
 
 export const useTopicLogic = () => {
   const {
@@ -18,7 +21,13 @@ export const useTopicLogic = () => {
     updateOneTopicIdLocal,
     deleteOneTopicLocal,
     updateOneTopicLocal,
+    editTopicWindow,
   } = useTopicLocal();
+
+  const { addAllGroupsLocal } = useGroupLocal();
+
+  const { addAllGroupIntoArchiveLocal, deleteGroupsFromArchiveByTopicLocal } =
+    useArchiveLocal();
 
   // --------------------- SERVER ------------------------ //
   const [getTopicCount, getTopicCountResult] = useLazyGetTopicsGroupCountQuery();
@@ -40,9 +49,9 @@ export const useTopicLogic = () => {
     // Server
     return await getTopicCount({ topic_id: topic.id, user_id })
       .unwrap()
-      .then((count) => {
+      .then((data: { count?: number }) => {
         // Local
-        addTopicCountLocal({ key: topic.topic_title, ...count });
+        if (data.count) addTopicCountLocal({ key: topic.topic_title, count: data.count });
       })
       // back
       .catch((err) => {
@@ -55,6 +64,7 @@ export const useTopicLogic = () => {
   // ADD TOPIC //
   const addTopic = async (newTopic: ITopic, userId: number) => {
     // Local Add
+    addTopicCountLocal({ key: newTopic.topic_title, count: 0 });
     addOneTopicLocal(newTopic);
 
     // Send request
@@ -66,6 +76,7 @@ export const useTopicLogic = () => {
       .catch((err) => {
         if (err) {
           // Back changes
+          deleteTopicCountLocal({ key: newTopic.topic_title });
           deleteOneTopicLocal(newTopic.id);
         }
       });
@@ -89,9 +100,15 @@ export const useTopicLogic = () => {
   };
 
   // DELETE TOPIC //
-  const deleteTopic = async (topic: ITopic, userId: number, count: number) => {
+  const deleteTopic = async (
+    topic: ITopic,
+    userId: number,
+    count: number,
+    topicGroups: IGroupGet[]
+  ) => {
     // Local
     deleteOneTopicLocal(topic.id);
+    addAllGroupIntoArchiveLocal(topicGroups, topic.topic_title);
     deleteTopicCountLocal({ key: topic.topic_title });
 
     // // Server
@@ -104,6 +121,9 @@ export const useTopicLogic = () => {
         if (err) {
           // Back changes
           addOneTopicLocal(topic);
+          editTopicWindow(topic);
+          addAllGroupsLocal(topicGroups);
+          deleteGroupsFromArchiveByTopicLocal(topic.topic_title);
           addTopicCountLocal({ key: topic.topic_title, count });
         }
       });

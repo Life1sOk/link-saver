@@ -58,7 +58,7 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
           />
           <Button name="Registration" actionHandle={changeHandler} type="button" />
         </ButtonLine>
-        {loginUserApiResult?.isError && <span>{errorMess}</span>}
+        {loginUserApiResult.isError && <span>{errorMess}</span>}
       </LogInPageStyle>
     </LoginWrapper>
   );

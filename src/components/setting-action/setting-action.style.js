@@ -16,17 +16,21 @@ export const SettingActionStyle = styled.div`
   &:hover {
     cursor: pointer;
 
-    box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
-    -webkit-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
-    -moz-box-shadow: 0px 0px 1px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
+    -webkit-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
+    -moz-box-shadow: 0px 0px 1px 0px ${({ theme }) => theme.modals.hoverSetting};
   }
 `;
 
 export const ActionTitle = styled.a`
-  margin-left: 5px;
+  margin: 0 5px;
 
   font-size: 13.5px;
   font-weight: var(--font-weight-main);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const triangle = styled.div`

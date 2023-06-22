@@ -30,3 +30,10 @@ export interface ITransGroup {
   group_index: number;
   group_id: number;
 }
+
+export interface ITransGroupToGroup {
+  data: IShortLink;
+  old_group_index: number;
+  new_group_index: number;
+  group_id: number;
+}

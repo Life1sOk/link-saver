@@ -8,7 +8,7 @@ import {
 import { useFriendsLocal } from "../helper-dispatch/useFriendsLocal";
 import { useUserLocal } from "../helper-dispatch/useUserLocal";
 
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 interface IUpUsername {
   user_id: number;

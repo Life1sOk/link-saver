@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useId } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 import { useFilterById } from "../../utils/helpers/useFilterById";
@@ -24,6 +24,7 @@ interface ITransMod {
 }
 
 const GroupTransitionModal = ({ action, children }: ITransMod) => {
+  const uniqueId = useId();
   const [isOpen, setIsOpen] = useState(false);
 
   const topics = useAppSelector((state) => state.topicsLocal.data);
@@ -59,9 +60,9 @@ const GroupTransitionModal = ({ action, children }: ITransMod) => {
               {filteredTopics.length < 1 ? (
                 <Emptiness>empty</Emptiness>
               ) : (
-                filteredTopics.map((topic) => (
+                filteredTopics.map((topic, index) => (
                   <TopicsPick
-                    key={topic.id}
+                    key={uniqueId + index}
                     title={topic.topic_title}
                     onClick={() => actionHandler(topic)}
                   >

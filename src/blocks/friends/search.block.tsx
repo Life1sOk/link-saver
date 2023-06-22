@@ -1,4 +1,4 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useState, useEffect, ChangeEvent, useId } from "react";
 
 import { icons } from "../../utils/react-icons";
 
@@ -16,9 +16,15 @@ import Input from "../../components/input/input.component";
 import { useDebounce } from "../../utils/helpers/useDebounce";
 import { IUser } from "../../utils/interfaces/user";
 
-import { FriendsStyle, SearchBlockStyle, DefaultAndSpin } from "./friends-wrapper.style";
+import {
+  FriendsStyle,
+  SearchBlockStyle,
+  DefaultAndSpin,
+  UsersWrapper,
+} from "./friends-wrapper.style";
 
 const UserSearch = () => {
+  const uniqueId = useId();
   const userId = useAppSelector((state) => state.user.profile.id);
   const isOpen = useAppSelector((state) => state.friends.isFriendsWindow);
   const searchResult = useAppSelector((state) => state.friends.searchList);
@@ -68,14 +74,19 @@ const UserSearch = () => {
         </DefaultAndSpin>
       ) : (
         <FriendsStyle>
-          {searchResult.map((user, index) => (
-            <UserDisplay
-              key={index}
-              user={user}
-              status="Finded"
-              actionHandlerOne={{ action: () => sendInviteHandler(user), call: "Invite" }}
-            />
-          ))}
+          <UsersWrapper>
+            {searchResult.map((user, index) => (
+              <UserDisplay
+                key={uniqueId + index}
+                user={user}
+                status="Finded"
+                actionHandlerOne={{
+                  action: () => sendInviteHandler(user),
+                  call: "Invite",
+                }}
+              />
+            ))}
+          </UsersWrapper>
         </FriendsStyle>
       )}
     </SearchBlockStyle>

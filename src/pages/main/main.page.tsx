@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { useConnectSse } from "../../utils/contollers/useConnectSse";
 
 import NavigationSection from "../../sections/navigation/navigation.section";
 import GroupsSection from "../../sections/groups/groups.section";
@@ -45,9 +44,6 @@ const MainPage = () => {
     }
   };
 
-  // Connect to SSE messages
-  useConnectSse();
-
   return (
     <MainLayout onMouseUp={endAnimation}>
       <ProcessModal />
@@ -60,6 +56,7 @@ const MainPage = () => {
           onMouseMove={mouseMoveHandler}
           style={{
             gridTemplateColumns: `minmax(331px, 1fr) 8px ${groupRepoc}px`,
+            transition: "none",
           }}
         >
           <GroupsSection />

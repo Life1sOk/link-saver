@@ -5,12 +5,23 @@ import { useTopicLogic } from "../../utils/contollers/useTopicLogic";
 import { useTopicLocal } from "../../utils/helper-dispatch/useTopicLocal";
 
 import { icons } from "../../utils/react-icons";
-import TopicIcon from "./topic-icon/topic-icon.component";
+
+import SectionCount from "../../shared/section-count/section-count.shared";
 import FrontBlocker from "../../shared/front-blocker/front-blocker.shared";
+import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
+
 import { ITopic } from "../../utils/interfaces/topic";
 
-import AreYouSureModal from "../../modals/areYouSure/are-you-sure.modal";
-import { TopicStyle, Title, TitleEditor, IconWrapper, Icon, XMark } from "./topic.style";
+import {
+  TopicStyle,
+  Title,
+  TitleEditor,
+  IconWrapper,
+  Icon,
+  XMark,
+  IconMain,
+  CountWrapper,
+} from "./topic.style";
 
 interface ITopicActive {
   topic: ITopic;
@@ -26,6 +37,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const activeTopicId = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic.id
   );
+  const topicGroups = useAppSelector((state) => state.groupsLocal.data);
   const currentCount = useAppSelector(
     (state) => state.topicsLocal.count[`${topic.topic_title}`]
   );
@@ -62,7 +74,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
     resetTopicWindow();
     setIsDelete(false);
     // Delete
-    await deleteTopic(topic, userId, currentCount);
+    await deleteTopic(topic, userId, currentCount, topicGroups);
   };
 
   useEffect(() => {
@@ -70,7 +82,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   }, [activeTopicId, topic.id]);
 
   useEffect(() => {
-    // if (topic.id > 1683451657031) return;
+    if (topic.id > 1683451657031) return;
     getGroupCount(topic, userId);
   }, []);
 
@@ -82,7 +94,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
         title={topic.topic_title}
       >
         <FrontBlocker isBlocked={topic.id > 1683451657031} />
-        <TopicIcon count={currentCount} />
+        <IconMain>{icons.topicOpen}</IconMain>
         {!isChange ? (
           <Title>{topic.topic_title}</Title>
         ) : (
@@ -93,7 +105,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
             autoFocus
           />
         )}
-        {activeTopicId === topic.id && (
+        {activeTopicId === topic.id ? (
           <IconWrapper>
             {isChange ? (
               <>
@@ -109,13 +121,17 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
               </>
             )}
           </IconWrapper>
+        ) : (
+          <CountWrapper>
+            <SectionCount sectionType="topic" count={currentCount} />
+          </CountWrapper>
         )}
       </TopicStyle>
       <AreYouSureModal
         isActive={isDelete}
         actionSureHandler={sureDeleteHandler}
         actionToggleHandler={notDeleteHandler}
-        message="All your groups and links in this topic will be destroyed! Are you sure?"
+        message="All your groups and links in this topic will be destroyed! They will NOT be stored in the archive. Are you sure?"
       />
     </>
   );

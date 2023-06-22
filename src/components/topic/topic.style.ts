@@ -5,7 +5,7 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
 
   width: 100%;
   height: 44px;
-  padding: 8px;
+  padding: 8px 6px 8px 12px;
   text-align: left;
 
   border-radius: 4px 0 0 4px;
@@ -15,7 +15,7 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
 
   &:hover {
     cursor: pointer;
@@ -100,4 +100,25 @@ export const XMark = styled.div`
 
     border-radius: 5px;
   }
+`;
+
+export const IconMain = styled.div`
+  width: 30px;
+  height: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: ${({ theme }) => theme.topic.marker};
+
+  & svg {
+    width: 20px;
+    height: 20px;
+    fill: ${({ theme }) => theme.topic.marker};
+  }
+`;
+
+export const CountWrapper = styled.div`
+  margin: 0 5px 0 auto;
 `;

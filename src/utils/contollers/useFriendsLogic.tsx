@@ -8,7 +8,7 @@ import {
 
 import { useFriendsLocal } from "../helper-dispatch/useFriendsLocal";
 
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import { IUser, IUserTrans } from "../interfaces/user";
 

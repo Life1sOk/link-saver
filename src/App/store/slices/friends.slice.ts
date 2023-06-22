@@ -28,6 +28,7 @@ const friendsSlice = createSlice({
   reducers: {
     toggleInviteWindow: (state) => {
       state.isFriendsWindow = !state.isFriendsWindow;
+      state.activeSection = "friends";
     },
     // Can be: friends, search, invited
     toggleActiveSection: (state, { payload }) => {

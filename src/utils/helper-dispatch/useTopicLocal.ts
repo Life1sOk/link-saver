@@ -29,10 +29,13 @@ interface IUpId {
   newId: void;
 }
 
-interface ICount {
+type IKey = {
   key: string;
-  count?: number;
-}
+};
+
+type ICount = {
+  count: number;
+};
 
 export const useTopicLocal = () => {
   const dispatch = useAppDispatch();
@@ -45,10 +48,10 @@ export const useTopicLocal = () => {
   const deleteOneTopicLocal = (arg: number) => dispatch(removeOneTopic(arg));
 
   // Topic count
-  const addTopicCountLocal = (arg: ICount) => dispatch(addTopicCount(arg));
-  const deleteTopicCountLocal = (arg: ICount) => dispatch(deleteTopicCount(arg));
-  const incTopicCountLocal = (arg: ICount) => dispatch(incCount(arg));
-  const decTopicCountLocal = (arg: ICount) => dispatch(decCount(arg));
+  const addTopicCountLocal = (arg: ICount & IKey) => dispatch(addTopicCount(arg));
+  const deleteTopicCountLocal = (arg: IKey) => dispatch(deleteTopicCount(arg));
+  const incTopicCountLocal = (arg: IKey) => dispatch(incCount(arg));
+  const decTopicCountLocal = (arg: IKey) => dispatch(decCount(arg));
 
   // Window
   const toggleTopicWindow = () => dispatch(toggleTopicWindowHandler());

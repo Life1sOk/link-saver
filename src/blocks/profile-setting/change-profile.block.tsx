@@ -9,11 +9,12 @@ import Button from "../../components/button/button.component";
 import { replaceSpaceHelper } from "../../utils/helpers/replaceSpace";
 
 import {
-  ChangeProfileStyle,
+  ProfileSettingStyle,
   Title,
   ButtonWrapper,
   InputWrapper,
-} from "./change-profile.style";
+  Line,
+} from "./profile-setting.style";
 
 interface ICprof {
   actionCancel: () => void;
@@ -66,17 +67,18 @@ const ChangeProfileBlock = ({ actionCancel }: ICprof) => {
   };
 
   return (
-    <ChangeProfileStyle onSubmit={sendChangesSubmitHandler}>
+    <ProfileSettingStyle onSubmit={sendChangesSubmitHandler}>
       <Title>Profile</Title>
       <InputWrapper>
         <Input label="Username" type="text" defaultValue={username} ref={usernameRef} />
+        <Line />
         <Input label="Email" type="text" defaultValue={email} ref={emailRef} />
       </InputWrapper>
       <ButtonWrapper>
         <Button name="Cancel" actionHandle={cancelChanges} type="button" />
         <Button name="Update profile" type="submit" />
       </ButtonWrapper>
-    </ChangeProfileStyle>
+    </ProfileSettingStyle>
   );
 };
 

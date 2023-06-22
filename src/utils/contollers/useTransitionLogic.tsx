@@ -4,7 +4,7 @@ import {
   useAcceptTransitionMutation,
   useCancelTransitionMutation,
 } from "../../App/store/api/transition";
-import { useRequestProcess } from "../helper-dispatch/useRequestProcess";
+import { useRequestProcess } from "../helpers/useRequestProcess";
 
 import { useBoxLocal } from "../helper-dispatch/useBoxLocal";
 import { useGroupLocal } from "../helper-dispatch/useGroupLocal";

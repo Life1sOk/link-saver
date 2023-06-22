@@ -7,6 +7,7 @@ export const linksApi = createApi({
   reducerPath: "linksApi",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3000/links",
+    // baseUrl: "https://link-saver.herokuapp.com/links",
   }),
   tagTypes: ["Links", "Groups"],
   endpoints: (builder) => ({
@@ -45,7 +46,7 @@ export const linksApi = createApi({
         body,
       }),
     }),
-    deleteLinkSnapshot: builder.mutation<void, { id: number }>({
+    deleteLinkSnapshot: builder.mutation<void, { id: number; user_id: number }>({
       query: (body) => ({
         url: "/delete",
         method: "DELETE",

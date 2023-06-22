@@ -7,12 +7,12 @@ import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
 import {
-  ChangePassStyle,
+  ProfileSettingStyle,
   Title,
   ButtonWrapper,
   InputWrapper,
   Line,
-} from "./change-pass.style";
+} from "./profile-setting.style";
 
 interface ICpass {
   actionCancel: () => void;
@@ -57,7 +57,7 @@ const ChangePassBlock = ({ actionCancel }: ICpass) => {
   };
 
   return (
-    <ChangePassStyle onSubmit={sendChangesSubmitHandler}>
+    <ProfileSettingStyle onSubmit={sendChangesSubmitHandler}>
       <Title>Password</Title>
       <InputWrapper>
         <Input label="Old password" type="password" ref={oldRef} required />
@@ -69,7 +69,7 @@ const ChangePassBlock = ({ actionCancel }: ICpass) => {
         <Button name="Cancel" actionHandle={actionCancel} type="button" />
         <Button name="Update password" type="submit" />
       </ButtonWrapper>
-    </ChangePassStyle>
+    </ProfileSettingStyle>
   );
 };
 

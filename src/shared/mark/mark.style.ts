@@ -1,9 +1,6 @@
 import styled from "styled-components";
 
-export const MarkIcon =
-  styled.div <
-  { sectionType: string } >
-  `
+export const MarkIcon = styled.div<{ sectionType: string }>`
   width: 30px;
   height: 30px;
   color: ${({ theme, sectionType }) =>

@@ -1,22 +1,37 @@
-import { DragDropStyle } from "./drag-drop.style";
+import { useDragLocal } from "../helper-dispatch/useDragLocal";
 
-interface IDrag {
-  group_id?: number;
-  link_id?: number;
-  data?: any;
-  children: string | JSX.Element | JSX.Element[];
-}
+import { IDragWrapper } from "../interfaces/drag";
+import omg from "../../assets/drag-link.webp";
 
-const Drag = ({ link_id, children }: IDrag) => {
-  const onDragStart = (event: React.SyntheticEvent) => {
-    console.log(link_id, "started link");
+import { DragStyle } from "./drag-drop.style";
+
+const DragWrapper = ({ type, data, from, children, isDraggable }: IDragWrapper) => {
+  const { addDraggableLocal, removeDraggableLocal } = useDragLocal();
+
+  const img = new Image();
+  img.src = omg;
+
+  const onDragStart = (event: any) => {
+    setTimeout(() => {
+      event.target.style.opacity = ".4";
+    }, 0);
+
+    event.dataTransfer.setDragImage(img, 16, 22);
+
+    if (type === "link") addDraggableLocal({ type: "link", data, from });
+  };
+
+  const onDragEnd = (event: any) => {
+    event.target.style.opacity = "1";
+
+    if (type === "link") removeDraggableLocal();
   };
 
   return (
-    <DragDropStyle onDragStart={onDragStart} draggable>
+    <DragStyle onDragStart={onDragStart} onDragEnd={onDragEnd} draggable={isDraggable}>
       {children}
-    </DragDropStyle>
+    </DragStyle>
   );
 };
 
-export default Drag;
+export default DragWrapper;

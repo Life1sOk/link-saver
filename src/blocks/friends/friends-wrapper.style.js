@@ -4,7 +4,7 @@ export const FriendsStyle = styled.div`
   width: 100%;
   height: 100%;
 
-  padding: 3px;
+  padding: 5px;
   overflow-y: scroll;
   background-color: ${({ theme }) => theme.background.main};
 
@@ -14,6 +14,15 @@ export const FriendsStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 5px;
+`;
+
+export const UsersWrapper = styled.div`
+  width: 100%;
+  height: fit-content;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 5px 13px;
 `;
 
 export const Line = styled.div`
