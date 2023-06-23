@@ -10,7 +10,7 @@ const Note = ({ type }: { type: "groups" | "links" }) => {
         restore, click <NoteIcon>{icons.restore}</NoteIcon>
       </NoteLine>
       <NoteLine>
-        After restoring the group, it will appear in the{" "}
+        After restoring the {type.replace("s", "")}, it will appear in the{" "}
         {type === "groups" && <strong>currently active topic</strong>}
         {type === "links" && <strong>generic links section</strong>}.
       </NoteLine>
