@@ -29,7 +29,7 @@ export const SpinnerWrapper = styled.div`
   justify-content: center;
 `;
 
-export const GroupsWrapper = styled.div<{ rowsCount?: number }>`
+export const GroupsWrapper = styled.div<{ rowsCount?: number; clmCount?: number }>`
   position: relative;
 
   width: 100%;
@@ -39,7 +39,10 @@ export const GroupsWrapper = styled.div<{ rowsCount?: number }>`
   overflow-y: scroll;
 
   display: grid;
-  grid-template-columns: repeat(auto-fill, 278px);
+  grid-template-columns: repeat(
+    ${({ clmCount }) => (clmCount ? clmCount : "auto-fill")},
+    278px
+  );
   grid-template-rows: ${({ rowsCount }) =>
     rowsCount ? `repeat(${rowsCount}, 47px)` : "repeat(20, 47px)"};
   justify-content: center;

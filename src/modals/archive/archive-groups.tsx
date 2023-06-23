@@ -16,13 +16,13 @@ const ArchiveGroups = ({ search }: { search: string }) => {
 
   useEffect(() => {
     const filtered = archiveGroups.filter((item) =>
-      item.group.group_title.includes(search)
+      item.group.group_title.toLowerCase().includes(search)
     );
     setUpData(filtered);
   }, [search]);
 
   useEffect(() => setUpData(archiveGroups), [archiveGroups]);
-  console.log(upData);
+
   return (
     <ArchiveMainGroups>
       {archiveGroups?.length > 0 ? (

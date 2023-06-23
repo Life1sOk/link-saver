@@ -7,7 +7,7 @@ import { icons } from "../../../utils/react-icons";
 import { IGroupGet } from "../../../utils/interfaces/group";
 import { IShortLink } from "../../../utils/interfaces/link";
 
-import { ArchiveItemStyle, Actions } from "./archive-item.style";
+import { ArchiveItemStyle, Actions, AcionWrapper } from "./archive-item.style";
 
 interface IArchiveLinkItem {
   data: IShortLink;
@@ -29,14 +29,14 @@ const ArchiveItem = ({
   const user_id = useAppSelector((state) => state.user.session.user_id);
   const activeTopic = useAppSelector((state) => state.topicsLocal.window.activeTopic);
 
-  const { restoreArchive } = useArchiveLogic();
+  const { restoreArchive, deleteArchive } = useArchiveLogic();
 
-  const restoreHandler = () => {
+  const restoreHandler = async () => {
     if (data_type === "group") {
       const upGroup = { ...data, topic_id: activeTopic.id };
-      console.log(upGroup, "group");
+
       // Add group to the server
-      restoreArchive({
+      await restoreArchive({
         data: upGroup,
         data_type,
         user_id,
@@ -46,9 +46,9 @@ const ArchiveItem = ({
     }
     if (data_type === "link") {
       const upLink = { user_id, ...data };
-      console.log(upLink, "link");
+
       // Add link to generics
-      restoreArchive({
+      await restoreArchive({
         data: upLink,
         data_type,
         user_id,
@@ -58,12 +58,24 @@ const ArchiveItem = ({
     }
   };
 
+  const deleteHandler = async () => {
+    if (data_type === "group")
+      await deleteArchive(activeTopic.topic_title, { data, data_type, user_id });
+    if (data_type === "link")
+      await deleteArchive(activeTopic.topic_title, { data, data_type, user_id });
+  };
+
   return (
     <ArchiveItemStyle>
       {children}
-      <Actions title="Restore back" onClick={restoreHandler}>
-        {icons.restore}
-      </Actions>
+      <AcionWrapper type={data_type}>
+        <Actions title="Restore back" onClick={restoreHandler} type="main">
+          {icons.restore}
+        </Actions>
+        <Actions title="Restore back" onClick={deleteHandler} type="delete">
+          {icons.archiveDelete}
+        </Actions>
+      </AcionWrapper>
     </ArchiveItemStyle>
   );
 };

@@ -59,7 +59,7 @@ const GroupSendModal = () => {
         </LeftSide>
         <GroupBlock>
           <h3>Sending group:</h3>
-          <GroupDefault data={prepareBox} />
+          {prepareBox !== null && <GroupDefault data={prepareBox!} />}
           <ButtonWrapper>
             <Button name="Cancel" actionHandle={toggleSendGroupWindow} />
             <Button name="Send =>" actionHandle={sendTransitionHandler} />

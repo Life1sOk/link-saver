@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 import Mark from "../../shared/mark/mark.shared";
 import SectionCount from "../../shared/section-count/section-count.shared";
 
@@ -9,7 +11,7 @@ interface ITitleSection {
   sectionType: "topic" | "group" | "generic";
 }
 
-const TitleSection = ({ title, count, sectionType }: ITitleSection) => {
+const TitleSection = memo(({ title, count, sectionType }: ITitleSection) => {
   return (
     <TitleSectionStyle>
       <Mark sectionType={sectionType} />
@@ -19,6 +21,6 @@ const TitleSection = ({ title, count, sectionType }: ITitleSection) => {
       </CountWrapper>
     </TitleSectionStyle>
   );
-};
+});
 
 export default TitleSection;

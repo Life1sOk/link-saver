@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, memo, useMemo } from "react";
 
 import NavigationSection from "../../sections/navigation/navigation.section";
 import GroupsSection from "../../sections/groups/groups.section";
@@ -11,11 +11,22 @@ import ProcessModal from "../../modals/process/process.modal";
 import { MainLayout, MainWrapper, BorderResize } from "./main.style";
 
 const MainPage = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
   const [startPoint, setStartPoint] = useState({ mouseX: 0, sectionWidth: 0 });
   const [defaultGroup, setDefaultGroup] = useState(299);
   const [groupRepoc, setGroupRepoc] = useState(299);
 
-  const containerRef = useRef<HTMLDivElement>(null);
+  // --  Groups re-render in memo -- //
+  const [clmCount, setClmCount] = useState(1);
+
+  const groupsRef = useRef<HTMLDivElement>(null);
+  const currentWidth = groupsRef.current?.clientWidth!;
+
+  if (currentWidth < 611 && clmCount !== 1) setClmCount(1);
+  if (currentWidth > 611 && currentWidth < 968 && clmCount !== 2) setClmCount(2);
+  if (currentWidth > 968 && clmCount !== 3) setClmCount(3);
+  // ------------------------------- //
 
   // Starter point;
   const startAnimation = (event: any) => {
@@ -24,6 +35,7 @@ const MainPage = () => {
       sectionWidth: event.target.parentElement.offsetWidth,
     });
   };
+
   // End
   const endAnimation = () => {
     if (startPoint.mouseX > 0) {
@@ -59,8 +71,13 @@ const MainPage = () => {
             transition: "none",
           }}
         >
-          <GroupsSection />
-          <BorderResize onMouseDown={startAnimation} />
+          <GroupsSection ref={groupsRef} clmCount={clmCount} />
+          {useMemo(
+            () => (
+              <BorderResize onMouseDown={startAnimation} />
+            ),
+            []
+          )}
           <GenericsSection />
         </div>
       </MainWrapper>

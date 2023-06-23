@@ -220,7 +220,7 @@ const GroupBlock = memo(
             )}
           </GroupHeader>
           <DropWrapper typeFor="link" actionHandler={dropIntoGroupHandler}>
-            {links.length < 1 ? (
+            {upLinks.length < 1 ? (
               <CenterBlack>
                 <Blank title="links" icon={icons.link} />
               </CenterBlack>
@@ -244,7 +244,7 @@ const GroupBlock = memo(
           isActive={isSureModal}
           actionSureHandler={sureDeleteHandler}
           actionToggleHandler={modalActionHandler}
-          message="All your links in this group will be stored in the archive! Are you sure?"
+          message="This group will be moved to the archive and will remain there for 4 days (96 hours)!"
         />
       </>
     );
