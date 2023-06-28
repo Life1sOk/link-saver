@@ -35,8 +35,10 @@ export const useAuthorisationLogic = () => {
     return await registerUserApi(arg)
       .unwrap()
       .then((response) => {
-        storeSessionLocal(response);
-        navigate("/main");
+        // {emailConf: true}
+        console.log(response);
+        // storeSessionLocal(response);
+        // navigate("/main");
       });
   };
 

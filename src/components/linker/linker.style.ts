@@ -119,3 +119,7 @@ export const OpenWindow = styled.div`
   align-items: center;
   gap: 1px;
 `;
+
+export const LinkWrapper = styled.div`
+  width: 171px;
+`;
