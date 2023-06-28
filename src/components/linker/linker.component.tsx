@@ -19,6 +19,7 @@ import {
   IconWrapper,
   UpAction,
   OpenWindow,
+  LinkWrapper,
 } from "./linker.style";
 
 interface ILinker {
@@ -100,7 +101,9 @@ const Linker = ({
           <IconWrapper status={data.status} onClick={changeStatusHandler}>
             {icons.link}
           </IconWrapper>
-          <Link data={data} />
+          <LinkWrapper>
+            <Link data={data} />
+          </LinkWrapper>
           {isOptions ? (
             <IconWrapper onClick={openHandler}>{icons.dots}</IconWrapper>
           ) : null}

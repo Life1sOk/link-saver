@@ -1,4 +1,5 @@
-import { useRef, useState, memo, useMemo } from "react";
+import { useRef, useState, useMemo, useEffect } from "react";
+import { useAppSelector } from "../../App/store/hooks";
 
 import NavigationSection from "../../sections/navigation/navigation.section";
 import GroupsSection from "../../sections/groups/groups.section";
@@ -11,6 +12,8 @@ import ProcessModal from "../../modals/process/process.modal";
 import { MainLayout, MainWrapper, BorderResize } from "./main.style";
 
 const MainPage = () => {
+  const localGroups = useAppSelector((state) => state.groupsLocal.data);
+
   const containerRef = useRef<HTMLDivElement>(null);
 
   const [startPoint, setStartPoint] = useState({ mouseX: 0, sectionWidth: 0 });
@@ -23,9 +26,19 @@ const MainPage = () => {
   const groupsRef = useRef<HTMLDivElement>(null);
   const currentWidth = groupsRef.current?.clientWidth!;
 
-  if (currentWidth < 611 && clmCount !== 1) setClmCount(1);
-  if (currentWidth > 611 && currentWidth < 968 && clmCount !== 2) setClmCount(2);
-  if (currentWidth > 968 && clmCount !== 3) setClmCount(3);
+  const calcClms = (width: number) => {
+    if (width < 611 && clmCount !== 1) setClmCount(1);
+    if (width > 611 && width < 968 && clmCount !== 2) setClmCount(2);
+    if (width > 968 && clmCount !== 3) setClmCount(3);
+  };
+
+  window.onresize = () => {
+    const current = groupsRef.current?.clientWidth!;
+
+    calcClms(current);
+  };
+
+  useEffect(() => calcClms(currentWidth), [currentWidth]);
   // ------------------------------- //
 
   // Starter point;
@@ -71,7 +84,7 @@ const MainPage = () => {
             transition: "none",
           }}
         >
-          <GroupsSection ref={groupsRef} clmCount={clmCount} />
+          <GroupsSection ref={groupsRef} clmCount={clmCount} localGroups={localGroups} />
           {useMemo(
             () => (
               <BorderResize onMouseDown={startAnimation} />

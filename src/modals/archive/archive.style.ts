@@ -111,7 +111,7 @@ export const ArchiveMainLinks = styled(ArchiveMain)<{ count?: number; type?: str
   grid-template-rows: repeat(${({ count }) => (count ? `${count}` : "auto-fill")}, 46px);
   align-items: center;
   justify-items: center;
-  grid-gap: 15px;
+  grid-gap: 5px;
 `;
 
 export const ArchiveMainGroups = styled(ArchiveMain)`
@@ -120,7 +120,7 @@ export const ArchiveMainGroups = styled(ArchiveMain)`
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 22px;
+  gap: 33px;
 
   ::-webkit-scrollbar {
     height: 5px;

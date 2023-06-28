@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-import { useAppSelector, useAppDispatch } from "../App/store/hooks";
+import { useAppSelector } from "../App/store/hooks";
 import { useAuthorisationLogic } from "../utils/contollers/useAuthorisationLogic";
 
 import { useWebsocket } from "../utils/contollers/useConnectSocket";
@@ -13,7 +13,6 @@ import MainPage from "./main/main.page";
 import { PageWrapper, GlobalStyle } from "./index.style";
 
 const Routing = () => {
-  const dispatch = useAppDispatch();
   const usersSession = useAppSelector((state) => state.user.session);
 
   // Отправка запроса на сервер
@@ -29,7 +28,7 @@ const Routing = () => {
         await loginUserByToken(activeToken);
       })();
     }
-  }, [usersSession, dispatch]);
+  }, [usersSession]);
 
   return (
     <PageWrapper>

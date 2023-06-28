@@ -24,7 +24,7 @@ const ArchiveLinks = ({ search }: { search: string }) => {
   useEffect(() => setUpData(archiveLinks), [archiveLinks]);
 
   return (
-    <ArchiveMainLinks count={Math.ceil(archiveLinks.length / 3)} type="links">
+    <ArchiveMainLinks count={Math.ceil(archiveLinks.length / 2)} type="links">
       {archiveLinks?.length > 0 ? (
         upData?.map((link, index) => (
           <ArchiveItem key={index} data={link} data_type="link">
