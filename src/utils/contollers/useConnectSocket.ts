@@ -6,7 +6,7 @@ import { useBoxLocal } from "../helper-dispatch/useBoxLocal";
 import { useProcessLocal } from "../helper-dispatch/useProcessLocal";
 
 export const useWebsocket = () => {
-  const session = useAppSelector((state) => state.user.session);
+  const session = useAppSelector((state) => state.auth.session);
 
   const { addOneToListLocal, deleteOneFromListLocal } = useFriendsLocal();
   const { addReceivingLocal } = useBoxLocal();

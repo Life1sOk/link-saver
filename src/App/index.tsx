@@ -1,5 +1,5 @@
 // React router Provider
-import { HashRouter } from "react-router-dom";
+import { HashRouter, BrowserRouter } from "react-router-dom";
 import Routing from "../pages";
 
 // Redux toolkit
@@ -14,7 +14,7 @@ import "./index.css";
 function App() {
   return (
     <Provider store={store}>
-      <HashRouter>
+      <HashRouter basename="/">
         <CustomTheme>
           <Routing />
         </CustomTheme>

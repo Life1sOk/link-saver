@@ -10,7 +10,7 @@ import User from "../../shared/user/user.components";
 import { UserMainStyle, TriangleUp } from "./user-main.style";
 
 const UserMain = () => {
-  const userId = useAppSelector((state) => state.user.session.user_id);
+  const userId = useAppSelector((state) => state.auth.session.user_id);
   const { email, username } = useAppSelector((state) => state.user.profile);
 
   const { storeProfileLocal, toggleProfileWindow } = useUserLocal();

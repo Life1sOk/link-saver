@@ -15,7 +15,7 @@ import { HoleBlockStyle, HoleStyle } from "./hole.style";
 
 const HoleBlock = () => {
   const currentDrag = useAppSelector((state) => state.drag.current);
-  const user_id = useAppSelector((state) => state.user.session.user_id);
+  const user_id = useAppSelector((state) => state.auth.session.user_id);
   const isPull = useAppSelector((state) => state.archive.pull);
 
   const archiveLinkCount = useAppSelector((state) => state.archive.links.length);

@@ -18,7 +18,7 @@ import {
 } from "./add-modals.style";
 
 const TopicsAddModal = () => {
-  const userId = useAppSelector((state) => state.user.session.user_id);
+  const userId = useAppSelector((state) => state.auth.session.user_id);
   const isOpen = useAppSelector((state) => state.topicsLocal.window.isAddTopic);
 
   const { toggleTopicWindow } = useTopicLocal();

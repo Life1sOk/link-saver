@@ -18,7 +18,7 @@ import {
 } from "./add-modals.style";
 
 const GroupAddModal = () => {
-  const user_id = useAppSelector((state) => state.user.session.user_id);
+  const user_id = useAppSelector((state) => state.auth.session.user_id);
   const isOpen = useAppSelector((state) => state.groupsLocal.window.isAddGroup);
   const activeTopic = useAppSelector((state) => state.topicsLocal.window.activeTopic);
 

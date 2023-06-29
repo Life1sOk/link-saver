@@ -6,14 +6,12 @@ import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
-import { LogInPageStyle, LoginWrapper, LoginTitle } from "./login.style";
+import { AuthTitle, AuthWrapper, Form } from "./index.style";
 import { ButtonLine } from "../block.style";
 
-interface ILogin {
-  changeBlock: (block: string) => void;
-}
+import { ISectionChange } from "../../utils/interfaces/auth";
 
-const LoginBlock = ({ changeBlock }: ILogin) => {
+const LoginBlock = ({ changeBlock }: ISectionChange) => {
   const [errorMess, setErrorMess] = useState<string>(
     "An error occurred while logging in."
   );
@@ -44,9 +42,9 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
   if (loginUserApiResult.isLoading) return <LoadingSpinner />;
 
   return (
-    <LoginWrapper>
-      <LoginTitle>Weclome to Linky!</LoginTitle>
-      <LogInPageStyle onSubmit={onSubmit} id="login">
+    <AuthWrapper>
+      <AuthTitle>Weclome to Linky!</AuthTitle>
+      <Form onSubmit={onSubmit} id="login">
         <Input type="email" label="Email" ref={emailRef} required />
         <Input type="password" label="Password:" ref={passwordRef} required />
         <ButtonLine>
@@ -59,8 +57,8 @@ const LoginBlock = ({ changeBlock }: ILogin) => {
           <Button name="Registration" actionHandle={changeHandler} type="button" />
         </ButtonLine>
         {loginUserApiResult.isError && <span>{errorMess}</span>}
-      </LogInPageStyle>
-    </LoginWrapper>
+      </Form>
+    </AuthWrapper>
   );
 };
 

@@ -1,23 +1,27 @@
-import { useState } from "react";
+import { useAppSelector } from "../../App/store/hooks";
 
-import LoginBlock from "../../blocks/login/login.block";
-import RegistrationBlock from "../../blocks/registration/registration.block";
+import { useAuthLocal } from "../../utils/helper-dispatch/useAuthLocal";
+
+import LoginBlock from "../../blocks/auth/login.block";
+import RegBlock from "../../blocks/auth/registration.block";
+import VerifyBlock from "../../blocks/auth/verify.block";
+import ErrorBlock from "../../blocks/auth/error.block";
 
 import { AuthStyle } from "./auth.style";
 
 const AuthSection = () => {
-  const [currentBlock, setCurrentBlock] = useState("login");
+  const currentBlock = useAppSelector((state) => state.auth.sectionState);
 
-  const changeBlockHandler = (block: string): void => setCurrentBlock(block);
+  const { toggleSectionStateLocal } = useAuthLocal();
 
   return (
     <AuthStyle>
-      {currentBlock === "login" ? (
-        <LoginBlock changeBlock={changeBlockHandler} />
-      ) : null}
-      {currentBlock === "registration" ? (
-        <RegistrationBlock changeBlock={changeBlockHandler} />
-      ) : null}
+      {currentBlock === "login" && <LoginBlock changeBlock={toggleSectionStateLocal} />}
+      {currentBlock === "registration" && (
+        <RegBlock changeBlock={toggleSectionStateLocal} />
+      )}
+      {currentBlock === "verify" && <VerifyBlock changeBlock={toggleSectionStateLocal} />}
+      {currentBlock === "error" && <ErrorBlock changeBlock={toggleSectionStateLocal} />}
     </AuthStyle>
   );
 };

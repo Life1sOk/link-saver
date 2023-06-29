@@ -1,13 +1,13 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
 
 import {
-  IUser,
   IUserRegistration,
   IUserLogin,
-  IAuthResponse,
   IUserToken,
   IUserTokenResponse,
 } from "../../../utils/interfaces/user";
+
+import { IAuthResponse } from "../../../utils/interfaces/auth";
 
 export const authorisationApi = createApi({
   reducerPath: "api/authorisation",
@@ -17,7 +17,10 @@ export const authorisationApi = createApi({
   }),
   tagTypes: ["Authorisation"],
   endpoints: (builder) => ({
-    register: builder.mutation<IUser, IUserRegistration>({
+    confirmUser: builder.query<any, string>({
+      query: (token) => ({ url: `/confirm/${token}` }),
+    }),
+    register: builder.mutation<{ emailConf: boolean }, IUserRegistration>({
       query: (body) => ({
         url: "/register",
         method: "POST",
@@ -43,5 +46,9 @@ export const authorisationApi = createApi({
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLoginByTokenMutation } =
-  authorisationApi;
+export const {
+  useConfirmUserQuery,
+  useRegisterMutation,
+  useLoginMutation,
+  useLoginByTokenMutation,
+} = authorisationApi;

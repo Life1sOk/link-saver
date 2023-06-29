@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 
 import userReducer from "./slices/user.slice";
+import authReducer from "./slices/auth.slice";
 import genericsReducer from "./slices/generics.slice";
 import processReducer from "./slices/process.slice";
 import groupsReducer from "./slices/groups.slice";
@@ -24,6 +25,7 @@ import { archiveApi } from "./api/archive";
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    auth: authReducer,
     genericsLocal: genericsReducer,
     groupsLocal: groupsReducer,
     topicsLocal: topicsReducer,

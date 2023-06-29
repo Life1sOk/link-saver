@@ -26,7 +26,7 @@ const GroupsSection = memo(
       const { id, topic_title } = useAppSelector(
         (state) => state.topicsLocal.window.activeTopic
       );
-      const user_id = useAppSelector((state) => state.user.session.user_id);
+      const user_id = useAppSelector((state) => state.auth.session.user_id);
       const isGroupPull = useAppSelector((state) => state.groupsLocal.pull);
 
       // -------------------- Calc grid ------------------- //

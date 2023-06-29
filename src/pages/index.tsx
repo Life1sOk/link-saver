@@ -9,11 +9,12 @@ import { Routes, Route } from "react-router-dom";
 
 import SigninPage from "./signin/signin.page";
 import MainPage from "./main/main.page";
+import WelcomePage from "./signin/welcome.page";
 
 import { PageWrapper, GlobalStyle } from "./index.style";
 
 const Routing = () => {
-  const usersSession = useAppSelector((state) => state.user.session);
+  const usersSession = useAppSelector((state) => state.auth.session);
 
   // Отправка запроса на сервер
   const { loginUserByToken } = useAuthorisationLogic();
@@ -36,6 +37,7 @@ const Routing = () => {
       <Routes>
         <Route index element={<SigninPage />} />
         <Route path="main" element={<MainPage />} />
+        <Route path="confirm/:token" element={<WelcomePage />} />
       </Routes>
     </PageWrapper>
   );

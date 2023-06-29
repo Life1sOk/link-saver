@@ -21,7 +21,7 @@ import {
 const LinkAddModal = () => {
   const isOpen = useAppSelector((state) => state.genericsLocal.window.isAddLink);
   const activeLink = useAppSelector((state) => state.genericsLocal.window.activeLink);
-  const userId = useAppSelector((state) => state.user.session.user_id);
+  const userId = useAppSelector((state) => state.auth.session.user_id);
 
   const { toggleLinkWindow } = useGenericLocal();
 

@@ -33,7 +33,7 @@ const Topic = ({ topic, activeHandler, index }: ITopicActive) => {
   const [isChange, setIsChange] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
 
-  const userId = useAppSelector((state) => state.user.session.user_id);
+  const userId = useAppSelector((state) => state.auth.session.user_id);
   const activeTopicId = useAppSelector(
     (state) => state.topicsLocal.window.activeTopic.id
   );
