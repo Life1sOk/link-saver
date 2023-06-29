@@ -21,6 +21,8 @@ import {
   TbBox,
   TbSearch,
   TbArchive,
+  TbFaceIdError,
+  TbMoodSmileBeam,
 } from "react-icons/tb";
 
 import {
@@ -29,6 +31,7 @@ import {
   MdOutlineAirlineSeatReclineNormal,
   MdOutlineSettingsBackupRestore,
   MdOutlineDeleteForever,
+  MdOutlineMarkEmailUnread,
 } from "react-icons/md";
 import { FcProcess } from "react-icons/fc";
 
@@ -59,6 +62,9 @@ export const icons = {
   archive: <TbArchive />,
   restore: <MdOutlineSettingsBackupRestore />,
   archiveDelete: <MdOutlineDeleteForever />,
+  verify: <MdOutlineMarkEmailUnread />,
+  regFail: <TbFaceIdError />,
+  smile: <TbMoodSmileBeam />,
 
   done: <MdFileDownloadDone />,
   process: <FcProcess />,

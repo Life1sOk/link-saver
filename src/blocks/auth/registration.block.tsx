@@ -7,13 +7,11 @@ import LoadingSpinner from "../../components/loading-spinner/loading-spinner.com
 import Input from "../../components/input/input.component";
 
 import { ButtonLine } from "../block.style";
-import { RegistartionForm, RegistartionWrapper, RegTitle } from "./registration.style";
+import { AuthTitle, AuthWrapper, Form } from "./index.style";
 
-interface ILogin {
-  changeBlock: (block: string) => void;
-}
+import { ISectionChange } from "../../utils/interfaces/auth";
 
-const RegistrationBlock = ({ changeBlock }: ILogin) => {
+const RegistrationBlock = ({ changeBlock }: ISectionChange) => {
   const userNameRef = useRef<HTMLInputElement>(null);
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -62,9 +60,9 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
   if (registerUserApiResult.isLoading) return <LoadingSpinner />;
 
   return (
-    <RegistartionWrapper>
-      <RegTitle>Registration</RegTitle>
-      <RegistartionForm onSubmit={submitHandler}>
+    <AuthWrapper>
+      <AuthTitle>Registration</AuthTitle>
+      <Form onSubmit={submitHandler}>
         <Input type="text" label="username" required ref={userNameRef} />
         <Input type="email" label="email" required ref={emailRef} />
         <Input type="password" label="password" required ref={passwordRef} />
@@ -73,8 +71,8 @@ const RegistrationBlock = ({ changeBlock }: ILogin) => {
           <Button name="Register" type="submit" />
           <Button name="Back" actionHandle={changeHandler} type="button" />
         </ButtonLine>
-      </RegistartionForm>
-    </RegistartionWrapper>
+      </Form>
+    </AuthWrapper>
   );
 };
 

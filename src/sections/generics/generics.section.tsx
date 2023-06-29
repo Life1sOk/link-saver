@@ -21,7 +21,7 @@ import { LinksWrapper, GenericsWrapper, LinksScrollBar } from "./generics.style"
 const GenericsSection = memo(() => {
   const uniqueId = useId();
   const activeGroup = useAppSelector((state) => state.groupsLocal.window.activeGroup);
-  const user_id = useAppSelector((state) => state.user.session.user_id);
+  const user_id = useAppSelector((state) => state.auth.session.user_id);
   const localGenericLinks = useAppSelector((state) => state.genericsLocal.data);
   const dragData = useAppSelector((state) => state.drag.current);
 

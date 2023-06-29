@@ -38,12 +38,6 @@ export interface IUserTokenResponse {
   user_id: number;
 }
 
-export interface IAuthResponse {
-  success: boolean;
-  token: string;
-  user_id: number;
-}
-
 export interface IUsersSeach {
   user: number;
   value: string;

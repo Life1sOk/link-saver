@@ -6,9 +6,10 @@ import {
   useLoginByTokenMutation,
 } from "../../App/store/api/authorisation";
 
-import { useUserLocal } from "../helper-dispatch/useUserLocal";
+// import { useUserLocal } from "../helper-dispatch/useUserLocal";
+import { useAuthLocal } from "../helper-dispatch/useAuthLocal";
 
-interface IRegister {
+interface IConfirme {
   username: string;
   email: string;
   password: string;
@@ -23,7 +24,8 @@ export const useAuthorisationLogic = () => {
   const navigate = useNavigate();
 
   // --------------------- LOCAL ------------------------ //
-  const { storeSessionLocal, storeSessionByTokenLocal } = useUserLocal();
+  const { storeSessionLocal, storeSessionByTokenLocal, toggleSectionStateLocal } =
+    useAuthLocal();
 
   // --------------------- SERVER ------------------------ //
   const [registerUserApi, registerUserApiResult] = useRegisterMutation();
@@ -31,14 +33,20 @@ export const useAuthorisationLogic = () => {
   const [loginTokenUserApi, loginTokenUserApiResult] = useLoginByTokenMutation();
 
   // --------------------- ACTION ------------------------ //
-  const registerUser = async (arg: IRegister) => {
+  const registerUser = async (arg: IConfirme) => {
     return await registerUserApi(arg)
       .unwrap()
       .then((response) => {
-        // {emailConf: true}
-        console.log(response);
+        if (response.emailConf) {
+          toggleSectionStateLocal("verify");
+        }
         // storeSessionLocal(response);
         // navigate("/main");
+      })
+      .catch((err) => {
+        if (err) {
+          toggleSectionStateLocal("error");
+        }
       });
   };
 

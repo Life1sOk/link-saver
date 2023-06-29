@@ -36,7 +36,7 @@ const ArchiveModal = () => {
   const linksCount = useAppSelector((state) => state.archive.links.length);
   const groupsCount = useAppSelector((state) => state.archive.groups.length);
 
-  const user_id = useAppSelector((state) => state.user.session.user_id);
+  const user_id = useAppSelector((state) => state.auth.session.user_id);
   const isPull = useAppSelector((state) => state.archive.pull);
 
   const { getArchive } = useArchiveLogic();

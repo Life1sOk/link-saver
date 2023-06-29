@@ -26,7 +26,7 @@ const ArchiveItem = ({
   data_type,
   children,
 }: IArchiveLinkItem | IArchiveGroupItem) => {
-  const user_id = useAppSelector((state) => state.user.session.user_id);
+  const user_id = useAppSelector((state) => state.auth.session.user_id);
   const activeTopic = useAppSelector((state) => state.topicsLocal.window.activeTopic);
 
   const { restoreArchive, deleteArchive } = useArchiveLogic();
