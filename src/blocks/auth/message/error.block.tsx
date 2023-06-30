@@ -1,13 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
-import { icons } from "../../utils/react-icons";
+import { icons } from "../../../utils/react-icons";
 
-import Button from "../../components/button/button.component";
+import Button from "../../../components/button/button.component";
 
-import { ButtonLine } from "../block.style";
-import { AuthWrapper, Message, IconWrapper, Form } from "./index.style";
+import { ButtonLine } from "../../block.style";
+import { AuthWrapper, Message, IconWrapper, Form } from "../index.style";
 
-import { ISectionChange } from "../../utils/interfaces/auth";
+import { ISectionChange } from "../../../utils/interfaces/auth";
 
 const ErrorBlock = ({ changeBlock }: ISectionChange) => {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const ErrorBlock = ({ changeBlock }: ISectionChange) => {
       <Form>
         <IconWrapper>{icons.regFail}</IconWrapper>
         <Message>
-          Registration failed. <br /> Please check your internet connection and try again.
+          Something failed. <br /> Please, check your internet connection and try again.
         </Message>
         <ButtonLine>
           <Button name="Back to login" actionHandle={changeBlockLogin} />

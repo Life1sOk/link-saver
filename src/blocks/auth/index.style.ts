@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const AuthWrapper = styled.div`
-  padding: 22px 66px;
+  padding: 22px 55px;
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 3px;
@@ -20,7 +20,7 @@ export const Form = styled.form`
 `;
 
 export const AuthTitle = styled.h2`
-  margin-bottom: 22px;
+  margin-bottom: 13px;
 `;
 
 export const Message = styled.h3<{ type?: string }>`
@@ -42,13 +42,21 @@ export const IconWrapper = styled.div<{ type?: string }>`
 `;
 
 export const Logs = styled.span`
-  line-height: 20px;
+  line-height: 19px;
 
   font-size: var(--font-basic);
   font-weight: var(--font-weight-normal);
 
   & .anchor {
     text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: ${({ theme }) => theme.modals.active};
+    }
+  }
+
+  & .reset {
     cursor: pointer;
 
     &:hover {

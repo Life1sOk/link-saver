@@ -27,6 +27,13 @@ export const authorisationApi = createApi({
         body,
       }),
     }),
+    reset: builder.mutation<any, { email: string }>({
+      query: (body) => ({
+        url: "/confirm/reset",
+        method: "POST",
+        body,
+      }),
+    }),
     register: builder.mutation<{ emailConf: boolean }, IUserRegistration>({
       query: (body) => ({
         url: "/register",
@@ -59,4 +66,5 @@ export const {
   useLoginMutation,
   useLoginByTokenMutation,
   useVerificationMutation,
+  useResetMutation,
 } = authorisationApi;

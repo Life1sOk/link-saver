@@ -6,7 +6,7 @@ import { useUserLogic } from "../../utils/contollers/useUserLogic";
 import Input from "../../components/input/input.component";
 import Button from "../../components/button/button.component";
 
-import { replaceSpaceHelper } from "../../utils/helpers/replaceSpace";
+import { replaceSpaceHelper } from "../../utils/helpers/others";
 
 import {
   ProfileSettingStyle,
