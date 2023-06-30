@@ -20,6 +20,13 @@ export const authorisationApi = createApi({
     confirmUser: builder.query<any, string>({
       query: (token) => ({ url: `/confirm/${token}` }),
     }),
+    verification: builder.mutation<any, { email: string; username: string }>({
+      query: (body) => ({
+        url: "/confirm/verification",
+        method: "POST",
+        body,
+      }),
+    }),
     register: builder.mutation<{ emailConf: boolean }, IUserRegistration>({
       query: (body) => ({
         url: "/register",
@@ -51,4 +58,5 @@ export const {
   useRegisterMutation,
   useLoginMutation,
   useLoginByTokenMutation,
+  useVerificationMutation,
 } = authorisationApi;

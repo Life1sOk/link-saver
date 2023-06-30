@@ -1,28 +1,39 @@
 import { useRef, useState } from "react";
 
+import { useAppSelector } from "../../App/store/hooks";
 import { useAuthorisationLogic } from "../../utils/contollers/useAuthorisationLogic";
 
 import Button from "../../components/button/button.component";
 import Input from "../../components/input/input.component";
 import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
 
-import { AuthTitle, AuthWrapper, Form } from "./index.style";
+import { AuthTitle, AuthWrapper, Form, Logs } from "./index.style";
 import { ButtonLine } from "../block.style";
 
 import { ISectionChange } from "../../utils/interfaces/auth";
 
+const messageType = {
+  verification: "User wasn't verified, please check your email",
+  password: "Wrong credentials!",
+};
+
 const LoginBlock = ({ changeBlock }: ISectionChange) => {
-  const [errorMess, setErrorMess] = useState<string>(
-    "An error occurred while logging in."
-  );
+  const [errorMess, setErrorMess] = useState<string>("");
+  const userVerif = useAppSelector((state) => state.auth.verification);
 
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
-  const { loginUser, loginUserApiResult } = useAuthorisationLogic();
+  const { loginUser, loginUserApiResult, sendVerificationEmail } =
+    useAuthorisationLogic();
 
   // Изменяем блоки
   const changeHandler = () => changeBlock("registration");
+  const sendVerificationEmailHandler = async () => {
+    if (userVerif.email.length > 0) await sendVerificationEmail(userVerif);
+
+    changeBlock("verify");
+  };
 
   // Отправка запроса на сервер
   const onSubmit = async (event: React.SyntheticEvent) => {
@@ -34,8 +45,7 @@ const LoginBlock = ({ changeBlock }: ISectionChange) => {
     };
 
     await loginUser(loginObj).catch((err) => {
-      if (err.data) setErrorMess(err.data);
-      // console.log(err.data);
+      if (typeof err.data === "string") setErrorMess(err.data);
     });
   };
 
@@ -56,8 +66,24 @@ const LoginBlock = ({ changeBlock }: ISectionChange) => {
           />
           <Button name="Registration" actionHandle={changeHandler} type="button" />
         </ButtonLine>
-        {loginUserApiResult.isError && <span>{errorMess}</span>}
       </Form>
+      {messageType.verification === errorMess ? (
+        <Logs>
+          {errorMess}
+          <br />
+          <span className="anchor" onClick={sendVerificationEmailHandler}>
+            send verification again
+          </span>
+        </Logs>
+      ) : messageType.password === errorMess ? (
+        <Logs>
+          {errorMess}
+          <br />
+          <span className="anchor" onClick={() => {}}></span>
+        </Logs>
+      ) : (
+        <Logs>{errorMess}</Logs>
+      )}
     </AuthWrapper>
   );
 };
