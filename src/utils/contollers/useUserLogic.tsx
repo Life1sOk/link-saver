@@ -3,6 +3,7 @@ import {
   useUpdateUserNameMutation,
   useUpdateUserPasswordMutation,
   useUpdateUserEmailMutation,
+  useUpdateUserPasswordByTokenMutation,
 } from "../../App/store/api/user";
 
 import { useFriendsLocal } from "../helper-dispatch/useFriendsLocal";
@@ -27,6 +28,11 @@ interface IUpPassword {
   newPassword: string;
 }
 
+interface IUpPasswordToken {
+  newPassword: string;
+  token: string;
+}
+
 export const useUserLogic = () => {
   // --------------------- LOCAL ------------------------ //
   const { addSearchListLocal } = useFriendsLocal();
@@ -44,6 +50,9 @@ export const useUserLogic = () => {
   const [updateUserPasswordApi, updateUserPasswordApiResult] =
     useUpdateUserPasswordMutation();
   useRequestProcess(updateUserPasswordApiResult);
+
+  const [updateUserPasswordByTokenApi, updateUserPasswordByTokenApiResult] =
+    useUpdateUserPasswordByTokenMutation();
 
   // --------------------- ACTION ------------------------ //
   const getUserSearch = async (user_id: number, value: string) => {
@@ -86,11 +95,17 @@ export const useUserLogic = () => {
     return await updateUserPasswordApi(upObj).unwrap().catch(console.log);
   };
 
+  const updatePasswordByToken = async (arg: IUpPasswordToken) => {
+    return await updateUserPasswordByTokenApi(arg).unwrap();
+  };
+
   return {
     getUserSearch,
     getUserSearchApiResult,
     updateUserName,
     updateUserEmail,
     updatePassword,
+    updatePasswordByToken,
+    updatePasswordByTokenResult: updateUserPasswordByTokenApiResult,
   };
 };

@@ -1,15 +1,15 @@
 import { useState, useEffect } from "react";
-import { useAppSelector } from "../../App/store/hooks";
+import { useAppSelector } from "../../../App/store/hooks";
 
-import { icons } from "../../utils/react-icons";
+import { icons } from "../../../utils/react-icons";
 
-import { useAuthorisationLogic } from "../../utils/contollers/useAuthorisationLogic";
-import { useCountdown } from "../../utils/helpers/useCountdown";
+import { useAuthorisationLogic } from "../../../utils/contollers/useAuthorisationLogic";
+import { useCountdown } from "../../../utils/helpers/useCountdown";
 
-import Button from "../../components/button/button.component";
-import { ISectionChange } from "../../utils/interfaces/auth";
+import Button from "../../../components/button/button.component";
+import { ISectionChange } from "../../../utils/interfaces/auth";
 
-import { ButtonLine } from "../block.style";
+import { ButtonLine } from "../../block.style";
 import {
   AuthWrapper,
   Message,
@@ -17,7 +17,7 @@ import {
   Form,
   ButtonShadow,
   Logs,
-} from "./index.style";
+} from "../index.style";
 
 const VerifyBlock = ({ changeBlock }: ISectionChange) => {
   const [isSendEmail, setIsSendEmail] = useState(false);

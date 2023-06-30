@@ -1,15 +1,17 @@
 import { useRef } from "react";
 
-import { useAuthorisationLogic } from "../../utils/contollers/useAuthorisationLogic";
+import { useAuthorisationLogic } from "../../../utils/contollers/useAuthorisationLogic";
 
-import Button from "../../components/button/button.component";
-import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
-import Input from "../../components/input/input.component";
+import Button from "../../../components/button/button.component";
+import LoadingSpinner from "../../../components/loading-spinner/loading-spinner.component";
+import Input from "../../../components/input/input.component";
 
-import { ButtonLine } from "../block.style";
-import { AuthTitle, AuthWrapper, Form } from "./index.style";
+import { checkPassword } from "../../../utils/helpers/others";
 
-import { ISectionChange } from "../../utils/interfaces/auth";
+import { ButtonLine } from "../../block.style";
+import { AuthTitle, AuthWrapper, Form } from "../index.style";
+
+import { ISectionChange } from "../../../utils/interfaces/auth";
 
 const RegistrationBlock = ({ changeBlock }: ISectionChange) => {
   const userNameRef = useRef<HTMLInputElement>(null);
@@ -18,15 +20,6 @@ const RegistrationBlock = ({ changeBlock }: ISectionChange) => {
   const verifyPasswordRef = useRef<HTMLInputElement>(null);
 
   const changeHandler = () => changeBlock("login");
-
-  // Проверка пароля
-  function checkPassword(password: string): boolean {
-    const specialChars = /[*@!#%&()^~{}]+/;
-    const lengthCheck = password.length >= 6;
-    const specialCharCheck = specialChars.test(password);
-
-    return lengthCheck && specialCharCheck;
-  }
 
   // Запрос на сервер
   const { registerUser, registerUserApiResult } = useAuthorisationLogic();

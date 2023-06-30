@@ -34,6 +34,13 @@ export const userApi = createApi({
         body,
       }),
     }),
+    updateUserPasswordByToken: builder.mutation({
+      query: (body) => ({
+        url: "/update/passwordbytoken",
+        method: "PUT",
+        body,
+      }),
+    }),
     getUsersSearch: builder.query<IUser[], IUsersSeach>({
       query: ({ user, value }) => ({ url: `/search/${user}&${value}` }),
     }),
@@ -45,5 +52,6 @@ export const {
   useUpdateUserNameMutation,
   useUpdateUserEmailMutation,
   useUpdateUserPasswordMutation,
+  useUpdateUserPasswordByTokenMutation,
   useLazyGetUsersSearchQuery,
 } = userApi;

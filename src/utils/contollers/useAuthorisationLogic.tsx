@@ -5,6 +5,7 @@ import {
   useLoginMutation,
   useLoginByTokenMutation,
   useVerificationMutation,
+  useResetMutation,
 } from "../../App/store/api/authorisation";
 
 // import { useUserLocal } from "../helper-dispatch/useUserLocal";
@@ -42,6 +43,7 @@ export const useAuthorisationLogic = () => {
   const [loginUserApi, loginUserApiResult] = useLoginMutation();
   const [loginTokenUserApi, loginTokenUserApiResult] = useLoginByTokenMutation();
   const [verificationApi] = useVerificationMutation();
+  const [resetPasswordApi, resetPasswordApiResult] = useResetMutation();
 
   // --------------------- ACTION ------------------------ //
   const registerUser = async (arg: IConfirme) => {
@@ -83,6 +85,10 @@ export const useAuthorisationLogic = () => {
     return await verificationApi(arg).unwrap();
   };
 
+  const sendResetPasswordEmail = async (arg: { email: string }) => {
+    return await resetPasswordApi(arg).unwrap();
+  };
+
   return {
     registerUser,
     registerUserApiResult,
@@ -91,5 +97,7 @@ export const useAuthorisationLogic = () => {
     loginUserByToken,
     loginTokenUserApiResult,
     sendVerificationEmail,
+    sendResetPasswordEmail,
+    resetPasswordApiResult,
   };
 };

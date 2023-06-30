@@ -1,16 +1,16 @@
 import { useRef, useState } from "react";
 
-import { useAppSelector } from "../../App/store/hooks";
-import { useAuthorisationLogic } from "../../utils/contollers/useAuthorisationLogic";
+import { useAppSelector } from "../../../App/store/hooks";
+import { useAuthorisationLogic } from "../../../utils/contollers/useAuthorisationLogic";
 
-import Button from "../../components/button/button.component";
-import Input from "../../components/input/input.component";
-import LoadingSpinner from "../../components/loading-spinner/loading-spinner.component";
+import Button from "../../../components/button/button.component";
+import Input from "../../../components/input/input.component";
+import LoadingSpinner from "../../../components/loading-spinner/loading-spinner.component";
 
-import { AuthTitle, AuthWrapper, Form, Logs } from "./index.style";
-import { ButtonLine } from "../block.style";
+import { AuthTitle, AuthWrapper, Form, Logs } from "../index.style";
+import { ButtonLine } from "../../block.style";
 
-import { ISectionChange } from "../../utils/interfaces/auth";
+import { ISectionChange } from "../../../utils/interfaces/auth";
 
 const messageType = {
   verification: "User wasn't verified, please check your email",
@@ -29,9 +29,10 @@ const LoginBlock = ({ changeBlock }: ISectionChange) => {
 
   // Изменяем блоки
   const changeHandler = () => changeBlock("registration");
+  const changeResetHandler = () => changeBlock("email");
+
   const sendVerificationEmailHandler = async () => {
     if (userVerif.email.length > 0) await sendVerificationEmail(userVerif);
-
     changeBlock("verify");
   };
 
@@ -67,19 +68,27 @@ const LoginBlock = ({ changeBlock }: ISectionChange) => {
           <Button name="Registration" actionHandle={changeHandler} type="button" />
         </ButtonLine>
       </Form>
-      {messageType.verification === errorMess ? (
+      {"" === errorMess ? (
+        <Logs>
+          <span className="reset" onClick={changeResetHandler}>
+            Forgot your password?
+          </span>
+        </Logs>
+      ) : messageType.verification === errorMess ? (
         <Logs>
           {errorMess}
           <br />
           <span className="anchor" onClick={sendVerificationEmailHandler}>
-            send verification again
+            Send verification again
           </span>
         </Logs>
       ) : messageType.password === errorMess ? (
         <Logs>
           {errorMess}
           <br />
-          <span className="anchor" onClick={() => {}}></span>
+          <span className="anchor" onClick={changeResetHandler}>
+            Reset password by email
+          </span>
         </Logs>
       ) : (
         <Logs>{errorMess}</Logs>
