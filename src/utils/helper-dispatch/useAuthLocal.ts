@@ -4,6 +4,7 @@ import {
   usersSessionStore,
   usersSessionStoreByToken,
   toggleSectionState,
+  verificationStore,
 } from "../../App/store/slices/auth.slice";
 
 import { TSectionState } from "../interfaces/auth";
@@ -19,9 +20,14 @@ export const useAuthLocal = () => {
   const toggleSectionStateLocal = (arg: TSectionState) =>
     dispatch(toggleSectionState(arg));
 
+  // Verification
+  const verificationStoreLocal = (user: { email: string; username: string }) =>
+    dispatch(verificationStore(user));
+
   return {
     storeSessionLocal,
     storeSessionByTokenLocal,
     toggleSectionStateLocal,
+    verificationStoreLocal,
   };
 };

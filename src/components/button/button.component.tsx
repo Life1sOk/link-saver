@@ -10,9 +10,9 @@ interface IButton {
   children?: React.ReactNode;
 }
 
-const Button = ({ name, actionHandle, type, form }: IButton) => {
+const Button = ({ name, actionHandle, type, form, disabled }: IButton) => {
   return (
-    <ButtonStyle form={form} onClick={actionHandle} type={type}>
+    <ButtonStyle form={form} onClick={actionHandle} type={type} disabled={disabled}>
       {name}
     </ButtonStyle>
   );

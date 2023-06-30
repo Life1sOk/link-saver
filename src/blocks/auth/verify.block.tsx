@@ -1,16 +1,45 @@
+import { useState, useEffect } from "react";
+import { useAppSelector } from "../../App/store/hooks";
+
 import { icons } from "../../utils/react-icons";
 
+import { useAuthorisationLogic } from "../../utils/contollers/useAuthorisationLogic";
+import { useCountdown } from "../../utils/helpers/useCountdown";
+
 import Button from "../../components/button/button.component";
-
-import { ButtonLine } from "../block.style";
-import { AuthWrapper, Message, IconWrapper, Form } from "./index.style";
-
 import { ISectionChange } from "../../utils/interfaces/auth";
 
+import { ButtonLine } from "../block.style";
+import {
+  AuthWrapper,
+  Message,
+  IconWrapper,
+  Form,
+  ButtonShadow,
+  Logs,
+} from "./index.style";
+
 const VerifyBlock = ({ changeBlock }: ISectionChange) => {
+  const [isSendEmail, setIsSendEmail] = useState(false);
+  const [targetDate, setTargetDate] = useState(new Date().getTime() + 300 * 1000);
+
+  const [minutes, seconds] = useCountdown(targetDate);
+
+  const userVerif = useAppSelector((state) => state.auth.verification);
+  const { sendVerificationEmail } = useAuthorisationLogic();
+
   const changeBlockLogin = () => changeBlock("login");
 
-  const sendVerificationAgain = () => console.log("send");
+  const sendVerificationAgain = async () => {
+    await sendVerificationEmail(userVerif).then(() =>
+      setTargetDate(new Date().getTime() + 300 * 1000)
+    );
+  };
+
+  useEffect(() => {
+    if (minutes <= 0 && seconds <= 0) setIsSendEmail(true);
+    if (minutes >= 0 && seconds >= 0) setIsSendEmail(false);
+  }, [minutes, seconds]);
 
   return (
     <AuthWrapper>
@@ -23,8 +52,20 @@ const VerifyBlock = ({ changeBlock }: ISectionChange) => {
         </Message>
         <ButtonLine>
           <Button name="Log In" actionHandle={changeBlockLogin} />
-          <Button name="Send verification again" actionHandle={sendVerificationAgain} />
+          <ButtonShadow isActive={isSendEmail}>
+            <Button
+              disabled={!isSendEmail}
+              name="Send verification again"
+              actionHandle={sendVerificationAgain}
+            />
+          </ButtonShadow>
         </ButtonLine>
+        {!isSendEmail && (
+          <Logs>
+            <strong>{`${minutes} : ${seconds < 10 ? "0" : ""}${seconds}`}</strong> <br />{" "}
+            Until the next verification email
+          </Logs>
+        )}
       </Form>
     </AuthWrapper>
   );

@@ -4,10 +4,16 @@ import {
   useRegisterMutation,
   useLoginMutation,
   useLoginByTokenMutation,
+  useVerificationMutation,
 } from "../../App/store/api/authorisation";
 
 // import { useUserLocal } from "../helper-dispatch/useUserLocal";
 import { useAuthLocal } from "../helper-dispatch/useAuthLocal";
+
+interface IVerify {
+  username: string;
+  email: string;
+}
 
 interface IConfirme {
   username: string;
@@ -24,13 +30,18 @@ export const useAuthorisationLogic = () => {
   const navigate = useNavigate();
 
   // --------------------- LOCAL ------------------------ //
-  const { storeSessionLocal, storeSessionByTokenLocal, toggleSectionStateLocal } =
-    useAuthLocal();
+  const {
+    storeSessionLocal,
+    storeSessionByTokenLocal,
+    toggleSectionStateLocal,
+    verificationStoreLocal,
+  } = useAuthLocal();
 
   // --------------------- SERVER ------------------------ //
   const [registerUserApi, registerUserApiResult] = useRegisterMutation();
   const [loginUserApi, loginUserApiResult] = useLoginMutation();
   const [loginTokenUserApi, loginTokenUserApiResult] = useLoginByTokenMutation();
+  const [verificationApi] = useVerificationMutation();
 
   // --------------------- ACTION ------------------------ //
   const registerUser = async (arg: IConfirme) => {
@@ -39,9 +50,8 @@ export const useAuthorisationLogic = () => {
       .then((response) => {
         if (response.emailConf) {
           toggleSectionStateLocal("verify");
+          verificationStoreLocal({ username: arg.username, email: arg.email });
         }
-        // storeSessionLocal(response);
-        // navigate("/main");
       })
       .catch((err) => {
         if (err) {
@@ -69,6 +79,10 @@ export const useAuthorisationLogic = () => {
       });
   };
 
+  const sendVerificationEmail = async (arg: IVerify) => {
+    return await verificationApi(arg).unwrap();
+  };
+
   return {
     registerUser,
     registerUserApiResult,
@@ -76,5 +90,6 @@ export const useAuthorisationLogic = () => {
     loginUserApiResult,
     loginUserByToken,
     loginTokenUserApiResult,
+    sendVerificationEmail,
   };
 };

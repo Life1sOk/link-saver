@@ -4,11 +4,13 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 import { IAuthResponse, TSectionState } from "../../../utils/interfaces/auth";
 
 interface IAuth {
+  verification: { email: string; username: string };
   session: IAuthResponse;
   sectionState: TSectionState;
 }
 
 const initialState: IAuth = {
+  verification: { email: "", username: "" },
   session: {
     user_id: -1,
     token: "",
@@ -41,10 +43,20 @@ export const authSlice = createSlice({
     toggleSectionState: (state, { payload }: PayloadAction<TSectionState>) => {
       state.sectionState = payload;
     },
+    verificationStore: (
+      state,
+      { payload }: PayloadAction<{ email: string; username: string }>
+    ) => {
+      state.verification = payload;
+    },
   },
 });
 
-export const { usersSessionStore, usersSessionStoreByToken, toggleSectionState } =
-  authSlice.actions;
+export const {
+  usersSessionStore,
+  usersSessionStoreByToken,
+  toggleSectionState,
+  verificationStore,
+} = authSlice.actions;
 
 export default authSlice.reducer;

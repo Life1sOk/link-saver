@@ -5,6 +5,10 @@ export const AuthWrapper = styled.div`
   background-color: rgba(255, 255, 255, 0.3);
   border: 1px solid ${({ theme }) => theme.border};
   border-radius: 3px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
 `;
 
 export const Form = styled.form`
@@ -20,6 +24,7 @@ export const AuthTitle = styled.h2`
 `;
 
 export const Message = styled.h3<{ type?: string }>`
+  line-height: 27px;
   color: ${({ type }) =>
     type === "verify" ? "rgba(40, 167, 69, 1)" : "rgba(220, 53, 69, 0.8)"};
 `;
@@ -34,4 +39,24 @@ export const IconWrapper = styled.div<{ type?: string }>`
     width: 100%;
     height: 100%;
   }
+`;
+
+export const Logs = styled.span`
+  line-height: 20px;
+
+  font-size: var(--font-basic);
+  font-weight: var(--font-weight-normal);
+
+  & .anchor {
+    text-decoration: underline;
+    cursor: pointer;
+
+    &:hover {
+      color: ${({ theme }) => theme.modals.active};
+    }
+  }
+`;
+
+export const ButtonShadow = styled.div<{ isActive: boolean }>`
+  opacity: ${({ isActive }) => (isActive ? "1" : ".5")};
 `;

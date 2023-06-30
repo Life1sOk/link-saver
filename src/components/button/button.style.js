@@ -9,11 +9,11 @@ export const ButtonStyle = styled.button`
   background-color: ${({ theme }) => theme.inputs};
   border: 1px solid ${({ theme }) => theme.border};
 
-  &:active {
+  &:enabled:active {
     opacity: 0.9;
   }
 
-  &:hover {
+  &:enabled:hover {
     cursor: pointer;
     border: 1px solid ${({ theme }) => theme.modals.active};
     color: ${({ theme }) => theme.modals.active};
