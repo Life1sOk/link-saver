@@ -1,7 +1,7 @@
 import { useDragLocal } from "../helper-dispatch/useDragLocal";
 
 import { IDragWrapper } from "../interfaces/drag";
-import omg from "../../assets/drag-link.webp";
+import DragImage from "../../assets/drag-link.webp";
 
 import { DragStyle } from "./drag-drop.style";
 
@@ -9,7 +9,7 @@ const DragWrapper = ({ type, data, from, children, isDraggable }: IDragWrapper) 
   const { addDraggableLocal, removeDraggableLocal } = useDragLocal();
 
   const img = new Image();
-  img.src = omg;
+  img.src = DragImage;
 
   const onDragStart = (event: any) => {
     setTimeout(() => {

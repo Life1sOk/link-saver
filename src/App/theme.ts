@@ -59,7 +59,7 @@ export const dark = {
   group: {
     marker: "rgb(255, 117, 101)",
     background: "rgb(255, 255, 255)",
-    border: "rgb(255, 117, 101)",
+    border: "rgb(255, 117, 101, .8)",
     icon: null,
     active: "rgba(245, 241, 39, 0.8)",
     shadow: "rgba(0, 0, 0, 0.5)",
