@@ -14,15 +14,16 @@ import {
 } from "../../App/store/slices/generics.slice";
 
 import { IShortLink } from "../interfaces/link";
+import { IGroupAdd } from "../interfaces/group";
 
 interface IUpId {
   oldId: number;
   newId: void;
 }
 
-interface IGroupAdd {
-  index: number;
-  group_id: number;
+interface IEditLink {
+  data: IShortLink;
+  from: "generics" | IGroupAdd;
 }
 
 export const useGenericLocal = () => {
@@ -42,8 +43,7 @@ export const useGenericLocal = () => {
 
   // Window
   const toggleLinkWindow = () => dispatch(toggleLinkWindowHandler());
-  const editLinkWindow = (arg: { data: IShortLink; from: "generics" | number }) =>
-    dispatch(activateLink(arg));
+  const editLinkWindow = (arg: IEditLink) => dispatch(activateLink(arg));
 
   return {
     addAllGenericsLocal,

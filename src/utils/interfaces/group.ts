@@ -44,3 +44,8 @@ export interface IGroupItemPosition {
   start: number;
   end: number;
 }
+
+export interface IGroupAdd {
+  group_index: number;
+  group_id: number;
+}

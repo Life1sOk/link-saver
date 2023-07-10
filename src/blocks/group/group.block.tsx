@@ -95,7 +95,7 @@ const GroupBlock = memo(
       // open link window
       toggleLinkWindow();
       // group info
-      addOneFromGroupLocal({ index: group_index, group_id: id });
+      addOneFromGroupLocal({ group_index, group_id: id });
     };
 
     // ======== Transitions

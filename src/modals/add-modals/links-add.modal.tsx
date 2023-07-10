@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 
 import { useAppSelector } from "../../App/store/hooks";
 
@@ -22,15 +22,17 @@ const LinkAddModal = () => {
   const isOpen = useAppSelector((state) => state.genericsLocal.window.isAddLink);
   const activeLink = useAppSelector((state) => state.genericsLocal.window.activeLink);
   const userId = useAppSelector((state) => state.auth.session.user_id);
-  console.log(activeLink);
-  const { toggleLinkWindow } = useGenericLocal();
 
+  const { toggleLinkWindow } = useGenericLocal();
+  // console.log(activeLink);
   const { addLinkGeneric, addLinkGroup, updateLink } = useLinkLogic();
 
   const titleRef = useRef<HTMLInputElement>(null);
   const urlRef = useRef<HTMLInputElement>(null);
 
-  const closeLinkWindow = () => toggleLinkWindow();
+  const closeLinkWindow = () => {
+    toggleLinkWindow();
+  };
 
   const addLinkGenericHandler = async (title: string, url: string) => {
     //Prepare object
@@ -47,7 +49,7 @@ const LinkAddModal = () => {
     await addLinkGeneric(link);
   };
 
-  const updateLinkGenericHandler = async (title: string, url: string) => {
+  const updateLinkHandler = async (title: string, url: string) => {
     //Prepare object
     const updatedLink = {
       id: activeLink.link.id,
@@ -61,26 +63,27 @@ const LinkAddModal = () => {
     // Close window
     closeLinkWindow();
     // Update
-    await updateLink(activeLink.from, updatedLink, oldLink);
+    if (activeLink.from !== "generics")
+      await updateLink(activeLink.from.group_index, updatedLink, oldLink);
   };
 
   const addLinkGroupHandler = async (title: string, url: string) => {
-    //Prepare object
-    const link = {
-      id: Date.now(),
-      user_id: userId,
-      link_title: title,
-      group_id: activeLink.fromGroup.group_id,
-      link_url: url,
-      status: false,
-    };
-    // Close window
-    closeLinkWindow();
-    // Add link group
-    await addLinkGroup(link, activeLink.fromGroup.index);
+    if (activeLink.from !== "generics") {
+      //Prepare object
+      const link = {
+        id: Date.now(),
+        user_id: userId,
+        link_title: title,
+        group_id: activeLink.from.group_id,
+        link_url: url,
+        status: false,
+      };
+      // Close window
+      closeLinkWindow();
+      // Add link group
+      await addLinkGroup(link, activeLink.from.group_index);
+    }
   };
-
-  const updateLinkGroupHandler = async () => {};
 
   const upLinkHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -103,17 +106,16 @@ const LinkAddModal = () => {
     }
 
     try {
-      // Add group
-      if (activeLink.fromGroup.group_id > -1 && activeLink.fromGroup.index > -1) {
-        await addLinkGroupHandler(title, url);
-        return;
+      if (activeLink.type === "add") {
+        if (activeLink.from === "generics") {
+          await addLinkGenericHandler(title, url);
+        } else {
+          await addLinkGroupHandler(title, url);
+        }
       }
 
-      // Add / update
-      if (activeLink.link.id < 0) {
-        await addLinkGenericHandler(title, url);
-      } else {
-        await updateLinkGenericHandler(title, url);
+      if (activeLink.type === "edit") {
+        await updateLinkHandler(title, url);
       }
     } catch (err) {
       // Failed
@@ -125,6 +127,13 @@ const LinkAddModal = () => {
       }
     }
   };
+
+  useEffect(() => {
+    if (activeLink.type === "edit" && titleRef.current && urlRef.current) {
+      titleRef.current.value = activeLink.link.link_title;
+      urlRef.current.value = activeLink.link.link_url;
+    }
+  }, [isOpen, activeLink.type]);
 
   return (
     <BlackWindowModal isOpen={isOpen}>

@@ -73,7 +73,7 @@ const Linker = ({
   const editHandler = () => {
     editLinkWindow({
       data,
-      from: position === "generics" ? position : position.group_index,
+      from: position,
     });
     closeHandler();
   };
