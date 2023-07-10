@@ -47,7 +47,6 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
   border-radius: 5px;
   border: 1px solid ${({ theme }) => theme.link.border};
 
-  /* background: rgb(111, 111, 111); */
   background: linear-gradient(
     171deg,
     rgba(111, 111, 111, 0.5) 0%,
@@ -57,9 +56,11 @@ export const FrontDesk = styled.div<{ isGroupActive: boolean }>`
 `;
 
 export const DotsLinkStyle = styled.div`
+  height: 100%;
+
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 3px;
 
   border-radius: 5px;
   overflow: hidden;
@@ -121,5 +122,8 @@ export const OpenWindow = styled.div`
 `;
 
 export const LinkWrapper = styled.div`
-  width: 171px;
+  width: 187px;
+  height: 100%;
+
+  color: var(--font-weight-main);
 `;

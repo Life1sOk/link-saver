@@ -22,7 +22,7 @@ const LinkAddModal = () => {
   const isOpen = useAppSelector((state) => state.genericsLocal.window.isAddLink);
   const activeLink = useAppSelector((state) => state.genericsLocal.window.activeLink);
   const userId = useAppSelector((state) => state.auth.session.user_id);
-
+  console.log(activeLink);
   const { toggleLinkWindow } = useGenericLocal();
 
   const { addLinkGeneric, addLinkGroup, updateLink } = useLinkLogic();
@@ -47,22 +47,6 @@ const LinkAddModal = () => {
     await addLinkGeneric(link);
   };
 
-  const addLinkGroupHandler = async (title: string, url: string) => {
-    //Prepare object
-    const link = {
-      id: Date.now(),
-      user_id: userId,
-      link_title: title,
-      group_id: activeLink.fromGroup.group_id,
-      link_url: url,
-      status: false,
-    };
-    // Close window
-    closeLinkWindow();
-    // Add link group
-    await addLinkGroup(link, activeLink.fromGroup.index);
-  };
-
   const updateLinkGenericHandler = async (title: string, url: string) => {
     //Prepare object
     const updatedLink = {
@@ -79,6 +63,24 @@ const LinkAddModal = () => {
     // Update
     await updateLink(activeLink.from, updatedLink, oldLink);
   };
+
+  const addLinkGroupHandler = async (title: string, url: string) => {
+    //Prepare object
+    const link = {
+      id: Date.now(),
+      user_id: userId,
+      link_title: title,
+      group_id: activeLink.fromGroup.group_id,
+      link_url: url,
+      status: false,
+    };
+    // Close window
+    closeLinkWindow();
+    // Add link group
+    await addLinkGroup(link, activeLink.fromGroup.index);
+  };
+
+  const updateLinkGroupHandler = async () => {};
 
   const upLinkHandler = async (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -100,23 +102,27 @@ const LinkAddModal = () => {
       return closeLinkWindow();
     }
 
-    // Add group
-    if (activeLink.fromGroup.group_id > -1 && activeLink.fromGroup.index > -1) {
-      await addLinkGroupHandler(title, url);
-      return;
-    }
+    try {
+      // Add group
+      if (activeLink.fromGroup.group_id > -1 && activeLink.fromGroup.index > -1) {
+        await addLinkGroupHandler(title, url);
+        return;
+      }
 
-    // Add / update
-    if (activeLink.link.id < 0) {
-      await addLinkGenericHandler(title, url);
-    } else {
-      await updateLinkGenericHandler(title, url);
-    }
-
-    // Reset inputs
-    if (titleRef.current && urlRef.current) {
-      titleRef.current.value = "";
-      urlRef.current.value = "";
+      // Add / update
+      if (activeLink.link.id < 0) {
+        await addLinkGenericHandler(title, url);
+      } else {
+        await updateLinkGenericHandler(title, url);
+      }
+    } catch (err) {
+      // Failed
+    } finally {
+      // Reset inputs
+      if (titleRef.current && urlRef.current) {
+        titleRef.current.value = "";
+        urlRef.current.value = "";
+      }
     }
   };
 

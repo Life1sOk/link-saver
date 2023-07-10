@@ -67,7 +67,7 @@ const GroupBlock = memo(
     const { isActive: isActiveWindow, id: activeId } = useAppSelector(
       (state) => state.groupsLocal.window.activeGroup
     );
-    const dragData = useAppSelector((state) => state.drag.current);
+    const dragData = useAppSelector((state: any) => state.drag.current);
 
     let isActive = id === activeId;
 

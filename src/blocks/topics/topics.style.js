@@ -13,17 +13,17 @@ export const TopicsStyle = styled.div`
   flex-direction: column;
 
   /* width */
-  ::-webkit-scrollbar {
+  &::-webkit-scrollbar {
     width: 3px;
   }
 
   /* Track */
-  ::-webkit-scrollbar-track {
+  &::-webkit-scrollbar-track {
     border-radius: 10px;
   }
 
   /* Handle */
-  ::-webkit-scrollbar-thumb {
+  &::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.topic.scrollBar};
     border-radius: 10px;
   }

@@ -9,10 +9,8 @@ Example how to get icon from url;
 
 const Link = ({ data }: { data: IShortLink }) => {
   return (
-    <LinkStyle title={data.link_title}>
-      <LinkTitle href={data.link_url} target="_blank" draggable={false}>
-        {data.link_title}
-      </LinkTitle>
+    <LinkStyle href={data.link_url} target="_blank" draggable={false}>
+      <LinkTitle title={data.link_title}>{data.link_title}</LinkTitle>
     </LinkStyle>
   );
 };

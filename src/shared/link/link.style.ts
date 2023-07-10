@@ -1,20 +1,23 @@
 import styled from "styled-components";
 
-export const LinkStyle = styled.div`
+export const LinkStyle = styled.a`
   width: 100%;
-
-  font-size: var(--font-mid);
-  font-weight: var(--font-weight-main);
-  text-align: left;
+  height: 100%;
+  padding: 0 8px;
+  color: inherit;
 
   display: flex;
   align-items: center;
-  gap: 12px;
+
+  text-decoration: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
-export const LinkTitle = styled.a`
-  width: 100%;
-  color: inherit;
+export const LinkTitle = styled.span`
+  font-size: var(--font-mid);
+  font-weight: var(--font-weight-main);
 
   text-decoration: none;
   white-space: nowrap;

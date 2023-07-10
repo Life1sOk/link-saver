@@ -50,18 +50,18 @@ export const GroupsWrapper = styled.div<{ rowsCount?: number; clmCount?: number 
   grid-column-gap: 55px;
 
   /* width */
-  ::-webkit-scrollbar {
+  & ::-webkit-scrollbar {
     width: 3px;
     height: 0px;
   }
 
   /* Track */
-  ::-webkit-scrollbar-track {
+  & ::-webkit-scrollbar-track {
     border-radius: 10px;
   }
 
   /* Handle */
-  ::-webkit-scrollbar-thumb {
+  & ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.group.scrollBar};
     border-radius: 10px;
   }

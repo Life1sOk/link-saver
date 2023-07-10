@@ -8,7 +8,7 @@ export const TopicStyle = styled.div<{ isActive: boolean }>`
   padding: 8px 6px 8px 12px;
   text-align: left;
 
-  border-radius: 4px 0 0 4px;
+  border-radius: 4px;
   background-color: ${({ isActive, theme }) =>
     isActive ? theme.topic.active : "inherit"};
 
